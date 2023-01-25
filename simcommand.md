@@ -14,15 +14,17 @@
 
 ### SimCommand Engineering
 
+#### Quick Stuff
+
 - SimCommand PR (https://github.com/vighneshiyer/simcommand) - merge your PR after resealing Command
-
 - Fix up the combinators
-
 - Benchmark of recursion primitive vs tailRecM for some simple task like waiting for a signal to go high but it takes 100k cycles
-
 - moving tailrecM as a Command method
 - Step returns time after the step
     - or a Info primitive (if we determine that other simulation global info is useful)
+
+#### A Bit Harder
+
 - implicit conversion of Command[Boolean] to a special Command class that has a ifM method
 - read vs read/write threads with a value encoding (rather than type encoding)
 - Benchmark of imperative vs recursive interpreter (use jmh)
@@ -30,8 +32,9 @@
 - Opportunistic time travel - when 2 threads are waiting on different amounts of cycles, can we just travel to min(cyc1, cyc2)
     - Transactors (Accelera spec called SCE-MI)
 
-- Benchmark data structures in SystemVerilog vs Scala (dicts, lists, fixed width arrays)
+#### Even Later
 
+- Benchmark data structures in SystemVerilog vs Scala (dicts, lists, fixed width arrays)
 - Logging / error / warning primitives in the Command ADT (https://github.com/zio/zio-logging)
     - Separate logging backend from frontend (frontend is just a simple Log primitive + verification specific limits, backend can be log4j or others)
 
