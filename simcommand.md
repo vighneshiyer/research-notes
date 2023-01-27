@@ -11,7 +11,6 @@
     - https://dl.acm.org/doi/abs/10.1145/3282444 (Instruction-Level Abstraction (ILA): A Uniform Specification for System-on-Chip (SoC) Verification)
 - Take max 3 classes this semester, CS 189 isn't really necessary
 
-
 ### SimCommand Engineering
 
 #### Quick Stuff
@@ -34,9 +33,11 @@
 
 #### Even Later
 
+- Create plain Verilog testbenches using record and playback from the SimCommand interpreter
 - Benchmark data structures in SystemVerilog vs Scala (dicts, lists, fixed width arrays)
 - Logging / error / warning primitives in the Command ADT (https://github.com/zio/zio-logging)
     - Separate logging backend from frontend (frontend is just a simple Log primitive + verification specific limits, backend can be log4j or others)
+    - Add an 'expect' primitive to make chisel Bundle literal comparisons easier
 
 ### Experimental
 
