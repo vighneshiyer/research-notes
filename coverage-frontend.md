@@ -1,5 +1,10 @@
 # Coverage Frontend
 
+## 2/1/2023, Wed
+
+- Integrate a real .dat file directly in the unittests (read a .dat file and use its lines in the parse_data test)
+- TODO: write a Vue component, that has a hardcoded CoverageEntry[] and string (representing the Verilog file) and just renders each line of the Verilog directly to HTML and annotates its coverage count (just with a number to the left of the Verilog line)
+
 ## 1/25/2023, Wed
 
 - Sungwoong's interests from the retreat: GPU RTL design project, Chipyard infra + whole integration story
