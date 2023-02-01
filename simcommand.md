@@ -1,5 +1,16 @@
 # SimCommand
 
+## 1/31/2023, Tues
+
+- Continued work on combinators
+- Moved tailRecM into Command
+- GPU accelerated RTL simulation
+    - https://www.design-reuse.com/industryexpertblogs/39855/what-is-rocketsim-why-did-cadence-acquire-rocketick.html
+    - https://research.nvidia.com/publication/2022-08_rtl-cuda-gpu-acceleration-flow-rtl-simulation-batch-stimulus
+- TODO:
+    - Continue to pick off the quick tasks, bump when your PR is ready and we'll merge
+    - Vighnesh: come up with a more comprehensive testbench environment (e.g. for a Rocket core) to use with SimCommand (maybe riscv-mini is a good initial target)
+
 ## 1/24/2023, Tues
 
 ### Classes
