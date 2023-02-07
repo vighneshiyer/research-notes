@@ -1,5 +1,20 @@
 # Parametric Fuzzing / Constrained Random StimGen API
 
+## 2/6/2022, Wed
+
+Notes from discussion w/ Kevin:
+
+- Compare generators against other fuzzing papers:
+    - DiFuzz generator
+    - TheHuzz generator
+    - riscv-dv (non-feedback directed)
+- Feedback = basic blocks (of spike) + custom metric
+- Compare the 3 generators on performance (achieving the maximal custom metric within a time limit)
+- Try to reuse AFL as the fuzzing engine
+    - Reuse the infra from JQF
+    - or could use Graal AOT to compile the generator to a library used with libAFL (https://github.com/AFLplusplus/LibAFL)
+- Investigate the 2 other generators (and their feedback metrics and how to isolate generators and feedback)
+
 ## 1/25/2022, Wed
 
 - Zest fuzzer works to increase missrate over time

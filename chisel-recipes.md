@@ -1,5 +1,13 @@
 # Chisel Recipes
 
+## 2/6/2023
+
+Notes from discussion with Kevin:
+
+- Build the Blarney Recipe automaton and pass it to SPOT for optimization
+- Look at paso for imperative test spec to automata compiler (but optimization is tricky here), Kevin suggests using Spot or another external optimizer
+    - for separate threads, make them seperate state machines instead of combining them into one + optimization for state saving
+
 ## 2/1/2023
 
 - If interested, maybe work on an abutment flow for Hammer
