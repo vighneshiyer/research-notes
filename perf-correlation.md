@@ -4,9 +4,12 @@
 
 - Hansung (maybe GPU RTL), Abe (Chipyard various things)
 - Baseline understanding of tools
-    - Chisel (chisel-bootcamp (Ch. 1-3), https://github.com/ucb-bar/chisel-tutorial)
+    - Chisel (https://github.com/freechipsproject/chisel-bootcamp (Ch. 1-3), https://github.com/ucb-bar/chisel-tutorial)
     - Chipyard (building RTL, building an RTL simulator - Verilator / VCS, ran a RISC-V binary through it, insn retirement log)
+        - https://github.com/ucb-bar/chipyard
+        - https://chipyard.readthedocs.io/en/stable/ (look through Ch 1 and 2) - be able to build a Verilator RTL simulator of the default Chipyard SoC config and run some riscv ISA tests through the RTL simulator
     - ISS (inside Chipyard, there is a ISA simulator called spike - spike can also run RISC-V binaries, it will also give you an insn retirement log)
+        - https://github.com/riscv-software-src/riscv-isa-sim
 
 - TODOs:
     - Build spike from source (in Chipyard)
