@@ -2,8 +2,6 @@
 
 ## 11/10/2022
 
-Sungwoong:
-
 • FIFO and testbench look good
     ◦ For the FIFO, can you avoid tracking the number of elements in the FIFO altogether? Can you reduce thes number of bits of state in the FIFO?
     ◦ Hint: see the Wikipedia page for FIFO

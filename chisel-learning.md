@@ -1,5 +1,41 @@
 # Learning Chisel
 
+## 2/7/2023
+
+- https://github.com/freechipsproject/chisel-bootcamp
+
+```scala
+def test[M <: chisel3.Module](mod: () => M)(testBody: M => Unit)
+test[MyOperators](new MyOperators) // notice the type parameter is inferred, thanks to the 2 parameter lists
+Seq[Int].fill(100)(2) // same here, the type parameter is inferred
+```
+
+- Why multiple clocks?
+    - Off-chip IO, clock gating
+
+- Can you use `val` to define a function?
+
+```scala
+val f: Function1[Int, Int] = (x: Int) => x + 2
+// equivalent in Python: f = lambda x: x + 2
+f(20)
+def f(x: Int): Int = x + 2
+f(20)
+def g(v: Int, fn: Int => Int): Int = fn(v)
+// equivalent in Python: g = lambda v, fn: fn(v)
+
+val k = f(4) // "likely" compile-time evaluated expression
+```
+
+### TODO
+
+- Look at the chisel-tutorial (https://github.com/ucb-bar/chisel-tutorial/tree/release/src/main/scala/problems)
+- Get it working on your computer
+- Implement a Queue in Chisel (without using any of the Chisel stdlib components)
+- Test it using chiseltest.
+- I want to see you use `sbt` and run your unit tests to verify the queue works.
+- If you want, you can re-implement the tests from the 151 FPGA labs (for the FIFO).
+
 ## 10/20/2022
 
 • Basic stuff wrt Chisel and chiseltest
