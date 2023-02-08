@@ -58,9 +58,9 @@ s"(${sequenceToPSL(s1)} |->${s})"
 
 ## 12/6/2022
 
-• TODO Vighnesh: rewrite the HOA parser so that everything is mapped on the original String values passed into SPOT as atomic propositions (rather than arbitrary integers that are assigned in the HOA header to each AP).
-• TODO Vighnesh: rewrite the sequences frontend so that it can work universally with Chisel and Scala based sequences
-    ◦ Can we also unify the ADTs themselves?
+- TODO Vighnesh: rewrite the HOA parser so that everything is mapped on the original String values passed into SPOT as atomic propositions (rather than arbitrary integers that are assigned in the HOA header to each AP).
+- TODO Vighnesh: rewrite the sequences frontend so that it can work universally with Chisel and Scala based sequences
+    - Can we also unify the ADTs themselves?
 
 ```scala
 sequence[Queue, Any] {
@@ -68,54 +68,54 @@ sequence[Queue, Any] {
 }
 ```
 
-• TODO Vighnesh: gather a bunch of examples of temporal properties that we can use to benchmark the different implementations we have
-    ◦ Pure software impl - interpretation (with FFI)
-    ◦ Pure software impl - Java code generation and JIT compilation (with FFI)
-    ◦ SPOT -> HOA in software (with FFI)
-    ◦ Software impl -> convert to C++ -> compile with RTL simulator
-    ◦ Prop -> Chisel RTL evaluation in RTL simulation
-• TODO: implement constructFormula
-• TODO: use the map returned from constructFormula inside assertHOA to actually evaluate the HOA automata for a given trace
-• Next step: figure out how to reintroduce local state for SPOT based automata checkers
+- TODO Vighnesh: gather a bunch of examples of temporal properties that we can use to benchmark the different implementations we have
+    - Pure software impl - interpretation (with FFI)
+    - Pure software impl - Java code generation and JIT compilation (with FFI)
+    - SPOT -> HOA in software (with FFI)
+    - Software impl -> convert to C++ -> compile with RTL simulator
+    - Prop -> Chisel RTL evaluation in RTL simulation
+- TODO: implement constructFormula
+- TODO: use the map returned from constructFormula inside assertHOA to actually evaluate the HOA automata for a given trace
+- Next step: figure out how to reintroduce local state for SPOT based automata checkers
 
 ## 11/16/2022
 
-• Some fixes required for the assert tests (remember that asserts are checked globally just like covers so if there is a condition in the start of the assert it is checked on every element of the trace - there can be failures on the same timestep)
-• TODO: try to consolidate the assert and cover functions (keep them separate, but the underlying functions they call should be very similar and just have flags that change their behavior slightly)
-• TODO: state support
-    ◦ DONE! live
-• Things to do:
-    ◦ TileLink / AXI4 monitor (https://github.com/chipsalliance/rocket-chip/blob/master/src/main/scala/tilelink/Bundles.scala)
-    ◦ SPOT integration
-        ▪ Look at `spot.scala`
-        ▪ `val psl = s"G(${sequenceToPSL(seq)})"`
-        ▪ `val hoaString = callSpot(psl)`
-        ▪ `val hoa = HOAParser.parseHOA(hoaString)`
-        ▪ ScalaSeq -> PSL/LTL string
-        ▪ Call spot
-        ▪ Get back the HOA automata
-        ▪ Write assert in terms of the HOA automata
-            • assert(trace: T, hoa: HOA): AssertResult
-        ▪ ltl2tgba -B -D -f "G (a -> X b)"
-        ▪ Ignore state for now
+- Some fixes required for the assert tests (remember that asserts are checked globally just like covers so if there is a condition in the start of the assert it is checked on every element of the trace - there can be failures on the same timestep)
+- TODO: try to consolidate the assert and cover functions (keep them separate, but the underlying functions they call should be very similar and just have flags that change their behavior slightly)
+- TODO: state support
+    - DONE! live
+- Things to do:
+    - TileLink / AXI4 monitor (https://github.com/chipsalliance/rocket-chip/blob/master/src/main/scala/tilelink/Bundles.scala)
+    - SPOT integration
+        - Look at `spot.scala`
+        - `val psl = s"G(${sequenceToPSL(seq)})"`
+        - `val hoaString = callSpot(psl)`
+        - `val hoa = HOAParser.parseHOA(hoaString)`
+        - ScalaSeq -> PSL/LTL string
+        - Call spot
+        - Get back the HOA automata
+        - Write assert in terms of the HOA automata
+            - assert(trace: T, hoa: HOA): AssertResult
+        - ltl2tgba -B -D -f "G (a -> X b)"
+        - Ignore state for now
 
 ## 11/9/2022
 
-• Implementation of Or and Implies in the interpreter
-• Prototyping per-property and global across-property state
-• TODO Vighnesh: give push permission to Andy on chisel-sequences
-• TODO: add assert function
-• TODO: fix bugs in Or and add additional unit tests for those
-• TODO: state implementation
+- Implementation of Or and Implies in the interpreter
+- Prototyping per-property and global across-property state
+- TODO Vighnesh: give push permission to Andy on chisel-sequences
+- TODO: add assert function
+- TODO: fix bugs in Or and add additional unit tests for those
+- TODO: state implementation
 
 ## 11/2/2022
 
-• Look through the implementation of Scala level sequences and the cover checker here (https://github.com/ekiwi/chisel-sequences/blob/main/test/scala_sequences/SequenceCoverSpec.scala)
-• Be able to run all the tests
-• Add some more tests, notice that there are several nonimplemented primitives in my implementation (e.g. Or, …) (look for “???”)
-    ◦ Implement Or and Implies and write tests for them
-• Make sure you can use IntelliJ as an IDE (or vscode)
-• TODO: prototype local state support for sequences (per-instance state for a given sequence)
+- Look through the implementation of Scala level sequences and the cover checker here (https://github.com/ekiwi/chisel-sequences/blob/main/test/scala_sequences/SequenceCoverSpec.scala)
+- Be able to run all the tests
+- Add some more tests, notice that there are several nonimplemented primitives in my implementation (e.g. Or, …) (look for “???”)
+    - Implement Or and Implies and write tests for them
+- Make sure you can use IntelliJ as an IDE (or vscode)
+- TODO: prototype local state support for sequences (per-instance state for a given sequence)
 
 ```scala
 sealed trait ScalaSeq[+T, +S]
@@ -125,17 +125,17 @@ case class Fuse[T, S](seq1: ScalaSeq[T, S], seq2: ScalaSeq[T, S]) extends ScalaS
 
 ## 10/26/2022
 
-• https://github.com/ekiwi/chisel-sequences
-    ◦ Spot backend for Chisel sequences works (can generate a property checker by parsing the automata returned by Spot and turning it into a Chisel Module)
-    ◦ Goal is to integrate the Scala sequences ADT in this repo and be able to use Spot as a backend too
-• Given transactions on the A and D channels of a TL interface, report any violations by checking properties on them
-    ◦ https://starfivetech.com/uploads/tilelink_spec_1.8.1.pdf
-    ◦ Goal eventually is rocket-chip TLMonitor replacement (https://github.com/chipsalliance/rocket-chip/blob/master/src/main/scala/tilelink/Monitor.scala)
-    ◦ https://github.com/TsaiAnson/verif/blob/master/tilelink/test/TLSLPropertyTest.scala
-• OpenTitan properties: https://github.com/lowRISC/opentitan/blob/55bb57493e93c2a4508dbd20f1e75c67c55cd7e9/hw/ip/tlul/rtl/tlul_assert.sv#L319
-• FIFO RTL test, enq/deq
-    ◦ val enqTxns = Seq[Transaction(data, timestamp) | Nop]
-    ◦ val deqTxns = Seq[Transaction(data, timestamp) | Nop]
+- https://github.com/ekiwi/chisel-sequences
+    - Spot backend for Chisel sequences works (can generate a property checker by parsing the automata returned by Spot and turning it into a Chisel Module)
+    - Goal is to integrate the Scala sequences ADT in this repo and be able to use Spot as a backend too
+- Given transactions on the A and D channels of a TL interface, report any violations by checking properties on them
+    - https://starfivetech.com/uploads/tilelink_spec_1.8.1.pdf
+    - Goal eventually is rocket-chip TLMonitor replacement (https://github.com/chipsalliance/rocket-chip/blob/master/src/main/scala/tilelink/Monitor.scala)
+    - https://github.com/TsaiAnson/verif/blob/master/tilelink/test/TLSLPropertyTest.scala
+- OpenTitan properties: https://github.com/lowRISC/opentitan/blob/55bb57493e93c2a4508dbd20f1e75c67c55cd7e9/hw/ip/tlul/rtl/tlul_assert.sv#L319
+- FIFO RTL test, enq/deq
+    - val enqTxns = Seq[Transaction(data, timestamp) | Nop]
+    - val deqTxns = Seq[Transaction(data, timestamp) | Nop]
 
 ```systemverilog
 sequence enqFire enq.ready && enq.valid
@@ -143,8 +143,7 @@ sequence deqFire(d) deq.ready && deq.valid && deq.data == d
 assert enqFire {d = enq.data} ##[1:*] deqFire(d)
 ```
 
-https://www.doulos.com/knowhow/systemverilog/sva-properties-for-pipelined-protocols/
-SVA local variables
+- https://www.doulos.com/knowhow/systemverilog/sva-properties-for-pipelined-protocols/ (SVA local variables)
 
 ```systemverilog
 property fifo_is_consistent;
@@ -161,24 +160,22 @@ case class AtomicProp[T, S] (fn: (T, S) => Boolean, stateUpdate: Optional[S => S
 
 ## 10/19/2022
 
-Andy:
-    • Vighnesh: Pure Scala implementation of sequences over generic type T and a checker for those (without using Spot)
-    • TODO: continue working on the check function, and reference my code (TBD)
-    • Goal eventually is rocket-chip TLMonitor replacement (https://github.com/chipsalliance/rocket-chip/blob/master/src/main/scala/tilelink/Monitor.scala)
-        ◦ AXI protocol: https://developer.arm.com/documentation/ihi0022/e/AMBA-AXI3-and-AXI4-Protocol-Specification/Introduction/About-the-AXI-protocol?lang=en
-    • First open source sequence / temporal prop spec API in existence
+- Vighnesh: Pure Scala implementation of sequences over generic type T and a checker for those (without using Spot)
+- TODO: continue working on the check function, and reference my code (TBD)
+- Goal eventually is rocket-chip TLMonitor replacement (https://github.com/chipsalliance/rocket-chip/blob/master/src/main/scala/tilelink/Monitor.scala)
+    - AXI protocol: https://developer.arm.com/documentation/ihi0022/e/AMBA-AXI3-and-AXI4-Protocol-Specification/Introduction/About-the-AXI-protocol?lang=en
+- First open source sequence / temporal prop spec API in existence
 
 ## 10/12/2022
 
-Andy:
-    • Sequence tracking implementations
-        ◦ Manual tracking of state, duplicate sequence state every time the sequence is ‘started’, and track on a index-by-index basis as you traverse the list
-        ◦ Something more systematic: take your sequence description, convert it to a standard specification language (PSL, LTL), give that to a automata tool (e.g. spot), spot will give you an automaton, then you interpret that automaton in Scala
-    • https://spot.lrde.epita.fr/
-        ◦ https://spot.lrde.epita.fr/concepts.html (READ THIS)
-        ◦ PLAY here: https://spot.lrde.epita.fr/app/
-    • SVA
-        ◦ https://www.doulos.com/knowhow/systemverilog/systemverilog-tutorials/systemverilog-assertions-tutorial/
+- Sequence tracking implementations
+    - Manual tracking of state, duplicate sequence state every time the sequence is ‘started’, and track on a index-by-index basis as you traverse the list
+    - Something more systematic: take your sequence description, convert it to a standard specification language (PSL, LTL), give that to a automata tool (e.g. spot), spot will give you an automaton, then you interpret that automaton in Scala
+- https://spot.lrde.epita.fr/
+    - https://spot.lrde.epita.fr/concepts.html (READ THIS)
+    - PLAY here: https://spot.lrde.epita.fr/app/
+- SVA
+    - https://www.doulos.com/knowhow/systemverilog/systemverilog-tutorials/systemverilog-assertions-tutorial/
 
 ## 10/5/2022
 
@@ -187,9 +184,10 @@ Andy:
     b. Atoms are: atomic propositions and operators on those APs
     c. SVA (SystemVerilog assertions)
 
-• Andy: instead of jumping straight to properties, let’s just check where sequences are present on a Seq[T]
-    ◦ https://github.com/ekiwi/chisel-sequences (we will get our code in here to merge with the Chisel sequences implementation - we want to unify the API for chisel and pure Scala sequences)
+- Instead of jumping straight to properties, let’s just check where sequences are present on a Seq[T]
+    - https://github.com/ekiwi/chisel-sequences (we will get our code in here to merge with the Chisel sequences implementation - we want to unify the API for chisel and pure Scala sequences)
 
+```scala
 val isTrue = atomicProp[Bool](i => i)
 val isFalse = atomicProp[Bool](i => !i)
 val trueThenFalse = Concat(isTrue, isFalse) // one “cycle” between true and false
@@ -197,35 +195,35 @@ ConcatFuse(isTrue, isFalse) // both are true on the same cycle (never possible i
 
 def check[T](seq: Sequence[T], trace: Seq[T]): (completed: Seq[(Int, Int)], pending: Seq[Int])
 
-check(trueThenFalse, Seq(true, false, true, false, false, true))
-== ([(0, 1), (2, 3)], [5])
+check(trueThenFalse, Seq(true, false, true, false, false, true)) == ([(0, 1), (2, 3)], [5])
+```
 
-• Play with more complex sequences on different types T and write unit tests for check
-• Next week, we can move on to property definitions and unification with chisel sequences
+- Play with more complex sequences on different types T and write unit tests for check
+- Next week, we can move on to property definitions and unification with chisel sequences
 
 ## 9/30/2022
 
-• Repo: https://github.com/ekiwi/chisel-sequences
-• SVA vs PSL: PSL AND SVA: TWO STANDARD ASSERTION LANGUAGES ADDRESSING COMPLEMENTARY ENGINEERING NEEDS
-• Unification of property APIs across testbenches and RTL
-    ◦ Same API can describe properties across Chisel Data and for Streams/Seqs of any Scala datatype
-    ◦ Ideally, a property should be testable outside a chiseltest/Chisel3 context
-• Interpretation variants:
-    ◦ Direct SVA string emission in a Verilog blackbox
-    ◦ Testbench-connected software (Scala) interpretation / streaming Scala interpreter
-    ◦ RTL monitor emission via BlueSpec-like reduction
-    ◦ RTL monitor for formal (property start point becomes a free variable for the solver to choose)
-    ◦ Scala -> Native (machine code monitor) for linking within Verilator/VCS simulation
-• Alternative backends (vs BSV technique)
-    ◦ SPOT (https://spot.lrde.epita.fr/)
-• Other attempts of creating a property specification language
-    ◦ GHDL PSL
-    ◦ Yosys SVA to FSM
-        ▪ https://tomverbeure.github.io/rtl/2019/01/04/Under-the-Hood-of-Formal-Verification.html
-        ▪ Generating Hardware Assertion Checkers - Marc Boule
-    ◦ https://github.com/iscas-tis/CHA (Chisel SVA attempt)
-    ◦ Investigate if anything exists for SpinalHDL
-• TODOs:
-    ◦ User-facing API to construct sequences/properties
-    ◦ Can we describe recursive properties / sequences?
-    ◦ Better testing (unified API for interpreted, synthesized, code gen’ed, etc. properties)
+- Repo: https://github.com/ekiwi/chisel-sequences
+- SVA vs PSL: PSL AND SVA: TWO STANDARD ASSERTION LANGUAGES ADDRESSING COMPLEMENTARY ENGINEERING NEEDS
+- Unification of property APIs across testbenches and RTL
+    - Same API can describe properties across Chisel Data and for Streams/Seqs of any Scala datatype
+    - Ideally, a property should be testable outside a chiseltest/Chisel3 context
+- Interpretation variants:
+    - Direct SVA string emission in a Verilog blackbox
+    - Testbench-connected software (Scala) interpretation / streaming Scala interpreter
+    - RTL monitor emission via BlueSpec-like reduction
+    - RTL monitor for formal (property start point becomes a free variable for the solver to choose)
+    - Scala -> Native (machine code monitor) for linking within Verilator/VCS simulation
+- Alternative backends (vs BSV technique)
+    - SPOT (https://spot.lrde.epita.fr/)
+- Other attempts of creating a property specification language
+    - GHDL PSL
+    - Yosys SVA to FSM
+        - https://tomverbeure.github.io/rtl/2019/01/04/Under-the-Hood-of-Formal-Verification.html
+        - Generating Hardware Assertion Checkers - Marc Boule
+    - https://github.com/iscas-tis/CHA (Chisel SVA attempt)
+    - Investigate if anything exists for SpinalHDL
+- TODOs:
+    - User-facing API to construct sequences/properties
+    - Can we describe recursive properties / sequences?
+    - Better testing (unified API for interpreted, synthesized, code gen’ed, etc. properties)

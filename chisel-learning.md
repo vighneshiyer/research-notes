@@ -38,33 +38,33 @@ val k = f(4) // "likely" compile-time evaluated expression
 
 ## 10/20/2022
 
-• Basic stuff wrt Chisel and chiseltest
-    ◦ edge detector
-    ◦ FIFO design and implementation
-• Sungwoong: https://github.com/coltonha/template
-    ◦ testOnly <package>.<class>
-    ◦ gtkwave (to see vcd file in test_run_dir)
-    ◦ TODO: edge detector (Done)
-• Grace: https://github.com/graceCXY/chisel
-    ◦ TODO: FIFO / memory
-    ◦ Questions:
-        ▪ FIFO understanding? I’m still not sure how gtkwave works/helps?
-        ▪ Downloaded verilog stuff… I think I understand but I don’t understand how it ties in to everything else?
+- Basic stuff wrt Chisel and chiseltest
+    - edge detector
+    - FIFO design and implementation
+- Sungwoong: https://github.com/coltonha/template
+    - `testOnly <package>.<class>`
+    - gtkwave (to see vcd file in test_run_dir)
+    - TODO: edge detector (Done)
+- Grace: https://github.com/graceCXY/chisel
+    - TODO: FIFO / memory
+    - Questions:
+        - FIFO understanding? I’m still not sure how gtkwave works/helps?
+        - Downloaded verilog stuff… I think I understand but I don’t understand how it ties in to everything else?
 
 ## 10/13/2022
 
-• Everyone: push your chisel-template forks to your Github account and share the repo links here (and bump me on Slack)
-    ◦ I’ll take a look and help you patch up the code
-• Grace
-    ◦ Continue with Chisel prototyping (see the memory section and the FIFO)
-    ◦ Send the Slack group any questions you might have
-• Yi
-    ◦ Also try to implement the FIFO in Chisel
+- Everyone: push your chisel-template forks to your Github account and share the repo links here (and bump me on Slack)
+    - I’ll take a look and help you patch up the code
+- Grace
+    - Continue with Chisel prototyping (see the memory section and the FIFO)
+    - Send the Slack group any questions you might have
+- Yi
+    - Also try to implement the FIFO in Chisel
 
 ## 10/3/2022
 
-• Subword assignment is not allowed in Chisel - alternative to use a vector of Bool (if absolutely necessary)
-    ◦ See this: https://www.chisel-lang.org/chisel3/docs/cookbooks/cookbook.html#how-do-i-unpack-a-value-reverse-concatenation-like-in-verilog
+- Subword assignment is not allowed in Chisel - alternative to use a vector of Bool (if absolutely necessary)
+    - See this: https://www.chisel-lang.org/chisel3/docs/cookbooks/cookbook.html#how-do-i-unpack-a-value-reverse-concatenation-like-in-verilog
 
 ```scala
 case class AddrAndData extends Bundle { val data = UInt(8.W), val addr = UInt(16.W) }
@@ -76,7 +76,7 @@ val z = y.asTypeOf(AddrAndData())
 z: AddrAndData, z.data, z.addr
 ```
 
-• Subword assignment hack (only if absolutely necessary)
+- Subword assignment hack (only if absolutely necessary)
 
 ```scala
 val x = UInt(32.W)
@@ -85,12 +85,12 @@ y(0) := …, y(1) := …, …
 val z = y.asTypeOf(y)
 ```
 
-• Everyone (use the chisel-template on your laptop, run sbt locally)
-    ◦ Implement a counter (https://github.com/EECS150/fpga_labs_sp22/blob/master/lab2/src/counter.v) in chisel and write a simple testbench in chiseltest
-    ◦ Implement an edge detector (https://github.com/EECS150/fpga_labs_sp22/blob/master/lab3/src/edge_detector.v) (see the spec for details)
-    ◦ Look at Chapter 6.4 (http://www.imm.dtu.dk/~masca/chisel-book.pdf). Design and test a memory.
-    ◦ Implement the FIFO in chisel (https://github.com/EECS150/fpga_labs_sp22/blob/master/lab6/src/fifo.v), reference the spec (and also the lab 5 spec, which covers ready-valid) (https://github.com/EECS150/fpga_labs_sp22/blob/master/lab5/spec/spec.md#ready-valid-interface)
-• Everyone (see instructions above)
-    ◦ Collect coverage from running a testbench on Verilator
-    ◦ Make sure you can run a Verilog testbench using iverilog
-    ◦ Make sure you can use verilator and iverilog from chiseltest
+- Everyone (use the chisel-template on your laptop, run sbt locally)
+    - Implement a counter (https://github.com/EECS150/fpga_labs_sp22/blob/master/lab2/src/counter.v) in chisel and write a simple testbench in chiseltest
+    - Implement an edge detector (https://github.com/EECS150/fpga_labs_sp22/blob/master/lab3/src/edge_detector.v) (see the spec for details)
+    - Look at Chapter 6.4 (http://www.imm.dtu.dk/~masca/chisel-book.pdf). Design and test a memory.
+    - Implement the FIFO in chisel (https://github.com/EECS150/fpga_labs_sp22/blob/master/lab6/src/fifo.v), reference the spec (and also the lab 5 spec, which covers ready-valid) (https://github.com/EECS150/fpga_labs_sp22/blob/master/lab5/spec/spec.md#ready-valid-interface)
+- Everyone (see instructions above)
+    - Collect coverage from running a testbench on Verilator
+    - Make sure you can run a Verilog testbench using iverilog
+    - Make sure you can use verilator and iverilog from chiseltest

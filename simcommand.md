@@ -84,49 +84,49 @@ test(cmds.sendByte(Seq(1))) {
 
 ## 12/1/2022
 
-• Primitive in Command ADT for tail recursion
-    ◦ ZIO and cats IO seems to have something similar
-    ◦ Idea: create a ADT case for generic recursion, compare its performance for implementing repeat/concat against tailRecM (trampolining)
-• Extend Command ADT with Kill
-• Can we emulate join_any using the existing threading join/kill constructs?
-    ◦ Do we need a special ADT case for this?
-    ◦ What are the common use cases of join_any besides timeouts.
-        ▪ How do we implement timeouts using our existing API (if even possible)
-• Do we need a special join_all primitive, or can we just join a bunch of threads one-by-one instead? What is the performance overhead? What is typically done in a testbench to warrant this behavior in the first place?
+- Primitive in Command ADT for tail recursion
+    - ZIO and cats IO seems to have something similar
+    - Idea: create a ADT case for generic recursion, compare its performance for implementing repeat/concat against tailRecM (trampolining)
+- Extend Command ADT with Kill
+- Can we emulate join_any using the existing threading join/kill constructs?
+    - Do we need a special ADT case for this?
+    - What are the common use cases of join_any besides timeouts.
+        - How do we implement timeouts using our existing API (if even possible)
+- Do we need a special join_all primitive, or can we just join a bunch of threads one-by-one instead? What is the performance overhead? What is typically done in a testbench to warrant this behavior in the first place?
 
 ## 11/17/2022
 
-• TODO: investigate why enqueueNow in chiseltest uses a fork in the monitor region to wait for ready to go high (instead of doing it synchronously)
-    ◦ QueueTest may have an answer
-    ◦ Prototype using the type system to track commands that are read-only vs read-write and automatically schedule the subcommands in the correct region within the interpreter (runtime type tag)
-• .asInstanceOf[R] is sometimes required (https://github.com/bdngo/chisel-fifo/blob/main/src/main/scala/interpreter/Interpreter.scala#L33)
-• TODO: construct testcase for deadlock on multiple joins
-• https://docs.cocotb.org/en/stable/triggers.html#cocotb.triggers.First (join_any variant in cocotb)
+- TODO: investigate why enqueueNow in chiseltest uses a fork in the monitor region to wait for ready to go high (instead of doing it synchronously)
+    - QueueTest may have an answer
+    - Prototype using the type system to track commands that are read-only vs read-write and automatically schedule the subcommands in the correct region within the interpreter (runtime type tag)
+- `.asInstanceOf[R]` is sometimes required (https://github.com/bdngo/chisel-fifo/blob/main/src/main/scala/interpreter/Interpreter.scala#L33)
+- TODO: construct testcase for deadlock on multiple joins
+- https://docs.cocotb.org/en/stable/triggers.html#cocotb.triggers.First (join_any variant in cocotb)
 
 ## 11/9/2022
 
-• Ruled out usage of scala-async due to HOF issues and slightly worse performance
-• Still unsure about JMH benchmarking results (captures overhead of chisel compilation and treadle rather than async/await)
-• TODO Vighnesh: how often are mutexes or semaphores or mailboxes really used in SystemVerilog - find some open SV testbenches and inspect them
-    ◦ Wavious
-    ◦ Intel
-• TODO Vighnesh: GET THE SIMCOMMAND REPO CLEANED UP AND PUBLISHED BY FRIDAY
+- Ruled out usage of scala-async due to HOF issues and slightly worse performance
+- Still unsure about JMH benchmarking results (captures overhead of chisel compilation and treadle rather than async/await)
+- TODO Vighnesh: how often are mutexes or semaphores or mailboxes really used in SystemVerilog - find some open SV testbenches and inspect them
+    - Wavious
+    - Intel
+- TODO Vighnesh: GET THE SIMCOMMAND REPO CLEANED UP AND PUBLISHED BY FRIDAY
 
 ## 11/2/2022
 
-• scala-async performance benchmarking
-    ◦ async in HOFs is janky
-    ◦ Benchmarking in Scala (JMH) - https://github.com/sbt/sbt-jmh
-    ◦ https://www.gaurgaurav.com/java/scala-benchmarking-jmh/
-• Channels
-    ◦ https://www.chipverify.com/systemverilog/systemverilog-mailbox
-    ◦ Like gochannels
-• Interface type parameter
-    ◦ Interface as trait (look we’re getting quite similar: https://zio.dev/overview/)
-• cocotb coroutine synchronization primitives https://docs.cocotb.org/en/stable/triggers.html
-• SystemVerilog primitives
-    ◦ https://www.chipverify.com/systemverilog/systemverilog-mailbox
-    ◦ https://www.chipverify.com/systemverilog/systemverilog-semaphore
+- scala-async performance benchmarking
+    - async in HOFs is janky
+    - Benchmarking in Scala (JMH) - https://github.com/sbt/sbt-jmh
+    - https://www.gaurgaurav.com/java/scala-benchmarking-jmh/
+- Channels
+    - https://www.chipverify.com/systemverilog/systemverilog-mailbox
+    - Like gochannels
+- Interface type parameter
+    - Interface as trait (look we’re getting quite similar: https://zio.dev/overview/)
+- cocotb coroutine synchronization primitives https://docs.cocotb.org/en/stable/triggers.html
+- SystemVerilog primitives
+    - https://www.chipverify.com/systemverilog/systemverilog-mailbox
+    - https://www.chipverify.com/systemverilog/systemverilog-semaphore
 
 ```scala
 test(new Peekable()) { c =>
@@ -220,68 +220,77 @@ Then the thread that created this monitor can kill it once it is no longer neede
 
 ## 10/25/2022
 
-• scala-async
-    ◦ peek(Data): Data
-    ◦ poke(Data, Data): Unit
-    ◦ step(Int)(implicit scheduler): Future[Unit] = Future.from(clock.step() // chiseltest step call)
-        ▪ step(1).get() // blocking call
-        ▪ step(1).andThen(() => peek, poke, … step(1).andThen(() => …): Future[T] // “lazy”, callback hell approach (just like in JS)
-        ▪ await step(1); peek, poke, … ; await step(1); … // promises-like approach (under the hood scala-async will make this into nested callbacks)
-• Prototype: types as above, straight-line simulation function that just interacts with the DUT (e.g. ALU, just poke and peek numbers for it to add, and step and check with expect)
-    ◦ Comparisons: single-threaded chiseltest natively, Future with scala-async, Command monad
-• Working kill primitive
-    ◦ I have a good use case for this (2 thread, sender and receiver operating on a DUT, and the testbench master thread should kill the receiver after the sender has sent its payload)
-• def repeat(c: Command[T], n: Int): Command[Unit] = tailRecM
-• def repeatCollect(c: Command[T], n: Int): Command[Seq[T]] = tailRecM
-• case class Repeat(c: Command[T], n: Int) extends Command[Seq[T]]
-• case class For(s: S, c: S => (Command[T], S), done: S => Bool) extends Command[S]
-• def concat(c: Seq[Command[T]]): Command[Seq[T]] = c.sequence
-    ◦ You can implement Traverse for Command (https://typelevel.org/cats/typeclasses/traverse.html) and sequence comes for free
-• https://github.com/oleg-py/better-monadic-for
-• Long term:
-    ◦ SLICE Retreat (Winter 23) - early /mid Jan (few days before start of semester)
-    ◦ Poster / segment of a talk
-    ◦ Intel and Amazon both “use” Chisel - they also use chiseltest - any performance win is great news for them (as long as its usable)
-    ◦ Things that will be useful
-        ▪ Published SimCommand repo that is easily usable with the upstream chiseltest
-        ▪ More benchmarks proving performance improvements
-        ▪ Performance not being limited by the monadic interpretation overhead (perf parity with straight line chiseltest code / emulated threading)
-        ▪ Multithreading of simulation threads
-            • Some threads are “read-only” and they can possibly operate on a different core that can run behind the “read and write” threads
-        ▪ Thread order dependency (catching potential non-determinism issues in the interpreter)
-        ▪ Kill primitive (and determinism) and why that doesn’t exist in SystemVerilog
-        ▪ Testing Command’s without using RTL simulation (pure software)
-            • Command[I, R]
-            • Currently: `def drive[T <: Data](data: T, intf: DecoupledIO[T]): Command[Unit]`
-                ◦ `test(new Queue(...)) { c => val x = drive(100.U, c.enq) // test the drive function }`
-            • `def drive[T <: Data](data: T): Command[DecoupledIO[T], Unit]`
-                ◦ `test()`
-        ▪ Testing Command’s with Command’s (mocking hardware)
-        ▪ Commands used for hardware description and high level synthesis
-            • `Command[R].flatMap(_ => Command[_])`
-            • `SynthCommand[R <: Data].flatMap(Data => SynthCommand[Data])`
-            • `SC(10.U).flatMap { n => {if (Random.nextBool()) lift(n + 10.U) else lift(200.U)} }`
-            • `class X extends Module { if (random…) val x = 100.U else val x = 200.U }`
-        ▪ VIPs for real interfaces (e.g. AXI4: https://developer.arm.com/documentation/ihi0022/e/AMBA-AXI3-and-AXI4-Protocol-Specification/Introduction/AXI-Architecture?lang=en)
+- scala-async
+
+```scala
+peek(Data): Data
+poke(Data, Data): Unit
+step(Int)(implicit scheduler): Future[Unit] = Future.from(clock.step() // chiseltest step call)
+
+step(1).get() // blocking call
+step(1).andThen(() => peek, poke, … step(1).andThen(() => …): Future[T] // “lazy”, callback hell approach (just like in JS)
+await step(1); peek, poke, … ; await step(1); … // promises-like approach (under the hood scala-async will make this into nested callbacks)
+```
+
+- Prototype: types as above, straight-line simulation function that just interacts with the DUT (e.g. ALU, just poke and peek numbers for it to add, and step and check with expect)
+    - Comparisons: single-threaded chiseltest natively, Future with scala-async, Command monad
+- Working kill primitive
+    - I have a good use case for this (2 thread, sender and receiver operating on a DUT, and the testbench master thread should kill the receiver after the sender has sent its payload)
+
+```scala
+def repeat(c: Command[T], n: Int): Command[Unit] = tailRecM
+def repeatCollect(c: Command[T], n: Int): Command[Seq[T]] = tailRecM
+case class Repeat(c: Command[T], n: Int) extends Command[Seq[T]]
+case class For(s: S, c: S => (Command[T], S), done: S => Bool) extends Command[S]
+def concat(c: Seq[Command[T]]): Command[Seq[T]] = c.sequence
+```
+
+- You can implement Traverse for Command (https://typelevel.org/cats/typeclasses/traverse.html) and sequence comes for free
+- https://github.com/oleg-py/better-monadic-for
+- Long term:
+    - SLICE Retreat (Winter 23) - early /mid Jan (few days before start of semester)
+    - Poster / segment of a talk
+    - Intel and Amazon both “use” Chisel - they also use chiseltest - any performance win is great news for them (as long as its usable)
+    - Things that will be useful
+        - Published SimCommand repo that is easily usable with the upstream chiseltest
+        - More benchmarks proving performance improvements
+        - Performance not being limited by the monadic interpretation overhead (perf parity with straight line chiseltest code / emulated threading)
+        - Multithreading of simulation threads
+            - Some threads are “read-only” and they can possibly operate on a different core that can run behind the “read and write” threads
+        - Thread order dependency (catching potential non-determinism issues in the interpreter)
+        - Kill primitive (and determinism) and why that doesn’t exist in SystemVerilog
+        - Testing Command’s without using RTL simulation (pure software)
+            - `Command[I, R]`
+            - Currently: `def drive[T <: Data](data: T, intf: DecoupledIO[T]): Command[Unit]`
+                - `test(new Queue(...)) { c => val x = drive(100.U, c.enq) // test the drive function }`
+            - `def drive[T <: Data](data: T): Command[DecoupledIO[T], Unit]`
+                - `test()`
+        - Testing Command’s with Command’s (mocking hardware)
+        - Commands used for hardware description and high level synthesis
+            - `Command[R].flatMap(_ => Command[_])`
+            - `SynthCommand[R <: Data].flatMap(Data => SynthCommand[Data])`
+            - `SC(10.U).flatMap { n => {if (Random.nextBool()) lift(n + 10.U) else lift(200.U)} }`
+            - `class X extends Module { if (random…) val x = 100.U else val x = 200.U }`
+        - VIPs for real interfaces (e.g. AXI4: https://developer.arm.com/documentation/ihi0022/e/AMBA-AXI3-and-AXI4-Protocol-Specification/Introduction/AXI-Architecture?lang=en)
 
 ## 10/12/2022
 
-• scala-async prototyping
-    ◦ Can we override the executorcontext?
-• kill construct
-    ◦ We want this to be deterministic, so only kill a thread after all other threads have finished for the given clock cycle
-    ◦ Current implementation: add thread to kill list and then kill after all the threads have completed for that clock cycle
-• TODO: SystemVerilog example of non-deterministic (i.e. thread spawn order dependent) kills vs our deterministic implementation (to show our version is superior)
-• Benchmark different thread yielding methods
-    ◦ Monadic flatMap composition
-    ◦ scala-async
-    ◦ ZIO to implement step / fork / join / … (this may be impossible to do deterministically)
-• Performance improvement for primitive constructs for looping
-    ◦ waitUntil(b: Command[Boolean], body: Command[T])
+- scala-async prototyping
+    - Can we override the executorcontext?
+- kill construct
+    - We want this to be deterministic, so only kill a thread after all other threads have finished for the given clock cycle
+    - Current implementation: add thread to kill list and then kill after all the threads have completed for that clock cycle
+- TODO: SystemVerilog example of non-deterministic (i.e. thread spawn order dependent) kills vs our deterministic implementation (to show our version is superior)
+- Benchmark different thread yielding methods
+    - Monadic flatMap composition
+    - scala-async
+    - ZIO to implement step / fork / join / … (this may be impossible to do deterministically)
+- Performance improvement for primitive constructs for looping
+    - `waitUntil(b: Command[Boolean], body: Command[T])`
         ▪ Is this stack safe?
         ▪ If it is stack safe, is it probably not performant
-    ◦ Can we replace this with a primitive looping construct as part of the Command ADT?
-    ◦ Goal: perf parity with single-threaded chiseltest
+    - Can we replace this with a primitive looping construct as part of the Command ADT?
+    - Goal: perf parity with single-threaded chiseltest
 
 ## 10/5/2022
 
@@ -289,22 +298,22 @@ Then the thread that created this monitor can kill it once it is no longer neede
     a. Command[R] is a description of how to execute a testbench which interacts with an RTL simulator
     b. An interpreter actually runs the description
 
-• SimCommand feature completeness and production quality (Young-Jin)
-    ◦ port the chiselverify imperative runtime to Simcommand
-        ▪ https://github.com/yjp20/chiselverify
-        ▪ https://stackoverflow.com/questions/59176271/how-can-i-implement-loops-that-dont-use-potentially-very-large-amounts-of-heaps
-    ◦ Vighnesh: clean up SimCommand
-    ◦ add debug primitives
-    ◦ add peek/poke capturing as an interpreter option to simplify unit testing
-    ◦ prototype inter-thread communication channels
-        ▪ what should the primitives be?
-        ▪ how can we make sure that the thread evaluation order doesn’t affect the order / cycles in which messages are sent/received
-        ▪ consider a kill primitive
-    ◦ how can we maintain state within a thread?
-        ▪ Should a state monad be a part of the Command type signature?
-        ▪ e.g. I want to have thread local state that I can update in ‘imperative’ style (without using recursion)
-        ▪ see Ref (in ZIO)
-    ◦ Prototype including the RTL interface type as a Command type parameter - how does it enhance testability of Command outside the chiseltest context? Does it come with other typing burdens?
-    ◦ Implement step as an async call (that calls chiseltest's step) and try to implement a straight-line test using chiseltest. Measure the overhead of Future. Does this approach beat the monadic approach? Certainly it is easier to write for people new to FP. (use scala-async)
-    ◦ We should prototype an implementation of For or While (or the most general looping construct you can think of) as a Command primitive (see similar ideas in JAX https://jax.readthedocs.io/en/latest/notebooks/Common_Gotchas_in_JAX.html#control-flow)
-        ▪ How does this interact with (or use) a built in state monad in Command?
+- SimCommand feature completeness and production quality (Young-Jin)
+    - port the chiselverify imperative runtime to Simcommand
+        - https://github.com/yjp20/chiselverify
+        - https://stackoverflow.com/questions/59176271/how-can-i-implement-loops-that-dont-use-potentially-very-large-amounts-of-heaps
+    - Vighnesh: clean up SimCommand
+    - add debug primitives
+    - add peek/poke capturing as an interpreter option to simplify unit testing
+    - prototype inter-thread communication channels
+        - what should the primitives be?
+        - how can we make sure that the thread evaluation order doesn’t affect the order / cycles in which messages are sent/received
+        - consider a kill primitive
+    - how can we maintain state within a thread?
+        - Should a state monad be a part of the Command type signature?
+        - e.g. I want to have thread local state that I can update in ‘imperative’ style (without using recursion)
+        - see Ref (in ZIO)
+    - Prototype including the RTL interface type as a Command type parameter - how does it enhance testability of Command outside the chiseltest context? Does it come with other typing burdens?
+    - Implement step as an async call (that calls chiseltest's step) and try to implement a straight-line test using chiseltest. Measure the overhead of Future. Does this approach beat the monadic approach? Certainly it is easier to write for people new to FP. (use scala-async)
+    - We should prototype an implementation of For or While (or the most general looping construct you can think of) as a Command primitive (see similar ideas in JAX https://jax.readthedocs.io/en/latest/notebooks/Common_Gotchas_in_JAX.html#control-flow)
+        - How does this interact with (or use) a built in state monad in Command?

@@ -24,3 +24,70 @@ Thing().method()
 - Classes: tapeout, 152, 105
 - Vighnesh's TODO: send Oliver the slides from the retreat
 - https://github.com/oliveryu11/ffi_benchmarks
+
+## 11/30/2022
+
+- The function that is called from the JVM to load an .so may be called by multiple threads
+    - We need to synchronize access to the id counter
+    - We don’t want to lock read access to the array of .so pointers, so we should preallocate a large (1024) element array to store these pointers - if we try to load too many .so’s then just blow up
+- 2 or more .so’s with the same API
+- bridge .so which should contain the load_so function and all the same APIs as those above .so’s
+    - Invoke load_so from the JVM, get back an id
+    - The JVM uses that id to call the bridge .so functions which proxies to the underlying .so
+
+## 11/16/2022
+
+- TODO Vighnesh: verify with Kevin wrt what the issue is with using JNI directly to load multiple .so’s with the same interface
+    - https://github.com/ucb-bar/chiseltest/pull/349#issuecomment-891506091
+    - The issue is that JNI requires a Java class per .so. One solution is (at test runtime) to generate a Java class as Java code, compile it using javac, and inject it in the current classloader
+    - That last part is tricky and flaky, so this is why a bridge library might be a better idea
+- TODO: work on the JNI .so loader bridge library, delegate calls to underlying .so’s based on their id’s and assume that all the underlying .so’s have the same API surface
+
+## 11/2/2022
+
+- https://github.com/ucb-bar/chiseltest/tree/main/src/main/scala/chiseltest/simulator
+    - Implement a jni package with a similar interface to jna
+- TODO: Implement a C library that can be called from Java to load .so’s with the same interface, but potentially different states
+    - `int loadSo(string so_name)`
+    - `int call_add_one(int so_id, int argument)`
+
+## 10/19/2022
+
+- Get the example working locally
+- Profile using JMH (or any other profiling technique) - benchmark the time to call this function
+- JNA direct call interface
+    - Also investigate this: https://github.com/java-native-access/jna/blob/master/www/DirectMapping.md and its impact on performance
+- Try using JNI for the same call and benchmark it
+
+## 10/13/2022
+
+- https://github.com/oliveryu11/jna_test
+- https://github.com/java-native-access/jna#using-the-library (look at these docs)
+- Try to import the custom .so using JNAUtils.scala as a reference (from chiseltest)
+    - Also in JNAUtils, the flags for compiling a custom .so are provided (in ccFlags and ldFlags)
+    - https://github.com/ucb-bar/chiseltest/blob/main/src/main/scala/chiseltest/simulator/jna/JNAUtils.scala
+- Also investigate doing the same thing with JNI, how difficult it is to use vs JNA (and what is the performance overhead for a very simple function (e.g. add_one) where we are measuring the FFI overhead purely)
+    - Also investigate this: https://github.com/java-native-access/jna/blob/master/www/DirectMapping.md and its impact on performance
+- `test(new ALU()).withAnnotations(Seq(VerilatorBackendAnnotation)) { c => // your test logic }`
+    - See: https://github.com/ucb-bar/chiseltest/blob/main/src/test/scala/chiseltest/backends/verilator/VerilatorBasicTests.scala
+
+## 10/5/2022
+
+- JNA hacking in progress, working on calling external C library
+    - Finish chisel-bootcamp (including chapter 4 since it will be helpful when digging through chiseltest code)
+    - Set up the chiseltest repo and run the unit tests for iverilog / Verilator as the simulator backend
+        - Inspect the files that chiseltest generates to understand how we communicate between Scala (JVM) and C++
+    - Run alu.v on verilator (see Slack for the files)
+    - Set up a strawman repo where you use JNA to invoke a dummy C library from the JVM
+        - In isolation, set up a strawman of JNI and JNA for a simple C API that does basically nothing to measure FFI overhead
+        - https://github.com/java-native-access/jna/blob/master/www/GettingStarted.md
+        - Start with JNA, work through their docs and use a bare Scala project with sbt
+    - Next: do the same with JNI and measure the performance difference using JMH
+    - Next next: do the same with the new Java 19 FFM API and benchmark that version as well (https://openjdk.org/jeps/424)
+    - Read over the VPI docs (https://en.wikipedia.org/wiki/Verilog_Procedural_Interface)
+        - set up a simple example with iverilog (https://iverilog.fandom.com/wiki/Using_VPI)
+    - Skim some chiseltest code
+        - https://github.com/ucb-bar/chiseltest/blob/main/src/main/scala/chiseltest/simulator/jna/JNAUtils.scala
+        - https://github.com/ucb-bar/chiseltest/blob/main/src/main/scala/chiseltest/simulator/jna/JNASimulatorContext.scala
+        - https://github.com/ucb-bar/chiseltest/blob/main/src/main/scala/chiseltest/simulator/VerilatorSimulator.scala
+        - https://github.com/ucb-bar/chiseltest/blob/main/src/main/scala/chiseltest/simulator/IcarusSimulator.scala

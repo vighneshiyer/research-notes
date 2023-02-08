@@ -124,3 +124,12 @@ class Thing extends Module {
     }
 }
 ```
+
+## 11/30/2022
+
+- TODO: devise a very simple state machine as a Chisel module that you write manually
+    - Look at the GCD module for example
+- Express the same state machine using the Blarney ADT (Recipe)
+- Figure out if there’s a way to compile a Recipe down to a Chisel Module
+    - To get the Chisel module data values that the Recipe can assign to or read from, we can use a similar technique to that here (https://github.com/ekiwi/chisel-sequences/blob/main/src/sequences/toAutomaton.scala)
+    - We just extract a Map[String, Data] (something like this: https://github.com/ekiwi/chisel-sequences/blob/main/src/sequences/toAutomaton.scala#L26)
