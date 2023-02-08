@@ -1,5 +1,50 @@
 # Chisel Recipes
 
+## 2/7/2023
+
+- Spot automata library: https://spot.lre.epita.fr/
+    - Can use it to construct monitor automata for temporal properties (LTL)
+    - Take an existing automata (deterministic, non-deterministic) and optimize to a deterministic automata that has fewer states than what we started with
+- Paso - imperative test description for transactions using chiseltest-like imperative API that desugars to an automata that is put along with the RTL in a formal testharness
+    - https://github.com/ekiwi/paso/blob/main/test/examples/SerialAluSpec.scala
+- Repo: https://github.com/bdngo/chisel-recipes
+- Some issues regarding 'clk' vs 'clock'
+- We want `compile` to turn the Recipe into a state machine
+
+```scala
+  val r: Recipe = Sequential(Seq(
+    Action {
+      () => {
+        io.a := 10.U
+      }
+    },
+    Tick,
+    Action {
+      () => {
+        io.a := 0.U
+      }
+    },
+    Tick,
+    Action {
+      () => {
+        io.a := 20.U
+      }
+    }
+  ))
+
+  // compile should emit this code:
+  val stateReg = RegInit(UInt(2.W), 0.U)
+  stateReg := Mux(stateReg === 2.U, 2.U, stateReg + 1.U)
+  when(stateReg === 0.U) {
+    io.a := 10.U
+  }.elsewhen(stateReg === 1.U) {
+    io.a := 0.U
+  }.elsewhen(stateReg === 2.U) {
+    io.a := 20.U
+  }
+  io.a := DontCare
+```
+
 ## 2/6/2023
 
 Notes from discussion with Kevin:
