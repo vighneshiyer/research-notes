@@ -2,20 +2,27 @@
 
 
 ## 2/7/2023, Wed
+
+- Problem: if we load the bridge .so once with System.load, on the second sbt test invocation, we skip the bridge .so load and directly attempt to invoke its functions, and that gives a Link error indicating that the library may no longer actually be loaded
+- TODO:
+    - Can you cache the pointer to the native function? **NO** this will not work.
+    - Explore some of the SO answers on figuring out what native libraries are loaded in a JVM. Likely the jnibridge library is not loaded in the second run.
+    - https://github.com/sbt/sbt-jni (use their flow and directory structure to define native packages and use their annotation to load the bridge so without using System.load directly - which seems to not work nicely with a long running sbt session on a single JVM)
+    - Try using `mill` as the build system (https://github.com/com-lihaoyi/mill). The build file for mill is `build.sc`.
+        - Install mill: https://com-lihaoyi.github.io/mill/mill/Installation.html#_downloading_mill
+    - Try using `fork in run := true` in `build.sbt` **"Resolves"** the problem, but have to load the bridge so every time (that's ok).
+- Next: use JMH to benchmark bridge vs direct library FFI.
+
 Updates:
-- successfully added system property to only load when System.getProperty("jnibridge.loaded") = "true"
-- Running into new issue:
-UnsatisfiedLinkError on second call to loadSo (no longer classloader loading native object twice)
+
+- Successfully added system property to only load when System.getProperty("jnibridge.loaded") = "true"
+- Running into new issue: `UnsatisfiedLinkError` on second call to loadSo (no longer classloader loading native object twice)
 - The name exported by your service program must match the name expected by the JVM; otherwise, one of the call-time (as opposed to load-time) UnsatisfiedLinkError is thrown.
 - https://groups.google.com/g/simple-build-tool/c/KgOAs4fbGBo/m/-dOYOpWDYtEJ
   - one person seemed to resolve this, but can't seem to figure out solution
 - Different attempts:
   - add native so into unmanaged Jars in sbt build file so loads with sbt rather than statically
   - looking into sbt-jni plug-in and NativeLoad (may add additional overhead)
-
-
-
-
 
 ## 2/1/2023, Wed
 
