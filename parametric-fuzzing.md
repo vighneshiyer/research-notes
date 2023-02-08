@@ -1,6 +1,36 @@
 # Parametric Fuzzing / Constrained Random StimGen API
 
-## 2/6/2022, Wed
+## 2/8/2022, Wed
+
+1. Comparison of these 3 stimulus generators in an identical fuzzing loop with identical feedback metrics
+    - TheHuzz: https://arxiv.org/abs/2201.09941
+    - DiFuzzRTL: https://github.com/compsec-snu/difuzz-rtl
+
+2. Can we reuse the infra from JQF to use AFL as a fuzzing engine?
+
+- FuzzFactory: https://github.com/rohanpadhye/FuzzFactory
+    - Typical fuzzing feedback: naive feedback metric (basic block coverage) OR custom feedback metric (completed successful parsing / L1 miss rate)
+    - Insight: if we combine these feedback metrics, we get much better fuzzing performance (maximization of the custom metric)
+
+3. Can we get basic block coverage out of spike and augment that with our custom metric?
+    - Instrument spike with coverage collection of basic blocks
+    - Use that as feedback in the fuzzing loop
+
+3b. We can also use gem5 riscv to get CPU model relevant statistics as feedback (or use basic block coverage on gem5, which should be more interesting that spike basic block coverage).
+
+4. Absolute baseline methodology
+    - Use AFL to instrument spike
+    - spike is fed a completely random sequences of bytes from AFL as a RISC-V elf
+        - other option: bytes = RISC-V asm, use `as` to compile it (this avoid the elf construction issues that fuzzing might have)
+    - the feedback metric is spike instrumented basic blocks
+
+- Gen debuggability
+    - sourcecode: https://github.com/com-lihaoyi/sourcecode
+
+- Vighnesh TODO: write tests for the Gen class itself
+    - Hardware datatype library with eager evaluation (to avoid the pain of dealing with signed-only datatypes on the JVM)
+
+## 2/6/2022, Mon
 
 Notes from discussion w/ Kevin:
 
