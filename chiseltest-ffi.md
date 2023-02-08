@@ -1,5 +1,22 @@
 # Chiseltest FFI Performance
 
+
+## 2/7/2023, Wed
+Updates:
+- successfully added system property to only load when System.getProperty("jnibridge.loaded") = "true"
+- Running into new issue:
+UnsatisfiedLinkError on second call to loadSo (no longer classloader loading native object twice)
+- The name exported by your service program must match the name expected by the JVM; otherwise, one of the call-time (as opposed to load-time) UnsatisfiedLinkError is thrown.
+- https://groups.google.com/g/simple-build-tool/c/KgOAs4fbGBo/m/-dOYOpWDYtEJ
+  - one person seemed to resolve this, but can't seem to figure out solution
+- Different attempts:
+  - add native so into unmanaged Jars in sbt build file so loads with sbt rather than statically
+  - looking into sbt-jni plug-in and NativeLoad (may add additional overhead)
+
+
+
+
+
 ## 2/1/2023, Wed
 
 - To avoid loading the same .so twice with System.load, we can set a global JVM-wide system property upon the first load, and then check whether that property has been set to avoid a second load
