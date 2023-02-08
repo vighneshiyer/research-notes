@@ -1,5 +1,29 @@
 # Chisel Sequences
 
+## 2/8/2023
+
+- Actual fix is due to incorrect parens - here is the fix: a & X (b & X (c))
+    - This is fixed
+- Working on Spot integration for ScalaSeq's - working on bridge between HOA AP map and the ScalaSeq
+- HOA parser question
+    - All the boolean expressions are product of sums (abc) + (!bd) + (c!a)
+    - I used a parser combinator library to write the parser for these expressions (https://github.com/com-lihaoyi/fastparse)
+- Bug with Spot for Chisel seq that uses SeqOr
+    - PSL: G(a | b)
+    - HOA does it look right?
+    - In Spot.scala, look at hoaString, hoa, and finally inspect the SpotPropertyAutomata and check its Chisel circuit for correctness
+
+```scala
+// What we expect for this G(a | b) HOA
+automataState := 0.U
+willFail := !a && !b
+failed := Mux(failed, failed, willFail)
+```
+
+- Next things to check are sequences inside Or and And (rather than just simple predicates).
+
+- Some reading here: https://ieeexplore.ieee.org/abstract/document/1487886
+
 ## 2/1/2023
 
 - Retreat is May 22-24 (Mon-Wed), 2023
