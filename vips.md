@@ -1,5 +1,14 @@
 # VIP Development
 
+## 2/8/2023
+
+- Last time: issue with importing rocket-dsptools (API mismatch between the published snapshot build and the snapshot build of rocket-chip that we're using)
+    - I tried using the transient rocket-chip dependency from the published rocket-dsptools and that also doesn't work with the imports used in StandaloneBlocks (seems like TLSlavePortParameters doesn't even exist)
+- Vighnesh TODO:
+    - Republishing rocket-chip as SNAPSHOTS to Maven (in progress)
+    - Republish rocket-dsptools also as SNAPSHOT to Maven (using pubished dsptools) (TODO)
+- We established a basic MemPrim to TLPrim conversion function structure - now you can fill in the blanks and add unit tests
+
 ## 1/31/2023
 
 - Past week, reviewed the TL spec and the TL-UL protocol
