@@ -1,5 +1,59 @@
 # SimCommand
 
+## 2/14/2023, Tues
+
+- All the 'Quick Stuff' below is done and merged!
+- The benchmarks for tailRecM vs the primitive are also in, but awaiting rebase
+- Also the "time-travel" stuff is also in - we need a decent benchmark for this
+    - TODO: refactor the UART receiver so that it doesn't poll every cycle
+    - It looks like the singlethreaded chiseltest backend actually does pass through multi-cycle steps directly to the Verilator so, so we should expect performance gains from this
+- TODO: look at the JMH tests, make sure the benchmarks make sense and record the performance numbers
+- TODO: a real test with a real DUT
+    - riscv-mini (is a potential target)
+    - NeuromorphicProcessor
+- TODO: experimentation with unit testing VIPs / Commands
+    - Maybe also be able to test Commands with Commands (have bindings that both Commands are connected to)
+- Priority and monitor regions
+    - We haven't still discussed how to resolve inter-thread race conditions
+    - If two threads are poking and peeking the same net in the same cycle, we really should raise a runtime exception
+    - To mitigate this, one or more threads can be designated as a monitor, in which case it will always run last
+    - Solution! - just use fixed point iteration
+    - Software analog for Pokeable is an MVar or some STM stuff??? I'm really not sure about this.
+
+```scala
+sealed trait Pokeable[P]
+case class RawPoke[V](var initialVal: V) extends Pokeable[V]
+case class ChiselPoke[B <: Data](IObinding: B) extends Pokeable[B]
+def poke[P](p: Pokable[P], data: P) = {
+    p match {
+        case r: RawPoke => r.initialVal = data
+        case c: ChiselPoke =>
+            import chiseltest._
+            c.IObinding.poke(data)
+    }
+}
+
+val a = RawPoke(chisel3.Bool())
+val p = for {
+    _ <- poke(a, 1.B)
+    _ <- peek(a)
+    _ <- writetoChannel(c, ...) // tbd, this seems to complicate matters a lot
+    _ <- step()
+    _ <- poke(a, 0.B)
+}
+val q = for {
+    v <- peek(a)
+    _ <- expect(v == 1.B) // this will fail, b/c Chisel bundle literals don't check literal equality
+    _ <- step()
+    v2 <- peek(a)
+} yield (v, v2)
+val pq: Command[Unit] = for {
+    _ <- fork(p)//, FIRST)
+    _ <- fork(q)//, SECOND)
+} yield ()
+val r = unsafeRun(pq, ???, config)
+```
+
 ## 1/31/2023, Tues
 
 - Continued work on combinators
