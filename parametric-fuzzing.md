@@ -1,6 +1,19 @@
 # Parametric Fuzzing / Constrained Random StimGen API
 
-## 2/8/2022, Wed
+## 2/15/2023, Wed
+
+- Perhaps use libAFL instead of AFL
+- Easiest path: write a C wrapper around spike that invokes spike as a library with stdin as the program (or use a riscv compiler to generate a good elf)
+- TODO: how to use spike as a library, ask Jerry where the sources are, send to Rohit
+- start with only basic block coverage, use known good elf files as seeds to AFL
+- Big idea: can we bootstrap RTL fuzzing from hardware model fuzzing? Hypothesis: yes, to some degree, but enough to make it worth it.
+
+- Generator instrumentation that tells us what each byte of the parameteric random bytestream is 'marked' as
+    - API to 'mark' the usage of a byte as decision, data, intermediate, ...
+    - Get out the instrumentation Map + the generated data when calling Gen[T].generate
+    - Can't point to the Gen[] object itself that caused the read from the bytestream unless we're OK erasing its type
+
+## 2/8/2023, Wed
 
 1. Comparison of these 3 stimulus generators in an identical fuzzing loop with identical feedback metrics
     - TheHuzz: https://arxiv.org/abs/2201.09941
