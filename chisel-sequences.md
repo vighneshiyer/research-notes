@@ -1,5 +1,48 @@
 # Chisel Sequences
 
+## 2/15/2023
+
+- All of the below are now fixed and implemented
+- Spot integration for ScalaSeq's seems to work (no local variable support yet)
+- Or and And parsing using Spot HOA emission works and produces correct automatons both for Scala and Chisel sequences
+- Accepting states are no different than regular states for our problem
+    - Treat them as just normal states that have transitions
+    - Accepting states can indicate the "completion" of a property
+- Properties should have a Globally around them G(...)
+    - They are always checked in a continuous fashion, never just for the initial run of a trace
+
+### Real-World Use Cases
+
+- FIFO checker:
+    - Can we write a FIFO specification using our sequences library?
+    - This will involve the usage of local state
+    - We want to show two potential implementations
+        1. Pure Chisel implementation designed to be synthesized
+        2. A Scala implementation that can take raw signal values from the testbench and check the same properties
+    - Chiseltest testbench for a Queue
+        - Drive the enqueing and dequeuing interfaces randomly or with some fixed pattern
+        - Peek all the interface values every cycle
+        - Write a (or more than one) ScalaSeq that checks the FIFO properties
+            - Data integrity - if I write one piece of data, I want to get the same piece out
+            - Data ordering - if I write two pieces of data, I want to get the first one out before the second one
+            - May have to use some local state to mock the state of the FIFO as it evolves
+        - Add local variable support for the Spot HOA ScalaSeq checker
+        - Use Spot to convert the ScalaSeq's into functions we can call with concrete traces
+            - Pass the traces from RTL simulation into the ScalaSeq checker
+            - Verify there are no errors
+    - An example of a FIFO checker: https://github.com/ekiwi/comparing-random-testing-and-bmc/blob/main/deepbug/src/deepbug/harness/FifoSoftwareHarness.scala
+
+- Tilelink checkers:
+    - https://github.com/tianrui-wei/assertions/blob/master/tilelink_checker.sv
+    - https://github.com/chipsalliance/rocket-chip/blob/master/src/main/scala/tilelink/Monitor.scala
+    - Q: Can we write these in our sequences language more succintly and potentially with better performance?
+
+### Property Introspection and Debugging
+
+- There is a lot of future work in making SVA style properties debuggable
+    - Once we get started with improving the API and get some real world use experience with the FIFO/TL checker, we can work on this topic
+    - TODO Vighnesh: publish my notes from SLICE winter 23 retreat so you can look at them
+
 ## 2/8/2023
 
 - Actual fix is due to incorrect parens - here is the fix: a & X (b & X (c))
