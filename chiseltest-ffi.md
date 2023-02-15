@@ -1,6 +1,17 @@
 # Chiseltest FFI Performance
 
 
+## 2/15/2023, Wed
+
+
+Updates: 
+- Tried to print out loaded JNI libraries, ran into some illegal reflective access issue
+    - couldn't seem to convert ClassLoader value into sequence of strings
+- Benchmarking progress:
+    - located in `jni_api_test_benchmark`
+    - first is just calling the call_add_one function repeatly, not including the load_so (calling bridge native library which is then loading another .so and calling it through dlsym)
+    - second is directly calling DummyAPI.add_one repeating (directly calling native library)
+
 ## 2/7/2023, Wed
 
 - Problem: if we load the bridge .so once with System.load, on the second sbt test invocation, we skip the bridge .so load and directly attempt to invoke its functions, and that gives a Link error indicating that the library may no longer actually be loaded
