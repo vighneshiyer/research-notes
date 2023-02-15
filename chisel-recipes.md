@@ -1,5 +1,14 @@
 # Chisel Recipes
 
+## 2/15/2023
+
+- We discussed a generalized way to 'compile' a Recipe by converting it into a RTL block that has 2 IOs
+    - `go` a single cycle wide pulse input that tells the Recipe to begin execution
+    - `done` another pulse output that tells when the Recipe has completed
+- Problem:
+    - propagation of `go` needs to be unique in time as it goes through overlapping Recipes
+    - every tick go/done block consumes 1 register, which is excessive if you have many ticks (all of them can be collapsed into one register if they are all in the same Sequential block)
+
 ## 2/7/2023
 
 - Spot automata library: https://spot.lre.epita.fr/
