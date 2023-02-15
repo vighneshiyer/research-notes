@@ -1,16 +1,28 @@
 # Chiseltest FFI Performance
 
-
 ## 2/15/2023, Wed
 
+Updates:
 
-Updates: 
 - Tried to print out loaded JNI libraries, ran into some illegal reflective access issue
-    - couldn't seem to convert ClassLoader value into sequence of strings
+    - Couldn't seem to convert ClassLoader value into sequence of strings
 - Benchmarking progress:
     - located in `jni_api_test_benchmark`
     - first is just calling the call_add_one function repeatly, not including the load_so (calling bridge native library which is then loading another .so and calling it through dlsym)
     - second is directly calling DummyAPI.add_one repeating (directly calling native library)
+
+- Very interesting result: using the bridge library over JNI to invoke an underlying so vs invoking the so via JNI directly actually causes 7-10x performance degradation!
+    - Suspicion: this is caused by calls to dlsym on every invokcation of add_one through the bridge library
+    - We can avoid this by caching the function pointer returned by dlsym
+- TODO:
+    - Every time you load a new so, you should also fill in caches for all the functions that could be invoked on that so
+    - You can just maintain an array for every function
+    - We only have about 6-10 functions for chiseltest, so this is OK, we can manually duplicate code - the important thing is to avoid overheads
+- Enumerate the results of all your benchmarks in one table we can reference later
+    - Include the failed / unusually slow attempts (just like this one, we want to know how much caching helps us)
+- Skim thru the code in this folder: https://github.com/ucb-bar/chiseltest/tree/main/src/main/scala/chiseltest/simulator/jna
+    - Investigate the API that your bridge library needs to support
+    - Template is here for JNA invocation of Verilator C++ code: https://github.com/ucb-bar/chiseltest/blob/main/src/main/scala/chiseltest/simulator/jna/VerilatorCppJNAHarnessGenerator.scala
 
 ## 2/7/2023, Wed
 
