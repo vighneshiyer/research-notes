@@ -13,6 +13,17 @@
     - Get out the instrumentation Map + the generated data when calling Gen[T].generate
     - Can't point to the Gen[] object itself that caused the read from the bytestream unless we're OK erasing its type
 
+### Spike as a Library
+
+From Jerry:
+
+> This works (and is regressed on) in spike/master.
+> There are no docs for the API, but there is a very simple example here https://github.com/riscv-software-src/riscv-isa-sim/blob/master/ci-tests/test-spike showing how to link against spike and run it.
+>
+> For single-stepping spike-modeled harts, this https://github.com/ucb-bar/chipyard/blob/main/generators/chipyard/src/main/resources/csrc/cospike.cc is probably the best example.
+> Basically you construct an instance of sim_t with the system configuration, and then call sim_t->get_core[hartid]->step() to single-step it.
+> The spike source is pretty readable
+
 ## 2/8/2023, Wed
 
 1. Comparison of these 3 stimulus generators in an identical fuzzing loop with identical feedback metrics
