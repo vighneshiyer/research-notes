@@ -1,5 +1,32 @@
 # Chisel Sequences
 
+## 2/22/2023
+
+- It is not clear whether this API is the best for asserting FIFO properties
+    - Rather using a simple state folding + inline assertions on the scala sequence can work quite well
+    - Thing to explore: how would this property be written with SVA instead?
+- Does it make sense to externalize state update rules from the checking functions?
+    - Tying state updates to the truthiness of a predicate makes it difficult to use the state update in a further check
+    - e.g. if we update the state on a dequeue, then we want to check that the thing that was dequeued matches what we expect, but that happens after the state update (meaning we would have to carry over the dequeued data into the next atomic proposition)
+    - If we make the state update something that happens in the background (just like synthesizable RTL), then we can write propositions that look for a dequeue happening, store the expected data from the background state update, then verify that it matches what we expect (in the subsequent property)
+
+```
+(action == dequeue(deqData), dActual = from the state update rule, deqData = from the AP) |-> (deqData == dActual)
+```
+
+- We want to be able to write unit tests for Chisel and Scala sequences outside of elaborating RTL
+- We want to have direct control over the APs themselves
+
+```scala
+assert (a === 2.U) |=> (b === 3.U)
+sealed trait AP
+class ChiselAP(b: chisel3.Bool) extends AP
+class ScalaAP(s: LazyList[Bool]) extends AP
+def testAP(ap: AP): Boolean = {
+    ???
+}
+```
+
 ## 2/15/2023
 
 - All of the below are now fixed and implemented
