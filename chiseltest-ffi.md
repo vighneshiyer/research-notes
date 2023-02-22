@@ -1,5 +1,31 @@
 # Chiseltest FFI Performance
 
+
+## 2/15/2023, Wed
+
+Updates:
+- Cached function pointer in load_so rather than recalling `dlsym` each time the API was called
+- observed around ~5x speed up from previous benchmarks
+    - overall about ~2x slower than a direct JNI function invocation 
+- Started reading into JNAHarnessGenerator
+- compiled most recent benchmarks: https://docs.google.com/spreadsheets/d/19nesLGxOIy0zceCflExHISJboLFcFRJ1nLDIjGdui8I/edit#gid=0
+    - only two benchmarks really: pre and post caching function pointer 
+
+Questions:
+- Why are there two code buffers? Don't they just get concatenated together in the cpp file?
+    - Is it for scope/visibility purposes? 
+- General logic behind harness generator:
+    - function definitions and shared object compiling and linking all defined in JNAUtils, which will invoke the native implementation defined in the harness generator
+        - JNAUtils handles a lot of the setup whereas HarnessGen is for the native impl
+    - `struct sim_state`: represents one instance of a circuit simulation?
+    - assigns ids to each input/output which are passed into as a argument to each API call
+    - harness generator defines codeBuffer which is essentially inline C++ code
+    - harness has native implementation of each API function (peek, poke, peekwide, pokewide, step, coverageAPIs, etc.)
+    - harness has private helper functions for ????
+        - commonCodeGen vs. codeGen
+
+Meeting Notes:
+
 ## 2/15/2023, Wed
 
 Updates:
