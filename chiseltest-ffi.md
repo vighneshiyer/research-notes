@@ -1,19 +1,30 @@
 # Chiseltest FFI Performance
 
+## 2/22/2023, Wed
+
+- Bridge library is about 2x slower than the native JNI access, still room for further improvement by moving dlerror() check to load_so function
+- This is already good enough to begin chiseltest implementation
+- First steps:
+    - Right now the Verilated C++ code is compiled with a generated harness into a regular .so which is loaded with JNA
+    - Add the code for the bridge library that has an interface with the same functions in the harness
+    - Inside VerilatorSimulator, we want to take a different path than the JNA one. We create a regular .so as usual with the Verilated C++ and harness file. But instead of loading that .so thru JNA, we load our JNI bridge library, and then load that .so through the bridge.
+    - This will require another JNISimulatorContext class.
+- VerilatorBasicompliance actually builds an .so, but it doesn't have a .so path suffix; but it indeed is designed to be invoked via JNA
+- We will need to write our own harness generator and build function that builds a regular .so for invocation from the C bridge library
 
 ## 2/15/2023, Wed
 
 Updates:
 - Cached function pointer in load_so rather than recalling `dlsym` each time the API was called
 - observed around ~5x speed up from previous benchmarks
-    - overall about ~2x slower than a direct JNI function invocation 
+    - overall about ~2x slower than a direct JNI function invocation
 - Started reading into JNAHarnessGenerator
 - compiled most recent benchmarks: https://docs.google.com/spreadsheets/d/19nesLGxOIy0zceCflExHISJboLFcFRJ1nLDIjGdui8I/edit#gid=0
-    - only two benchmarks really: pre and post caching function pointer 
+    - only two benchmarks really: pre and post caching function pointer
 
 Questions:
 - Why are there two code buffers? Don't they just get concatenated together in the cpp file?
-    - Is it for scope/visibility purposes? 
+    - Is it for scope/visibility purposes?
 - General logic behind harness generator:
     - function definitions and shared object compiling and linking all defined in JNAUtils, which will invoke the native implementation defined in the harness generator
         - JNAUtils handles a lot of the setup whereas HarnessGen is for the native impl
@@ -23,8 +34,6 @@ Questions:
     - harness has native implementation of each API function (peek, poke, peekwide, pokewide, step, coverageAPIs, etc.)
     - harness has private helper functions for ????
         - commonCodeGen vs. codeGen
-
-Meeting Notes:
 
 ## 2/15/2023, Wed
 

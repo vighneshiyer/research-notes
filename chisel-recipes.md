@@ -1,5 +1,9 @@
 # Chisel Recipes
 
+## 2/22/2023
+
+- We worked on the code, got things to kind of work, but the compiler still needs work
+
 ## 2/15/2023
 
 - We discussed a generalized way to 'compile' a Recipe by converting it into a RTL block that has 2 IOs
