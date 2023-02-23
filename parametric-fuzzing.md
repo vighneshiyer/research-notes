@@ -1,5 +1,19 @@
 # Parametric Fuzzing / Constrained Random StimGen API
 
+## 2/22/2023, Wed
+
+- Some issues getting AFL to instrument spike, but eventually it does work
+- Every (nearly) mutation is ending up corrupting the elf
+    - We need a slightly better baseline
+    - The mutator should only touch the instruction region of the elf
+    - The mutator should directly manipulate the instruction asm stream, and then we use `as` to get an elf
+- Use AFL to drive the parametric random generator (AFL wrapper -> Scala -> elf -> spike -> feedback)
+- FuzzFactory doesn't make any decisions based on the time-axis (how far along are we in the fuzzing run)
+    - We really want to bias which seeds in the corpus we pick for further mutation differently whether we are in the early stages (picking seeds for greater validity) vs the later stages (picking seeds for more basic block length). Idk about AFL here (perhaps they just randomly select seeds from the corpus for mutation, since there is no per-seed info, except maybe a timestamp)
+    - We also want to bias how much and what to mutate depending on the time. Idk about what AFL does here...
+- https://www.csl.cornell.edu/~cbatten/pdfs/jiang-pyh2-dt2021.pdf
+- https://github.com/pymtl/pymtl3/blob/master/examples/ex03_proc/test/inst_bne.py
+
 ## 2/15/2023, Wed
 
 - Perhaps use libAFL instead of AFL
