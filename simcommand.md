@@ -1,5 +1,21 @@
 # SimCommand
 
+## 2/24/2023, Fri
+
+- async-profiler, use with IntelliJ plugin (sbt is annoying)
+    - ran the GCD benchmark with treadle - found vast majority of time is spent inside peek() function
+        - we found this is because the default backend is treadle
+    - pending profiling run on Verilator
+- switch to pure mill build system (get rid of sbt)
+    - https://com-lihaoyi.github.io/mill/mill/Plugin_Jmh.html
+- prototype the "stateful box" that can be used to have Commands drive other Commands
+    - Interactable datatype looks good
+    - Next steps: add Interactable in UARTCommands, attempt to actually test 2 commands with each other
+- Threads now have an extra order parameter (just an integer), just a stopgap measure
+    - Can use this to get deterministic behavior in the prescence of combinational loops between fork blocks
+    - WIP: the MockTest that shows commands testing each other, check that time travel works correctly
+- WIP: detect combinational loops between two or more forked blocks that read/write to the same Interactable
+
 ## 2/14/2023, Tues
 
 - All the 'Quick Stuff' below is done and merged!
