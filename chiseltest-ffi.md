@@ -1,5 +1,21 @@
 # Chiseltest FFI Performance
 
+## 3/1/2023, Wed
+
+- Run the Verilator tests using sbt like: `sbt test chiseltest.simulator.VerilatorBasicCompliance`
+- You will get the test artifacts here:
+    - `/home/vighnesh/80-temp/chiseltest/test_run_dir/verilator_should_be_able_to_load_and_execute_a_simple_combinatorial_inverter_generated_from_Chisel`
+    - Inside the `verilated` folder you have `VFoo` which should be a regular .so that you can load using your bridge library
+    - Its API should look like `Foo-harness.cpp` and see the EXPORT'ed functions
+- Thing to try: load this .so using your JNI bridge library and invoke its functions from Scala
+    - This will require modifying your bridge library to have the same API as the harness
+    - Invoke the functions according to what you would actually do in the chiseltest backend
+        - ptr = sim_init()
+        - poke(??, ??)
+        - update() // force reevaluation of the DUT (for combinational paths)
+        - value = peek(??, ??)
+        - assert(value == ???)
+
 ## 2/22/2023, Wed
 
 - Bridge library is about 2x slower than the native JNI access, still room for further improvement by moving dlerror() check to load_so function
