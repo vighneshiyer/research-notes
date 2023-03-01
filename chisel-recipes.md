@@ -1,5 +1,40 @@
 # Chisel Recipes
 
+## 3/1/2023
+
+- The while recipe could be simplified by looping the body's done signal either back to the go signal of the body or to the done signal of the entire while recipe
+- Testing the while recipe module in isolation to make sure the done signal goes high when we expect and is only a single cycle pulse
+- ITE: should the semantic be that ITE is only active when go is true or should it be continuously active?
+- Write a WaitUntil recipe in terms of While (the body is just a Tick, and the condition is the boolean thing we want to wait until)
+  - Write a Forever recipe in terms of While
+- Rewrite the GCD recipe as imperative code:
+
+```scala
+Forever { // implicit time stepping
+  WaitUntil(io.loadingValues === true.B) // implicit time stepping
+  Action {
+    io.outputValid := 0.B
+    x := io.value1
+    y := io.value2
+  }
+  Tick
+  While(y =/= 0.U) {
+    when(x > y) {
+      x := x - y
+    }.otherwise {
+      y := y - x
+    }
+    Tick
+  }
+  Action {
+    io.outputGCD := x // these assignments should be sticky (e.g. they should assign to a register)
+    io.outputValid := 1.B
+  }
+}.compile()
+```
+
+- Next, try to write the DecoupledGCD in the same fashion
+
 ## 2/22/2023
 
 - We worked on the code, got things to kind of work, but the compiler still needs work
