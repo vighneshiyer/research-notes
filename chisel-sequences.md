@@ -1,5 +1,49 @@
 # Chisel Sequences
 
+## 3/1/2023
+
+- We want to seperate model evolution from asserting properties on that model itself
+- MagicPacketTracker
+    - We could implement a similar mechanism over Scala sequences
+    - Keep a counter that is just another sequence over enqs and deqs
+    - Read from that counter when a enq happens, store the nElems and data locally per property instance
+    - Decrement property local nElems on every deq
+    - When nElems becomes 0, check that the data coming out
+- Next idea we should take a stab on
+    - Take the existing Chisel sequences API and add local variable support
+    - For the RTL synthesis case, we can define the maximum number of properties in flight and then synthesize that number of instances
+    - For the case when the number of properties may be unbounded, or we don't want to set a cap, then just synthesize the atomic propositions, and poke them outside so that software can assert the properties by creating many instances in memory - need some kind of DPI interface that we generate from within a Chisel module as a Verilog blackbox
+- First step
+    - Basic local variable support for Chisel sequences
+- Let's first see what it take to get this to work, at least with the Spot backend
+    - May have to add type parameters on Property and other subtypes of Sequence
+    - May have to add an "initial" value of the local variable as an argument to assertAlways
+- This API might be ugly
+    - Another approach is to declare local state as a binding that can be referenced in scope within a property
+    - No type parameters required, but some binding needs to be created out of the property context that can be "peeked" or "poked"
+
+```scala
+class Thing extends Module {
+    val io = IO(new Bundle {
+        val a = Input(Bool())
+        val b = Input(Bool())
+    })
+    val propState = StateBinding(Bool()) // type: StateBinding[T <: Data](d: T)
+    // for the fifo case
+    // val propState = StateBinding(new Bundle {
+    //     val nElems = UInt(8.W)
+    //     val data = UInt(32.W)
+    // })
+    val prop = PropSeq (
+      SeqImpliesNext(
+          SeqStateExpr(a, propState.poke(a)),
+          SeqStateExpr(propState.peek() === b)
+      )
+      // type: SeqStateExpr(prop: Bool, () => Unit = () => ())
+    assertAlways(prop, propState???)
+}
+```
+
 ## 2/22/2023
 
 - It is not clear whether this API is the best for asserting FIFO properties
