@@ -1,5 +1,46 @@
 # SimCommand
 
+## 3/1/2023, Wed
+
+- NeuromorphicProcessorTB - now its about 300 kHz w/ Command and 450 kHz with single-threaded chiseltest
+- DecoupledGCD
+    - For the Command case, there is substantial overhead in implicit conversion of Data to testableData for peek
+    - My instinct: peek on its own should be fast, but if the Data has many fields, then we can burn time accessing the Map[String, Data] in the Record type
+    - But, this should only be an issue with smaller circuits where the step() time doesn't dominate
+
+- https://www.chisel-lang.org/chisel3/docs/appendix/experimental-features.html#bundle-literals-
+
+```scala
+import chisel3._
+import chisel3.experimental.BundleLiterals._
+
+class MyBundle extends Bundle {
+  val a = UInt(8.W)
+  val b = Bool()
+  def lit(a: UInt, b: Bool): MyBundle
+}
+
+class Example extends RawModule {
+  val out = IO(Output(new MyBundle))
+  out := (new MyBundle).Lit(_.a -> 8.U, _.b -> true.B)
+  val v = new MyBundle
+  v.a := 8.U // THIS CAN'T BE DONE IN A OUT-OF-MODULE context
+}
+
+trait Interactable[I] {
+    def set(value: I): Unit
+    def mutate(value: I => I): Unit = (i) => i.Lit(_.fieldA -> 1.U)
+    def get(): I
+    def compare(i: I): Command[Boolean]
+}
+```
+
+- https://hackage.haskell.org/package/clash-prelude-1.6.4/docs/Clash-Explicit-Signal.html#t:Signal
+    - Signal is a monad and we can 'unpack' values in a signal and use them in other expressions that yield a Signal
+    - This builds a circuit without any 'global' builder context
+    - Clash is a custom compiler (not a deep embedding / DSL)
+- Another approach that uses a deep embedding in Haskell: https://github.com/blarney-lang/blarney
+
 ## 2/24/2023, Fri
 
 - async-profiler, use with IntelliJ plugin (sbt is annoying)
