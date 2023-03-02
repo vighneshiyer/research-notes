@@ -1,5 +1,15 @@
 # Parametric Fuzzing / Constrained Random StimGen API
 
+## 3/1/2023, Wed
+
+- Spike AFL fuzzing has some weird bug, I will try to reproduce
+- Next thing: generator instrumentation for marking pieces of the byte parameters with how they are used
+    - Potentially modify the libAFL mutator (or slot in our own) that can use this information
+- https://arxiv.org/abs/2209.01789 (ProcessorFuzz paper)
+    - Fuzz an instruction stream as usual (completely random), except they focus their mutations on CSR instructions that change the architectural state
+    - They only fuzz on ISS! Not RTL, they only test RTL at the end!
+    - How does their instruction generator work?
+
 ## 2/22/2023, Wed
 
 - Some issues getting AFL to instrument spike, but eventually it does work
@@ -13,6 +23,8 @@
     - We also want to bias how much and what to mutate depending on the time. Idk about what AFL does here...
 - https://www.csl.cornell.edu/~cbatten/pdfs/jiang-pyh2-dt2021.pdf
 - https://github.com/pymtl/pymtl3/blob/master/examples/ex03_proc/test/inst_bne.py
+    - How does their instruction generator work?
+    - It looks like their PyH2 code doesn't exist open source, or that the implementation in pymtl is just templated assembly that's filled in with some random instructions. It doesn't look like they do their whole "design the control flow graph" then inject data flow into each node.
 
 ## 2/15/2023, Wed
 
