@@ -1,5 +1,27 @@
 # Priority Queue Chisel Library
 
+- Repo: https://github.com/william-lyh/chisel-priorityqueue
+
+## 3/7/2023
+
+- In the future, other PQ architectures probably will use SRAMs internally
+    - SRAMs in Chisel are SyncReadMem (https://www.chisel-lang.org/api/3.3.3/chisel3/SyncReadMem.html)
+    - In this case, we are using registers since we need to shift a bunch of entries on the same cycle
+- Next things:
+    - Make some of the IOs boolean
+        - wrEn, rdEn Bool()
+    - Add priority out as an output along with dOut
+    - Make the PQ type generic on the data type
+    - Later: make the priority type also generic by make it a generic type that needs a PartialOrder typeclass instance
+        - https://typelevel.org/cats/api/cats/kernel/PartialOrder.html
+- Formal verification of the PQ
+    - Watch this lecture: https://www.youtube.com/watch?v=ssAbq5tdh8Y
+    - Try out some examples from the lecture in your own environment (in the priorityqueue repo)
+    - https://github.com/agile-hw/lectures/blob/main/22-formal/lec22-formal.ipynb
+- Evaluate other architectures
+    - Check the priority queue paper and sketch out the algorithm for another implementation (based on binary trees / tries / etc.)
+    - There are also some non-exact architectures that don't produce data in the priority order, but are very close (and are more area efficient). Do a literature review and come back with a few papers and ideas.
+
 ## 2/20/2023
 
 - https://github.com/EECS150/fpga_labs_sp22/blob/master/lab6/spec/spec.md
