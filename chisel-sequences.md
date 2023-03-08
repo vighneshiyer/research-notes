@@ -1,5 +1,15 @@
 # Chisel Sequences
 
+## 3/8/2023
+
+- We discussed local variable support, and it turns out that it isn't doable with an optimized automata from Spot since we can't correlate a state+transition in the optimized automata to a local variable read/write in the original sequence
+- The solution is to implement local variable support only for the SequenceFsms backend
+- Next steps:
+    - Familiarize yourself with how those automata work
+    - Read this paper: https://ieeexplore.ieee.org/abstract/document/1487886
+    - Attempt to implement local variable support by adding IOs to SequenceIO that represents a sequences' unique handle to its parent property's local variable
+    - Now we can use the local variable in the atomic proposition and in the state update within SeqExprModule
+
 ## 3/1/2023
 
 - We want to seperate model evolution from asserting properties on that model itself
