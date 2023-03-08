@@ -1,5 +1,11 @@
 # Chiseltest FFI Performance
 
+## 3/8/2023, Wed
+
+- Something broke in ffi_benchmarks wrt running `javah` with the modified bridge library, but a fresh clone of ffi_benchmarks fixed the problem (there were some latent build artifacts breaking something, but we don't know what)
+    - The problem was running `sbt javah` terminates with a `nio.file.ProviderNotFoundException` for no obvious reason - the stack trace also doesn't reveal anything. The JNI plugin may have messed something up that is persistent even after removing it as a dependency.
+    - Anyways, Oliver is just going to manually copy over the bridge library mods to the fresh clone and keep working
+
 ## 3/1/2023, Wed
 
 - Run the Verilator tests using sbt like: `sbt test chiseltest.simulator.VerilatorBasicCompliance`
