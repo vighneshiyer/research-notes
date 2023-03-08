@@ -1,5 +1,19 @@
 # Chisel Recipes
 
+## 3/8/2023
+
+- We rewrote the DecoupledGCD recipe as imperative logic
+- But we noticed that there is extra state that doesn't really need to be there (e.g. we can reuse a tick register with another tick that is exclusive, but this is a whole-program optimization, that may not make sense anyways)
+- Next step:
+    - We want to expose an 'active' signal that a user can tie to so that they know when each recipe block is active
+    - The 'active' signal can be used to drive top-level I/Os as to minimize the amount of explicit state the user need to construct and have control over (e.g. resultValid register in decoupled GCD recipe).
+    - Refactor both GCD and decoupledGCD to use this feature
+- TODO: DoWhile primitive (we can just repurpose While) (https://docs.scala-lang.org/scala3/reference/dropped-features/do-while.html)
+- TODO: figure out why debug wires for While aren't being named properly
+- TODO: think about a good standalone example for recipes
+- TODO: do a PPA (not power) comparison (just using yosys) of the recipe and raw version of the decoupled gcd module
+- TODO: support all the other primitives that Blarney does (Fork, Background, Parallel, Dispatch) + multiple if-elseif-else block support and recipe delegation
+
 ## 3/1/2023
 
 - The while recipe could be simplified by looping the body's done signal either back to the go signal of the body or to the done signal of the entire while recipe
