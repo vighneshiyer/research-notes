@@ -1,5 +1,42 @@
 # Chisel Sequences
 
+## 3/15/2023
+
+- Local variable support for Chisel (without Spot, but rather using the SequenceFsms backend)
+
+```scala
+class SequenceIO[S <: Data](gen: S) extends Bundle {
+  /** input for property's current local state */
+  val localState: S = Input(gen())
+}
+val bundleInstance = new SequenceIO[UInt](UInt(8.W))
+```
+
+```scala
+class Example extends Module {
+    val a = IO(Input(Bool()))
+    val b = IO(Input(Bool()))
+
+    // 1. Type-parameter free API, using magic state binding structure
+    val state = ChiselStateBinding(Bool())
+
+    PropSeq(
+        SeqImpliesNext(
+            SeqExpr(a, state.poke(a)),
+            SeqExpr(b == state.peek())
+        )
+    ) // this may be tough to implement, need to pass the "state" along to the sequence interpreter
+
+    // 2. Type-parameter API, state type is explicitly part of the Sequence type
+    assertAlways(PropSeq[S=Bool](
+        SeqImpliesNext[S=Bool](
+            SeqExpr[S=Bool](_ => a, _ => a),
+            SeqExpr[S=Bool](s => b == s)
+        )
+    ), initialState = false.B)
+}
+```
+
 ## 3/8/2023
 
 - We discussed local variable support, and it turns out that it isn't doable with an optimized automata from Spot since we can't correlate a state+transition in the optimized automata to a local variable read/write in the original sequence
