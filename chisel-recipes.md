@@ -1,5 +1,20 @@
 # Chisel Recipes
 
+## 3/15/2023
+
+- Write a unit test that has a whileloop whose body takes multiple cycles and we should validate that 'active' stays high for the entire duration of the loop and body
+- Attempt to write a doWhile combinator in terms of the whilePrim primitive
+- Make whilePrim private
+- Formal verification of equivalence between recipe and hand-written implementations
+    - https://github.com/ucb-bar/chiseltest/blob/main/src/test/scala/chiseltest/formal/examples/DecoupledGCD.scala#L13
+    - Idea: create a module that instantiates two versions of the GCD module (one recipe and one hand-written)
+    - Assert every output should be equal between the two instances
+    - Tie the inputs of both of them together
+    - Then use BoundedCheck to prove that they are equivalent
+    - Watch this: https://www.youtube.com/watch?v=ssAbq5tdh8Y
+    - Read this: https://github.com/agile-hw/lectures/blob/main/22-formal/lec22-formal.ipynb
+- Pull in rocket-chip as a Maven dependency and implement the TLRAM using recipes
+
 ## 3/8/2023
 
 - We rewrote the DecoupledGCD recipe as imperative logic
