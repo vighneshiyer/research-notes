@@ -1,6 +1,15 @@
 # Performance Correlation
 
-## 2/7/2022
+## 3/16/2023
+
+- Refer to the gem5 paper below
+- Also look at a riscv gem5 evaluation: https://carrv.github.io/2021/papers/CARRV2021_paper_63_Chatzopoulos.pdf
+- Also take a look at the gem5 model configuration for a real SiFive board: https://gem5.googlesource.com/public/gem5/+/refs/heads/stable/src/python/gem5/prebuilt/riscvmatched/riscvmatched_core.py#85
+- Strober paper: https://dl.acm.org/doi/pdf/10.1145/3007787.3001151
+- SimPoint stuff: https://cseweb.ucsd.edu/~calder/simpoint/
+- Try to play with gem5 riscv - build a simple in-order core model (that looks like your 151 CPU) and run a riscv binary through it
+
+## 2/7/2023
 
 - Hansung (maybe GPU RTL), Abe (Chipyard various things)
 - Baseline understanding of tools
