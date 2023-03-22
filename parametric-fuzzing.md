@@ -1,5 +1,24 @@
 # Parametric Fuzzing / Constrained Random StimGen API
 
+## 3/22/2023
+
+- Continue with the grid search across mutator types (biasing towards mutating data vs control bits as determined by their mark)
+- Next step is to attempt RTL fuzzing
+- Build the RTL simulator in `emulator`: https://github.com/chipsalliance/rocket-chip
+    - Use the master branch, not dev
+- RocketCore: https://github.com/chipsalliance/rocket-chip/blob/master/src/main/scala/rocket/RocketCore.scala#LL173C38-L173C45
+    - Create a counter (see chisel3.util.Counter) that increments on that event (L1 miss)
+    - Use chisel3.dontTouch on it to prevent dead code elimination
+- Use a side channel to print out the counter value at the end of simulation
+    - https://github.com/chipsalliance/rocket-chip/blob/master/src/main/resources/csrc/emulator.cc#L257
+    - `TEST_HARNESS *tile = new TEST_HARNESS;`
+    - This `tile` is the C++ Verilated version of the Verilog RTL emitted from running the `rocket-chip` generator
+    - Look at the generated `Tile.cc` from Verilator and try to find your L1 miss counter in it by grepping
+    - Then, at the end of the main function, print the counter value by accessing that field in Tile
+- Alternative to trying to find the counter in Tile.cc
+    - It may be easier to create a Verilog blackbox module (using Chisel blackboxes) in RocketChip.scala that uses this annotation (https://verilator.org/guide/latest/connecting.html) (verilator_public) on the counter value passed in as an input
+    - Then that signal should be available right from the top-level (`tile->counter`)
+
 ## 3/1/2023, Wed
 
 - Spike AFL fuzzing has some weird bug, I will try to reproduce
