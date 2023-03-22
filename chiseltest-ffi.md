@@ -1,5 +1,9 @@
 # Chiseltest FFI Performance
 
+## 3/22/2023, Wed
+
+- sim_init returns a void* which needs to be passed back to Java as a jlong and then passed back to the testbench API functions (e.g. step, poke). Some JNI header file changes are necessary
+
 ## 3/8/2023, Wed
 
 - Something broke in ffi_benchmarks wrt running `javah` with the modified bridge library, but a fresh clone of ffi_benchmarks fixed the problem (there were some latent build artifacts breaking something, but we don't know what)

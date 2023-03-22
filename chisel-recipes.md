@@ -1,5 +1,11 @@
 # Chisel Recipes
 
+## 3/23/2023
+
+- Got a basic strict I/O equivalence formal test working with DecoupledGCD (handwritten against the recipe version)
+    - Found a mismatch on the initial value of ready - this is a true mismatch
+    - This can be rectified by using doWhile
+
 ## 3/15/2023
 
 - Write a unit test that has a whileloop whose body takes multiple cycles and we should validate that 'active' stays high for the entire duration of the loop and body

@@ -1,5 +1,23 @@
 # Chisel Sequences
 
+## 3/22/2023
+
+- https://github.com/riscv-software-src/riscv-tests/tree/master/isa
+    - You can build `make rv64ui-v-add`, which will link from `env/v` which contains a very small virtual memory implementation
+    - Maybe try using `pk` with a regular userspace build of any C program and that program should use virtual memory by default since `pk` acts like a supervisor (running in machine mode)
+- package.scala contains the top-level ADT for sequences and properties
+    - toAutomaton converts that to the backend ADT (in Sequence.scala)
+    - then each backend (Spot / SequenceFSMs) turns the backend ADT into an automaton module
+
+```scala
+// S <: Data = type with hardware bound
+// UInt(8.W) = value of type UInt
+// 100.U = literal value of type UInt
+//
+// SequenceIO[UInt](UInt(8.W))
+// SequenceIO[S](genState=initialState = S <: Data)
+```
+
 ## 3/15/2023
 
 - Local variable support for Chisel (without Spot, but rather using the SequenceFsms backend)
