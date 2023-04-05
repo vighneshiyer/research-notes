@@ -1,5 +1,19 @@
 # Chiseltest FFI Performance
 
+## 4/5/2023, Wed
+
+- Can now call .so functions through the bridge library (in Scala!) without any errors!
+    - This is with the Foo passthrough module and it indeed works as expected
+- You know everything now do to the chiseltest integration
+    - Need to compile the bridge library through JNI when integrated into a library
+- First objective:
+    - Inside chiseltest, add your bridge library C code
+    - And make sure you can compile it using whatever JNI stuff (`javah`, etc.)
+    - Then load the library in a chiseltest unit test, and invoke some functions from there (load an .so e.g. VFoo, and invoke it)
+    - Fork chiseltest under your username and do the jni work in a branch
+    - Add `fork in test := true` in the chiseltest `build.sbt`
+- Investigation on how to distribute JNI libraries such that users who depend on chiseltest can compile the JNI .so on their own machine (different architecture, different OSs)
+
 ## 3/22/2023, Wed
 
 - sim_init returns a void* which needs to be passed back to Java as a jlong and then passed back to the testbench API functions (e.g. step, poke). Some JNI header file changes are necessary
