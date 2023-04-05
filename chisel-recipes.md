@@ -1,5 +1,21 @@
 # Chisel Recipes
 
+## 4/5/2023
+
+- Working on fixing the formal equivalence test - rectify using doWhile
+- Figure out how to make the DecoupledGCD recipe equivalent to the original DecoupledGCD
+    - This involves driving input.ready to true *before* input.valid is true (just like the original)
+    - After this, the two circuits should be sequentially equivalent
+
+```diff
+   forever (
+-    waitUntil(input.valid),
++    waitUntil(input.valid), // in the original, ready is true immediately, not gated on valid
+     action {
+-      val bundle = input.deq()
++      val bundle = input.deq() // ready is only true after input.valid is true
+```
+
 ## 3/23/2023
 
 - Got a basic strict I/O equivalence formal test working with DecoupledGCD (handwritten against the recipe version)
