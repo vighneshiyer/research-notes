@@ -1,5 +1,28 @@
 # Parametric Fuzzing / Constrained Random StimGen API
 
+## 4/5/2023
+
+- Make sure you have the latest riscv-gcc, compile spike from source, don't use any custom build scripts (since they are usually very old and not maintained anymore)
+- Ask someone why spike doesn't terminate as soon as the core write to the tohost memory address
+    - I would expect the simulation would terminate immediately
+- Let's do some more analysis of the grid search of mark mutation probabilities
+    - Just try to look at the common features of the best and worst combinations
+    - On just a subset of these, we can do longer runs to prove our hypothesis
+- Fuzzing RTL
+    - Just printing out the counter on every increment via chisel3.printf
+    - There should be no performance issue as long as the stdout goes to a file (simulation runtime should dominate, even with VERBOSE turned on)
+- DRAM base: 0x8000_0000
+    - RTL sim spends a lot of time in bootrom, only begin counting when we're at the program start
+- seems to be a big spike D$ model misses and RTL D$ misses
+    - Try to debug by looking at the commit logs from spike and RTL sim in the program execution part (the PCs should match exactly - this is the first step, then we can also look at memory transactions themselves)
+    - `spike-dasm` can be run on the commit log from RTL sim to disassemble the instructions
+- `riscv64-unknown-elf-objdump -D <elf file>`
+    - Look for the write_tohost symbol and the corresponding PC
+    - Then, once you reach that PC in RTL simulation, it means you are done with your custom test and you're just sitting in the write_tohost loop
+- https://github.com/ucb-bar/riscv-torture
+    - "Rewrite" in the parametric generation API
+    - Understand their generation strategy (they don't support loops), can we easily port enough features such that we can actually deprecate riscv-torture
+
 ## 3/22/2023
 
 - Continue with the grid search across mutator types (biasing towards mutating data vs control bits as determined by their mark)
