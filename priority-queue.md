@@ -2,6 +2,44 @@
 
 - Repo: https://github.com/william-lyh/chisel-priorityqueue
 
+## 4/10/2023
+
+- Things to do:
+    - Use Decoupled on the PQ enqueue and dequeue interfaces (match the QueueIO)
+    - Import dsptools as a Scala dependency, make sure you can run the tests using sbt
+
+```scala
+class DataWithPri[P <: Data : PartialOrder, D <: Data](genD: D, genP: P) extends Bundle {
+    val data = genD()
+    val priority = genP()
+}
+
+class ShiftRegPQGenDP[P <: Data : PartialOrder, D <: Data](genD: D, genP: P, depth: Int) extends Module {
+    val io = IO(new Bundle {
+        val enq = DecoupledIO(DataWithPri(genD, genP)) // ready/valid + data/priority
+        val deq = Flipped(DecoupledIO(DataWithPri(genD, genP))) // ready/valid + data/priority
+        /*
+        val rdEn = Input(Bool())
+        val wrEn = Input(Bool())
+        val dIn = Input(genD)
+        val pIn = Input(genP)
+        val empty = Output(Bool())
+        val full = Output(Bool())
+        val dOut = Output(genD)
+        val pOut = Output(genP)
+        */
+    })
+```
+
+- Write out the worse and average case enqueing and dequeing penalties (in terms of cycles) for your shift register architecture
+    - Also the best case
+    - Evaluate other architectures on the same metrics + area
+- Alternatives:
+    - Combinational sorting circuit to determine the highest priority and then there is no shifting penalty, but the circuit can be huge for large PQ depths
+        - https://github.com/freechipsproject/ip-contributions/tree/master/src/main/scala/chisel/lib/bitonicsorter
+        - https://github.com/Wolf-Tungsten/chisel-bitonic-sort
+    - 
+
 ## 3/7/2023
 
 - In the future, other PQ architectures probably will use SRAMs internally
