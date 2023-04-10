@@ -14,6 +14,12 @@ class DataWithPri[P <: Data : PartialOrder, D <: Data](genD: D, genP: P) extends
     val priority = genP()
 }
 
+val d = Wire(UInt(8.W))
+val pq: ShiftRegPQGenDP[SInt, UInt] = new ShiftRegPQGenDP(genD: UInt(8.W), genP: SInt(8.W), depth: 10)
+
+pq.dIn: UInt := d // UInt := UInt
+pq.dOut: UInt
+
 class ShiftRegPQGenDP[P <: Data : PartialOrder, D <: Data](genD: D, genP: P, depth: Int) extends Module {
     val io = IO(new Bundle {
         val enq = DecoupledIO(DataWithPri(genD, genP)) // ready/valid + data/priority
@@ -29,16 +35,23 @@ class ShiftRegPQGenDP[P <: Data : PartialOrder, D <: Data](genD: D, genP: P, dep
         val pOut = Output(genP)
         */
     })
+    io.enq.bits.priority < ???
+
+def <(x: UInt, y: UInt) = x < y
+// def <(x: UInt, y: UInt) = x > y
 ```
 
 - Write out the worse and average case enqueing and dequeing penalties (in terms of cycles) for your shift register architecture
     - Also the best case
     - Evaluate other architectures on the same metrics + area
+    - Also evaluate the best possible throughput of the queue (it should be 1 per cycle)
 - Alternatives:
     - Combinational sorting circuit to determine the highest priority and then there is no shifting penalty, but the circuit can be huge for large PQ depths
         - https://github.com/freechipsproject/ip-contributions/tree/master/src/main/scala/chisel/lib/bitonicsorter
         - https://github.com/Wolf-Tungsten/chisel-bitonic-sort
-    - 
+    - Maintain multiple FIFOs for each priority level (viable if you only have 2-4 priority levels)
+- Recursive Design of Hardware Priority Queues (https://dl.acm.org/doi/pdf/10.1145/2486159.2486194)
+- Hardware-software architecture for priority queue management in real-time and embedded systems (https://www.cse.wustl.edu/~cdgill/publications/IJES2014.pdf) (HW heap based PQ)
 
 ## 3/7/2023
 
