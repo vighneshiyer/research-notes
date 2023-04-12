@@ -1,5 +1,16 @@
 # Chisel Recipes
 
+## 4/12/2023
+
+- Differences
+    - Handwritten input.ready is high immediately after reset, whereas the recipe version sets input.ready on the same cycle when input.valid is high
+    - The recipe version output.valid is delayed for one cycle compared to the handwritten version
+- One issue is that active is only high in the doWhile combinator when the 'while' portion is happening (not in the first iteration of the loop).
+- Solution: add an active signal for every primitive module
+    - Modify Recipe.scala, now each recipe does (go: Bool => done: Bool, active: Bool)
+- Other issue is too many dumb wires are created with similar names to the important ones
+    - Solution: turn these wires into temporaries rather than named wires inside each recipe module
+
 ## 4/5/2023
 
 - Working on fixing the formal equivalence test - rectify using doWhile
