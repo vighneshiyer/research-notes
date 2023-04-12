@@ -1,5 +1,15 @@
 # Chiseltest FFI Performance
 
+## 4/12/2023
+
+- Got a basic unit test of the bridge library working in the chiseltest repo
+- We want to compile the bridge library from source from Scala (maybe use jni-utils?)
+    - You have access to this dependency: https://github.com/com-lihaoyi/os-lib
+    - https://github.com/com-lihaoyi/os-lib#os-proc-call
+    - Create a temp dir: https://gist.github.com/amr/cc51a04d3511d272db36 to put the compiled bridge library in
+    - One challenge is to get this working in multithreaded unittest environment (defer this for now - we might need a specific type of filesystem that support directory level locking)
+        - Need some way to lock the dir while the .so is being compiled
+
 ## 4/5/2023, Wed
 
 - Can now call .so functions through the bridge library (in Scala!) without any errors!
