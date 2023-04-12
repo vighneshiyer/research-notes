@@ -1,5 +1,26 @@
 # Chisel Sequences
 
+## 4/12/2023
+
+- Building a spike model for the sparse accelerator
+- Make sure you can build spike from source and install it to $RISCV (you should see a `libriscv.so` in `$RISCV/lib`)
+- Then, you should get a trivial spike extension built
+    - Basically copy this directory somewhere (outside spike): https://github.com/riscv-software-src/riscv-isa-sim/blob/master/customext/dummy_rocc.cc#L27
+    - Then, reference this Makefile (https://github.com/ucb-bar/libgemmini/blob/master/Makefile) to build an out-of-tree spike extension (dummy_rocc.cc)
+    - Then, make sure you can load this extension (as an .so) into spike and run a baremetal binary just for fun
+    - The point is so that you understand all the moving parts of building and developing a spike extension
+- Then, you should port your `accel_model` function to a spike extension
+    - Build off of the dummy_rocc.cc model that you understood earlier
+    - Build the `sp_accel_model` extension .so
+    - Then, make sure you can load it in spike (using --extension) (spike will look in your $LD_LIBRARY_PATH for extensions to load, for example it will look for `$RISCV/lib/libgemmini.so` if you provide `--extension=gemmini`)
+- Finally, you should make sure your baremetal test runs using the spike sp_accel_model extension
+- Once this is done, then you can play with virtual memory
+
+- In parallel with this, run RTL simulation with pk running a user-mode version of your binary (you can use riscv64-unknown-linux-gnu to compile your sp_accel software).
+    - In RTL simulation, you can just run `make run-binary-fast BINARY="pk <path to test binary>"`
+    - Try to get a commit log out of the RTL simulation `make run-binary-debug`
+    - What does the commit log say?
+
 ## 3/22/2023
 
 - https://github.com/riscv-software-src/riscv-tests/tree/master/isa
