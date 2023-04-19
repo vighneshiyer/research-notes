@@ -1,5 +1,17 @@
 # Chiseltest FFI Performance
 
+## 4/19/2023
+
+Updates:
+- Able to compile bridge library from source from Scala, thanks for the help and code cleaning
+- Started on looking into getting the verilator so interface to work through jni bridge library as opposed to jna native access
+    - looking at JNASimulatorContext --> need to create a similar one where parameters are slightly different because no longer need the actual so, but just the so_id which can then be passed in as a parameter to JniAPI native calls which go to the bridge library
+    - compileAndLoadJNAClass --> compileAndLoadJNIClass which will laod the so from the path and initialize via `sim_init`, have return type be a new interface which can then be the parameter that get passed into JNISimulatorContext
+    - in VerilatorSimulator.scala we want to compileAndLoadJNIClass as opposed to jna in the generate context methods
+- option 1: create a new TesterSharedLibInterface that will delegate calls to the bridge library ( would require taking in the so_id)
+- option 2: don't even create a new interface just a collection of (soId, sPtr) from compileAndLoadJNIClass that we directly pass into the simulator context and the simulator context will just call the bridge library directly rather than delegating the need to .getFunction for JNA, since loading the so in compileAndLoadJNIClass will have already done that for us (avoids the layer of indirection/abstract)
+
+
 ## 4/12/2023
 
 - Got a basic unit test of the bridge library working in the chiseltest repo
