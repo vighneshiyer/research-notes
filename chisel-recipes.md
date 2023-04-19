@@ -1,5 +1,14 @@
 # Chisel Recipes
 
+## 4/19/2023
+
+- We need to concretely define what go/done/active actually means
+  - In particular, we need to express what it maps to in the RTL-level implementation and examples of how it would be used in a real recipe to do some real task
+  - The question is whether active should be high when done is also high, or if it should fall one cycle before (this is the current behavior)
+- Try to debug the DecoupledGCDSpec again - looks like something is broken with the DoWhile construct
+  - We notice that the `go` signal doesn't go high at the start of the recipe, but rather somewhere in the middle
+- One first step is to debug the doWhile primitive in isolation for a bit (look at the waveform, also add the active signal as a named signal in the VCD so we can verify its correct behavior)
+
 ## 4/12/2023
 
 - Differences

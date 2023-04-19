@@ -112,6 +112,8 @@ Try to organize the space of compression algorithms, points of injection (packet
 ```
 
 Most of these seem redundant - continue to refine.
+The interface for the output of compression can be a wire that's as large as the largest compressed message + a field to indicate how many bits are actually used from that buffer.
+See: https://github.com/joey0320/compress-acc/blob/zstd-snappy-complete/src/main/scala/CompressedBitsBuffer.scala for a buffer implementation that can enqueue a variable number of bits from a wire in a single cycle.
 
 ## Tasks
 
