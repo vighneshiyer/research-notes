@@ -11,6 +11,10 @@ Updates:
 - option 1: create a new TesterSharedLibInterface that will delegate calls to the bridge library ( would require taking in the so_id)
 - option 2: don't even create a new interface just a collection of (soId, sPtr) from compileAndLoadJNIClass that we directly pass into the simulator context and the simulator context will just call the bridge library directly rather than delegating the need to .getFunction for JNA, since loading the so in compileAndLoadJNIClass will have already done that for us (avoids the layer of indirection/abstract)
 
+- To fix:
+    - Use longs when appropriate in the bridge library vs ints
+    - set_args needs to take a Array[String] - figure out how to do this in JNI
+    - Later: need a switch between JNI and JNA in VerilatorBackend
 
 ## 4/12/2023
 
