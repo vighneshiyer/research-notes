@@ -1,5 +1,45 @@
 # SimCommand
 
+## 4/12/2023
+
+- Things we still need to investigate:
+    - Peek/poke thread order dependencies and catching them at runtime
+    - Peek/poke order dependencies on different ports for which we need circuit-level combinational path info
+    - Potentially generalizing the user-defined thread ordering numbering (and maybe automating it somehow, without doing full blown fixpoint iteration)
+    - More testbench examples (integration tests) that can utilize the clock cycle skipping optimization
+    - More profiling of the intepreter
+- Right now we're shuffling threads between a runset and a queue that is flushed on every cycle
+    - We could eliminate this allocation overhead, by keeping thread structures fixed in memory
+- New: added support for emitting Actions from the interpreter
+    - Think about a better Action ADT that captures thread and time info
+    - It may be ideal to only collect actions from a given port
+- Housekeeping stuff
+    - Switch to mill over sbt
+    - Have docs - maybe use sphinx + more examples
+    - A better README
+    - Publish to Maven + CI
+- More examples
+    - Let's test a rocket-chip component
+    - https://github.com/vighneshiyer/rocket-chip-publish#overview
+        - Add rocket-chip as a dependency
+    - Pick a module to write a test for
+        - https://github.com/chipsalliance/rocket-chip/blob/master/src/main/scala/tilelink/SRAM.scala
+    - How do we elaborate this module?
+        - https://github.com/TsaiAnson/verif/blob/master/tilelink/test/StandaloneBlocks.scala#L93
+    - Look at the TL spec (https://starfivetech.com/uploads/tilelink_spec_1.8.1.pdf)
+        - Only the TL-UL variant is worth looking at
+        - Basically only supports basic read/write operations
+    - https://github.com/TsaiAnson/verif/blob/master/tilelink/test/TLRAMTest.scala#L85
+        - Elaborate the TLRAM and write a test for it
+- What new features are actually important?
+    - Debug features are critical - trace thread spawning and finishing (create a VCD dumper for this info?)
+        - Use tracing GUIs in Firefox/Chrome for this
+        - Can we use this format for waveforms too?
+        - Profiling of the interpreter - have the interpreter understand how much time each thread is taking - also you can measure the time consumed in a step() to the backend simulator
+- Perhaps look at this: https://github.com/chipsalliance/chisel/tree/main/svsim
+    - Right now, they use file based IPC
+    - But we could do a lot better
+
 ## 3/1/2023, Wed
 
 - NeuromorphicProcessorTB - now its about 300 kHz w/ Command and 450 kHz with single-threaded chiseltest
