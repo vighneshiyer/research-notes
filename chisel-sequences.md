@@ -1,5 +1,33 @@
 # Chisel Sequences
 
+## 4/19/2023
+
+- Debug pk - first get a commit log out of the simulator with the `-debug` Make targets
+    - Look at the PCs and correlate them with (rocket-chip bootrom, the assembly dump of pk, the assembly dump of your user program)
+- on Sequences, still pending figuring out the compilation error due to a weird type error that we can't figure out
+- in Scala sequences, we force the user to define the type over which the sequence is defined:
+
+```scala
+concat(ap[Int](_>5), ap[Int](_<10))
+```
+
+- in Chisel sequences, you can just use any signal defined in the module without it being reflected in the type of the sequence
+
+```scala
+class A extends Module {
+    val x = UInt(8.W)
+    // what it looks like now
+    val seq = Concat(AP(x > 5.U), AP(x < 10.U))
+    def genProp(v: UInt) = Concat(AP(v > 5.U), AP(v < 10.U))
+    genProp(x)
+    assertAlways(Property(seq))
+    // what it could look like
+    val seq = Concat[UInt](AP[UInt](_ > 5.U), AP[UInt](_ < 10.U))
+    val prop = Property[UInt](seq)
+    assertAlways(prop, x)
+}
+```
+
 ## 4/12/2023
 
 - Building a spike model for the sparse accelerator

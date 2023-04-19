@@ -16,6 +16,13 @@ Updates:
     - set_args needs to take a Array[String] - figure out how to do this in JNI
     - Later: need a switch between JNI and JNA in VerilatorBackend
 
+```text
+long - JVM primitive
+Long - boxed JVM object (wrapper around long that adds OOP functionality)
+
+Long - Scala long (can either be a JVM primitive or a boxed JVM object based on how it is used)
+```
+
 ## 4/12/2023
 
 - Got a basic unit test of the bridge library working in the chiseltest repo
