@@ -1,5 +1,27 @@
 # SimCommand
 
+## 4/19/2023
+
+- Use sourcecode for instrumentation when a combinatorial thread ordering issue is seen
+    - https://github.com/bdngo/chisel-recipes/blob/main/src/main/scala/chisel3/recipes/package.scala#L7
+    - https://github.com/com-lihaoyi/sourcecode
+- Vighnesh: begin writing the outline for a SimCommand paper
+    - compete on raw performance
+    - compete on debuggability - being able to trace the testbench execution alongside the VCD (or use an interactive debugger)
+        - Stepwise Debugging for Hardware Accelerators (ASPLOS 23) - https://www.cs.cornell.edu/~asampson/media/papers/cider-asplos2023.pdf
+        - Bringing source-level debugging frameworks to hardware generators (DAC 2022) - https://dl.acm.org/doi/abs/10.1145/3489517.3530603
+        - Breakpoints in RTL simulation space
+    - compete on determinism
+    - compete on ergonomics (??? - a hard sell)
+        - GL simulation testbench generation
+    - Mixed-signal simulation
+        - Can we design an IR for event driven processes (see LLHD's event-driven subset - https://dl.acm.org/doi/abs/10.1145/3385412.3386024) rather than HW primitive IRs (FIRRTL, Circt)
+    - testbench forking (snapshot and resume)
+        - LiveSim: A Fast Hot Reload Simulator for HDLs - https://ieeexplore.ieee.org/abstract/document/9238634
+    - PLDI or ICFP may be one potential venue. ASPLOS seems more suitable, but we have to take a more system-level view of RTL simulation (caching, hotreload, incremental sim, build system integration, generator parameter-space coverage).
+        - Generating Circuits with Generators - https://dl.acm.org/doi/pdf/10.1145/3549821
+        - But it is tough for this technique (monadic composition of testbench primitives) to be interesting to PL researchers who don't know much about hardware simulation
+
 ## 4/12/2023
 
 - Things we still need to investigate:

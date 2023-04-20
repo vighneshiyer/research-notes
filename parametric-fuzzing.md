@@ -1,5 +1,27 @@
 # Parametric Fuzzing / Constrained Random StimGen API
 
+## 4/19/2023
+
+### Paper Ideas
+
+- comparison of input generators
+- the value of which feedback metrics to use
+    - basic strctural coverage (see TheHuzz for a bunch of these)
+        - line, branch, toggle, condition
+    - mux-toggle coverage
+    - functional coverage
+        - related to uArch details - miss rates, pipeline flushes, illegal instructions, memory fetches, ...
+    - FSM coverage
+    - synthetic coverpoints
+        - time-domain coverage of any of the above (hits / cycle in a time window)
+        - potentially unreachable conjunctions of any of the above
+        - breadcrumbs for temporal properties
+        - trajectory coverage (need to either collapse many trajectories in the same category, or only consider trajectories from a particular state for a small number of clock cycles)
+    - power model predictions - for power virus generation
+- the value of which mutator and selector in the fuzzing loop
+- the value of coverage guided formal trace prefix initialization before fuzzing
+- the potential to use driller like techniques
+
 ## 4/5/2023
 
 - Make sure you have the latest riscv-gcc, compile spike from source, don't use any custom build scripts (since they are usually very old and not maintained anymore)
