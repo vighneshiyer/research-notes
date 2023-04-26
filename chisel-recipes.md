@@ -1,12 +1,26 @@
 # Chisel Recipes
 
+## 4/26/2023
+
+- We attempt to fix the doWhile issue which is ultimately caused by overwritten active signals caused by two copies of the same recipe in the doWhile construct
+    - Still not fixed, but once done, it should fix the formal equivalence test too
+- In other news, we can write an example of using Recipes to implement a TL RAM
+    - First get a rocketchip dependency like this (https://github.com/vighneshiyer/rocket-chip-publish#overview) - just modify build.sbt to fetch the rocketchip maven jar
+    - Look at the TLBundle definition: https://github.com/chipsalliance/rocket-chip/blob/master/src/main/scala/tilelink/Bundles.scala#L248
+    - Create a Chisel module with a TLBundle at the top-level IO
+    - Create a SyncReadMem inside your module
+    - Understand the TL-UL/UH spec (https://starfivetech.com/uploads/tilelink_spec_1.8.1.pdf)
+    - Attempt to write a simple recipe that gets commands from the A channel, reads the memory, and issues responses to the D channel
+    - Use the TLFuzzer (https://github.com/chipsalliance/rocket-chip/blob/master/src/main/scala/tilelink/Fuzzer.scala) to test your module
+    - As an alternative, you can test your module using a handwritten chiseltest unittest that pokes requests into the A channel and checks for the right response on the D channel
+
 ## 4/19/2023
 
 - We need to concretely define what go/done/active actually means
-  - In particular, we need to express what it maps to in the RTL-level implementation and examples of how it would be used in a real recipe to do some real task
-  - The question is whether active should be high when done is also high, or if it should fall one cycle before (this is the current behavior)
+    - In particular, we need to express what it maps to in the RTL-level implementation and examples of how it would be used in a real recipe to do some real task
+    - The question is whether active should be high when done is also high, or if it should fall one cycle before (this is the current behavior)
 - Try to debug the DecoupledGCDSpec again - looks like something is broken with the DoWhile construct
-  - We notice that the `go` signal doesn't go high at the start of the recipe, but rather somewhere in the middle
+    - We notice that the `go` signal doesn't go high at the start of the recipe, but rather somewhere in the middle
 - One first step is to debug the doWhile primitive in isolation for a bit (look at the waveform, also add the active signal as a named signal in the VCD so we can verify its correct behavior)
 
 ## 4/12/2023
