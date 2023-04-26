@@ -1,5 +1,22 @@
 # Chisel Sequences
 
+## 4/26/2023
+
+- What I was looking for initially:
+    - An API to define functional temporal coverpoints and declare assertions, that supports all the constructs in SVA including local variables (per-property-instance state) and 'global variables' (per-property state, shared read-only across all property instances)
+    - What can such an API enable, if constructed properly?
+        - Clean definition of shared global per-property state, per-property-instance state, and predicates that depend on each type of state
+        - Clean observability of a property via runtime monitoring - be able to visualize property instance state in a waveform or via prints
+        - Instrument coverage of all predicates and connectives in a property
+        - Use that coverage instrumentation to fuzz the property and generate a set of unique traces to satisfy each cover (so the user can observe if the property is actually checking what they intended and that the property isn't too restrictive or permissive)
+            - It might be even easier to use formal for this
+            - Check that all areas of a property are reachable, show the relevant diffs between the traces to show allowed / disallowed behavior under the property
+        - Be able to unittest a property in isolation from a module - be able to define allowed and un-allowed behavior with user provided traces
+        - Support multiple backends that can trade-off performance / synthesizability / area (pure software implementation via interpretation, JIT'ed software impl, AoT codegen software impl for simulation injection via DPI, conversion to RTL monitor automata, optimized automata if possible)
+
+- Feel free to rip up any existing stuff in the API and design it such that the above objectives can be realized
+- Also, don't worry if the API becomes ugly to construct by hand in a Chisel module - we can always use whitebox macros to clean things up later or context functions (I only want to do this once we can use Scala 3)
+
 ## 4/19/2023
 
 - Debug pk - first get a commit log out of the simulator with the `-debug` Make targets
