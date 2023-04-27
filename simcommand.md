@@ -1,5 +1,21 @@
 # SimCommand
 
+## 4/27/2023
+
+- 2 PLARCH papers, due on Friday, please review today, once I send them
+- We want to put all our stuff under one org
+    - And publish everything using CI to Maven continuously
+- Combinatoral loop detection with knowledge of thru-circuit comb paths (from chiseltest / FIRRTL pass) or svsim replacement
+- Missing things in simcommand
+    - Debug primitives
+    - 1. Source code instrumentation
+    - 2. Combinational loop detection (which lines are causing the thread order dependency)
+    - Thread tracing (https://profiler.firefox.com/)
+        - Things that matter: steps taken by each thread, if there are any threads 'blocking' clock skipping, all the actions taken by each thread (unify the API)
+    - Unifying waveform and Scala-level testbench line numbers
+        - Cool experiement if we can get waveform data in the Google Trace / dhat format to be used by https://profiler.firefox.com/
+- Read this (Calyx): https://dl.acm.org/doi/abs/10.1145/3445814.3446712
+
 ## 4/19/2023
 
 - Use sourcecode for instrumentation when a combinatorial thread ordering issue is seen
