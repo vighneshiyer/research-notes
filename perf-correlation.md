@@ -1,5 +1,25 @@
 # Performance Correlation
 
+## 5/2/2023
+
+- embench on rv64, current status - able to get it to compile for rv64 using baremetal and run on gem5 and that works!
+    - we also have perf statistics from gem5
+- Next: embench rv64 on Rocket, which implies we first need embench rv64 on spike
+    - Currently, embench on spike: works with `pk`
+    - md5sum (on gem5 perf stats): 2.3M insts, 0.86 CPI (???, odd, Rocket can only commit 1 inst per cycle)
+- Next: we need a way to collect perf statistics out of rocket (out-of-band) in RTL simulation
+    - Ideally we want this to work on Firesim too
+    - Chisel printf (https://www.chisel-lang.org/chisel3/docs/explanations/printing.html)
+    - Chipyard (https://chipyard.readthedocs.io/en/stable/Chipyard-Basics/Initial-Repo-Setup.html, https://chipyard.readthedocs.io/en/stable/Simulation/Software-RTL-Simulation.html)
+    - Nayiri I think has a perf statistic dumper already somewhere? Using for arch counter based power modeling
+        - Just ask her for the branch and diff
+    - Build an RTL simulation and validate that we can dump accurate statistics by correlating it with manually observed values from the waveform
+    - Next: make sure collecting stats of programs running on pk works just fine, and tune the N-cycles that a statistic is aggregated over
+    - Next: make sure the ISA tests correlate first between RTL simulation and gem5 (we need to make sure the arch params that gem5 is configured with are accurate and representative)
+    - Next: move on to the embench stuff
+- Later: build a generic perf counter framework that can collect OOB stats and correlate with a commit log
+- TODO: get Dhruv access to Millennium machines with LDAP creds
+
 ## 3/16/2023
 
 - Refer to the gem5 paper below
