@@ -1,5 +1,19 @@
 # Chiseltest FFI Performance
 
+## 5/3/2023
+
+- All VerilatorComplianceTests pass locally, TODO: test on another computer and validate via CI
+
+### TODOs
+
+- Add a switch to go between JNI and JNA, via some annotation
+    - See: https://github.com/ucb-bar/chiseltest/blob/main/src/main/scala/chiseltest/simulator/VerilatorSimulator.scala#L17 for how to add options to the Verilator invocation via annotations
+    - Here's how you unpack the value from an annotation: https://github.com/ucb-bar/chiseltest/blob/main/src/main/scala/chiseltest/simulator/VerilatorSimulator.scala#L268
+    - Here's how to add annotations when invoking the chiseltest simulator: https://github.com/ucb-bar/chiseltest/blob/main/src/test/scala/chiseltest/backends/verilator/VerilatorCoverageTests.scala
+- Remove duplication between JNIUtils and JNAUtils
+- Do a final performance benchmark with the GCD test
+- Open a draft PR on chiseltest, note the above things are still TODOs
+
 ## 4/19/2023
 
 Updates:
