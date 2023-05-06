@@ -1,5 +1,13 @@
 # Chiseltest FFI Performance
 
+## 5/5/2023
+
+- Things to do before the PR can be merged:
+    - Make JNIAPI a class that's enforced at runtime to be a singleton (the build directory for the JNI bridge should be inside test_run_dir / test_name - that should be guaranteed thread-safe)
+    - Synchronize on some global for building the JNI bridge library
+    - Avoid fork := true
+        - There might need to be a sbt classloader hack to make this work, but we don't want users to put `fork := true` in their `build.sbt` as a prereq for JNI working
+
 ## 5/3/2023
 
 - All VerilatorComplianceTests pass locally, TODO: test on another computer and validate via CI
