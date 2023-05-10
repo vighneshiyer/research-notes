@@ -1,5 +1,36 @@
 # Chisel Sequences
 
+## 5/10/2023
+
+- Original API - no type-level encoding of the type of trace a property was written over or the state that it interacts with
+- Proposal - Reformulate the API to make to make both of those things part of a property's type encoding
+- In doing so, we can implement a lot of the stuff we discussed before
+
+- Practical implementation
+    - Reference chisel-recipes to see how we split the user-level API and the backend data structure representation (https://github.com/bdngo/chisel-recipes)
+    - https://github.com/bdngo/chisel-recipes/blob/main/src/main/scala/chisel3/recipes/Recipe.scala#L263
+        - Internal (backend) data structure that represents a Recipe
+        - This data structure can be instantiated manually if you'd like too, but usually only done in the unittests for this package
+        - https://github.com/bdngo/chisel-recipes/blob/main/src/test/scala/chisel3/recipes/RecipeModuleSpec.scala#L24 (example of testing the backend primitives directly)
+    - https://github.com/bdngo/chisel-recipes/blob/main/src/main/scala/chisel3/recipes/package.scala
+        - External (frontend) user-facing API to construct a Recipe
+        - This is what users interact with, it is usually designed to make writing a Recipe visually pleasing (vs using the backend API directly)
+        - https://github.com/bdngo/chisel-recipes/blob/main/src/test/scala/chisel3/recipes/RecipeSpec.scala#L36 (example of testing the user-facing primitives - this is the bulk of testing)
+    - Translation between user-facing API and backend data structure
+        - https://github.com/bdngo/chisel-recipes/blob/main/src/main/scala/chisel3/recipes/package.scala#L7
+        - Very thin layer that translates user APIs to the backend data structures (it is very simple, just calling the constructor - and in this case, also injecting source-level instrumentation)
+    - Interpreter
+        - https://github.com/bdngo/chisel-recipes/blob/main/src/main/scala/chisel3/recipes/Recipe.scala#L239
+        - Given a Recipe constructed with the user-defined API, actually turn that into a chisel circuit
+
+- Property[T, S]
+    - Spot.compile(p: Property[T, Any])
+    - SequenceFsms.compile(p: Property[T, S])
+- Recipe compiler does not instantiate any Chisel modules, instead a 'module' is just a function
+    - https://github.com/bdngo/chisel-recipes/blob/main/src/main/scala/chisel3/recipes/Recipe.scala#L8
+- You can use sourcecode to inject source-level instrumentation in your Sequence/Property data structures
+    - https://github.com/bdngo/chisel-recipes/blob/main/build.sbt#L15
+
 ## 4/26/2023
 
 - What I was looking for initially:
