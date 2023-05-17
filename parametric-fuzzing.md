@@ -1,5 +1,11 @@
 # Parametric Fuzzing / Constrained Random StimGen API
 
+## 5/17/2023
+
+- Rerun spike l1 miss rate fuzzing experiment
+    - Also with mark-driven mutation
+- Check RTL simulations against spike for commit log consistency and cache behavior
+
 ## 4/19/2023
 
 ### Paper Ideas
