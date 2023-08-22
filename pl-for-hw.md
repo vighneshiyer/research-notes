@@ -1,5 +1,9 @@
 # PL for HW Reading Group
 
+- An overview of type system formalism
+    - https://langdev.stackexchange.com/questions/2692/how-should-i-read-type-system-notation
+    - https://stackoverflow.com/questions/12532552/what-part-of-hindley-milner-do-you-not-understand
+
 ## 2/21/2023 - PyMTL3, PyH2, SystemC TLM
 
 ### PyMTL3
