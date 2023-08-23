@@ -1,4 +1,75 @@
-# Performance Correlation
+# gem5 Hacking, RTL <-> gem5 Correlation, uArch State Transfer
+
+## 8/22/2023
+
+- [ ] Re-verify that we can compile embench baremetal rv64 and run the benchmarks on gem5 (user-space mode) and spike (with pk)
+
+- Building embench for rv64
+
+```patch
+diff --git a/config/riscv32/boards/rv32wallyverilog/board.cfg b/config/riscv32/boards/rv32wallyverilog/board.cfg
+index 2103087..d93e364 100644
+--- a/config/riscv32/boards/rv32wallyverilog/board.cfg
++++ b/config/riscv32/boards/rv32wallyverilog/board.cfg
+@@ -18,8 +18,8 @@ cc = 'riscv64-unknown-elf-gcc'
+ # ldflags = (['-Wl,-gc-sections', '-nostdlib', '-march=rv32imac', '-mabi=ilp32', '-T../../../config/riscv32/boards/rv32wallyverilog/link.ld'])
+ # cflags = (['-c', '-Os', '-ffunction-sections', '-nostartfiles', '-march=rv32imac', '-mabi=ilp32'])
+ # ldflags = (['-Wl,-gc-sections', '-nostartfiles', '-march=rv32imac', '-mabi=ilp32', '-T../../../config/riscv32/boards/rv32wallyverilog/link.ld'])
+-cflags = (['-c', '-fdata-sections', '-ffunction-sections', '-march=rv32imac', '-mabi=ilp32'])
+-ldflags = (['-Wl,-gc-sections', '-march=rv32imac', '-mabi=ilp32', '-T../../../config/riscv32/boards/rv32wallyverilog/link.ld'])
++cflags = (['-c', '-fdata-sections', '-ffunction-sections', '-march=rv64gc', '-mabi=lp64'])
++ldflags = (['-Wl,-gc-sections', '-march=rv64gc', '-mabi=lp64', '-T../../../config/riscv32/boards/rv32wallyverilog/link.ld'])
+ # - cc_define_pattern ('-D{0}')
+ # - cc_incdir_pattern ('-I{0}')
+ # - cc_input_pattern ('{0}')
+diff --git a/config/riscv32/boards/rv32wallyverilog/link.ld b/config/riscv32/boards/rv32wallyverilog/link.ld
+index 0c419ba..cf3cdd5 100644
+--- a/config/riscv32/boards/rv32wallyverilog/link.ld
++++ b/config/riscv32/boards/rv32wallyverilog/link.ld
+@@ -5,8 +5,8 @@
+    notice and this notice are preserved.
+    Contributor: Daniel Torres <dtorres@hmc.edu>
+     */
+-OUTPUT_FORMAT("elf32-littleriscv", "elf32-littleriscv",
+-	      "elf32-littleriscv")
++OUTPUT_FORMAT("elf64-littleriscv", "elf64-littleriscv",
++	      "elf64-littleriscv")
+ OUTPUT_ARCH(riscv)
+
+ ENTRY(_start)
+@@ -263,4 +263,4 @@ SECTIONS
+ /* MEMORY
+ {
+   RAM (rwx) : ORIGIN = 0x80000000, LENGTH = 128M
+-} */
+\ No newline at end of file
++} */
+diff --git a/config/riscv32/chips/generic/chip.cfg b/config/riscv32/chips/generic/chip.cfg
+index 6632c3e..651655b 100644
+--- a/config/riscv32/chips/generic/chip.cfg
++++ b/config/riscv32/chips/generic/chip.cfg
+@@ -67,4 +67,4 @@
+
+ # - we garbage collect unused sections on linking
+
+-cc = 'riscv32-unknown-elf-gcc'
++cc = 'riscv64-unknown-elf-gcc'
+```
+
+Invocation:
+
+```shell
+./build_all.py --arch riscv32 --chip generic --board ri5cyverilator --cc riscv64-unknown-elf-gcc --cflags="-c -O2 -ffunction-sections" --ldflags="-Wl,-gc-sections" --user-libs="-lm" -v
+```
+
+- [ ] Re-collect stats from gem5 (IPC, cache miss rates) and make sure they look reasonable
+- [ ] Attempt to get spike checkpointing working for the embench binaries (execute them partially in spike and resume execution in gem5)
+    - This may not be easy since the spike checkpoint is more than just an .elf, but also contains some extra state that's loaded via DMI, that functionality may not be available in gem5 so an alternative might be necessary
+    - https://chipyard.readthedocs.io/en/stable/Advanced-Concepts/Architectural-Checkpoints.html
+- Later tasks
+    - Correlate gem5 core and uncore parameters with Chipyard parameters (cache hierarchy, sizing, and associativity ; branch predictor state + uarch)
+    - Figure out a way to dump uarch state from gem5 and reload it into rtl sim (ideally it should look like the spike checkpoint, but that won't work for uarch state)
+    - Figure out a Chisel annotation mechanism to annotate uarch/arch state registers such that we can pick them out in RTL and maybe load them using force (VCS) or verilator_public assignment (Verilator). We just need a way for circt to keep these annotations tied to a signal so that we can see what they map to in lofirrtl.
 
 ## 5/2/2023
 
