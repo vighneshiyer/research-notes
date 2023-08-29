@@ -1,5 +1,15 @@
 # gem5 Hacking, RTL <-> gem5 Correlation, uArch State Transfer
 
+## 8/29/2023
+
+- gem5 checkpointing in system emulation mode (does it work?) (what schema does the checkpoint have?)
+- Can we translate the spike loadarch checkpoint + mem.elf into the gem5 checkpoint schema?
+- If that doesn't work, we can add a small init section to the mem.elf that loads all the arch state manually
+    - There may be a blocker here, ask Jerry, maybe this is why we use DMI to load arch state in RTL simulation
+- Try building a workload with FireMarshal (https://firemarshal.readthedocs.io/en/latest/)
+    - Ideally we will avoid using the gem5 linux build infra
+- Investigate whether we can use the RISC-V full system mode in gem5 and use pk similar to how we use it with spike
+
 ## 8/22/2023
 
 - [ ] Re-verify that we can compile embench baremetal rv64 and run the benchmarks on gem5 (user-space mode) and spike (with pk)
