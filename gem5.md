@@ -1,5 +1,23 @@
 # gem5 Hacking, RTL <-> gem5 Correlation, uArch State Transfer
 
+## 9/5/2023
+
+- Attempting to build gem5 full system simulator
+    - https://gem5.googlesource.com/public/gem5-resources/+/HEAD/src/riscv-fs/README.md
+    - These instructions are clearly quite stale, they suggest building the riscv glibc cross compiler from source when that has been unnecessary for a long time, fetch the toolchain from here instead
+        - https://github.com/riscv-collab/riscv-gnu-toolchain/releases/download/2023.07.07/riscv64-glibc-ubuntu-20.04-gcc-nightly-2023.07.07-nightly.tar.gz
+- A lot more investigation is required - it looks like in fs mode, gem5 requires that the user give a big memory blob that it will begin executing (normally linux kernel with bbl) and a disk image it will use for mocking the contents of disk
+    - So if we want to get a very basic `spike pk <binary>` equivalent working, we will need to actually bundle bbl with pk with the binary to execute. Or modify `pk` to fetch the binary from a disk image and then begin executing.
+    - First question - can we get pk to execute a binary from a disk image (and not using host tether)?
+- Talk to Jerry about this - I have very little clue
+
+- Another thread of work: spike execution fragment extraction via basic block coverage
+    - Use spike in "library" mode (using spike like an API)
+    - Programmatically interact with spike and extract the PC trace
+    - Dynamically analyze the PC trace as its coming in and figure out which basic blocks are executing
+    - As a first pass, dump the spike commit log (using `-l`), read that log from Python, parse out the PCs, and segment the instructions into basic blocks that are identified by their PC
+        - To validate the results, just look at an asmdump and the labels and make sure they match
+
 ## 8/29/2023
 
 - gem5 checkpointing in system emulation mode (does it work?) (what schema does the checkpoint have?)
