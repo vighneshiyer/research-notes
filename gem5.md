@@ -1,5 +1,22 @@
 # gem5 Hacking, RTL <-> gem5 Correlation, uArch State Transfer
 
+## 9/19/2023
+
+- Basic block extraction script using PC analysis
+    - Currently working: extraction of full trace segmented by blocks
+    - Clean up this code
+- Pipeclean injection of arch state from spike into RTL sim and run for X number of instructions
+    - https://chipyard.readthedocs.io/en/stable/Simulation/Software-RTL-Simulation.html#verilator-open-source
+    - Commit log with cycle counts (we already have that from RTL sim) - gives us IPC
+    - Add feature to stop simulation after X instructions
+        - One possibility is to modify the spike checkpoint to inject a tohost_exit right at the basic block boundary
+        - Change the testharness that prints out the commit log messages (right now the testharness hooks into a trace port at the top-level of the chipyard SoC, so we can just monitor trace port for number of commited instructions)
+- Spike cache model (or standalone cache model)
+- Sketch out how we want to inject spike cache state into RTL simulation
+    - We need to manually correlate state for now
+    - Let's just get some manual force-ing via the testharness working first
+    - Figure out: where is the testharness generated from and how can we modify it?
+
 ## 9/5/2023
 
 - Attempting to build gem5 full system simulator
