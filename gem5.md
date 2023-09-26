@@ -1,5 +1,23 @@
 # gem5 Hacking, RTL <-> gem5 Correlation, uArch State Transfer
 
+## 9/26/2023
+
+- High priority: fix the memif write issue when loading elf checkpoint into RTL simulation
+    - We think this is caused by the underlying array not being large enough to hold the mem.elf file contents (2 GiB)
+    - TODO: run valgrind on the RTL simulation binary and send stack trace on Slack
+    - We should be able to fix this easily enough
+- In the meantime: take https://github.com/riscv-software-src/riscv-tests/tree/master/benchmarks
+    - Pipeclean arch checkpointing flow from spike and reload into RTL sim using these baremetal benchmarks (don't require pk)
+- Once that works, the next step is to determine which PCs (i.e. inst retirement count) need their state dumped
+    - Once that basic script works, then we can create a spike top-level that actually programmatically does this
+    - This can be written in C++
+
+> Could you point me to the spike branch/fork/docs about using spike as a library. I have an undergrad trying to use AFL to fuzz spike and it would be nice to have spike compiled to a static library with headers
+>
+> > This works (and is regressed on) in spike/master. There are no docs for the API, but there is a very simple example here https://github.com/riscv-software-src/riscv-isa-sim/blob/master/ci-tests/test-spike showing how to link against  spike and run it.For single-stepping spike-modeled harts, this https://github.com/ucb-bar/chipyard/blob/main/generators/chipyard/src/main/resources/csrc/cospike.cc is probably the best example. Basically you construct an instance of sim_t with the system configuration, and then call sim_t->get_core[hartid]->step() to single-step it.The spike source is pretty readable
+
+- Example of using spike as a library and single-stepping a hart: https://github.com/ucb-bar/chipyard/blob/main/generators/chipyard/src/main/resources/csrc/spiketile.cc
+
 ## 9/19/2023
 
 - Basic block extraction script using PC analysis
