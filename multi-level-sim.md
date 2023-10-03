@@ -1,4 +1,17 @@
-# gem5 Hacking, RTL <-> gem5 Correlation, uArch State Transfer
+# Multi-Level (ISA, uArch model, RTL) Simulation
+
+- Old title: `gem5 Hacking, RTL <-> gem5 Correlation, uArch State Transfer`
+
+## 10/3/2023
+
+- Use Chipyard embench build script flags https://github.com/ucb-bar/chipyard/blob/adebd634b4075473b735a355dd010dc8fef8d6c2/software/embench/build.sh
+    - To build baremetal embench binaries
+    - Then the spike checkpointing flow into RTL simulation should work fine
+    - Still worth figuring out how to make pk simulations reloadable into RTL simulation
+- Worth checking if the coremark software (https://github.com/ucb-bar/chipyard/tree/main/software) can still be built baremetal - that should be another good target
+- Next immediate todos: build both embench and coremark for baremetal, run them on spike and RTL sim, run spike checkpoint and RTL reload flow and make sure they work
+    - Next: run the commit logs on your program fragment segmentation script, check the results
+    - Next: actually figure out sampling points and build a spike top-level that can dump arch state from those points
 
 ## 9/26/2023
 
