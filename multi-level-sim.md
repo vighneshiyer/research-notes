@@ -1,8 +1,74 @@
-# Multi-Level (ISA, uArch model, RTL) Simulation
+# Multi-Level Simulation
 
+- ISA simulation -> uArch trace-based models -> RTL simulation
 - Old title: `gem5 Hacking, RTL <-> gem5 Correlation, uArch State Transfer`
 
-## 10/3/2023
+## Tasks
+
+### Pipecleaning Spike Checkpointing
+
+- [ ] Compile baremetal embench-iot benchmarks
+    - See Chipyard's embench compilation flow which uses htif-nano.specs
+- [ ] Figure out how if we can just run pk alone on gem5 and look at commit log
+    - pk alone should boot up just fine but die with a help message (which it can't print since gem5 doesn't emulate syscalls via fesvr and the tohost/fromhost memory locations)
+    - Jerry: One potential issue with using pk is that snapshotting spike in the middle of some fesvr interaction and then restoring it might not work (if there is latent state in fesvr that also needs to be ported over)
+
+### PC Trace Fragmentation
+
+- [ ] Review the handbook, create a starter project for PC analysis [d:10/6]
+- [ ] Write PC trace fragmentation script (also in Rust with tests)
+
+### Spike Top-Level Runtime
+
+- [ ] Rust top-level spike
+
+### RTL Arch State Injection
+
+- [ ] Inject arch state directly in RTL
+
+### Google Proposal
+
+- https://docs.google.com/document/d/1ZIl1rExD4e5BkUvhTFgKjWBVJPtYICGU_o3SSJVmypI/edit?usp=sharing
+
+- [x] Write first draft, send to Sophia [d:t]
+- [x] Create one diagram [d:8/14]
+- [x] Refine draft with better intro and shorter proposal [d:8/15]
+
+### Refining Proposal
+
+> The skeleton of the checkpointing flow should enable a lot of work...
+>
+>     generating checkpoints with SimPoint
+>     generating checkpoints before accelerator kernels
+>     checkpoint restore on firesim
+>     generating checkpoints for power modelling
+- [x] Gather Joonho's questions into QA section [d:8/21]
+- [x] Add more of Joonho's questions to QA section [d:8/23]
+
+### gem5 Hacking
+
+- [x] Build RISCV emulator [d:t]
+- [x] Build embench benchmarks [d:t]
+- [x] Run benchmarks on spike [d:t]
+- [x] Modify spike to poll on tohost much more frequently [d:t]
+- [x] Run benchmarks on gem5 [d:t]
+- [x] Fix repo to submodule gem5 and embench-iot and use Makefile for builds [d:8/25]
+- [x] Add Makefile to script runs of spike and gem5 with stat/commit log collection [d:8/25]
+- [x] Check if the gem5 results seem reasonable (stats reasonable + inst retire count match) [d:8/25]
+    - They seem reasonable, but some of the IPCs are > 1 - which sounds impossible with the basic CPU model
+- [x] Investigate how spike writes checkpoints
+- [x] Investigate how RTL sim reads spike checkpoints
+- [x] Correlate instruction retire log between spike and gem5
+    - They match, except for the fact that pk is in the loop in spike, but not gem5
+    - Some benchmarks seem to access pages that result in trap, and then pk handles the fault, but in gem5 those sequences are gone (of course - the syscall emulation handles the syscalls instantly)
+- [ ] Build the full system mode Python script for gem5
+- [ ] Run the embench binary on gem5 FS mode and just look at the commit log
+    - it should trap at some point and die
+- No more consideration of gem5 as top - it is too much work - at best we can use some trace-based models from gem5 for cache + coherency, branch predictor, prefetcher
+
+## Meeting Notes
+
+### 10/3/2023
 
 - Use Chipyard embench build script flags https://github.com/ucb-bar/chipyard/blob/adebd634b4075473b735a355dd010dc8fef8d6c2/software/embench/build.sh
     - To build baremetal embench binaries
@@ -13,7 +79,7 @@
     - Next: run the commit logs on your program fragment segmentation script, check the results
     - Next: actually figure out sampling points and build a spike top-level that can dump arch state from those points
 
-## 9/26/2023
+### 9/26/2023
 
 - High priority: fix the memif write issue when loading elf checkpoint into RTL simulation
     - We think this is caused by the underlying array not being large enough to hold the mem.elf file contents (2 GiB)
@@ -31,7 +97,7 @@
 
 - Example of using spike as a library and single-stepping a hart: https://github.com/ucb-bar/chipyard/blob/main/generators/chipyard/src/main/resources/csrc/spiketile.cc
 
-## 9/19/2023
+### 9/19/2023
 
 - Basic block extraction script using PC analysis
     - Currently working: extraction of full trace segmented by blocks
@@ -48,7 +114,7 @@
     - Let's just get some manual force-ing via the testharness working first
     - Figure out: where is the testharness generated from and how can we modify it?
 
-## 9/5/2023
+### 9/5/2023
 
 - Attempting to build gem5 full system simulator
     - https://gem5.googlesource.com/public/gem5-resources/+/HEAD/src/riscv-fs/README.md
@@ -66,7 +132,7 @@
     - As a first pass, dump the spike commit log (using `-l`), read that log from Python, parse out the PCs, and segment the instructions into basic blocks that are identified by their PC
         - To validate the results, just look at an asmdump and the labels and make sure they match
 
-## 8/29/2023
+### 8/29/2023
 
 - gem5 checkpointing in system emulation mode (does it work?) (what schema does the checkpoint have?)
 - Can we translate the spike loadarch checkpoint + mem.elf into the gem5 checkpoint schema?
@@ -76,10 +142,9 @@
     - Ideally we will avoid using the gem5 linux build infra
 - Investigate whether we can use the RISC-V full system mode in gem5 and use pk similar to how we use it with spike
 
-## 8/22/2023
+### 8/22/2023
 
 - [ ] Re-verify that we can compile embench baremetal rv64 and run the benchmarks on gem5 (user-space mode) and spike (with pk)
-
 - Building embench for rv64
 
 ```patch
@@ -147,7 +212,7 @@ Invocation:
     - Figure out a way to dump uarch state from gem5 and reload it into rtl sim (ideally it should look like the spike checkpoint, but that won't work for uarch state)
     - Figure out a Chisel annotation mechanism to annotate uarch/arch state registers such that we can pick them out in RTL and maybe load them using force (VCS) or verilator_public assignment (Verilator). We just need a way for circt to keep these annotations tied to a signal so that we can see what they map to in lofirrtl.
 
-## 5/2/2023
+### 5/2/2023
 
 - embench on rv64, current status - able to get it to compile for rv64 using baremetal and run on gem5 and that works!
     - we also have perf statistics from gem5
@@ -167,7 +232,7 @@ Invocation:
 - Later: build a generic perf counter framework that can collect OOB stats and correlate with a commit log
 - TODO: get Dhruv access to Millennium machines with LDAP creds
 
-## 3/16/2023
+### 3/16/2023
 
 - Refer to the gem5 paper below
 - Also look at a riscv gem5 evaluation: https://carrv.github.io/2021/papers/CARRV2021_paper_63_Chatzopoulos.pdf
@@ -176,7 +241,7 @@ Invocation:
 - SimPoint stuff: https://cseweb.ucsd.edu/~calder/simpoint/
 - Try to play with gem5 riscv - build a simple in-order core model (that looks like your 151 CPU) and run a riscv binary through it
 
-## 2/7/2023
+### 2/7/2023
 
 - Hansung (maybe GPU RTL), Abe (Chipyard various things)
 - Baseline understanding of tools
@@ -186,16 +251,13 @@ Invocation:
         - https://chipyard.readthedocs.io/en/stable/ (look through Ch 1 and 2) - be able to build a Verilator RTL simulator of the default Chipyard SoC config and run some riscv ISA tests through the RTL simulator
     - ISS (inside Chipyard, there is a ISA simulator called spike - spike can also run RISC-V binaries, it will also give you an insn retirement log)
         - https://github.com/riscv-software-src/riscv-isa-sim
-
 - TODOs:
     - Build spike from source (in Chipyard)
     - Run spike on RISC-V binaries (chipyard/toolchains/riscv-tools/riscv-tests)
     - Check the cmdline arguments of spike and get a insn retirement log out
     - Check this against the log from RTL simulation
-
 - Read through this guide, and try compiling gem5 and running x86 binaries through it, and get out a performance trace: https://www.gem5.org/documentation/learning_gem5/introduction/
 - Investigate how to get the RISC-V port of gem5 working, and run RISC-V binaries through it with a baseline CPU uArch model (we can just model a simple in-order 5 stage pipeline with the typical bypass paths you're used to)
-
 - Relevant papers:
     - Architectural Simulators Considered Harmful (https://ieeexplore.ieee.org/abstract/document/7155440) - a critique of arch sim, and their accuracy, and why it is better to evaluate RTL, and if you were to build an arch sim - why you should have knowledge of RTL design to begin with
     - gem5 papers:
@@ -208,6 +270,5 @@ Invocation:
     - Generally for RISC-V arch research and new RISC-V extensions and the like, look at the RISC-V workshop website: https://carrv.github.io/2022/
     - Fast and Accurate Performance Evaluation for RISC-V using Virtual Prototypes (https://www.informatik.uni-bremen.de/agra/doc/konf/2020DATE_Fast_and_Accurate_Performance_Evaluation_RISC-V_VPs.pdf)
     - Validating gem5’s Memory Components - gem5 @ ISCA 22 (https://arch.cs.ucdavis.edu/memory/2022/12/13/validating-memory.html)
-
 - Perf models
     - https://github.com/riscv-software-src/riscv-perf-model
