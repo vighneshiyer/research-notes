@@ -2,8 +2,12 @@
 
 - ISA simulation -> uArch trace-based models -> RTL simulation
 - Old title: `gem5 Hacking, RTL <-> gem5 Correlation, uArch State Transfer`
+- [Original proposal to Google](https://docs.google.com/document/d/1ZIl1rExD4e5BkUvhTFgKjWBVJPtYICGU_o3SSJVmypI/edit?usp=sharing)
+- [CS294 project proposal](https://docs.google.com/presentation/d/1tmzARnBtCjhgbhEOnKEhFlAWSjmPCOcvpWcT3EGXO6U/edit?usp=sharing)
 
 ## Tasks
+
+- [ ] Read LiveSim paper again [d:10/7]
 
 ### Pipecleaning Spike Checkpointing
 
@@ -27,8 +31,6 @@
 - [ ] Inject arch state directly in RTL
 
 ### Google Proposal
-
-- https://docs.google.com/document/d/1ZIl1rExD4e5BkUvhTFgKjWBVJPtYICGU_o3SSJVmypI/edit?usp=sharing
 
 - [x] Write first draft, send to Sophia [d:t]
 - [x] Create one diagram [d:8/14]
@@ -67,6 +69,34 @@
 - No more consideration of gem5 as top - it is too much work - at best we can use some trace-based models from gem5 for cache + coherency, branch predictor, prefetcher
 
 ## Meeting Notes
+
+### 10/6/2023, CS294 Project Proposal Discussion with Sagar/Krste
+
+- When changing uArch parameters, the state is hard to map from the uArch model to state in RTL sim
+    - Krste suggests using a more abstract model rather than a concrete uArch model so it is easy to convert from trace data to uArch state for a given parameterization
+        - See "Memory Timestamp Record" (K.C. Barr, H. Pan, M. Zhang, K. Asanovic, Accelerating Multiprocessor Simulation with a Memory Timestamp Record)
+        - For branch predictor functional warmup, capture the branch traces and replay them on a branch predictor model
+- This technique is hard to make work for multithreaded workloads on multicore systems
+    - Thread synchronization, locks/etc are dependent on the speed of execution of each core
+- For each major uArch block that needs functional warmup, come up with a story of how to support them across SoCs
+    - Pick a particular block to focus on this semester, but don't only solve a narrow problem (e.g. cache warmup)
+    - Try to generalize the technique that you would apply for any given uArch block with long-lived state
+    - Try to look at a tougher uArch block than caches (but caches are the most impactful wrt functional warmup fidelity)
+    - Sagar: RTL prefetchers aren't too complicated (for what we have), creating a uArch model for them seems reasonable
+- For the case study
+    - Analyze cache capacity splits between L1i/L1d and also investigate the balance of 2-level cache hierarchies on our RTL
+    - Try to answer the question of optimiality between unified vs separate I/D L2 caches on long workloads
+    - Look at Tycho (Toicho) and other predecessor work on simulating caches with different parameterizations simultaneouly
+- On benchmarks
+    - Don't use SPEC
+    - Try graph benchmarks ([GAP benchmark suite](http://gap.cs.berkeley.edu/benchmark.html))
+    - Try hyperprotobench (can run under pk, protobuf doesn't actually use pthreads, can compile with linux gcc)
+        - It should be instruction fetch bound, can model icache pressure effects
+    - Think about relative errors to the number of memory accesses, cache misses
+- For the practical considerations
+    - Raghav: Intervals in simpoint are still around 1M cycles long!
+    - Vighnesh: We can't execute an entire interval in RTL sim, we will have to sample even within that interval
+- Figure out split between two of us for tasks and how to rope in outside contributors
 
 ### 10/3/2023
 

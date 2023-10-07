@@ -35,6 +35,12 @@
     - write the implementation for the driver that actually does the cycle-by-cycle driving of the transaction on the lp_data bus (using the Decoupled3 protocol)
 - Later: script up splitting the lp interface from the pl interface in Chisel
 
+## FDI Spec
+
+- [ ] Read the FDI spec
+    - https://github.com/ucb-ucie/uciedigital/blob/main/src/main/scala/interfaces/Fdi.scala
+- [ ] Begin to draft the transaction hierarchy and the necessary agents
+
 ## 10/4/2023
 
 - Chisel -> D2D adapter RTL in Verilog
