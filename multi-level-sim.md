@@ -8,6 +8,7 @@
 ## Tasks
 
 - [ ] Read LiveSim paper again [d:10/7]
+    - Focus on how they do offline trace clustering
 
 ### Pipecleaning Spike Checkpointing
 

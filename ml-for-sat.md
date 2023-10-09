@@ -18,19 +18,21 @@
         - Guidedsampler: https://ieeexplore.ieee.org/abstract/document/8894251
         - SMTSampler: https://ieeexplore.ieee.org/abstract/document/8587695
     - **Evaluation**
-        - Compare the ML approach against off-the-shelf SMT solvers
+        - Compare the ML approach against prior work (GuidedSampler/SMTSampler) for sampling SMT formulas
+        - Also compare it against SystemVerilog-based commercial simulator constrained samplers
+        - Also compare it against PyVSC
 - Bounded model checking (BMC)
     - Unroll a transition system for N iterations -> turn into SMT -> solve as usual
 - Automatic test pattern generation (ATPG)
-    - Construct a sequence of inputs such that we see all the possible toggle patterns internal to the circuit
+    - Construct a sequence of inputs such that we see all the possible internal toggle patterns in a circuit
 
-## Things to Do
+## TODO
 
 ### SAT
 
-- [ ] Get SAT competition benchmarks: https://satcompetition.github.io/2023/downloads.html
+- [x] Get SAT competition benchmarks: https://satcompetition.github.io/2023/downloads.html
     - Are the formulas in CNF?
-- [ ] Get a bunch of pigeonhole problems in CNF form
+- [x] Get a bunch of pigeonhole problems in CNF form
 - [ ] Download the bit-blasted AIGER benchmarks: https://fmv.jku.at/aiger/
 - [ ] Try to parse the formulas in Python
 - [ ] Figure out how to programmatically construct a Pytorch model that represents the formula
