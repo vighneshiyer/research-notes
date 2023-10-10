@@ -8,7 +8,7 @@
 
 ### Getting the Testbench Template Up
 
-- [ ] Write and elaborate a chisel module that has the Fdi Bundle as one of the input IOs (representing the D2D adapter) [d:10/6]
+- [ ] Write and elaborate a chisel module that has the Fdi Bundle as one of the input IOs (representing the D2D adapter) [d:10/14]
     - might need to DontTouch the Fdi interface so Chisel/firrtl doesn't optimize it out
     - now you have a Verilog DUT with Fdi interface
 - [ ] Write some Scala to turn the Fdi Bundle object into a systemverilog interface and emit that alongside elaborating the D2D dummy module

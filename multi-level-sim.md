@@ -7,7 +7,7 @@
 
 ## Tasks
 
-- [ ] Read LiveSim paper again [d:10/7]
+- [ ] Read LiveSim paper again [d:10/14]
     - Focus on how they do offline trace clustering
 
 ### Pipecleaning Spike Checkpointing
@@ -20,7 +20,7 @@
 
 ### PC Trace Fragmentation
 
-- [ ] Review the handbook, create a starter project for PC analysis [d:10/6]
+- [ ] Review the handbook, create a starter project for PC analysis [d:10/14]
 - [ ] Write PC trace fragmentation script (also in Rust with tests)
 
 ### Spike Top-Level Runtime
