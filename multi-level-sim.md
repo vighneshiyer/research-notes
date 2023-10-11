@@ -71,6 +71,19 @@
 
 ## Meeting Notes
 
+### 10/10/2023
+
+- [ ] Verify that coremark and embench baremetal binaries run on spike unmodified
+- [ ] Investigate why hello.riscv baremetal test segfaults when spike checkpoint loaded in RTL sim
+- [ ] Modify the Python script to do the following
+    - [ ] Extract all the basic blocks from the PC trace alone
+        - On a second pass, I should be able to give the data structure a PC and it should return the basic block ID
+        - Basic blocks should be non-overlapping
+        - You can use an interval tree or just a sorted data structure for ranges (where you can assume that the ranges are exclusive)
+    - [ ] Compute the basic block vector for every interval by re-traversing the commit log
+        - For each PC, figure out which BB it is in, then add one to that column in the vector
+    - [ ] Dump BBVs for each interval and attempt clustering
+
 ### 10/6/2023, CS294 Project Proposal Discussion with Sagar/Krste
 
 - When changing uArch parameters, the state is hard to map from the uArch model to state in RTL sim
