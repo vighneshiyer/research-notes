@@ -11,6 +11,8 @@
 - Discussed and assigned tasks
 - Use spike as a library to control spike execution v. modifying top-level spike 
   - separation of concerns
+- Task Dependency Tree 
+  ![](images/task-tree-10-11-23.jpg)
   
 ### 10/10/2023
 
