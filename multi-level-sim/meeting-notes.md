@@ -5,72 +5,15 @@
 - [Original proposal to Google](https://docs.google.com/document/d/1ZIl1rExD4e5BkUvhTFgKjWBVJPtYICGU_o3SSJVmypI/edit?usp=sharing)
 - [CS294 project proposal](https://docs.google.com/presentation/d/1tmzARnBtCjhgbhEOnKEhFlAWSjmPCOcvpWcT3EGXO6U/edit?usp=sharing)
 
-## Tasks
-
-- [ ] Read LiveSim paper again [d:10/14]
-    - Focus on how they do offline trace clustering
-
-### Pipecleaning Spike Checkpointing
-
-- [ ] Compile baremetal embench-iot benchmarks
-    - See Chipyard's embench compilation flow which uses htif-nano.specs
-- [ ] Figure out how if we can just run pk alone on gem5 and look at commit log
-    - pk alone should boot up just fine but die with a help message (which it can't print since gem5 doesn't emulate syscalls via fesvr and the tohost/fromhost memory locations)
-    - Jerry: One potential issue with using pk is that snapshotting spike in the middle of some fesvr interaction and then restoring it might not work (if there is latent state in fesvr that also needs to be ported over)
-
-### PC Trace Fragmentation
-
-- [ ] Review the handbook, create a starter project for PC analysis [d:10/14]
-- [ ] Write PC trace fragmentation script (also in Rust with tests)
-
-### Spike Top-Level Runtime
-
-- [ ] Rust top-level spike
-
-### RTL Arch State Injection
-
-- [ ] Inject arch state directly in RTL
-
-### Google Proposal
-
-- [x] Write first draft, send to Sophia [d:t]
-- [x] Create one diagram [d:8/14]
-- [x] Refine draft with better intro and shorter proposal [d:8/15]
-
-### Refining Proposal
-
-> The skeleton of the checkpointing flow should enable a lot of work...
->
->     generating checkpoints with SimPoint
->     generating checkpoints before accelerator kernels
->     checkpoint restore on firesim
->     generating checkpoints for power modelling
-- [x] Gather Joonho's questions into QA section [d:8/21]
-- [x] Add more of Joonho's questions to QA section [d:8/23]
-
-### gem5 Hacking
-
-- [x] Build RISCV emulator [d:t]
-- [x] Build embench benchmarks [d:t]
-- [x] Run benchmarks on spike [d:t]
-- [x] Modify spike to poll on tohost much more frequently [d:t]
-- [x] Run benchmarks on gem5 [d:t]
-- [x] Fix repo to submodule gem5 and embench-iot and use Makefile for builds [d:8/25]
-- [x] Add Makefile to script runs of spike and gem5 with stat/commit log collection [d:8/25]
-- [x] Check if the gem5 results seem reasonable (stats reasonable + inst retire count match) [d:8/25]
-    - They seem reasonable, but some of the IPCs are > 1 - which sounds impossible with the basic CPU model
-- [x] Investigate how spike writes checkpoints
-- [x] Investigate how RTL sim reads spike checkpoints
-- [x] Correlate instruction retire log between spike and gem5
-    - They match, except for the fact that pk is in the loop in spike, but not gem5
-    - Some benchmarks seem to access pages that result in trap, and then pk handles the fault, but in gem5 those sequences are gone (of course - the syscall emulation handles the syscalls instantly)
-- [ ] Build the full system mode Python script for gem5
-- [ ] Run the embench binary on gem5 FS mode and just look at the commit log
-    - it should trap at some point and die
-- No more consideration of gem5 as top - it is too much work - at best we can use some trace-based models from gem5 for cache + coherency, branch predictor, prefetcher
-
 ## Meeting Notes
 
+### 10/10/2023
+- Discussed and assigned tasks
+- Use spike as a library to control spike execution v. modifying top-level spike 
+  - separation of concerns
+- Task Dependency Tree 
+  ![](images/task-tree-10-11-23.jpg)
+  
 ### 10/10/2023
 
 - [ ] Verify that coremark and embench baremetal binaries run on spike unmodified
