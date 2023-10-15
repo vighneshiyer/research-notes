@@ -52,7 +52,7 @@
 - Output(s)
   - Representative Intervals (per phase)
 
-- [ ] Discuss alternative approaches 
+- [ ] Discuss alternative approaches
   - SMARTS v. SimPoint
 - [ ] Do following in Python (?)
   - [ ] Dimensionality Reduction
@@ -76,9 +76,17 @@
 
 ### RTL Arch State Injection
 
-- [ ] Debug DMI load arch segfault (@vighnesh.iyer)
-  - Need this as reference
-- [ ] Modify test harness top (@vighnesh.iyer)
+- [ ] Debug DMI load arch segfault [@vighnesh.iyer] [d:10/12]
+  - [x] Setup dotfiles on a machines
+  - [x] Clone and setup chipyard on a machine
+    - This is way more painful than it should be
+    - Why does env.sh not contain the $RISCV envvar setting?
+  - [ ] Run hello test on spike and RTL sim
+  - [ ] Generate checkpoint
+  - [ ] Reload checkpoint in RTL sim and reproduce bug
+  - [ ] Use valgrind to reproduce stack trace
+  - [ ] Add prints to memif load
+- [ ] Modify test harness top to inject arch state (@vighnesh.iyer)
   - [ ] force statements
   - [ ] identify RTL node from the top level
     - [ ] now: pick 1 Chipyard design, hardcode
