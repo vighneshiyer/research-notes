@@ -76,18 +76,24 @@
 
 ### RTL Arch State Injection
 
-- [ ] Debug DMI load arch segfault [@vighnesh.iyer] [d:10/12]
+- [x] Debug DMI load arch segfault [@vighnesh.iyer] [d:10/12]
   - [x] Setup dotfiles on a machines
   - [x] Clone and setup chipyard on a machine
     - This is way more painful than it should be
     - Why does env.sh not contain the $RISCV envvar setting?
-  - [ ] Run hello test on spike and RTL sim
-  - [ ] Generate checkpoint
-  - [ ] Reload checkpoint in RTL sim and reproduce bug
-  - [ ] Use valgrind to reproduce stack trace
-  - [ ] Add prints to memif load
-- [ ] Modify test harness top to inject arch state (@vighnesh.iyer)
-  - [ ] force statements
+  - [x] Run hello test on spike and RTL sim
+  - [x] Generate checkpoint
+  - [x] Reload checkpoint in RTL sim and reproduce bug
+  - ~~[ ] Use valgrind to reproduce stack trace~~
+  - ~~[ ] Add prints to memif load~~
+  - I can't repro the segfault, although restarting sim in spike doesn't seem to work
+  - RTL checkpoint restore seems fine to me, test goes until completion
+- [x] Understand `generate-ckpt.sh` script [d:10/15]
+- [x] Understand current RTL sim arch state injection via DMI [d:10/15]
+- [x] Understand how fast loadmem works in contrast to TSI based init [d:10/15]
+- [ ] Modify TestDriver.v top to inject arch state (@vighnesh.iyer)
+  - [ ] Create new TestDriver.v in Chipyard srcs + Makevar to pull it in
+  - [ ] Attempt to use simple force statement and verify via waveform
   - [ ] identify RTL node from the top level
     - [ ] now: pick 1 Chipyard design, hardcode
     - [ ] later: automate with FIRRTL pass
