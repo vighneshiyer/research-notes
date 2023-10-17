@@ -82,3 +82,36 @@ loadarch resuming harts
 - Other option is to modify TestHarness with an injected Verilog fragment which calls the same DPI function
     - afaik, the fragement must be *injected* and not within a submodule since parent references in hierarchical paths may be iffy
 - After some thought, creating a new `TestDriver.v` that's swapped in with a makevar seems like the easiest option
+
+### Hacking
+
+#### 10/16/23
+
+- First tried to force `s1_pc` in the frontend - well that didn't work and Rocket just jumped back to the reset vector 10040
+    - This makes sense, `s1_pc` is never reset, only `s2_pc` with the hardcoded bootrom address
+- Then tried to force `s2_pc` to `8000_0010`
+    - My expectation is that this will start execution in the trap handler and we will then die
+    - But what happened is that `s1_pc` jumps between 14 and 10 every cycle
+    - And `s2_pc` is frozen at 10
+    - So, a few potential issues
+        - The bootrom is doing some setup to the arch state that I'm not doing
+        - I need to force additional registers (unlikely since `s2_pc` is the only one being reset in the frontend that's PC specific)
+        - There is something weird about jumping to the trap_vector right away, maybe just try jumping to the reset vector first
+- Force `s2_pc` to `8000_0048` (start of reset_vector)
+    - Same observation: `s1_pc` jumps between 4c and 48 every cycle
+    - So there is some interaction with the bootrom and fesvr triggering the core to come up
+    - Next: use fast loadmem to make sure fesvr doesn't need to use TSI after reset
+    - https://github.com/ucb-bar/testchipip/blob/master/src/main/resources/testchipip/csrc/testchip_htif.cc#L20C2-L20C2 +no_hart0_msip seems good
+- So nominally, the bootrom (https://github.com/ucb-bar/testchipip/blob/45bf0619eb040000a0efbb2902e747ad0cd17432/src/main/resources/testchipip/bootrom/bootrom.S#L4) waits for interrupt from fesvr
+    - https://chipyard.readthedocs.io/en/stable/Customization/Boot-Process.html#chipyard-boot-process
+    - I don't want this - the core should begin execution immediately
+
+#### 10/17/23
+
+- The very first thing I want to do is prove that I can set the initial PC of Rocket via force statements
+- I want to show that I can start the core at 0x10044 instead of 0x10040, which should cause a garbage address to be written to mtvec so that the core goes to the garbage address upon MSIP interrupt
+
+- [x] reference waveform using fast loadmem and rv64ui-p-simple
+- [x] injection waveform using fast loadmem, rv64ui-p-simple, and custom TestDriver.v that injects PC = 0x10044
+- [ ] compare the two waveforms
+    - Look at s2_pc, clock, reset, icache fetch activity

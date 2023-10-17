@@ -91,9 +91,12 @@
 - [x] Understand `generate-ckpt.sh` script [d:10/15]
 - [x] Understand current RTL sim arch state injection via DMI [d:10/15]
 - [x] Understand how fast loadmem works in contrast to TSI based init [d:10/15]
-- [ ] Modify TestDriver.v top to inject arch state (@vighnesh.iyer)
-  - [ ] Create new TestDriver.v in Chipyard srcs + Makevar to pull it in
-  - [ ] Attempt to use simple force statement and verify via waveform
+- [ ] Modify TestDriver.v top to inject arch state (@vighnesh.iyer) [d:10/16]
+  - [x] Create new TestDriver.v in Chipyard srcs + Makevar to pull it in + new naming
+  - [x] Verify that building a sim still works fine
+  - [ ] Attempt to use simple force statement on the PC and verify via waveform
+    - As of 10/16, this is not that easy
+  - [ ] Create DPI function
   - [ ] identify RTL node from the top level
     - [ ] now: pick 1 Chipyard design, hardcode
     - [ ] later: automate with FIRRTL pass
