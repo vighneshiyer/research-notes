@@ -7,6 +7,23 @@
 
 ## Meeting Notes
 
+### 10/18/2023
+- Vighnesh can't reproduce DMI load arch segfault
+  - might be an issue with using pk
+    - Sim DRAM alloc wrong size
+- Vighnesh worked on state injection
+  - Can change Rocket PC at start of sim via force stmt as long as we use fast loadmem and disable mcip interrupt
+  - Will continue on this more
+- Raghav worked on BB ID
+  - 5 approaches, 2 need source, 1 needs disassembly, 2 need binary => investigate
+- Dhruv looked at SimPoint and LiveSim (basically SMARTS under-the-hood)
+  - Use our own Phase Analysis, well definitely not LiveSim
+- Let's ask Jerry about 100 inst PC Trace to Basic Block extraction program from gem5
+- Enumerate approaches to interval embedding
+  - SimPoint BBFV
+    - BBFV loses information about order of basic block ordering
+  - LiveSim Sampling + perf numbers of baseline 
+
 ### 10/10/2023
 - Discussed and assigned tasks
 - Use spike as a library to control spike execution v. modifying top-level spike 
