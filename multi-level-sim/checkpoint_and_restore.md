@@ -115,3 +115,8 @@ loadarch resuming harts
 - [x] injection waveform using fast loadmem, rv64ui-p-simple, and custom TestDriver.v that injects PC = 0x10044
 - [ ] compare the two waveforms
     - Look at s2_pc, clock, reset, icache fetch activity
+
+- Reference waveform:
+    - Processor comes up with PC = 0x10040, s2_pc frozen, until icache resp comes back 
+- Injected waveform:
+    - Wait, this actually looks good lol - we see the IPI, processor jumps to garbage address

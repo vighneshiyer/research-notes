@@ -6,11 +6,21 @@
 
 ## Tasks
 
-### Getting the Testbench Template Up
+### Testbench Setup
 
-- [ ] Write and elaborate a chisel module that has the Fdi Bundle as one of the input IOs (representing the D2D adapter) [d:10/14]
-    - might need to DontTouch the Fdi interface so Chisel/firrtl doesn't optimize it out
-    - now you have a Verilog DUT with Fdi interface
+- [x] Get code compiling with Java 21 [d:10/17]
+    - Don't bother with latest JDK, just use JDK17
+    - `sbt --java-home /usr/lib/jvm/java-17-openjdk/`
+    - Root cause: https://github.com/sbt/sbt/issues/7235
+- [ ] Create loopback module (D2D adapter with pl/lp loopback) [d:10/17]
+    - `lp_` = input to D2D, `pl_` = output of D2D
+    - lpData: lp_irdy, lp_valid (same as lp_irdy), lp_data, pl_trdy
+    - plData: pl_valid, pl_data
+    - [ ] Verify elaboration to Verilog is possible in main class
+        - Debugging some directionality stuff
+    - [ ] Don't touch the other unconneced I/Os
+    - [ ] Create a ReadyValid3 Queue
+    - Now you have a Verilog DUT with FDI ports
 - [ ] Write some Scala to turn the Fdi Bundle object into a systemverilog interface and emit that alongside elaborating the D2D dummy module
     - you can do (new Fdi()).getElements: Seq[(String, Data)]
     - then use this to generate a systemverilog interface
@@ -25,7 +35,7 @@
     - make sure all the required commandline flags are present
     - make sure we can generate a waveform, even though the module is doing nothing
 
-### Getting a Basic VIP Up
+### Basic VIP
 
 - [ ] Write a SV VIP that speaks the lp interface
     - define an interface that contains just the lp signals
