@@ -8,6 +8,7 @@
 ## Meeting Notes
 
 ### 10/18/2023
+
 - Vighnesh can't reproduce DMI load arch segfault
   - might be an issue with using pk
     - Sim DRAM alloc wrong size
@@ -22,15 +23,16 @@
 - Enumerate approaches to interval embedding
   - SimPoint BBFV
     - BBFV loses information about order of basic block ordering
-  - LiveSim Sampling + perf numbers of baseline 
+  - LiveSim Sampling + perf numbers of baseline
 
 ### 10/10/2023
+
 - Discussed and assigned tasks
-- Use spike as a library to control spike execution v. modifying top-level spike 
+- Use spike as a library to control spike execution v. modifying top-level spike
   - separation of concerns
-- Task Dependency Tree 
+- Task Dependency Tree
   ![](images/task-tree-10-11-23.jpg)
-  
+
 ### 10/10/2023
 
 - [ ] Verify that coremark and embench baremetal binaries run on spike unmodified

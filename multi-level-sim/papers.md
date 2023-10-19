@@ -19,8 +19,21 @@ Sampled Processor Simulation: A Survey (2008)[ https://www.sciencedirect.com/sci
 
 - This is profile-based sampling
 
+### Automatically Characterizing Large Scale Program Behavior (2002)
+
+- https://cseweb.ucsd.edu//~calder/abstracts/ASPLOS-02-SimPoint.html
+
+### Picking Statistically Valid and Early Simulation Points (2003)
+
+- https://cseweb.ucsd.edu//~calder/abstracts/PACT-03-SimPoint.html
+
+### Simpoint 3.0: Faster and More Flexible Program Analysis
+
+- https://github.com/hanhwi/SimPoint/blob/master/MOBS-05-SimPoint3.pdf
+
+
 ## **UCSC Jose Renau**
- 
+
 ESESC: A fast multicore simulator using time-based sampling (HPCA’13) ([paper](https://ieeexplore.ieee.org/document/6522340))
 
 - updated version of SESC (superscalar simulator)
@@ -42,7 +55,7 @@ LiveSim: Going live with microarchitecture simulation (HPCA’16) ([paper](https
 - Branch pred → 1M insts of warmup, cache → 50M insts
   - to reduce warmup, emulate very large cache, replay memory ops for blocks in cache
 - Follows on from SMARTS and uses statistical sampling
-  
+
 LiveSim: A Fast Hot Reload Simulator for HDLs (ISPASS’20) ([paper](https://masc.soe.ucsc.edu/docs/ispass20.pdf))
 
 - mostly about the implementation of checkpointing with partial recompilation
