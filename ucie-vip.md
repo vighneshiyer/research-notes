@@ -12,14 +12,13 @@
     - Don't bother with latest JDK, just use JDK17
     - `sbt --java-home /usr/lib/jvm/java-17-openjdk/`
     - Root cause: https://github.com/sbt/sbt/issues/7235
-- [ ] Create loopback module (D2D adapter with pl/lp loopback) [d:10/17]
+- [x] Create loopback module (D2D adapter with pl/lp loopback) [d:10/17]
     - `lp_` = input to D2D, `pl_` = output of D2D
     - lpData: lp_irdy, lp_valid (same as lp_irdy), lp_data, pl_trdy
     - plData: pl_valid, pl_data
-    - [ ] Verify elaboration to Verilog is possible in main class
-        - Debugging some directionality stuff
-    - [ ] Don't touch the other unconneced I/Os
-    - [ ] Create a ReadyValid3 Queue
+    - [x] Create a ReadyValid3 Queue
+    - [x] Verify elaboration to Verilog is possible in main class
+    - [x] Don't touch the other unconneced I/Os
     - Now you have a Verilog DUT with FDI ports
 - [ ] Write some Scala to turn the Fdi Bundle object into a systemverilog interface and emit that alongside elaborating the D2D dummy module
     - you can do (new Fdi()).getElements: Seq[(String, Data)]

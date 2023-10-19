@@ -117,6 +117,6 @@ loadarch resuming harts
     - Look at s2_pc, clock, reset, icache fetch activity
 
 - Reference waveform:
-    - Processor comes up with PC = 0x10040, s2_pc frozen, until icache resp comes back 
+    - Processor comes up with PC = 0x10040, s2_pc frozen until icache resp comes back, core stalls at wfi loop
 - Injected waveform:
     - Wait, this actually looks good lol - we see the IPI, processor jumps to garbage address
