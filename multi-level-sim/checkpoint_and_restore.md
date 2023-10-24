@@ -120,3 +120,8 @@ loadarch resuming harts
     - Processor comes up with PC = 0x10040, s2_pc frozen until icache resp comes back, core stalls at wfi loop
 - Injected waveform:
     - Wait, this actually looks good lol - we see the IPI, processor jumps to garbage address
+
+- Next steps:
+    - Remove the MSIP interrupt stuff from fesvr
+    - Try to jump immediately to 0x8000_0000 with PC setting
+    - There might be more fishy-ness with having to set some CSRs that the bootrom does

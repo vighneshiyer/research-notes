@@ -16,9 +16,30 @@
 - Power eval configs for Constellation: https://github.com/ucb-bar/constellation/blob/power-eval/src/main/scala/test/Configs.scala
 - Repo with scripts for reproduction of results: https://github.com/AnimeshAgrawal/noc-power-eval/
 
+### Paper Drafting
+
+power modeling techniques in general
+- analytical model
+- trace-based from arch model
+- cycle-level from arch model
+- RTL feature extraction + regression
+- RTL learned macromodel
+
+- what model works best for NoCs?
+    - understandability is critical - can't use macromodels
+        - ability to use arch model traces for early prediction before stepping to RTL (this basically requires understandable arch-level signals)
+    - need to have correlation to RTL-based power, otherwise can't be trusted
+
+- the deficiencies in prior work
+    - lack of using enough dynamic features
+    - doesn't support heterogeneous NoC routers and various topologies
+    - overfitting or lack of training data due to randomly generated traffic data
+    - can't be used in a DSE framework for guiding NoC topology and router configuration settings
+
 ## TODO
 
 - [ ] Reproduce all the results
+    - I can use rclone https://rclone.org/sftp/ to mount bwrc filesystem to a machines
 - [ ] Investigate the role of clock period in waveforms (VCDs passed to Joules)
     - Ask Cadence about what Joules expects from the RTL waveform
     - Create simple reproduction of incorrect static power when the timescale doesn't match the clock period of synthesis
