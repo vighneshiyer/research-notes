@@ -113,15 +113,30 @@ loadarch resuming harts
 
 - [x] reference waveform using fast loadmem and rv64ui-p-simple
 - [x] injection waveform using fast loadmem, rv64ui-p-simple, and custom TestDriver.v that injects PC = 0x10044
-- [ ] compare the two waveforms
+
+#### 10/23/23
+
+- [x] compare the two waveforms
     - Look at s2_pc, clock, reset, icache fetch activity
 
 - Reference waveform:
-    - Processor comes up with PC = 0x10040, s2_pc frozen until icache resp comes back, core stalls at wfi loop
+    - Processor comes up with PC = 0x10040, s2_pc frozen until icache resp comes back, moves until 0x1_006c (wfi), upon ipi jumps to 0x1_0000 (_start), then fetches from icache, goes until 0x1_00bc, then jumps to 0x8000_0000, then after long latency of DRAM load, begins execution and terminates eventually
 - Injected waveform:
-    - Wait, this actually looks good lol - we see the IPI, processor jumps to garbage address
+    - Processor comes up with PC = 0x10044, since we skip loading position of `_start` mtvec is loaded with the random contents of `a0` as expected, execution continues until 0x1_006c (wfi), upon ipi jumps to garbage mtvec address (0xc9d4_4752), icache doesn't even set a_valid to high, then simulation stalls
+    - Wait, this actually looks good lol - we see the IPI, processor jumps to garbage address, move onto next trial
 
 - Next steps:
     - Remove the MSIP interrupt stuff from fesvr
     - Try to jump immediately to 0x8000_0000 with PC setting
     - There might be more fishy-ness with having to set some CSRs that the bootrom does
+
+- `make -j16 run-binary-debug LOADMEM=1 STATE_INJECT=1 BINARY=$RISCV/riscv64-unknown-elf/share/riscv-tests/isa/rv64ui-p-simple`
+    - Also set SIM_FLAGS to +no_hart0_msip when STATE_INJECT=1, let's see
+    - Cool, this seems to work, -p-simple and -p-add run to completion when skipping the bootrom altogether
+- this doesn't happen with bash using native system path, lol, so need to install my stuff from source now instead of using junest
+
+Now trying to get testchip_dtm loadarch stuff pulled out. The verilator command is:
+
+```bash
+verilator --main --timing --cc --exe -CFLAGS " -O3 -std=c++17 -I/scratch/vighneshiyer/chipyard/.conda-env/riscv-tools/include -I/scratch/vighneshiyer/chipyard/tools/DRAMSim2 -I/scratch/vighneshiyer/chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.RocketConfig/gen-collateral   -DVERILATOR -include /scratch/vighneshiyer/chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.RocketConfig/chipyard.harness.TestHarness.RocketConfig.plusArgs" -LDFLAGS " -L/scratch/vighneshiyer/chipyard/.conda-env/riscv-tools/lib -Wl,-rpath,/scratch/vighneshiyer/chipyard/.conda-env/riscv-tools/lib -L/scratch/vighneshiyer/chipyard/sims/verilator -L/scratch/vighneshiyer/chipyard/tools/DRAMSim2 -lriscv -lfesvr -ldramsim "   --threads 1 --threads-dpi all -O3 --x-assign fast --x-initial fast --output-split 10000 --output-split-cfuncs 100 --assert -Wno-fatal --timescale 1ns/1ps --max-num-width 1048576 +define+CLOCK_PERIOD=1.0 +define+RESET_DELAY=777.7 +define+PRINTF_COND=TestDriver.printf_cond +define+STOP_COND=!TestDriver.reset +define+MODEL=TestHarness +define+RANDOMIZE_MEM_INIT +define+RANDOMIZE_REG_INIT +define+RANDOMIZE_GARBAGE_ASSIGN +define+RANDOMIZE_INVALID_ASSIGN +define+VERILATOR --top-module TestDriver --vpi -f /scratch/vighneshiyer/chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.RocketConfig/sim_files.common.f +define+DEBUG  -o /scratch/vighneshiyer/chipyard/sims/verilator/simulator-inject-chipyard.harness-RocketConfig-debug  --trace -Mdir /scratch/vighneshiyer/chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.RocketConfig/chipyard.harness.TestHarness.RocketConfig.debug -CFLAGS "-include /scratch/vighneshiyer/chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.RocketConfig/chipyard.harness.TestHarness.RocketConfig.debug/VTestDriver.h"
+```
