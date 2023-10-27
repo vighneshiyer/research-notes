@@ -7,6 +7,46 @@
 
 ## Meeting Notes
 
+### 10/27/2023
+
+- Vighnesh
+    - Verified that PC injection works
+    - Extracted loadarch parsing logic into separate compilation unit in testchipip
+    - Added DPI wrapper for loadarch file parsing and integrated with custom TestDriver top
+    - Validated that existing loadarch w/ DTM still works fine
+    - Currently trying to add all the forces to get injection working in RTL sim
+    - Almost working arch state injection in RTL sim
+    - Next steps:
+        - IPC extraction via side channel and X-cycle sampling window
+- Raghav
+    - Using gcc to compile baremetal programs with DWARF4
+    - Able to load binaries into Ghidra to dump basic blocks as reference
+    - Next step: write a custom script to parse the asmdump and do basic block extraction
+    - Talk to Jerry/Tianrui to see what they are doing
+    - Write a script to parse Ghidra output and correlate it with Dhruv's script output
+    - Forward looking: knowing which intervals for which we want arch snapshots, write either spike custom top or just modify spike to take those snapshots and dump them to disk
+        - Combine it with my RTL state injection to get perf numbers for each interval
+        - Extrapolate to the entire trace
+        - Initial error calculation (with zero warmup) vs pure RTL simulation
+- Dhruv
+    - BBV construction for intervals of size 100-900 on aha-mont64
+    - PCA analysis - we find that for intervals of size 900, there are about ~200 significant singular values (rank ~ 200)
+    - Next steps: unify the data structures used by the elf BB extraction and PC trace BB extraction and PC trace -> BBV interval embedding construction
+        - Evaluate alternative embedding algorithms
+        - Evaluate different interval sizes
+- First goal is ultra naive multi level sim
+    - BB extraction (from .elf or spike trace) (@raghav, @dhruv)
+    - Interval embedding (using PC trace) (@'')
+    - Clustering and dim reduction (@'')
+    - Interval selection (@'')
+    - Arch checkpoint extraction for each interval start (@vighnesh)
+    - Injection of each checkpoint into RTL simulation (@vighnesh)
+    - Perf metric extraction (@vighnesh)
+    - Perf extrapolation (@???)
+- Compare vs pure RTL sim and same perf extraction technique
+    - Use the same TestDriver-inject.v
+    - But with an empty loadarch file and the full binary as is (using Chipyard SoC bootrom)
+
 ### 10/18/2023
 
 - Vighnesh can't reproduce DMI load arch segfault

@@ -71,6 +71,13 @@
 - [ ] multi-checkpoint support
 - [ ] check and if reqd expose checkpointing API
 
+### Perf Metrics Side Channel
+
+- [ ] Simple IPC calculation dumped every X cycles from TestDriver
+  - Peek at the RISCV trace port from TestDriver
+  - Count clock cycles and retired instructions
+  - Print to stdout every X cycles
+
 ### RTL Arch State Injection
 
 - [x] Debug DMI load arch segfault [@vighnesh.iyer] [d:10/12]
@@ -88,8 +95,6 @@
 - [x] Understand `generate-ckpt.sh` script [d:10/15]
 - [x] Understand current RTL sim arch state injection via DMI [d:10/15]
 - [x] Understand how fast loadmem works in contrast to TSI based init [d:10/15]
-
-
 - [x] Modify TestDriver.v top to inject arch state (@vighnesh.iyer)
 - [x] Create new TestDriver.v in Chipyard srcs + Makevar to pull it in + new naming
 - [x] Verify that building a sim still works fine
@@ -115,7 +120,7 @@
 - [ ] Identify each arch node and inject [d:10/26]
 - [ ] identify RTL node from the top level
   - [ ] now: pick 1 Chipyard design, hardcode
-  - [ ] later: automate with FIRRTL pass
+  - ~~[ ] later: automate with FIRRTL pass~~
 
 - [ ] Read LiveSim paper again
     - Focus on how they do offline trace clustering
