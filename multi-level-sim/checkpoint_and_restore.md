@@ -135,8 +135,42 @@ loadarch resuming harts
     - Cool, this seems to work, -p-simple and -p-add run to completion when skipping the bootrom altogether
 - this doesn't happen with bash using native system path, lol, so need to install my stuff from source now instead of using junest
 
-Now trying to get testchip_dtm loadarch stuff pulled out. The verilator command is:
+#### 10/25/23
+
+- Now trying to get testchip_dtm loadarch stuff pulled out. The verilator command is:
 
 ```bash
 verilator --main --timing --cc --exe -CFLAGS " -O3 -std=c++17 -I/scratch/vighneshiyer/chipyard/.conda-env/riscv-tools/include -I/scratch/vighneshiyer/chipyard/tools/DRAMSim2 -I/scratch/vighneshiyer/chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.RocketConfig/gen-collateral   -DVERILATOR -include /scratch/vighneshiyer/chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.RocketConfig/chipyard.harness.TestHarness.RocketConfig.plusArgs" -LDFLAGS " -L/scratch/vighneshiyer/chipyard/.conda-env/riscv-tools/lib -Wl,-rpath,/scratch/vighneshiyer/chipyard/.conda-env/riscv-tools/lib -L/scratch/vighneshiyer/chipyard/sims/verilator -L/scratch/vighneshiyer/chipyard/tools/DRAMSim2 -lriscv -lfesvr -ldramsim "   --threads 1 --threads-dpi all -O3 --x-assign fast --x-initial fast --output-split 10000 --output-split-cfuncs 100 --assert -Wno-fatal --timescale 1ns/1ps --max-num-width 1048576 +define+CLOCK_PERIOD=1.0 +define+RESET_DELAY=777.7 +define+PRINTF_COND=TestDriver.printf_cond +define+STOP_COND=!TestDriver.reset +define+MODEL=TestHarness +define+RANDOMIZE_MEM_INIT +define+RANDOMIZE_REG_INIT +define+RANDOMIZE_GARBAGE_ASSIGN +define+RANDOMIZE_INVALID_ASSIGN +define+VERILATOR --top-module TestDriver --vpi -f /scratch/vighneshiyer/chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.RocketConfig/sim_files.common.f +define+DEBUG  -o /scratch/vighneshiyer/chipyard/sims/verilator/simulator-inject-chipyard.harness-RocketConfig-debug  --trace -Mdir /scratch/vighneshiyer/chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.RocketConfig/chipyard.harness.TestHarness.RocketConfig.debug -CFLAGS "-include /scratch/vighneshiyer/chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.RocketConfig/chipyard.harness.TestHarness.RocketConfig.debug/VTestDriver.h"
 ```
+
+```cpp
+#include "loadarch.h"
+
+int main(int argc, char* argv[]) {
+  assert(argc == 2);
+  std::string loadarch_file(argv[1]);
+  auto l = loadarch_from_file(loadarch_file);
+  printf("%d\n", l.size());
+  printf("%lx\n", l[0].pc);
+  for (int i = 0; i < 32; ++i) {
+    printf("%lx\n", l[0].XPR[i]);
+  }
+}
+```
+
+```bash
+g++ --std=c++17 \
+-I/scratch/vighneshiyer/chipyard/.conda-env/riscv-tools/include \
+-L/scratch/vighneshiyer/chipyard/.conda-env/riscv-tools/lib -Wl,-rpath,/scratch/vighneshiyer/chipyard/.conda-env/riscv-tools/lib \
+-lriscv -lfesvr \
+loadarch.h loadarch_main.cc -o loadarch_main
+```
+
+- K looks good, next add DPI hook
+
+#### 10/26/2023
+
+- Regular DTM loadarch still works fine
+- Trying to write struct from C-land, which seems fine too
+- Oh VCS doesn't recognize the DPI function, probably because it is in a .h file :(
+    - Time to refactor this a bit again

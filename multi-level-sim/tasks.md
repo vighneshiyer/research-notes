@@ -2,9 +2,6 @@
 
 ## Tasks
 
-- [ ] Read LiveSim paper again [d:10/14] (@vighnesh.iyer)
-    - Focus on how they do offline trace clustering
-
 ### Pipecleaning Spike Checkpointing
 
 - [ ] Compile baremetal embench-iot benchmarks
@@ -25,7 +22,7 @@
 
 ### PC Trace Fragmentation
 
-- [ ] Review the handbook, create a starter project for PC analysis [d:10/14]
+- [ ] Review the handbook, create a starter project for PC analysis
 - [ ] Write PC trace fragmentation script (also in Rust with tests) (@dvaish)
   - Identify basic blocks from a spike trace log using PCs ( + PPNs etc to separate multiple processes)
   - Input(s)
@@ -105,13 +102,23 @@
   - Without using junest
   - Install: fish, neovim, fd, rg, eza
   - tmux session: conda act, fesvr syscall/htif, conda install failure, chipyard top makefiles
-- [ ] Pull out loadarch logic from testchip_dtm.cc into header only library [d:10/23]
-- Test it in isolation
-- Need to intercept the +loadarch plusarg from TestDriver.v, call the DPI function, and then inject state via force
-- [ ] Create DPI function
+- [x] Pull out loadarch logic into header only library [d:10/23]
+- [x] Test loadarch in isolation [d:10/25]
+- [x] Add DPI hook for the function [d:10/25]
+- [x] Verify that existing DTM loadarch logic works fine [d:10/26]
+- [x] Find out how to include loadarch.h when STATE_INJECT=1 [d:10/26]
+- [x] Add DPI import from SystemVerilog side [d:10/26]
+- [x] Verify that loadarch SV is read correctly [d:10/26]
+- [x] Add prints from loadarch C side [d:10/26]
+- [x] Compare loadarch prints from C and SV sides [d:10/26]
+- [x] Need to intercept the +loadarch plusarg from TestDriver.v, call the DPI function, and then inject state via force
+- [ ] Identify each arch node and inject [d:10/26]
 - [ ] identify RTL node from the top level
   - [ ] now: pick 1 Chipyard design, hardcode
   - [ ] later: automate with FIRRTL pass
+
+- [ ] Read LiveSim paper again
+    - Focus on how they do offline trace clustering
 
 ### Google Proposal
 
