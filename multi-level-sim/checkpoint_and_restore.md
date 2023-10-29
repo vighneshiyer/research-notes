@@ -174,3 +174,29 @@ loadarch.h loadarch_main.cc -o loadarch_main
 - Trying to write struct from C-land, which seems fine too
 - Oh VCS doesn't recognize the DPI function, probably because it is in a .h file :(
     - Time to refactor this a bit again
+
+#### 10/27/2023
+
+```text
+Error-[SV-NYI-RSUDD] Unsupported SystemVerilog feature
+/scratch/vighneshiyer/chipyard/sims/vcs/generated-src/chipyard.harness.TestHarness.RocketConfig/gen-collateral/TestDriver-inject.v, 170
+"force TestDriver.testHarness.chiptop0.system.clint.timecmp_0 = loadarch_state.mtimecmp;"
+  Argument: loadarch_state.mtimecmp
+  Reference to a member of a structure containing dynamic data and/or used in
+  dynamic arrays is not yet supported in non-procedural context.
+
+
+Error-[DTINPCIL] Dynamic type in non-procedural context
+/scratch/vighneshiyer/chipyard/sims/vcs/generated-src/chipyard.harness.TestHarness.RocketConfig/gen-collateral/TestDriver-inject.v, 182
+"force TestDriver.testHarness.chiptop0.system.tile_prci_domain.tile_reset_domain_tile.fpuOpt.regfile_ext.Memory[i] = loadarch_state.FPR[i];"
+  Argument: i
+  Automatic variable may not be used in non-procedural context.
+```
+
+- So looks like the struct fields must be 'static' somehow
+- OK this is resolved, reloading -simple after 10 instructions in spike seems to work!
+- However, hello hangs :(
+- Need to investigate reload of mstatus more carefully (there are upper order bits set from the spike checkpoint that aren't reloaded in RTL sim)
+- But first check other riscv ISA tests - need to check if XPRs are being loaded properly
+- Also need to try simple after a few more instructions (not just 10)
+    - Also need to check that the command line flags are right, no need to specify LOADARCH

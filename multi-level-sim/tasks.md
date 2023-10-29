@@ -117,10 +117,9 @@
 - [x] Add prints from loadarch C side [d:10/26]
 - [x] Compare loadarch prints from C and SV sides [d:10/26]
 - [x] Need to intercept the +loadarch plusarg from TestDriver.v, call the DPI function, and then inject state via force
-- [ ] Identify each arch node and inject [d:10/26]
-- [ ] identify RTL node from the top level
-  - [ ] now: pick 1 Chipyard design, hardcode
-  - ~~[ ] later: automate with FIRRTL pass~~
+- [x] Identify each arch node and inject [d:10/26]
+- ~~[ ] later: automate injection nodes with FIRRTL pass~~
+- [ ] Debug state injection [d:10/28]
 
 - [ ] Read LiveSim paper again
     - Focus on how they do offline trace clustering
