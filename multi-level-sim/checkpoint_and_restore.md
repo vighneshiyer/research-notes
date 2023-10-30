@@ -237,10 +237,38 @@ Error-[DTINPCIL] Dynamic type in non-procedural context
 
 - [x] Run rv64ui-p-add on several instruction breakpoints
     - Works on 10,50,1000,2000 :(, no interesting findings
-- Fishy
+- [x] Run more complex -p ISA tests
+    - Works on blt for 50, 100, 1000, 2000 :(, again nothing interesting
+    - Works on sd for 10, 50, 60
+    - FAILS on sd for 100!!!!!
+- [x] Get state inject harness to run both with and without loadarch
+    - For some reason I can't run rv64ui-p-sd with STATE_INJECT=1 and specifying BINARY
+    - The issue is that when STATE_INJECT=1 is specified, +no_hart0_msip is set, but I only want to set that when LOADARCH is specified
+    - Also get reference waveforms and logs for rv64ui-p-sd (regular + 100 inst checkpoint)
+- [ ] Debug rv64ui-p-sd (100 inst checkpoint)
+    - OK both pmp and no-pmp spike seem fine
+    - PC at 100 inst checkpoint: 0x0000000080000204
+```text
+Loadarch struct: '{pc:'h80000204, prv:'h0, fcsr:'h0, vstart:'h0, vxsat:'h0, vxrm:'h0, vcsr:'h0, vtype:'h8000000000000000, stvec:'h0, sscratch:'h0, sepc:'h0, scause:'h0, stval:'h0, satp:'h0, mstatus:'ha00000080, medeleg:'h0, mideleg:'h0, mie:'h0, mtvec:'h80000004, mscratch:' h0, mepc:'h80000178, mcause:'h2, mtval:'h3b029073, mip:'h80, mcycle:'h68, minstret:'h68, mtime:'h0, mtimecmp:'h0, XPR:'{'h0, 'h80002000, 'haa00aa00aa00aa00, 'h3, 'h0, 'h80000178, 'h0, 'haa00aa00aa00aa, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'haa00aa00aa00aa, 'h80000210, 'h0, 'h0, 'h 0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0} , FPR:'{'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0} , VLEN:'h80, ELEN:'h40, VPR:'{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""} }
+Loadarch struct: '{pc:2147484164, prv:0, fcsr:0, vstart:0, vxsat:0, vxrm:0, vcsr:0, vtype:9223372036854775808, stvec:0, sscratch:0, sepc:0, scause:0, stval:0, satp:0, mstatus:42949673088, medeleg:0, mideleg:0, mie:0, mtvec:2147483652, mscratch:0, mepc:2147484024, mcause:2, mtval:990023795, mip:128, mcycle:104, minstret:104, mtime:0, mtimecmp:0, XPR:'{'h0, 'h80002000, 'haa00aa00aa00aa00, 'h3, 'h0, 'h80000178, 'h0, 'haa00aa00aa00aa, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'haa00aa00aa00aa, 'h80000210, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0 , 'h0, 'h0, 'h0, 'h0, 'h0} , FPR:'{'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0, 'h0} , VLEN:128, ELEN:64, VPR:'{'he41ad0, 'he41af0, 'hec5e80, 'hec5ea0, 'hda6cc0, 'h 120c610, 'h120c630, 'h120c650, 'h120c670, 'h120c690, 'h120c6b0, 'h120c6d0, 'h120c6f0, 'h120c710, 'h120c730, 'hdb6db0, 'hdb6dd0, 'hdb6df0, 'hdb6e10, 'hdb6e30, 'hdb6e50, 'hdb6e70, 'hdb6e90, 'hdb6eb0, 'hdb6ed0, 'hdb6ef0, 'hdb6f10, 'hdb6f30, 'hdb6f50, 'hdb6f70, 'h12103f0, 'h121 0410} }
+```
+    - Divergence is at that PC - very first instruction - the register read values look wrong! So we are storing to an address outside the DRAM range and a trap is taken.
+    - Another inconsistency is `mip`: spike checkpoint has the software interrupt bit set! but there is no msip being set in RTL (probably in the clint)
+    - OK the most critical inconsistency is the regfile state - in the waveform, the regfile state appears random and not initialized at all with forces!
+        - This seems so odd, how did the other tests pass without the regfile state being loaded correctly? Is this a race condition?
+        - FPU registers are also non-forced
+        - BUT, the PC force is perfect! What's going on?
+
+- [ ] Run -v-simple test
+- [ ] Run complex -v test w/ atomics
+- [ ] Run riscv-tests benchmarks
+- [ ] If we get here, then no choice but to debug `hello`
+
+- Things that are fishy in the state injection harness
   - Top bits of mstatus
+  - mip machine mode interrupt bits
   - Setting mstatus_fs, xs, vs preemptively
   - FCSR flag bits not being set
   - PMP state
   - PRV?
-  - Check if any arch state bits are set to 1 that aren't forced
+  - Check if any arch state bits are set to 1 that aren't forced (in general)
