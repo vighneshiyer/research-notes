@@ -119,8 +119,11 @@
 - [x] Need to intercept the +loadarch plusarg from TestDriver.v, call the DPI function, and then inject state via force
 - [x] Identify each arch node and inject [d:10/26]
 - ~~[ ] later: automate injection nodes with FIRRTL pass~~
-- [ ] Debug state injection [d:10/28]
+- [x] Debug state injection [d:10/28]
   - Oh this is hard, let's first debug the asm tests and make sure they run clean all the time
+- [ ] Validate state injection for ISA tests [d:10/30]
+- [ ] Validate state injection for riscv-tests benchmarks [d:10/30]
+- [ ] Check state injection for hello.riscv
 
 - [ ] Read LiveSim paper again
     - Focus on how they do offline trace clustering

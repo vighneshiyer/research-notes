@@ -232,3 +232,15 @@ Error-[DTINPCIL] Dynamic type in non-procedural context
     - After forcing these, rv64ui-p-simple checkpoint loaded into RTL sim with force works! For 50 and 60 instruction checkpoints.
     - `hello.riscv` still hangs though :(
     - More testing with asm tests and benchmarks is required
+
+#### 10/30/2023
+
+- [x] Run rv64ui-p-add on several instruction breakpoints
+    - Works on 10,50,1000,2000 :(, no interesting findings
+- Fishy
+  - Top bits of mstatus
+  - Setting mstatus_fs, xs, vs preemptively
+  - FCSR flag bits not being set
+  - PMP state
+  - PRV?
+  - Check if any arch state bits are set to 1 that aren't forced

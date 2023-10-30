@@ -7,6 +7,17 @@
 
 ## Meeting Notes
 
+### 10/30/2023
+
+- Vighnesh
+    - Arch state injection appears to work for ISA tests
+    - Hangs for `hello.riscv` - debug pending
+    - Some suspected fishy stuff was identified
+- Next things to work on
+    1. Debug hello restore
+    2. Add checks that dump arch state at end of RTL simulation to compare to spike
+    3. Perf metric extraction via hierarchical peeks of the riscv trace port
+
 ### 10/27/2023
 
 - Vighnesh
