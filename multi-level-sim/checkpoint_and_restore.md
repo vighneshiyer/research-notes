@@ -200,3 +200,35 @@ Error-[DTINPCIL] Dynamic type in non-procedural context
 - But first check other riscv ISA tests - need to check if XPRs are being loaded properly
 - Also need to try simple after a few more instructions (not just 10)
     - Also need to check that the command line flags are right, no need to specify LOADARCH
+
+#### 10/28/2023
+
+- First debug rv64ui-p-simple and all its checkpoint variations
+- Hmm maybe the problem is pmp related?
+    - rv64ui-p-simple expects csrw to a pmp register to work, but with --pmpregions=0, spike throws illegal instruction and traps (but exits with tohost=0?, which is odd)
+
+#### 10/29/2023
+
+- OK so it looks like the PMP thing is definetely the culprit for the rv64ui-p-simple mismatch
+    - In pure RTL sim, it passes clean
+    - In pure spike sim, it also passes clean (but very oddly imo)
+- The solution might just be to create our own spike top level (for easy checkpointing and fine control over instruction steps / commit log printing) and also modify spike if needed to expose all the arch state we want to extract
+    - And also create a way to restore checkpoints in spike and continue execution (which right now, we can't do)
+- [x] Figure out why spike doesn't exit with bad tohost code for rv64ui-p-simple when run with `--pmpregions=0`
+    - Indeed, when --pmpregions=0, spike takes an illegal inst exception, however, since the INIT_PMP block sets mtvec to the end of the block, taking the trap just skips execution of the PMP block and everything else goes smoothly
+    - OK, so when this snapshot is loaded in the RTL, then it should also proceed just fine and have nonzero exit code!
+    - Also, skipping the PMP block seems unrelated to the failure...
+- [x] Inspect the loadarch file after 50 insts committed and correlate the RTL commit log to the spike commit log with `--pmpregions=0`
+    - At 50 insts: PC = 0x0000000080000114
+    - The first point of divergence between DMI RTL commit log and spike commit log is [0x8000_0178 (fence)](https://github.com/riscv/riscv-test-env/blob/4fabfb4e0d3eacc1dc791da70e342e4b68ea7e46/p/riscv_test.h#L248)
+        - The fence causes a trap to the `trap_vector` and then things go haywire in RTL
+    - No clue why a fence would cause a trap - maybe this is PMP related?
+- [x] Compare DMI checkpointed log with vanilla DMI-based bringup log of the full program
+    - So the vanilla DMI log seems fine and matches spike - the fence doesn't trigger a trap, just falls thru and traps only on ecall as expected
+    - So I suspect PMP issue
+- [x] Figure out what the PMP registers should be and force them
+    - pmpaddr0 = 0x001fffffffffffff
+    - pmpcfg0 = 0x000000000000001f
+    - After forcing these, rv64ui-p-simple checkpoint loaded into RTL sim with force works! For 50 and 60 instruction checkpoints.
+    - `hello.riscv` still hangs though :(
+    - More testing with asm tests and benchmarks is required

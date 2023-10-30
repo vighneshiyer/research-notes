@@ -120,6 +120,7 @@
 - [x] Identify each arch node and inject [d:10/26]
 - ~~[ ] later: automate injection nodes with FIRRTL pass~~
 - [ ] Debug state injection [d:10/28]
+  - Oh this is hard, let's first debug the asm tests and make sure they run clean all the time
 
 - [ ] Read LiveSim paper again
     - Focus on how they do offline trace clustering
