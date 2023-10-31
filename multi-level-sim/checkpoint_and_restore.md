@@ -257,12 +257,47 @@ Loadarch struct: '{pc:2147484164, prv:0, fcsr:0, vstart:0, vxsat:0, vxrm:0, vcsr
     - OK the most critical inconsistency is the regfile state - in the waveform, the regfile state appears random and not initialized at all with forces!
         - This seems so odd, how did the other tests pass without the regfile state being loaded correctly? Is this a race condition?
         - FPU registers are also non-forced
-        - BUT, the PC force is perfect! What's going on?
+        - BUT, the PC force is perfect! What's going on? OK trying to run through minimal 2d reg force testcase in edaplayground
+        - `-debug_access+all` is passed, so it can't be a simulator config issue
+        - I reproduced the same scenario here (https://edaplayground.com/x/8c6j) and everything looks fine lol, what could be wrong? Time to add prints.
+    - OK NONE of the prints fire!!!! So those XPR forcing blocks are really not being executed.
+```text
+Lint-[NS] Null statement
+/scratch/vighneshiyer/chipyard/sims/vcs/generated-src/chipyard.harness.TestHarness.RocketConfig/gen-collateral/TestDriver-inject.v, 261
+  Null statement is used in following verilog source.
+  Source info:       @(negedge `CORE_RESET);
 
+
+Lint-[NS] Null statement
+/scratch/vighneshiyer/chipyard/sims/vcs/generated-src/chipyard.harness.TestHarness.RocketConfig/gen-collateral/TestDriver-inject.v, 328
+  Null statement is used in following verilog source.
+  Source info:       @(loadarch_struct_ready);
+```
+    - These seem relevant hmm
+    - Oh, looks like `@(event)` isn't working, i need `wait(event.triggered)`, nice!
+- Oh, now the exit code is consistent from run-to-run, but it is still nonzero, smells like PMP thing? No actually not
+```text
+Error: "/scratch/vighneshiyer/chipyard/sims/vcs/generated-src/chipyard.harness.TestHarness.RocketConfig/gen-collateral/TestHarness.sv", 147: TestDriver.testHarness: at time 3395000 ps
+Assertion failed: *** FAILED *** (exit code =        668)
+```
+- OK mcause looks to be 7 on the first instruction??? Why?
+- The regfile reads are all zeros!? The regfile indexing appears to be reversed on Rocket RTL? Maybe this is just the indexing weirdness.
+- OK I solved this problem with reversing the regfile memory indexing, now `hello` runs clean after restore!
+
+#### 10/31/2023
+
+- I still need to pipeclean these other tests just to make sure I haven't missed anything else
+- Also next step is to dump arch state after the checkpoint is restored and simulation completed to compare against spike state
+    - Need a way of dumping spike state after the end of a checkpoint too (at the end of simulation)
+
+- [x] If we get here, then no choice but to debug `hello`
+    - `hello` works already!
+
+- [ ] Write script that dumps many checkpoints of every ISA test with -p variant
+- [ ] Add functionality to parallelize and execute 
 - [ ] Run -v-simple test
 - [ ] Run complex -v test w/ atomics
 - [ ] Run riscv-tests benchmarks
-- [ ] If we get here, then no choice but to debug `hello`
 
 - Things that are fishy in the state injection harness
   - Top bits of mstatus
