@@ -293,11 +293,16 @@ Assertion failed: *** FAILED *** (exit code =        668)
 - [x] If we get here, then no choice but to debug `hello`
     - `hello` works already!
 
-- [ ] Write script that dumps many checkpoints of every ISA test with -p variant
-- [ ] Add functionality to parallelize and execute 
-- [ ] Run -v-simple test
-- [ ] Run complex -v test w/ atomics
-- [ ] Run riscv-tests benchmarks
+- Also rename my chipyard branch `multi-level-sim`
+- OK for the scripting thing - I should do that inside tidalsim and submodule that into chipyard
+    - `ls $RISCV/riscv64-unknown-elf/share/riscv-tests/isa/rv64ui-p-* | grep --invert-match dump`
+    - Oh this is annoying - I want to dump all the mems on the same run of the binary, but spike just dumps to the same filename
+    - Maybe i will just create a branch of spike that can adjust the filename
+
+- OK as i'm reimplementing the generate-ckpt script to make it more flexible
+    - mem.elf emitted from both versions doesn't match! Even though the spike raw.0x80000000.bin matches exactly!
+    - for some reason the elf files are slightly different sizes! HOW!?
+
 
 - Things that are fishy in the state injection harness
   - Top bits of mstatus

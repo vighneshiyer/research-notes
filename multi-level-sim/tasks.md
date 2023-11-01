@@ -121,9 +121,17 @@
 - ~~[ ] later: automate injection nodes with FIRRTL pass~~
 - [x] Debug state injection [d:10/28]
   - Oh this is hard, let's first debug the asm tests and make sure they run clean all the time
-- [ ] Validate state injection for ISA tests [d:10/30]
-- [ ] Validate state injection for riscv-tests benchmarks [d:10/30]
-- [ ] Check state injection for hello.riscv
+- [x] Check state injection for hello.riscv
+- ~~[ ] Validate state injection for ISA tests [d:10/30]~~
+- ~~[ ] Validate state injection for riscv-tests benchmarks [d:10/30]~~
+- [ ] Reimplement generate-ckpt.sh as is [d:10/31]
+- [ ] Add ability to dump many checkpoints in the same spike run [d:10/31]
+- [ ] Add spike PMP dumping capabilities [d:10/31]
+- [ ] Script to dump checkpoints of every ISA test with -p variant [d:10/31]
+- [ ] Add functionality to parallelize and execute RTL sims [d:10/31]
+- [ ] Run -v-simple test
+- [ ] Run complex -v test w/ atomics
+- [ ] Run riscv-tests benchmarks
 
 - [ ] Read LiveSim paper again
     - Focus on how they do offline trace clustering
