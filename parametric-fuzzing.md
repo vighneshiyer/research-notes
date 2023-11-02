@@ -1,5 +1,36 @@
 # Parametric Fuzzing / Constrained Random StimGen API
 
+## 11/1/2023
+
+- First thing to show
+    - What is the importance of feedback and the generator implementation?
+    - Repeat the spike L1d miss rate fuzzing experiment
+        - Misses / instruction committed
+    - Compare against fuzzing with no feedback (constrained random verification)
+    - Compare against other instruction generators (with and without feedback)
+        - riscv-dv (https://github.com/chipsalliance/riscv-dv)
+        - https://github.com/vighneshiyer/cov-proxy-model/blob/master/modeling/riscv_dv.py#L23
+        - riscv-dv is a knob driven CRV-based riscv instruction generator
+        - the only feedback it can take is to adjust the knobs
+- RISCV toolchain
+    - https://github.com/riscv-software-src/riscv-isa-sim (build from source)
+    - https://github.com/riscv-collab/riscv-gnu-toolchain/releases/tag/2023.10.18 (download a tag and untar it and add `bin` to your $PATH)
+    - https://github.com/riscv-software-src/riscv-tests (just a bunch of simple ISA tests and benchmarks)
+- Execution
+    - Run spike with the binaries from riscv-tests and the L1D CLI flags and just make sure that works (`spike -l` -> emit a commit log and it will tell you how many instructions have executed) (`spike --dc=128:4:64`)
+    - Run the parameteric generator, make sure you can build RISCV binaries that spike can execute
+    - Repeat the fuzzing experiment
+- Metrics to measure
+    - Wall clock time vs best achieved miss rate (this can be substantially varying based on engineering effort)
+    - # of simulated instructions vs best achieved miss rate (this should be more consistent and intrinsic to the capabilities of the generator and fuzzing loop)
+- Painful to manually write Scala to describe features of the RISC-V ISA (opcode, operands, immediate fields, etc.)
+    - https://github.com/riscv/sail-riscv
+    - SAIL is a formal model of the RISC-V ISA with execution semantics
+    - We can write a Scala generator from parsing the sail files
+    - Caveat: the SAIL file parser is written in OCaml - maybe we can write a very lightweight version in Scala for our use
+    - Another option: use https://github.com/riscv/riscv-opcodes to generate the Scala we need
+    - We can use scalameta (https://scalameta.org/) to programatically generate Scala code (no need for string emission)
+
 ## 5/17/2023
 
 - Rerun spike l1 miss rate fuzzing experiment

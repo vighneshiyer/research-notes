@@ -303,6 +303,7 @@ Assertion failed: *** FAILED *** (exit code =        668)
     - mem.elf emitted from both versions doesn't match! Even though the spike raw.0x80000000.bin matches exactly!
     - for some reason the elf files are slightly different sizes! HOW!?
 
+#### 11/1/2023
 
 - Things that are fishy in the state injection harness
   - Top bits of mstatus
