@@ -7,6 +7,29 @@
 
 ## Meeting Notes
 
+### 11/3/2023
+
+- Vighnesh
+    - RTL arch state injection works - `hello` runs clean
+    - Current thing to do:
+        - Reimplementing the `generate-ckpt.sh` script (calls spike, dumps checkpoint, post-processing of memory binary file)
+        - Ability to take multiple checkpoints in the same spike run
+- Dhruv
+    - Some results for clustering and identifying ideal clusters depending on instruction interval length
+    - Next:
+        - Correlate the clusters back to basic blocks and sanity check them
+        - Compare your BB id results against static binary analysis technique
+- Raghav
+    - Doing static binary analysis, using Ghidra as a reference for basic block identification for RISC-V binaries
+    - Writing another binary analysis program using output of asmdump
+        - Identify control flow insts + targets
+        - Iteratively split program into basic blocks as control flow instructions are identified statically
+    - Will compare against Ghidra and the spike PC trace based basic block extraction
+    - ~20-25 dynamic jumps in `hello`, still unclear if this actually matters for the actual final metric
+- Charles
+    - Pipeclean the rivet spike model to get out uArch state for BP/cache
+    - Correlation of cache state in spike model to RTL state in Rocket
+
 ### 10/30/2023
 
 - Vighnesh
