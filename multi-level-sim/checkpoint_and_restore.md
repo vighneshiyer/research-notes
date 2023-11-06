@@ -303,7 +303,12 @@ Assertion failed: *** FAILED *** (exit code =        668)
     - mem.elf emitted from both versions doesn't match! Even though the spike raw.0x80000000.bin matches exactly!
     - for some reason the elf files are slightly different sizes! HOW!?
 
-#### 11/1/2023
+#### 11/2/2023
+
+- OK first thing is to refactor the script to support multi checkpoint dumping
+- Saving this link here for force debugging: https://edaplayground.com/x/8c6j
+
+#### 11/5/2023
 
 - Things that are fishy in the state injection harness
   - Top bits of mstatus

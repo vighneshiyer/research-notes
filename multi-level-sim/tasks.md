@@ -78,6 +78,12 @@
   - Count clock cycles and retired instructions
   - Print to stdout every X cycles
 
+### VPI-Based State Injection
+
+- Potentially faster than force-based state injection and avoids having to DPI between C and SystemVerilog
+- Use `vpi_put_value_array` to inject a 2d reg with a C array
+- Some more VPI usage examples: https://stackoverflow.com/questions/76734050/how-to-read-memory-value-at-a-specific-location-using-vpi-and-verilator
+
 ### RTL Arch State Injection
 
 - [x] Debug DMI load arch segfault [@vighnesh.iyer] [d:10/12]
@@ -125,13 +131,38 @@
 - ~~[ ] Validate state injection for ISA tests [d:10/30]~~
 - ~~[ ] Validate state injection for riscv-tests benchmarks [d:10/30]~~
 - [x] Reimplement generate-ckpt.sh as is [d:10/31]
-- [ ] Add ability to dump many checkpoints in the same spike run [d:10/31]
-  - [ ] Add argument to the script itself
+- [x] Take a chance to re-configure environment [d:11/3]
+  - [x] Change dotfile manager
+    - [x] git
+    - [x] alacritty
+    - [x] bin
+    - [x] make bin only managed on local machine
+    - [x] dunst (+ only local)
+    - [x] firefox (+ only local)
+    - [x] i3
+    - [x] redshift
+    - [x] t480 (Xresources + Xmodmap in nvim)
+    - [x] tmux + specialize shell w/ template
+    - [x] nvim
+    - [x] ssh config
+    - [x] fish (+ templated)
+    - [x] note files (+ import from articles + setup.sh)
+    - [x] create fresh ssh keys
+  - [x] Encrypt and store ssh secrets
+  - [x] Merge mill and local dotfiles
+  - [x] Get `delta` working with `.gitconfigure`
+  - [x] Migrate dotfiles to mill
+  - [x] Add nvim-treesitter + bindings
+  - [x] Add nvim-telescope + bindings
+- [ ] Add ability to dump many checkpoints in the same spike run
+  - [ ] Add pyproject.toml
+  - [ ] Get shrinkwrapped tests + binaries
+  - [ ] Modify dump_spike_checkpoint to do this
   - [ ] Modify spike `dump` command to take in a prefix
   - [ ] ???
-- [ ] Add spike PMP dumping capabilities [d:10/31]
-- [ ] Script to dump checkpoints of every ISA test with -p variant [d:10/31]
-- [ ] Add functionality to parallelize and execute RTL sims [d:10/31]
+- [ ] Add spike PMP dumping capabilities
+- [ ] Script to dump checkpoints of every ISA test with -p variant
+- [ ] Add functionality to parallelize and execute RTL sims
 - [ ] Run -v-simple test
 - [ ] Run complex -v test w/ atomics
 - [ ] Run riscv-tests benchmarks

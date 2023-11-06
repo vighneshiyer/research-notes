@@ -14,6 +14,10 @@
     - Current thing to do:
         - Reimplementing the `generate-ckpt.sh` script (calls spike, dumps checkpoint, post-processing of memory binary file)
         - Ability to take multiple checkpoints in the same spike run
+    - Code:
+        - Chipyard `multi-level-sim` branch: https://github.com/ucb-bar/chipyard/tree/multi-level-sim
+        - testchipip `loadarch-dpi` branch: https://github.com/ucb-bar/testchipip/tree/loadarch-dpi
+        - `dump_spike_checkpoint` script in tidalsim: https://github.com/euphoric-hardware/tidalsim
 - Dhruv
     - Some results for clustering and identifying ideal clusters depending on instruction interval length
     - Next:
