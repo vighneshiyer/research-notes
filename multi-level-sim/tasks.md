@@ -77,12 +77,20 @@
   - Peek at the RISCV trace port from TestDriver
   - Count clock cycles and retired instructions
   - Print to stdout every X cycles
+- [ ] Dump IPC stats to file specified by plusarg
+- [ ] Add test termination after N cycles
 
 ### VPI-Based State Injection
 
 - Potentially faster than force-based state injection and avoids having to DPI between C and SystemVerilog
 - Use `vpi_put_value_array` to inject a 2d reg with a C array
 - Some more VPI usage examples: https://stackoverflow.com/questions/76734050/how-to-read-memory-value-at-a-specific-location-using-vpi-and-verilator
+
+### Checkpoint Execution Validation
+
+- We need to check that after N instructions of a checkpoint that the arch state in RTL sim matches what we expect from spike
+- Defer this until we have the full flow working since we won't know all the parameters for the scripts involved until then
+- Ideally we can just dump spike checkpoints (without memory, just loadarch) and diff that with a loadarch generated from RTL sim
 
 ### RTL Arch State Injection
 
@@ -154,16 +162,24 @@
   - [x] Migrate dotfiles to mill
   - [x] Add nvim-treesitter + bindings
   - [x] Add nvim-telescope + bindings
-- [ ] Add ability to dump many checkpoints in the same spike run
-  - [ ] Add pyproject.toml
-  - [ ] Get shrinkwrapped tests + binaries
-  - [ ] Modify dump_spike_checkpoint to do this
-  - [ ] Modify spike `dump` command to take in a prefix
-  - [ ] ???
+- [x] Add ability to dump many checkpoints in the same spike run (still pending)
+  - [x] Add pyproject.toml
+  - [x] Get shrinkwrapped tests + binaries
+  - [x] Modify dump_spike_checkpoint to do this
+  - [x] Modify spike `dump` command to take in a prefix
+- [x] Generalize Ckpt for multiple checkpoints [d:11/6]
+- [x] Split loadarch file for multiple checkpoints [d:11/6]
+- [x] Parallel memory conversion for multiple checkpoints [d:11/6]
+- [x] Dump multiple checkpoints for hello [d:11/6]
+  - [x] Verify they work
+- [x] Add functionality to parallelize and execute RTL sims
+- [x] Run -v-simple test
+
+- [ ] Actually formalize a loadarch file schema (maybe JSON)
+  - This is unnecessary for now
+
 - [ ] Add spike PMP dumping capabilities
 - [ ] Script to dump checkpoints of every ISA test with -p variant
-- [ ] Add functionality to parallelize and execute RTL sims
-- [ ] Run -v-simple test
 - [ ] Run complex -v test w/ atomics
 - [ ] Run riscv-tests benchmarks
 
