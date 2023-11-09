@@ -71,14 +71,10 @@
 - [ ] multi-checkpoint support
 - [ ] check and if reqd expose checkpointing API
 
-### Perf Metrics Side Channel
+### Python Top-Level
 
-- [ ] Simple IPC calculation dumped every X cycles from TestDriver
-  - Peek at the RISCV trace port from TestDriver
-  - Count clock cycles and retired instructions
-  - Print to stdout every X cycles
-- [ ] Dump IPC stats to file specified by plusarg
-- [ ] Add test termination after N cycles
+- [ ] Refactor intervals.py / pc.py into functions [d:11/8]
+- [ ] Unit test with small spike log fragments [d:11/8]
 
 ### VPI-Based State Injection
 
@@ -91,6 +87,24 @@
 - We need to check that after N instructions of a checkpoint that the arch state in RTL sim matches what we expect from spike
 - Defer this until we have the full flow working since we won't know all the parameters for the scripts involved until then
 - Ideally we can just dump spike checkpoints (without memory, just loadarch) and diff that with a loadarch generated from RTL sim
+
+### IPC Side Channel
+
+- [x] Reclone Chipyard to validate existing checkpointing script + injection [d:11/8]
+- [x] Identify signals related to IPC computation [d:11/8]
+  - See Rocket.sv (look at the $fwrite call, look at `_csr_io_time`, `csr_io_trace_0_valid`, `csr_io_trace_0_exception`)
+- [x] Simple IPC calculation dumped every X cycles from TestDriver [d:11/8]
+  - Peek at the RISCV trace port from TestDriver
+  - Count clock cycles and retired instructions
+  - Print to stdout every X cycles
+- [x] Add plusarg for sampling period [d:11/8]
+- [x] Dump IPC stats to file specified by plusarg [d:11/8]
+- [x] Add test termination after N cycles [d:11/8]
+- [x] Wait for the core reset to fall before sampling [d:11/8]
+- [x] Figure out why instret doesn't match max-instructions [d:11/8]
+  - Oh this might be because the final stats aren't printed
+  - Yeah that's it, added a tail section to perf.log
+- [x] Commit and push [d:11/8]
 
 ### RTL Arch State Injection
 
