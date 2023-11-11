@@ -9,6 +9,8 @@
 ### Feburary
 
 - DAC Late Breaking (poster only, 2 page abstract) (abstract: early-Jan, paper: Feb 27, notification: late-Mar/early-Apr, conference: late-June/early-July)
+- ISSTA (Symposium on Software Testing and Analysis) (2nd submission round)
+    - paper: Feb 16, rebuttal: April 11, notification: May 3, conference: mid-July
 
 ### March
 
@@ -34,6 +36,8 @@
 
 - **DAC** (abstract: Nov 13, paper: Nov 20, notification: late-Feb, conference: late-June)
 - **ISCA** (abstract: Nov 14, paper: Nov 21, rebuttal: mid-Feb, notification: mid-March, conference: late-June/early-July)
+- ISSTA (Symposium on Software Testing and Analysis) (1st submission round)
+    - paper: Nov 10, rebuttal: Dec 20, notification: Jan 16, conference: mid-July
 
 ### December
 

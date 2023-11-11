@@ -7,6 +7,36 @@
 
 ## Meeting Notes
 
+### 11/10/2023
+
+- Vighnesh
+    - New `gen-ckpt` script - works the same as the old `generate-ckpt.sh`, but it's in Python inside `tidalsim`
+    - The script + spike have also been modified to take multiple checkpoint instruction points and dump them all in the same spike run
+    - Some *validation* of state reloading in RTL sim by sweeping many checkpoint positions, injecting them into RTL sim, and verifying the program terminates cleanly
+    - Perf metric extraction
+        - It works, BUT
+        - right now I specify the window in terms of cycles
+        - BUT, I think it should be specified in terms of instructions
+            - Instructions are constant for tidalsim vs pure RTL sim, but cycles isn't
+    - Refactoring
+        - tidalsim is now just a python poetry project, pytest, mypy
+    - Added tests, rewrote some of the PC/spike log based BB extraction stuff
+    - Typechecking and some small fixes there
+    - Working on top-level script - all the pieces are in place to make this script now
+    - TODO:
+        - Proper validation of each checkpoint by comparing arch state between spike and RTL sim at the end of a given checkpoint + N instructions
+        - Fix up the sampling window stuff to be in terms of instructions vs cycles
+- Raghav
+    - Wrote initial version of asmdump parser to BB extraction, comparing against Ghidra produced BB extraction
+    - `jal` discrepancy - if a jal target is only called from a single position, then the `jal` isn't considered a terminating point of the basic block
+        - e.g. the function call can be inlined
+        - this is an acceptable discrepancy - it won't affect the basic block embedding
+    - `sext.w` / `c.addiw` discrepancy - Ghidra considers these control instructions when they are not
+        - Ah, seems to be a result of Ghidra decoding instructions using rv32 encoding rather than rv64
+        - Ghidra seems to recognize that the elf is rv64gc, but there is probably an internal bug in which disassembler it uses
+    - TODO: Porting your script to the repo, unifying the data structures used as output
+    - Ghidra found 675 basic blocks, Raghav's script found 770 basic blocks
+
 ### 11/3/2023
 
 - Vighnesh

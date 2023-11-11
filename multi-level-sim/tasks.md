@@ -2,13 +2,9 @@
 
 ## Tasks
 
-### Pipecleaning Spike Checkpointing
-
-- [ ] Compile baremetal embench-iot benchmarks
-    - See Chipyard's embench compilation flow which uses htif-nano.specs
-- [ ] Figure out how if we can just run pk alone on gem5 and look at commit log
-    - pk alone should boot up just fine but die with a help message (which it can't print since gem5 doesn't emulate syscalls via fesvr and the tohost/fromhost memory locations)
-    - Jerry: One potential issue with using pk is that snapshotting spike in the middle of some fesvr interaction and then restoring it might not work (if there is latent state in fesvr that also needs to be ported over)
+- [ ] Review MICRO papers on RTL simulation [d:11/9]
+  - [ ] "Hardware/Software Co-Design"
+  - [ ] "Khronos"
 
 ### ELF Fragmentation
 
@@ -19,17 +15,17 @@
     - Sorted Mapping between PCs and BB IDs
     - Reverse mapping between BB IDs and start/end PCs
 
-
 ### PC Trace Fragmentation
 
-- [ ] Review the handbook, create a starter project for PC analysis
-- [ ] Write PC trace fragmentation script (also in Rust with tests) (@dvaish)
+- [x] Review the handbook, create a starter project for PC analysis
+- [x] Write PC trace fragmentation script (also in Rust with tests) (@dvaish)
   - Identify basic blocks from a spike trace log using PCs ( + PPNs etc to separate multiple processes)
   - Input(s)
     - Spike trace log
   - Output(s)
     - Sorted Mapping between PCs and BB IDs
     - Reverse mapping between BB IDs and start/end PCs
+- [ ] Compare the algorithm against the gem5 version [d:11/10]
 
 ### Interval Basic Block Frequency Vector Construction
 
@@ -40,7 +36,6 @@
     - Reverse mapping between BB IDs and start/end PCs
   - Output(s)
     - Per-interval BBFVs
-
 
 ### Phase Clustering
 
@@ -55,7 +50,6 @@
   - [ ] Dimensionality Reduction
   - [ ] k-means
   - [ ] Representative Interval
-
 
 ### Arch State Collection Per Representative Interval
 
@@ -73,20 +67,35 @@
 
 ### Python Top-Level
 
-- [ ] Refactor intervals.py / pc.py into functions [d:11/8]
-- [ ] Unit test with small spike log fragments [d:11/8]
+- [x] Refactor intervals.py / pc.py into functions [d:11/8]
+- [x] Unit test with small spike log fragments [d:11/8]
+- [x] Fix up basic block vector construction fn [d:11/8]
+- [x] Add unit tests for BBV interval embedding [d:11/8]
+- [ ] Create top-level script with argument list [d:11/9]
+- [ ] Call spike to dump commit log with same args as ckpt gen [d:11/9]
+- [ ] Use caching library to cache commit log generation [d:11/9]
 
-### VPI-Based State Injection
+### Low Priority Tasks / Ideas
+
+- [ ] Formalize a loadarch file schema (maybe JSON)
+- [ ] Add spike PMP dumping capabilities
+- [ ] Read LiveSim paper again
+    - Focus on how they do offline trace clustering
+
+#### VPI-Based State Injection
 
 - Potentially faster than force-based state injection and avoids having to DPI between C and SystemVerilog
 - Use `vpi_put_value_array` to inject a 2d reg with a C array
 - Some more VPI usage examples: https://stackoverflow.com/questions/76734050/how-to-read-memory-value-at-a-specific-location-using-vpi-and-verilator
 
-### Checkpoint Execution Validation
+#### Checkpoint Execution Validation
 
 - We need to check that after N instructions of a checkpoint that the arch state in RTL sim matches what we expect from spike
 - Defer this until we have the full flow working since we won't know all the parameters for the scripts involved until then
 - Ideally we can just dump spike checkpoints (without memory, just loadarch) and diff that with a loadarch generated from RTL sim
+- [ ] Script to dump checkpoints of every ISA test with -p variant
+- [ ] Run complex -v test w/ atomics
+- [ ] Run riscv-tests benchmarks
 
 ### IPC Side Channel
 
@@ -189,16 +198,14 @@
 - [x] Add functionality to parallelize and execute RTL sims
 - [x] Run -v-simple test
 
-- [ ] Actually formalize a loadarch file schema (maybe JSON)
-  - This is unnecessary for now
+### Pipecleaning Spike Checkpointing
 
-- [ ] Add spike PMP dumping capabilities
-- [ ] Script to dump checkpoints of every ISA test with -p variant
-- [ ] Run complex -v test w/ atomics
-- [ ] Run riscv-tests benchmarks
+- [x] Compile baremetal embench-iot benchmarks
+    - See Chipyard's embench compilation flow which uses htif-nano.specs
+- [x] Figure out how if we can just run pk alone on gem5 and look at commit log
+    - pk alone should boot up just fine but die with a help message (which it can't print since gem5 doesn't emulate syscalls via fesvr and the tohost/fromhost memory locations)
+    - Jerry: One potential issue with using pk is that snapshotting spike in the middle of some fesvr interaction and then restoring it might not work (if there is latent state in fesvr that also needs to be ported over)
 
-- [ ] Read LiveSim paper again
-    - Focus on how they do offline trace clustering
 
 ### Google Proposal
 
