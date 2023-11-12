@@ -65,15 +65,39 @@
 - [ ] multi-checkpoint support
 - [ ] check and if reqd expose checkpointing API
 
+### Instruction-Gran Perf Metrics
+
+- [x] Switch up metric extraction to inst vs cycle gran [d:11/10]
+- [x] Update README [d:11/10]
+
 ### Python Top-Level
 
 - [x] Refactor intervals.py / pc.py into functions [d:11/8]
 - [x] Unit test with small spike log fragments [d:11/8]
 - [x] Fix up basic block vector construction fn [d:11/8]
 - [x] Add unit tests for BBV interval embedding [d:11/8]
-- [ ] Create top-level script with argument list [d:11/9]
-- [ ] Call spike to dump commit log with same args as ckpt gen [d:11/9]
-- [ ] Use caching library to cache commit log generation [d:11/9]
+- [x] Create top-level script with argument list [d:11/9]
+- [x] Call spike to dump commit log with same args as ckpt gen [d:11/9]
+- [x] Use caching library to cache commit log generation [d:11/9]
+  - Turns out there isn't a good caching library that can cope here
+  - I will just use manual caching, which seems good enough
+- [x] Finish up the rest of the flow up til clustering [d:11/11]
+- [x] Add clustering based on manual cluster spec [d:11/11]
+- [x] Add checkpoint generation [d:11/11]
+- [x] Add IPC collection [d:11/11]
+- [ ] Parallelize IPC collection [d:11/11]
+- [ ] Add plotting for IPC trace [d:11/11]
+- [ ] Add reference perf trace collection [d:11/11]
+- [ ] Clean up repo [d:11/11]
+  - Delete unused submodules, archive Makefiles
+- [ ] Fix up naming schemes [d:11/11]
+  - Things are too messy!
+
+- [ ] Add clustering based on interval-based PCA selection
+- [ ] Handle tail intervals
+- [ ] lz4 spike commit log
+- [ ] lz4 memory elf
+- [ ] Kill spike sim after taking all the necessary checkpoints (should already happen)
 
 ### Low Priority Tasks / Ideas
 
