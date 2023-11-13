@@ -65,6 +65,22 @@
 - [ ] multi-checkpoint support
 - [ ] check and if reqd expose checkpointing API
 
+### Embedding Analysis
+
+- Need to figure out what the variance of the golden IPC is for a given centroid. How predictable is the IPC?
+- Right now, I have no intuition about what characteristics of an interval lead to variance of IPC in its representative intervals
+
+### Tidalsim Scripting
+
+- [ ] Move out the logic in tidalsim into small functions
+- [ ] Unit test the functions
+
+### Debug Instret Discrepancy
+
+- It looks like my instret detection signal is too naive and is logging many more retired instructions than actually exist
+- It is not consistent with the printed commit log from RTL sim or the spike commit log
+- [x] Done, this is a result of the core clock being 2x as slow as the testbench clock
+
 ### Instruction-Gran Perf Metrics
 
 - [x] Switch up metric extraction to inst vs cycle gran [d:11/10]
@@ -85,19 +101,25 @@
 - [x] Add clustering based on manual cluster spec [d:11/11]
 - [x] Add checkpoint generation [d:11/11]
 - [x] Add IPC collection [d:11/11]
-- [ ] Parallelize IPC collection [d:11/11]
-- [ ] Add plotting for IPC trace [d:11/11]
-- [ ] Add reference perf trace collection [d:11/11]
-- [ ] Clean up repo [d:11/11]
+- [x] Cache IPC collection [d:11/12]
+- [x] Parallelize IPC collection [d:11/11]
+- [x] Add reference perf trace collection [d:11/11]
+  - Later: do this properly, instead of manually
+- [x] Add plotting for IPC trace [d:11/11]
+  - Later: script this, for now, use notebook
+  - Looks quite odd - why does the RTL sim perf log go on for 4M instructions when the commit log shows otherwise?
+- [x] Clean up repo [d:11/11]
   - Delete unused submodules, archive Makefiles
-- [ ] Fix up naming schemes [d:11/11]
+- [ ] Fix up naming schemes + refactor gen-ckpt [d:11/11]
   - Things are too messy!
+  - [ ] Refactor gen_ckpt so it can be used as a library
 
+- [x] Handle tail intervals
+- [x] Kill spike sim after taking all the necessary checkpoints (should already happen)
 - [ ] Add clustering based on interval-based PCA selection
-- [ ] Handle tail intervals
 - [ ] lz4 spike commit log
 - [ ] lz4 memory elf
-- [ ] Kill spike sim after taking all the necessary checkpoints (should already happen)
+- [ ] Add additional caching hash based on simulator hash
 
 ### Low Priority Tasks / Ideas
 
