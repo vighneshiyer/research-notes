@@ -2,7 +2,7 @@
 
 ## Tasks
 
-- [ ] Review MICRO papers on RTL simulation [d:11/9]
+- [ ] Review MICRO papers on RTL simulation
   - [ ] "Hardware/Software Co-Design"
   - [ ] "Khronos"
 
@@ -65,6 +65,29 @@
 - [ ] multi-checkpoint support
 - [ ] check and if reqd expose checkpointing API
 
+### Low Priority Tasks / Ideas
+
+- [ ] Formalize a loadarch file schema (maybe JSON)
+- [ ] Add spike PMP dumping capabilities
+- [ ] Read LiveSim paper again
+    - Focus on how they do offline trace clustering
+- [ ] Add additional caching hash based on simulator hash
+
+#### VPI-Based State Injection
+
+- Potentially faster than force-based state injection and avoids having to DPI between C and SystemVerilog
+- Use `vpi_put_value_array` to inject a 2d reg with a C array
+- Some more VPI usage examples: https://stackoverflow.com/questions/76734050/how-to-read-memory-value-at-a-specific-location-using-vpi-and-verilator
+
+#### Checkpoint Execution Validation
+
+- We need to check that after N instructions of a checkpoint that the arch state in RTL sim matches what we expect from spike
+- Defer this until we have the full flow working since we won't know all the parameters for the scripts involved until then
+- Ideally we can just dump spike checkpoints (without memory, just loadarch) and diff that with a loadarch generated from RTL sim
+- [ ] Script to dump checkpoints of every ISA test with -p variant
+- [ ] Run complex -v test w/ atomics
+- [ ] Run riscv-tests benchmarks
+
 ### Embedding Analysis
 
 - Need to figure out what the variance of the golden IPC is for a given centroid. How predictable is the IPC?
@@ -74,6 +97,23 @@
 
 - [ ] Move out the logic in tidalsim into small functions
 - [ ] Unit test the functions
+
+### PCA-Based N-Clusters Selection
+
+- [ ] Add clustering based on interval-based PCA selection
+
+### Disk Space Saving
+
+- [ ] lz4 spike commit log
+- [ ] lz4 memory elf
+
+---
+
+OLD TASKS
+
+---
+
+## Archived Tasks
 
 ### Debug Instret Discrepancy
 
@@ -110,38 +150,14 @@
   - Looks quite odd - why does the RTL sim perf log go on for 4M instructions when the commit log shows otherwise?
 - [x] Clean up repo [d:11/11]
   - Delete unused submodules, archive Makefiles
-- [ ] Fix up naming schemes + refactor gen-ckpt [d:11/11]
+- [x] Fix up naming schemes + refactor gen-ckpt [d:11/11]
   - Things are too messy!
-  - [ ] Refactor gen_ckpt so it can be used as a library
+  - [x] Refactor gen_ckpt so it can be used as a library
+- [x] Use gen-ckpt as library [d:11/13]
 
 - [x] Handle tail intervals
 - [x] Kill spike sim after taking all the necessary checkpoints (should already happen)
-- [ ] Add clustering based on interval-based PCA selection
-- [ ] lz4 spike commit log
-- [ ] lz4 memory elf
-- [ ] Add additional caching hash based on simulator hash
-
-### Low Priority Tasks / Ideas
-
-- [ ] Formalize a loadarch file schema (maybe JSON)
-- [ ] Add spike PMP dumping capabilities
-- [ ] Read LiveSim paper again
-    - Focus on how they do offline trace clustering
-
-#### VPI-Based State Injection
-
-- Potentially faster than force-based state injection and avoids having to DPI between C and SystemVerilog
-- Use `vpi_put_value_array` to inject a 2d reg with a C array
-- Some more VPI usage examples: https://stackoverflow.com/questions/76734050/how-to-read-memory-value-at-a-specific-location-using-vpi-and-verilator
-
-#### Checkpoint Execution Validation
-
-- We need to check that after N instructions of a checkpoint that the arch state in RTL sim matches what we expect from spike
-- Defer this until we have the full flow working since we won't know all the parameters for the scripts involved until then
-- Ideally we can just dump spike checkpoints (without memory, just loadarch) and diff that with a loadarch generated from RTL sim
-- [ ] Script to dump checkpoints of every ISA test with -p variant
-- [ ] Run complex -v test w/ atomics
-- [ ] Run riscv-tests benchmarks
+- [x] Optimize BBV embedding with LRU cache [d:11/13]
 
 ### IPC Side Channel
 

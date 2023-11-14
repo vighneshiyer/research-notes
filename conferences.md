@@ -17,11 +17,14 @@
 ### April
 
 - **MICRO** (Symposium on Microarchitecture)
+    - Abstract: April 21, Paper: April 28, Rebuttal: June 26, Notification: July 24, Conference: late-October
 
 ### May
 
+- RISC-V Workshop (co-located with ISCA)
+    - Paper: May 6, Notification: May 13, Final: June 3, Workshop: mid-June
 - ICCAD
-    - abstract: May 15, paper: May 22, notification: July 21, conference: late-October/early-November
+    - Abstract: May 15, Paper: May 22, Notification: July 21, Conference: late-October/early-November
 
 ### June
 
@@ -32,18 +35,18 @@
 ### September
 
 - DATE (Design and Automation in Europe)
-    - abstract: Sep 10, paper: Sep 17, notification: Nov 14, final paper: Jan 17, conference: late-March
+    - Abstract: Sep 10, Paper: Sep 17, Notification: Nov 14, Final: Jan 17, Conference: late-March
 
 ### October
 
 ### November
 
-- **DAC** (Design Automation Conference)
-    - abstract: Nov 13, paper: Nov 20, notification: late-Feb, conference: late-June
-- **ISCA** (Symposium on Computer Architecture)
-    - abstract: Nov 14, paper: Nov 21, rebuttal: mid-Feb, notification: mid-March, conference: late-June/early-July
 - ISSTA (Symposium on Software Testing and Analysis) (1st submission round)
-    - paper: Nov 10, rebuttal: Dec 20, notification: Jan 16, conference: mid-July
+    - Paper: Nov 10, Rebuttal: Dec 20, Notification: Jan 16, Conference: mid-July
+- **DAC** (Design Automation Conference)
+    - Abstract: Nov 13, Paper: Nov 20, Notification: late-Feb, Conference: mid/late-June
+- **ISCA** (Symposium on Computer Architecture)
+    - Abstract: Nov 14, Paper: Nov 21, Rebuttal: mid-Feb, Notification: mid-March, Conference: late-June/early-July
 
 ### December
 
