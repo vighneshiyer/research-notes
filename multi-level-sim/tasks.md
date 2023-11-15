@@ -72,6 +72,21 @@
 - [ ] Read LiveSim paper again
     - Focus on how they do offline trace clustering
 - [ ] Add additional caching hash based on simulator hash
+- [ ] Get Verilator working
+- [ ] Handle the tail interval for tidalsim
+  - When the program length is not a multiple of the interval length, the last sample gets the wrong IPC!
+  - This should be a simple fix to just add some more pickled data from the spike log parsing
+- [ ] Figure out the mismatch in the number of rows for tidalsim vs reference perf
+  - Some of this is due to the bootrom execution in reference perf
+  - This causes a instruction fixed offset!
+  - To resolve this, we should inject a snapshot at n_insts = 0 for gathering the ref perf trace
+- [ ] Integrate ref trace collection into tidalsim script (and save results in same run directory)
+  - Dump a checkpoint at n_insts = 0
+  - Inject that checkpoint into RTL sim and measure perf
+- [ ] Don't regenerate checkpoints if the binary hasn't changed (in gen-ckpt)
+- [ ] Add detailed warmup argument
+- [ ] Build an error model that models the function of the distance of a interval from its representative centroid and the IPC error
+- [ ] Take multiple checkpoints per cluster centroid and evaluate their variance + incorporate into error model
 
 #### VPI-Based State Injection
 
@@ -92,11 +107,9 @@
 
 - Need to figure out what the variance of the golden IPC is for a given centroid. How predictable is the IPC?
 - Right now, I have no intuition about what characteristics of an interval lead to variance of IPC in its representative intervals
-
-### Tidalsim Scripting
-
-- [ ] Move out the logic in tidalsim into small functions
-- [ ] Unit test the functions
+- Play with alternative clustering algorithms vs KMeans
+- How good is the existing KMeans clustering? Are there program samples that are big outliers?
+- Evaluate whitening/standardization of input matrix before clustering [d:11/13]
 
 ### PCA-Based N-Clusters Selection
 
@@ -106,6 +119,13 @@
 
 - [ ] lz4 spike commit log
 - [ ] lz4 memory elf
+
+### Tidalsim Scripting
+
+- [x] Move out the logic in tidalsim into small functions [d:11/13]
+- [x] Unit test the functions [d:11/13]
+- [x] Migrate the functions in Jupyter to Python source + test [d:11/13]
+- [x] Integrate plot generation into separate function [d:11/13]
 
 ---
 
