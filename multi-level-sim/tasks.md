@@ -8,65 +8,37 @@
 
 ### ELF Fragmentation
 
-- [ ] Statically identify basic blocks from ELF file (in Rust) (@raghavg-13)
+- [ ] Statically identify basic blocks from ELF file (@raghavg-13)
   - Input(s)
     - ELF file
   - Output(s)
     - Sorted Mapping between PCs and BB IDs
     - Reverse mapping between BB IDs and start/end PCs
 
-### PC Trace Fragmentation
+### Spike Cache Model
 
-- [x] Review the handbook, create a starter project for PC analysis
-- [x] Write PC trace fragmentation script (also in Rust with tests) (@dvaish)
-  - Identify basic blocks from a spike trace log using PCs ( + PPNs etc to separate multiple processes)
-  - Input(s)
-    - Spike trace log
-  - Output(s)
-    - Sorted Mapping between PCs and BB IDs
-    - Reverse mapping between BB IDs and start/end PCs
-- [ ] Compare the algorithm against the gem5 version [d:11/10]
+- [x] Evaluate the spike cache model code
+  - Looks like the spike model doesn't hold the data array, only the tag array
+  - There seems to be logging functionality in cachesim.cc to print out misses at every modeled cache level
+  - But it seems like the better option is to use the memory commit log (`--log-commits`)
+  - We can build our own parser / cache model using MTR
 
-### Interval Basic Block Frequency Vector Construction
-
-- [ ] Run spike, fill BBFV, normalize (all in Rust) (@raghav-g13)
-  - Input(s)
-    - Sorted Mapping between PCs and BB IDs
-      - Consider using BST
-    - Reverse mapping between BB IDs and start/end PCs
-  - Output(s)
-    - Per-interval BBFVs
-
-### Phase Clustering
-
-- Input(s)
-  - Per-interval BBFVs
-- Output(s)
-  - Representative Intervals (per phase)
-
-- [ ] Discuss alternative approaches
-  - SMARTS v. SimPoint
-- [ ] Do following in Python (?)
-  - [ ] Dimensionality Reduction
-  - [ ] k-means
-  - [ ] Representative Interval
-
-### Arch State Collection Per Representative Interval
-
-- Input(s)
-  - Representative Intervals (per phase)
-- Output(s)
-  - Mapping between Representative Intervals (per phase) and start/end Arch Checkpoints
-
-- [ ] Use spike checkpointing API to collect checkpoints for each given interval
-
-### Spike Top-Level Runtime
-
-- [ ] multi-checkpoint support
-- [ ] check and if reqd expose checkpointing API
+- Prior work
+  - MTR: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1430560
+  - Tycho cache simulator: https://pages.cs.wisc.edu/~larus/warts.html#Tycho
+  - LiveCache and LiveSim
+- General validation methodology for uArch trace models
+  - Needs to support all the relevant long-lived arch state blocks
+    - Caches (with directory and coherency state), prefetchers, branch predictors
+  - Need to compare on identical traces for RTL and uArch model and arch model (which actually emits the trace)
+  - The results of the internal state between RTL and uArch model must be the same
+  - Therefore need a way to generate legal traces that match the schema of the arch model
+  - And a way to replay those traces on RTL and uArch model and correlate uArch states
+    - Replaying memory traces in RTL might be hard without involving the core (since L1 cache ports might be difficult to manipulate directly)
 
 ### Low Priority Tasks / Ideas
 
+- [ ] Use spike's `--log=<name>` command line flag to dump a log to file without shell redirection
 - [ ] Formalize a loadarch file schema (maybe JSON)
 - [ ] Add spike PMP dumping capabilities
 - [ ] Read LiveSim paper again
@@ -109,7 +81,10 @@
 - Right now, I have no intuition about what characteristics of an interval lead to variance of IPC in its representative intervals
 - Play with alternative clustering algorithms vs KMeans
 - How good is the existing KMeans clustering? Are there program samples that are big outliers?
-- Evaluate whitening/standardization of input matrix before clustering [d:11/13]
+- Evaluate whitening/standardization of input matrix before clustering
+- Explore dimensionality reduction prior to sample clustering
+  - This is only really needed when the matrix gets very large for performance reasons
+  - It shouldn't improve the accuracy or robustness of the clustering algorithm
 
 ### PCA-Based N-Clusters Selection
 
@@ -120,13 +95,6 @@
 - [ ] lz4 spike commit log
 - [ ] lz4 memory elf
 
-### Tidalsim Scripting
-
-- [x] Move out the logic in tidalsim into small functions [d:11/13]
-- [x] Unit test the functions [d:11/13]
-- [x] Migrate the functions in Jupyter to Python source + test [d:11/13]
-- [x] Integrate plot generation into separate function [d:11/13]
-
 ---
 
 OLD TASKS
@@ -134,6 +102,69 @@ OLD TASKS
 ---
 
 ## Archived Tasks
+
+### Phase Clustering
+
+- Input(s)
+  - Per-interval BBFVs
+- Output(s)
+  - Representative Intervals (per phase)
+
+- [x] Discuss alternative approaches
+  - SMARTS v. SimPoint
+- [ ] Do following in Python
+  - [ ] Dimensionality Reduction
+  - [x] k-means
+  - [x] Representative Interval
+
+### Interval Basic Block Frequency Vector Construction
+
+- [x] Run spike, fill BBFV, normalize
+  - Input(s)
+    - Sorted Mapping between PCs and BB IDs
+      - Consider using BST
+    - Reverse mapping between BB IDs and start/end PCs
+  - Output(s)
+    - Per-interval BBFVs
+
+### PC Trace Fragmentation
+
+- [x] Review the handbook, create a starter project for PC analysis
+- [x] Write PC trace fragmentation script (also in Rust with tests) (@dvaish)
+  - Identify basic blocks from a spike trace log using PCs ( + PPNs etc to separate multiple processes)
+  - Input(s)
+    - Spike trace log
+  - Output(s)
+    - Sorted Mapping between PCs and BB IDs
+    - Reverse mapping between BB IDs and start/end PCs
+- [x] Compare the algorithm against the gem5 version [d:11/10]
+  - It looks like the gem5 algorithm has some benefits and drawbacks
+  - Benefits:
+    - Traverses the commit log as its being generated
+      - Emits interval embeddings during the traversal
+    - Only a single pass thru the program is required (vs our approach with requires 1. dumping the commit log, 2. traversing it once to construct the PC -> basic block id map, 3. traversing it again to perform the BBV embedding, 4. re-executing spike to dump arch checkpoints at the desired sampling points)
+  - Drawbacks:
+    - Each subsequent interval might have an embedding with different feature lengths (since new basic blocks might be discovered)
+    - Can't vary interval length after program execution (since interval length is baked into the commit traversal)
+    - Nested basic blocks aren't properly handled
+      - If a basic block turns out to not be a basic block (because it has an entry point mid-way thru the block), then the new basic block is simply constructed as a 'new' block even though it should partition the old one into 2 pieces
+      - Perhaps this doesn't matter that much
+
+### Tidalsim Scripting
+
+- [x] Move out the logic in tidalsim into small functions [d:11/13]
+- [x] Unit test the functions [d:11/13]
+- [x] Migrate the functions in Jupyter to Python source + test [d:11/13]
+- [x] Integrate plot generation into separate function [d:11/13]
+
+### Arch State Collection Per Representative Interval
+
+- Input(s)
+  - Representative Intervals (per phase)
+- Output(s)
+  - Mapping between Representative Intervals (per phase) and start/end Arch Checkpoints
+
+- [x] Use spike checkpointing API to collect checkpoints for each given interval
 
 ### Debug Instret Discrepancy
 
