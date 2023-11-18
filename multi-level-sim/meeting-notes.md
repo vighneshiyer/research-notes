@@ -7,6 +7,28 @@
 
 ## Meeting Notes
 
+### 11/17/2023
+
+- Vighnesh
+    - Perf metrics are instruction-based now
+    - More refactoring
+    - Rewrite of the BBV embedding + tests
+    - Tidalsim top-level is 'done' for the MVP
+    - embench aha-mont64: ~5-10 minutes in RTL sim (depending on debug mode), 10-15 seconds for sampled simulation version
+    - gem5 simpoint algorithm for BBV embedding - don't bother trying to replicate their thing just yet, but if perf becomes an issue we can reach for it, and maybe consider the issues related to inaccurate basic block assignment (if basic block are split later in a program execution)
+- Dhruv
+    - Pipecleaning the flow to make sure it works
+- Vighnesh TODO: Functional cache warmup strategy
+    - Leverage memory trace from spike
+    - Use MTR to analyze it and extract cache uArch states for each checkpoint
+- Further data analysis
+- Dhruv TODO
+    - Try other benchmarks, make sure they work fine, analyze their errors
+    - Integrate PCA-based n-clusters selection into the tidalsim script
+- Raghav TODO
+    - Complete the elf based BB extraction and integrate it with a commandline flag in tidalsim
+    - Pick something off the task list
+
 ### 11/10/2023
 
 - Vighnesh

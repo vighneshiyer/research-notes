@@ -27,6 +27,17 @@
   - MTR: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1430560
   - Tycho cache simulator: https://pages.cs.wisc.edu/~larus/warts.html#Tycho
   - LiveCache and LiveSim
+
+- [ ] Read MTR paper [d:11/18]
+- [ ] Implement basic unicore MTR cache reconstruction [d:11/18]
+- [ ] Identify cache state in RTL [d:11/18]
+- [ ] Dump cache configuration (or read JSON) from Chipyard SoC [d:11/18]
+
+- [ ] Add code to perform cache state injection [d:11/22]
+  - ???, do it like GPR injection, but it will generate a bunch of code, may not be so performant
+
+### uArch Model Validation Methodology
+
 - General validation methodology for uArch trace models
   - Needs to support all the relevant long-lived arch state blocks
     - Caches (with directory and coherency state), prefetchers, branch predictors
