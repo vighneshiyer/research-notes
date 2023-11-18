@@ -47,6 +47,13 @@
   - And a way to replay those traces on RTL and uArch model and correlate uArch states
     - Replaying memory traces in RTL might be hard without involving the core (since L1 cache ports might be difficult to manipulate directly)
 
+### Long-Lived uArch State Identification Methodology
+
+- We can do some kind of waveform analysis
+- Find the toggle frequency of registers and RAMs
+- Which registers are infrequently set? Need to avoid counting registers that are arch state like CSRs
+- What state gets refreshed every cycle or so? Can just threshold the toggle frequency and find the states we need uArch trace models for
+
 ### Low Priority Tasks / Ideas
 
 - [ ] Use spike's `--log=<name>` command line flag to dump a log to file without shell redirection
@@ -70,6 +77,8 @@
 - [ ] Add detailed warmup argument
 - [ ] Build an error model that models the function of the distance of a interval from its representative centroid and the IPC error
 - [ ] Take multiple checkpoints per cluster centroid and evaluate their variance + incorporate into error model
+- [ ] Fix up plotting stuff to use plt.step() [d:11/18]
+  - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.step.html
 
 #### VPI-Based State Injection
 

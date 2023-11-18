@@ -8,9 +8,10 @@
 
 ### Feburary
 
-- DAC Late Breaking (poster only, 2 page abstract) (abstract: early-Jan, paper: Feb 27, notification: late-Mar/early-Apr, conference: late-June/early-July)
+- DAC Late Breaking (poster only, 2 page abstract)
+    - Abstract: early-Jan, Paper: Feb 27, Notification: late-Mar/early-Apr, Conference: late-June/early-July
 - ISSTA (Symposium on Software Testing and Analysis) (2nd submission round)
-    - paper: Feb 16, rebuttal: April 11, notification: May 3, conference: mid-July
+    - Paper: Feb 16, Rebuttal: April 11, notification: May 3, conference: mid-July
 
 ### March
 
@@ -22,7 +23,7 @@
 ### May
 
 - RISC-V Workshop (co-located with ISCA)
-    - Paper: May 6, Notification: May 13, Final: June 3, Workshop: mid-June
+    - Early paper: Apr 3 (early notification: Apr 17), Regular Paper: May 1, Notification: May 13, Final: June 3, Workshop: mid-June
 - ICCAD
     - Abstract: May 15, Paper: May 22, Notification: July 21, Conference: late-October/early-November
 
@@ -164,3 +165,5 @@ http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=155514&copyownerid=1734
 - ISPD (https://ispd.cc/ispd2023/index.php)
 - OOPSLA
 - IISWC (Workload characterization) (https://iiswc.org/iiswc2023/#/)
+- DesignAndTest
+- ESWEEK (MEMOCODE, NOCS)
