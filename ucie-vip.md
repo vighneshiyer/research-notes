@@ -20,7 +20,7 @@
     - [x] Verify elaboration to Verilog is possible in main class
     - [x] Don't touch the other unconneced I/Os
     - Now you have a Verilog DUT with FDI ports
-- [ ] Pipeclean the D2D loopback PR [d:11/13]
+- [ ] Pipeclean the D2D loopback PR
 - [ ] Write some Scala to turn the Fdi Bundle object into a systemverilog interface and emit that alongside elaborating the D2D dummy module
     - you can do (new Fdi()).getElements: Seq[(String, Data)]
     - then use this to generate a systemverilog interface

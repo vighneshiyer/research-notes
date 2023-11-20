@@ -79,6 +79,16 @@
 - [ ] Take multiple checkpoints per cluster centroid and evaluate their variance + incorporate into error model
 - [ ] Fix up plotting stuff to use plt.step() [d:11/18]
   - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.step.html
+  - Also see https://matplotlib.org/3.4.3/gallery/ticks_and_spines/multiple_yaxis_with_spines.html
+  - Plot the IPC error on the second y axis
+- [ ] Instead of using IntervalTree directly, expose as an interface
+  - Create a custom data structure with an alternative implementation that's much faster for exclusive queries
+  - Make the constructor take a list of ranges with ids, the structure should be immutable
+  - Construct a balanced BST
+  - Implement a custom LRU cache based on lookups based on the *range* of the leaf element rather than input PC
+- [ ] Rerunning spike to capture checkpoints is too wasteful
+  - Spike should preemptively take snapshots and we should reload from those snapshots when possible and advance minimal time
+  - Our existing technique won't scale for larger programs
 
 #### VPI-Based State Injection
 
