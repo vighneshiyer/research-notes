@@ -2,15 +2,17 @@
 
 ## Conferences
 
-- Organized by submission deadline date
+- Organized by paper submission deadline date
 
 ### January
 
 ### Feburary
 
-- DAC Late Breaking (poster only, 2 page abstract)
+- DAC (Design Automation Conference)
+    - Late Breaking (poster only, 2 page abstract)
     - Abstract: early-Jan, Paper: Feb 27, Notification: late-Mar/early-Apr, Conference: late-June/early-July
-- ISSTA (Symposium on Software Testing and Analysis) (2nd submission round)
+- ISSTA (Symposium on Software Testing and Analysis)
+    - 2nd submission round
     - Paper: Feb 16, Rebuttal: April 11, notification: May 3, conference: mid-July
 
 ### March
@@ -18,14 +20,14 @@
 ### April
 
 - **MICRO** (Symposium on Microarchitecture)
-    - Abstract: April 21, Paper: April 28, Rebuttal: June 26, Notification: July 24, Conference: late-October
+    - Abstract: April 21, Paper: April 28, Rebuttal: June 26, Notification: July 24, Final: Sept 18, Conference: late-October
 
 ### May
 
 - RISC-V Workshop (co-located with ISCA)
     - Early paper: Apr 3 (early notification: Apr 17), Regular Paper: May 1, Notification: May 13, Final: June 3, Workshop: mid-June
-- ICCAD
-    - Abstract: May 15, Paper: May 22, Notification: July 21, Conference: late-October/early-November
+- ICCAD (Conference on Computer-Aided Design)
+    - Abstract: May 15, Paper: May 22, Notification: July 21, Final: Aug 14, Conference: late-October/early-November
 
 ### June
 
@@ -60,6 +62,7 @@
     - Use this to guide literature search
 - Also see the list here for lit search: https://en.wikipedia.org/wiki/List_of_computer_science_conferences
 
+## Journals
 
 - Also consider workshops
     - e.g. riscv workshop

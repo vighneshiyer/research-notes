@@ -7,6 +7,16 @@
 
 ## Meeting Notes
 
+### 11/21/2023
+
+- Vighnesh
+    - Didn't do anything, nothing to report
+    - One major thing is now my quals/thesis will be focused on multi level sim, so I will dedicate 80% of my time to this
+    - Read a bit of the MTR paper
+    - Added a few more tasks
+- Raghav
+    - Diff of Ghidra vs our elf BB extraction to make it easier to evaluate where differences are coming from
+
 ### 11/17/2023
 
 - Vighnesh

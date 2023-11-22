@@ -66,10 +66,11 @@
 - [ ] Handle the tail interval for tidalsim
   - When the program length is not a multiple of the interval length, the last sample gets the wrong IPC!
   - This should be a simple fix to just add some more pickled data from the spike log parsing
-- [ ] Figure out the mismatch in the number of rows for tidalsim vs reference perf
+- [ ] Figure out the mismatch in the number of rows for tidalsim vs reference perf [d:11/20]
   - Some of this is due to the bootrom execution in reference perf
   - This causes a instruction fixed offset!
   - To resolve this, we should inject a snapshot at n_insts = 0 for gathering the ref perf trace
+  - This should just be another script rather that can slot the results straight into the same runs directory
 - [ ] Integrate ref trace collection into tidalsim script (and save results in same run directory)
   - Dump a checkpoint at n_insts = 0
   - Inject that checkpoint into RTL sim and measure perf
