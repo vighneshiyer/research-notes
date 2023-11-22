@@ -44,7 +44,8 @@
 
 ### November
 
-- ISSTA (Symposium on Software Testing and Analysis) (1st submission round)
+- ISSTA (Symposium on Software Testing and Analysis)
+    - 1st submission round
     - Paper: Nov 10, Rebuttal: Dec 20, Notification: Jan 16, Conference: mid-July
 - **DAC** (Design Automation Conference)
     - Abstract: Nov 13, Paper: Nov 20, Notification: late-Feb, Conference: mid/late-June
