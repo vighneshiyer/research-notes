@@ -6,15 +6,6 @@
   - [ ] "Hardware/Software Co-Design"
   - [ ] "Khronos"
 
-### ELF Fragmentation
-
-- [ ] Statically identify basic blocks from ELF file (@raghavg-13)
-  - Input(s)
-    - ELF file
-  - Output(s)
-    - Sorted Mapping between PCs and BB IDs
-    - Reverse mapping between BB IDs and start/end PCs
-
 ### Spike Cache Model
 
 - [x] Evaluate the spike cache model code
@@ -56,21 +47,32 @@
 
 ### Low Priority Tasks / Ideas
 
-- [ ] Use spike's `--log=<name>` command line flag to dump a log to file without shell redirection
-- [ ] Formalize a loadarch file schema (maybe JSON)
-- [ ] Add spike PMP dumping capabilities
-- [ ] Read LiveSim paper again
-    - Focus on how they do offline trace clustering
-- [ ] Add additional caching hash based on simulator hash
-- [ ] Get Verilator working
-- [ ] Handle the tail interval for tidalsim
-  - When the program length is not a multiple of the interval length, the last sample gets the wrong IPC!
-  - This should be a simple fix to just add some more pickled data from the spike log parsing
 - [ ] Figure out the mismatch in the number of rows for tidalsim vs reference perf [d:11/20]
   - Some of this is due to the bootrom execution in reference perf
   - This causes a instruction fixed offset!
   - To resolve this, we should inject a snapshot at n_insts = 0 for gathering the ref perf trace
   - This should just be another script rather that can slot the results straight into the same runs directory
+- [ ] Skip bootrom run in spike commit log
+  - Right now, the spike commit log contains a bootrom sequence
+  - This isn't part of the binary, so it doesn't get captured in the elf-based BB extraction
+  - It also is an inconsistency between the spike and RTL commit logs right now, which causes "# of insts committed" divergence
+- [ ] Fix up plotting stuff to use plt.step() [d:11/18]
+  - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.step.html
+  - Also see https://matplotlib.org/3.4.3/gallery/ticks_and_spines/multiple_yaxis_with_spines.html
+  - Plot the IPC error on the second y axis
+
+- [ ] Get Verilator working
+- [ ] Add spike PMP dumping capabilities
+- [ ] Formalize a loadarch file schema (maybe JSON)
+  - Secondary: migrate to VPI based state injection away from force based injection
+
+- [ ] Use spike's `--log=<name>` command line flag to dump a log to file without shell redirection
+- [ ] Read LiveSim paper again
+    - Focus on how they do offline trace clustering
+- [ ] Add additional caching hash based on simulator hash
+- [ ] Handle the tail interval for tidalsim
+  - When the program length is not a multiple of the interval length, the last sample gets the wrong IPC!
+  - This should be a simple fix to just add some more pickled data from the spike log parsing
 - [ ] Integrate ref trace collection into tidalsim script (and save results in same run directory)
   - Dump a checkpoint at n_insts = 0
   - Inject that checkpoint into RTL sim and measure perf
@@ -78,10 +80,6 @@
 - [ ] Add detailed warmup argument
 - [ ] Build an error model that models the function of the distance of a interval from its representative centroid and the IPC error
 - [ ] Take multiple checkpoints per cluster centroid and evaluate their variance + incorporate into error model
-- [ ] Fix up plotting stuff to use plt.step() [d:11/18]
-  - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.step.html
-  - Also see https://matplotlib.org/3.4.3/gallery/ticks_and_spines/multiple_yaxis_with_spines.html
-  - Plot the IPC error on the second y axis
 - [ ] Instead of using IntervalTree directly, expose as an interface
   - Create a custom data structure with an alternative implementation that's much faster for exclusive queries
   - Make the constructor take a list of ranges with ids, the structure should be immutable
@@ -90,10 +88,6 @@
 - [ ] Rerunning spike to capture checkpoints is too wasteful
   - Spike should preemptively take snapshots and we should reload from those snapshots when possible and advance minimal time
   - Our existing technique won't scale for larger programs
-- [ ] Skip bootrom run in spike commit log
-  - Right now, the spike commit log contains a bootrom sequence
-  - This isn't part of the binary, so it doesn't get captured in the elf-based BB extraction
-  - It also is an inconsistency between the spike and RTL commit logs right now, which causes "# of insts committed" divergence
 
 #### VPI-Based State Injection
 
@@ -137,6 +131,15 @@ OLD TASKS
 ---
 
 ## Archived Tasks
+
+### ELF Fragmentation
+
+- [x] Statically identify basic blocks from ELF file (@raghavg-13)
+  - Input(s)
+    - ELF file
+  - Output(s)
+    - Sorted Mapping between PCs and BB IDs
+    - Reverse mapping between BB IDs and start/end PCs
 
 ### Phase Clustering
 
