@@ -90,6 +90,10 @@
 - [ ] Rerunning spike to capture checkpoints is too wasteful
   - Spike should preemptively take snapshots and we should reload from those snapshots when possible and advance minimal time
   - Our existing technique won't scale for larger programs
+- [ ] Skip bootrom run in spike commit log
+  - Right now, the spike commit log contains a bootrom sequence
+  - This isn't part of the binary, so it doesn't get captured in the elf-based BB extraction
+  - It also is an inconsistency between the spike and RTL commit logs right now, which causes "# of insts committed" divergence
 
 #### VPI-Based State Injection
 

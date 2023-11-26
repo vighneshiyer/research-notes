@@ -122,7 +122,7 @@
     - [ ] Recent results in multi-level simulation
     - [ ] SimCommand
     - [ ] Parametric fuzzing + instruction generator and targeting of uArch metrics
-    - [ ] Specificion mining for bug localization (and later for coverpoint synthesis)
+    - [ ] Specification mining for bug localization (and later for coverpoint synthesis)
     - [ ] Building verification libraries using chiseltest
     - [ ] riscv-dv coverage prediction experiments
 
