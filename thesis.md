@@ -219,14 +219,19 @@
 - At a high level, need to 1) show the value of sampled simulation for RTL specifically vs sampling in existing performance models (e.g. gem5 simpoint) and 2) shouldn't pitch it as just a simulation methodology project, but rather as a simulation framework that unifies a bunch of methodologies and enables useful uArch research (in power, performance, and functionality)
     - **Pitch**: A Unified Framework to Find Unique Aspects of Programs (on heterogeneous SoCs) with respect to power, performance, and functionality
     - The selling point is generally avoiding expensive and wasteful RTL simulations of redundant activity via sampling and *what that enables*
-- Sampling methodologies as a sliding scale
+- Sampling and simulation methodologies live on a sliding scale
     - Simpoints are usually very large (~10M instructions) and don't require functional warmup - however they are prone to uncertainty wrt clustering and no error bound
-    - SMART-based sampling uses smaller intervals (~100k instructions) and require functional warmup since there are many more of them and they are shorter - however they don't give fine time-granularity of performance metrics, only e.g. an entire trace-level averaged IPC
-    - Fast-forwarded RTL simulation is also useful (scale-out RTL simulation dispatch seems interesting if only engineering)
+    - SMART-based sampling uses smaller intervals (~100k instructions) and require functional warmup since there are many more of them and they are shorter - however they don't give fine time-granularity of performance metrics, only e.g. an entire trace-level averaged IPC, but they have a CLT based error bound
+    - Non-sampled RTL simulation by running parallel RTL simulations seeded by checkpoints taken from functional simulation + warmup (scale-out RTL simulation dispatch seems interesting, if only engineering)
+    - These techniques are treated as separate things, but can we unify them? Think back to the idea about dynamically refined simulation. Can we combine the SMARTs and Simpoint methods? What makes RTL special (functional warmup in RTL hasn't been done before)?
+- Language / Chisel angles
+    - Making functional warmup and arch state injection easy and doable. What made sampled RTL sims non-viable in the past? State mapping + simulation speed.
+    - 
 - Verification/functionality validation angles
 - Power angles
 - Performance angles
-- Language / Chisel angles
+    - DSE-related stuff
+    - Combining RTL and rough perf models for the parts we want to modify. Retaining high fidelity without having to correlate RTL/perf simulators.
 - Advanced topics
     - Don't touch multicore stuff - sampled multicore simulation while modeling accuracte coherency interactions is difficult
     - Accelerators are a much more suitable extension
