@@ -47,6 +47,10 @@
 
 ### Low Priority Tasks / Ideas
 
+- [ ] Fix up plotting stuff to use plt.step() [d:11/18]
+  - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.step.html
+  - Also see https://matplotlib.org/3.4.3/gallery/ticks_and_spines/multiple_yaxis_with_spines.html
+  - Plot the IPC error on the second y axis
 - [ ] Figure out the mismatch in the number of rows for tidalsim vs reference perf [d:11/20]
   - Some of this is due to the bootrom execution in reference perf
   - This causes a instruction fixed offset!
@@ -56,10 +60,6 @@
   - Right now, the spike commit log contains a bootrom sequence
   - This isn't part of the binary, so it doesn't get captured in the elf-based BB extraction
   - It also is an inconsistency between the spike and RTL commit logs right now, which causes "# of insts committed" divergence
-- [ ] Fix up plotting stuff to use plt.step() [d:11/18]
-  - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.step.html
-  - Also see https://matplotlib.org/3.4.3/gallery/ticks_and_spines/multiple_yaxis_with_spines.html
-  - Plot the IPC error on the second y axis
 
 - [ ] Get Verilator working
 - [ ] Add spike PMP dumping capabilities

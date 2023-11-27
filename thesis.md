@@ -128,6 +128,9 @@
 
 #### Organization of qual talk / thesis
 
+
+- **Proposed Thesis Title**: A High-Fidelity, High-Throughput, Low-Latency Microarchitectural Simulation with Applications in Microarchitecture Evaluation, Verification, and Power Modeling
+
 - Motivation (3 slides)
     - Why we want fast uArch iteration ("due to the end of Moore's law")
     - What currently limits uArch iteration and evaluation latency, what evaluation platforms exist already?
@@ -211,6 +214,23 @@
 
 ## Advice From Others
 
+### Advice from Prof. Chris Batten (11/26/2023)
+
+- At a high level, need to 1) show the value of sampled simulation for RTL specifically vs sampling in existing performance models (e.g. gem5 simpoint) and 2) shouldn't pitch it as just a simulation methodology project, but rather as a simulation framework that unifies a bunch of methodologies and enables useful uArch research (in power, performance, and functionality)
+    - **Pitch**: A Unified Framework to Find Unique Aspects of Programs (on heterogeneous SoCs) with respect to power, performance, and functionality
+    - The selling point is generally avoiding expensive and wasteful RTL simulations of redundant activity via sampling and *what that enables*
+- Sampling methodologies as a sliding scale
+    - Simpoints are usually very large (~10M instructions) and don't require functional warmup - however they are prone to uncertainty wrt clustering and no error bound
+    - SMART-based sampling uses smaller intervals (~100k instructions) and require functional warmup since there are many more of them and they are shorter - however they don't give fine time-granularity of performance metrics, only e.g. an entire trace-level averaged IPC
+    - Fast-forwarded RTL simulation is also useful (scale-out RTL simulation dispatch seems interesting if only engineering)
+- Verification/functionality validation angles
+- Power angles
+- Performance angles
+- Language / Chisel angles
+- Advanced topics
+    - Don't touch multicore stuff - sampled multicore simulation while modeling accuracte coherency interactions is difficult
+    - Accelerators are a much more suitable extension
+
 ### Notes from Qual Orientation in Oct 2022
 
 - Talk about: spec mining, verif library, internship results from nvidia + Apple, constrained random, Simcommand, other ongoing undergrad projects
@@ -221,7 +241,7 @@
 ### Ryan's Thesis Advice
 
 > White the thesis as a tutorial on your topic. (See jrk's thesis or David Biancolin's thesis)
-> You will find holds that represents papers/projects you have to complete.
+> You will find holes that represents papers/projects you have to complete.
 > The qual slides should have a thesis outline at the end vs a timeline which is never realistic and obscures details. Make sure the committee knows what your complete plan is and what you have already written.
 > Compile a list of Unsolved problems in RTL verification. (meaning of coverage, bug localization theorems, etc.)
 
