@@ -224,10 +224,21 @@
     - SMART-based sampling uses smaller intervals (~100k instructions) and require functional warmup since there are many more of them and they are shorter - however they don't give fine time-granularity of performance metrics, only e.g. an entire trace-level averaged IPC, but they have a CLT based error bound
     - Non-sampled RTL simulation by running parallel RTL simulations seeded by checkpoints taken from functional simulation + warmup (scale-out RTL simulation dispatch seems interesting, if only engineering)
     - These techniques are treated as separate things, but can we unify them? Think back to the idea about dynamically refined simulation. Can we combine the SMARTs and Simpoint methods? What makes RTL special (functional warmup in RTL hasn't been done before)?
+        - Think about incremental refinement of RTL simulation where we build confidence about the e.g. IPC trace over time
 - Language / Chisel angles
     - Making functional warmup and arch state injection easy and doable. What made sampled RTL sims non-viable in the past? State mapping + simulation speed.
-    - 
+    - A Chisel API for marking arch/uArch state + emission of HW parameters for the functional warmup models
 - Verification/functionality validation angles
+    - Comparing uArch states between the functional warmup model and the full RTL simulation (both against the full RTL sim and the end of a given interval)
+        - We expect some mismatch, but there might be some cases where the mismatch is substantial and out of the norm
+        - These cases can motivate tuning of the functional model or expose RTL bugs
+    - Coverpoint synthesis in the context of making fuzzing more effective
+        - We can synthesize coverpoints as fuzzing is happening, but also using waveforms extracted from sampled simulation
+        - The goal is to show that existing fuzzers don't perform well without feedback on these synthesized coverpoints
+        - This is an extension of specification mining
+    - Use functional warmup to bootstrap fuzzing
+        - Fuzzers right now start from the reset state and only have ~1000 instructions to get the RTL into an interesting state
+        - We can use functional warmup to seed the arch/uArch state of the RTL from a given point and then mutate/generate the remaining instructions from a given PC
 - Power angles
 - Performance angles
     - DSE-related stuff
