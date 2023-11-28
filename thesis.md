@@ -208,6 +208,10 @@
 - Multi-abstraction integration
 - Unifying RTL sim/FireSim and TidalSim
 
+## Google Proposal Paragraph
+
+We propose a microarchitectural simulation methodology that combines functional ISA-level simulation, microarchitectural warmup models, and RTL simulation to produce high-fidelity RTL traces of interesting aspects of long-running workloads. We will use sampled simulation techniques from prior art and extend them with better interval embeddings and the ability to inject state into RTL simulation. Our project will entail creating a simulation framework that is both ISA-agnostic and microarchitecture-agnostic using abstractions over these design specific concerns. The applications for this simulation technique include RTL-level performance modeling and prediction on realistic workloads, design space exploration, accelerator evaluation, trace collection for power model training and test, and specification mining.
+
 ## Advice From Others
 
 ### Advice from Prof. Chris Batten (11/26/2023)
