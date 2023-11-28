@@ -22,9 +22,9 @@
 - [ ] Read MTR paper [d:11/18]
 - [ ] Implement basic unicore MTR cache reconstruction [d:11/18]
 - [ ] Identify cache state in RTL [d:11/18]
-- [ ] Dump cache configuration (or read JSON) from Chipyard SoC [d:11/18]
+- [ ] Dump cache configuration (or read JSON) from Chipyard SoC
 
-- [ ] Add code to perform cache state injection [d:11/22]
+- [ ] Add code to perform cache state injection
   - ???, do it like GPR injection, but it will generate a bunch of code, may not be so performant
 
 ### uArch Model Validation Methodology

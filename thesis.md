@@ -208,10 +208,6 @@
 - Multi-abstraction integration
 - Unifying RTL sim/FireSim and TidalSim
 
-- Using parametric generators to produce validation stimulus for multi level sim like cache state reconstruction
-- Leveraging verification infra for validating uarch simulation
-- Leveraging simulatior independent coverage for feedback and instrumentation
-
 ## Advice From Others
 
 ### Advice from Prof. Chris Batten (11/26/2023)
@@ -225,27 +221,41 @@
     - Non-sampled RTL simulation by running parallel RTL simulations seeded by checkpoints taken from functional simulation + warmup (scale-out RTL simulation dispatch seems interesting, if only engineering)
     - These techniques are treated as separate things, but can we unify them? Think back to the idea about dynamically refined simulation. Can we combine the SMARTs and Simpoint methods? What makes RTL special (functional warmup in RTL hasn't been done before)?
         - Think about incremental refinement of RTL simulation where we build confidence about the e.g. IPC trace over time
+        - How do we bound errors? How can we build a proxy "confidence" metric? E.g. some interval embedding distance metric + uArch state mismatch quantification
 - Language / Chisel angles
     - Making functional warmup and arch state injection easy and doable. What made sampled RTL sims non-viable in the past? State mapping + simulation speed.
     - A Chisel API for marking arch/uArch state + emission of HW parameters for the functional warmup models
 - Verification/functionality validation angles
-    - Comparing uArch states between the functional warmup model and the full RTL simulation (both against the full RTL sim and the end of a given interval)
-        - We expect some mismatch, but there might be some cases where the mismatch is substantial and out of the norm
-        - These cases can motivate tuning of the functional model or expose RTL bugs
-    - Coverpoint synthesis in the context of making fuzzing more effective
+    - Coverpoint synthesis in the context of making fuzzing more effective / have a better evaluation methodology
         - We can synthesize coverpoints as fuzzing is happening, but also using waveforms extracted from sampled simulation
         - The goal is to show that existing fuzzers don't perform well without feedback on these synthesized coverpoints
         - This is an extension of specification mining
     - Use functional warmup to bootstrap fuzzing
         - Fuzzers right now start from the reset state and only have ~1000 instructions to get the RTL into an interesting state
         - We can use functional warmup to seed the arch/uArch state of the RTL from a given point and then mutate/generate the remaining instructions from a given PC
+    - Comparing uArch states between the functional warmup model and the full RTL simulation (both against the full RTL sim and the end of a given interval)
+        - We expect some mismatch, but there might be some cases where the mismatch is substantial and out of the norm
+        - These cases can motivate tuning of the functional model or expose RTL bugs
+    - Validation of functional warmup models against RTL
+        - These models need to roughly match to make sure our functional warmup is accurate and the performance numbers we get are reliable
+        - Leverage SimCommand, parameteric generators and fuzzing, and simulator independent coverage to test all scenarios
 - Power angles
+    - Leverage interesting waveform snippets for training or testing power macromodels
+    - Use Tidalsim flow for power trace generation
+    - It might also be interesting to look at specialized embeddings for power trace generation?
+    - "Thermal warmup" is an interesting angle where the prior program activity influences the thermal profile of the subsequent intervals
 - Performance angles
-    - DSE-related stuff
-    - Combining RTL and rough perf models for the parts we want to modify. Retaining high fidelity without having to correlate RTL/perf simulators.
+    - DSE-related stuff - explore HW parameter space or SW input space with regular performance metrics being reported
+    - Combining RTL and rough perf models for the parts of an SoC we want to modify or play with
+    - Retaining high fidelity without having to correlate RTL/perf simulators
 - Advanced topics
     - Don't touch multicore stuff - sampled multicore simulation while modeling accuracte coherency interactions is difficult
     - Accelerators are a much more suitable extension
+        - Normally the large amount of arch state associated with an accelerator is a disadvantage
+        - But this is an advantage for sampled simulation since functional warmup is unnecessary with accelerators where most of the state is architectural vs microarchitectural
+            - This is the case for Gemmini, for example
+        - May need to generalize the methodology to treat cores and accelerators uniformly
+        - Also may need to specialize interval embeddings with accelerator semantics
 
 ### Notes from Qual Orientation in Oct 2022
 
