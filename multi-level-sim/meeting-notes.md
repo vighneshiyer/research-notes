@@ -7,6 +7,14 @@
 
 ## Meeting Notes
 
+### 11/29/23
+- Raghav
+  - ELF-based BB extraction has been integrated
+    - Use `tidalsim -e`
+  - Comparison against Ghidra in `elf_basic_block_id.md`
+  - aha-mont64 gives the same embedding with either approach
+  - Working on Verilator support
+
 ### 11/21/2023
 
 - Vighnesh
@@ -64,8 +72,9 @@
         - e.g. the function call can be inlined
         - this is an acceptable discrepancy - it won't affect the basic block embedding
     - `sext.w` / `c.addiw` discrepancy - Ghidra considers these control instructions when they are not
-        - Ah, seems to be a result of Ghidra decoding instructions using rv32 encoding rather than rv64
-        - Ghidra seems to recognize that the elf is rv64gc, but there is probably an internal bug in which disassembler it uses
+        - ~~Ah, seems to be a result of Ghidra decoding instructions using rv32 encoding rather than rv64~~
+        - ~~Ghidra seems to recognize that the elf is rv64gc, but there is probably an internal bug in which disassembler it uses~~
+        - nvm, there's no discrepancy, basic blocks were being terminated because of a branch/jump target at the following instruction
     - TODO: Porting your script to the repo, unifying the data structures used as output
     - Ghidra found 675 basic blocks, Raghav's script found 770 basic blocks
 

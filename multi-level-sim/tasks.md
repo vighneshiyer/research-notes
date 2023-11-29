@@ -139,7 +139,7 @@ OLD TASKS
     - ELF file
   - Output(s)
     - Sorted Mapping between PCs and BB IDs
-    - Reverse mapping between BB IDs and start/end PCs
+    - ~~Reverse mapping between BB IDs and start/end PCs~~
 
 ### Phase Clustering
 
