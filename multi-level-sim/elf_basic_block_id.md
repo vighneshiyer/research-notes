@@ -67,11 +67,3 @@
 ### clang comparison
   - [ ] Build libgloss with clang
   - [ ] Build hello-world with clang
-
-### Misc notes
-
-#### Getting basic blocks
-  1. Ghidra (but only supports dwarf4)
-  2. Dyninst (C++ based UW-Madison project, cool stuff but not maintained in ages)
-  3. A bunch of random github scripts/projects that are similar to what we do, but generally for other ISAs such as x86/ARM
-  4. Trace-based stuff (gem5, Dhruv+Vighnesh's work)

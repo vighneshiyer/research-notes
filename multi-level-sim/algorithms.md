@@ -5,14 +5,19 @@
 - Problem: Given a PC, identify which basic block it resides in
 
 - If we have the source
-    - gcc thing
-    - llvm/clang thing
-    - ??? Raghav enumerate the things here
+    1. clang
+     - need to rebuild all compilation units
+    2. gcc
+     - similar but more convoluted 
 - If we have the binary
-    - Ghidra
+    1. Ghidra (but only supports dwarf4)
+    2. Dyninst (C++ based UW-Madison project, cool stuff but not maintained in ages)
+- If we have the asmdump
+    1. A bunch of random github scripts/projects that are similar to what we do, but generally for other ISAs such as x86/ARM
+    2. [Our implementation](https://github.com/euphoric-hardware/tidalsim/blob/main/tidalsim/bb/elf.py) that parses the objdump, iterating over each control instruction and splitting the involved fn/basic block 
 - If we have the PC + instruction trace
-    - [gem5's implementation](https://github.com/gem5/gem5/blob/3157cde32449fea7b0a0ad5e8241481bc6ee76c3/src/cpu/simple/probes/simpoint.cc#L81) of basic block extraction from PCs
-    - [Our implementation](https://github.com/euphoric-hardware/tidalsim/blob/main/pc.py) that analyzes the spike commit log
+    1. [gem5's implementation](https://github.com/gem5/gem5/blob/3157cde32449fea7b0a0ad5e8241481bc6ee76c3/src/cpu/simple/probes/simpoint.cc#L81) of basic block extraction from PCs
+    2. [Our implementation](https://github.com/euphoric-hardware/tidalsim/blob/main/tidalsim/bb/spike.py) that analyzes the spike commit log
 
 ## Interval Selection
 
