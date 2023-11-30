@@ -262,20 +262,34 @@ We bought:
     - https://ooni.com/blogs/recipes/classic-pizza-dough
         - Makes 4 250g 12" pizza doughballs
         - We need to make ~4 batches of this recipe
-        - 368g lukewarm water
-        - 3 ½ grams active dry yeast, or 2.7 grams instant dried yeast, or 8 ½ grams fresh yeast
-        -
+            - 368g lukewarm water
+            - 3 ½ grams active dry yeast, or 2.7 grams instant dried yeast, or 8 ½ grams fresh yeast
+            - 613 grams “00” flour, plus extra for dusting
+            - 18 grams sea salt
+        - Assuming 16 pizzas, we need 2.8kg flour and 12g instant dried yeast / 14g active dry yeast
 - Pellet dry-out
     - https://www.smokingmeatforums.com/threads/how-do-i-dry-out-some-moist-pellets-to-use-in-my-a-maze-n-smoker.148565/
     - 1 minute at a time in the microwave in a ceramic dish/bowl
     - Store in airtight freezer bag afterwards
-- Dough ingredients
-    - 00 caputo flour
-    - Yeast
+- [ ] Dough ingredients [d:11/30]
+    - [ ] Caputo 00 flour
+    - [x] Yeast
+- [ ] Purchase groceries [d:12/5]
+- [ ] Prepare dough and overnight proof [d:12/6]
 - Trader Joe's
-    - Garlic
-    - San marzano cans
-    - Fresh mozz
+    - Ingredients
+        - Garlic, basil
+        - DOP Whole San Marzano cans
+        - Fresh mozz, DOP parm, buratta
+        - Prosciutto, salami
+    - Drinks
+        - Already have: pink lemonade, apple cider, 1x red, 1x port, 2x soju, 1x sake
+    - Snacks
+        - Already have: cheese puffs
+- To bring from home:
+    - Dough slicer, knife, dishcloths / towels, microplane, spoons/ladles, scissors, trash bag, mitts
+    - Dried oregano, dried basil, dried red pepper flakes, olive oil in bottle
+    - Extra tupperware
 
 ### Purchases
 
