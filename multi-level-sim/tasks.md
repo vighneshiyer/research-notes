@@ -45,7 +45,7 @@
 - Which registers are infrequently set? Need to avoid counting registers that are arch state like CSRs
 - What state gets refreshed every cycle or so? Can just threshold the toggle frequency and find the states we need uArch trace models for
 
-### Low Priority Tasks / Ideas
+### Low Priority Tasks
 
 - [ ] Fix up plotting stuff to use plt.step() [d:11/18]
   - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.step.html
@@ -56,10 +56,16 @@
   - This causes a instruction fixed offset!
   - To resolve this, we should inject a snapshot at n_insts = 0 for gathering the ref perf trace
   - This should just be another script rather that can slot the results straight into the same runs directory
-- [ ] Skip bootrom run in spike commit log
+- [ ] Skip bootrom run in spike commit log [d:11/29]
   - Right now, the spike commit log contains a bootrom sequence
   - This isn't part of the binary, so it doesn't get captured in the elf-based BB extraction
   - It also is an inconsistency between the spike and RTL commit logs right now, which causes "# of insts committed" divergence
+- [ ] Instead of using IntervalTree directly, expose as an interface [d:11/29]
+  - LRU should be based on PC range not the exact PC! Otherwise it is too wasteful.
+  - Create a custom data structure with an alternative implementation that's much faster for exclusive queries
+  - Make the constructor take a list of ranges with ids, the structure should be immutable
+  - Construct a balanced BST
+  - Implement a custom LRU cache based on lookups based on the *range* of the leaf element rather than input PC
 
 - [ ] Get Verilator working
 - [ ] Add spike PMP dumping capabilities
@@ -80,11 +86,6 @@
 - [ ] Add detailed warmup argument
 - [ ] Build an error model that models the function of the distance of a interval from its representative centroid and the IPC error
 - [ ] Take multiple checkpoints per cluster centroid and evaluate their variance + incorporate into error model
-- [ ] Instead of using IntervalTree directly, expose as an interface
-  - Create a custom data structure with an alternative implementation that's much faster for exclusive queries
-  - Make the constructor take a list of ranges with ids, the structure should be immutable
-  - Construct a balanced BST
-  - Implement a custom LRU cache based on lookups based on the *range* of the leaf element rather than input PC
 - [ ] Rerunning spike to capture checkpoints is too wasteful
   - Spike should preemptively take snapshots and we should reload from those snapshots when possible and advance minimal time
   - Our existing technique won't scale for larger programs
