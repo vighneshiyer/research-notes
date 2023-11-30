@@ -189,8 +189,8 @@ We bought:
 - we should not use cornmeal, only flour
 - we should only have 2 pizza variants and just force people to choose one
     - greatly minimize the number of unique toppings
-- + switch to 10" personal pizzas + ask Ooni for dough recipe modification
-- + get more disposable stuff from Costco (plates, bowls)
+- switch to 10" personal pizzas + ask Ooni for dough recipe modification
+- get more disposable stuff from Costco (plates, bowls)
 
 ### Purchases
 
@@ -250,7 +250,7 @@ We bought:
 - [x] Sort out dough and pizza arrangements [d:11/30]
 
 - Pizzas
-    - Vegetarian: tomato sauce, fresh mozzarella, grated parm, basil, crushed garlic, olive oil, buratta topping after cooking (?)
+    - Vegetarian: tomato sauce, fresh mozzarella, grated parm, basil, crushed garlic, olive oil, buratta after cooking
     - Meat: tomato sauce, fresh mozzarella, grated parm, olive oil, prosciutto, salami
 - Prep Notes
     - tomato sauce will be prepared by blending canned whole san marzano tomatoes (with the liquid drained to keep thicker sauce consistency vs last time)
@@ -276,3 +276,26 @@ We bought:
     - Garlic
     - San marzano cans
     - Fresh mozz
+
+### Purchases
+
+- [x] 5 gallon bucket with lid [d:11/27]
+- [x] Proofing trays [d:11/27]
+- [x] Squeeze bottle for olive oil [d:11/27]
+- [x] Fix chimney baffle
+- [x] Evaluate plates and bowls situation [d:11/27]
+    - We have sufficient plates, bring tupperware from home for ingredient prep
+- [x] Hardwood pellets [d:11/27]
+- [x] Battery-powered fan (with light) [d:11/27]
+- ~~[ ] Digital scale~~ (Daniel has two)
+- ~~[ ] Grill brush~~
+    - No bristles, pure wire, heat resistant
+    - I'm skeptical that any product is good here, instead just use little flour and no cornmeal, and if needed wipe the stone with a wet dishcloth and tongs
+    - Also can use the peel to push remnants towards the flame in the back
+    - With 10" pizzas this should be less of a concern now
+- [x] Buy pizza supplies [d:10/20]
+    - [x] Pizza peel
+    - [x] Carrying case
+    - [x] Infrared thermometer
+    - [x] Sandwich bags
+    - [x] Cling wrap
