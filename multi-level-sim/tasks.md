@@ -45,33 +45,47 @@
 - Which registers are infrequently set? Need to avoid counting registers that are arch state like CSRs
 - What state gets refreshed every cycle or so? Can just threshold the toggle frequency and find the states we need uArch trace models for
 
-### Low Priority Tasks
+### Data Extraction Cleanup
 
-- [ ] Fix up plotting stuff to use plt.step() [d:11/18]
+- [x] Fix up plotting stuff to use plt.step() [d:11/18]
   - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.step.html
   - Also see https://matplotlib.org/3.4.3/gallery/ticks_and_spines/multiple_yaxis_with_spines.html
   - Plot the IPC error on the second y axis
-- [ ] Figure out the mismatch in the number of rows for tidalsim vs reference perf [d:11/20]
+- [x] Figure out the mismatch in the number of rows for tidalsim vs reference perf [d:11/20]
   - Some of this is due to the bootrom execution in reference perf
   - This causes a instruction fixed offset!
   - To resolve this, we should inject a snapshot at n_insts = 0 for gathering the ref perf trace
   - This should just be another script rather that can slot the results straight into the same runs directory
-- [ ] Skip bootrom run in spike commit log [d:11/29]
+  - This is mostly caused by the tail of the trace where RTL sim finishes early due to more frequent HTIF tohost polling for the exit syscall
+- [x] Skip bootrom run in spike commit log [d:11/29]
   - Right now, the spike commit log contains a bootrom sequence
   - This isn't part of the binary, so it doesn't get captured in the elf-based BB extraction
   - It also is an inconsistency between the spike and RTL commit logs right now, which causes "# of insts committed" divergence
+- [x] Skip bootrom run in RTL sim [d:12/1]
+  - Create reference sim run target in tidalsim top-level
+  - Also modify parsing function in extrapolation to automatically fetch reference results
+- [ ] Add 2 axes for ipc error and dist to cluster center [d:12/1]
 - [ ] Instead of using IntervalTree directly, expose as an interface [d:11/29]
   - LRU should be based on PC range not the exact PC! Otherwise it is too wasteful.
   - Create a custom data structure with an alternative implementation that's much faster for exclusive queries
   - Make the constructor take a list of ranges with ids, the structure should be immutable
   - Construct a balanced BST
   - Implement a custom LRU cache based on lookups based on the *range* of the leaf element rather than input PC
+- [ ] Fix the spike checkpointing issue for n_checkpoints larger than 16 [d:12/1]
+- [ ] Fix 'chosen_for_rtl_sim' being not a good name [d:12/1]
 
-- [ ] Get Verilator working
+### Verilator
+
+- [x] Get Verilator working
+  - This isn't that easy due to some internal unsupported capability in verilator
+  - It can't force and release nets > 64 bits
+  - Raghav is working on creating a tiny example to report a bug
+
+### Etc Tasks
+
 - [ ] Add spike PMP dumping capabilities
 - [ ] Formalize a loadarch file schema (maybe JSON)
   - Secondary: migrate to VPI based state injection away from force based injection
-
 - [ ] Use spike's `--log=<name>` command line flag to dump a log to file without shell redirection
 - [ ] Read LiveSim paper again
     - Focus on how they do offline trace clustering
@@ -112,6 +126,9 @@
 - Play with alternative clustering algorithms vs KMeans
 - How good is the existing KMeans clustering? Are there program samples that are big outliers?
 - Evaluate whitening/standardization of input matrix before clustering
+  - https://stats.stackexchange.com/questions/21222/are-mean-normalization-and-feature-scaling-needed-for-k-means-clustering
+  - https://stats.stackexchange.com/questions/448490/when-to-normalization-and-standardization
+  - Seems like we should attempt to standardize each feature before normalizing
 - Explore dimensionality reduction prior to sample clustering
   - This is only really needed when the matrix gets very large for performance reasons
   - It shouldn't improve the accuracy or robustness of the clustering algorithm

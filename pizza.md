@@ -271,9 +271,10 @@ We bought:
     - https://www.smokingmeatforums.com/threads/how-do-i-dry-out-some-moist-pellets-to-use-in-my-a-maze-n-smoker.148565/
     - 1 minute at a time in the microwave in a ceramic dish/bowl
     - Store in airtight freezer bag afterwards
-- [ ] Dough ingredients [d:11/30]
-    - [ ] Caputo 00 flour
+- [x] Dough ingredients [d:11/30]
+    - [x] Caputo 00 flour
     - [x] Yeast
+    - [x] Digital scale (0.1g increments)
 - [ ] Purchase groceries [d:12/5]
 - [ ] Prepare dough and overnight proof [d:12/6]
 - Trader Joe's
@@ -284,6 +285,7 @@ We bought:
         - Prosciutto, salami
     - Drinks
         - Already have: pink lemonade, apple cider, 1x red, 1x port, 2x soju, 1x sake
+        - Beer
     - Snacks
         - Already have: cheese puffs
 - To bring from home:
