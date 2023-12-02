@@ -7,7 +7,50 @@
 
 ## Meeting Notes
 
+### 12/1/2023
+
+- Vighnesh
+    - Refactored tidalsim scripting infra to work with dataframe rather than ad-hoc matrices
+    - Fixed a few bugs along the way, and some bugs related to the refactor
+    - Some issue in spike checkpointing when capturing >= 16 checkpoints in a run
+    > AssertionError: different number of lines per loadarch! something is wrong.
+    - I will fix this
+    - Plot: IPC error %, distance (z-score) of interval embedding from its centroid
+    - Dcache:
+        - No valid bits
+        - Tag / data array
+        - The # of address bits doesn't match what I expect
+        - Reported that a cache block is 64B, however in RTL, 32B ???
+- Raghav
+    - Fixing up Verilator support for state injection testharness
+    - Discovery of a new discrepancy between loadarch and RTL arch state
+        - FPR in Rocket is stored in recoded format, not IEEE
+        - We need to do some translation before state injection
+        - softfloat has a function to do the recoding and backwards translation for us, just have to hook it in
+    - Next: dcache model based on spike memory trace parsing
+- Report
+    - State injection as usual
+    - Validation of checkpoints injected and the RTL simulation results (arch state) after simulation
+    - Arch schema instead of using arbitrary loadarch file format
+    - Dcache/Icache perf metric extraction from RTL simulation
+    - Initial version of dcache model + functional warmup
+    - Evaluation of zero-functional-warmup tidalsim with varying interval length and # of clusters on all embench benchmarks
+        - IPC error, runtime, MPKI
+    - Evaluation of Rocket HW parameter DSE
+        - Parameters: Dcache/Icache size/split vs the LLC
+        - Same perf metrics used for evaluation
+        - Compare against RTL simulation for whether we can do DSE on the right trajectory
+    - Write only about how to validate warmup models
+    - Also write about building warmup models for branch predictors and prefetchers
+    - Also write about language-level features (e.g. in Chisel) to assist uArch/arch state mapping
+        - Design-for-simulation (injection-friendly RTL design)
+- Dhruv
+    - Making sure the gen-ckpt/tidalsim script works as-is on his setup
+- Charles
+    - Make sure you can run the scripts as expected
+
 ### 11/29/23
+
 - Raghav
   - ELF-based BB extraction has been integrated
     - Use `tidalsim -e`
