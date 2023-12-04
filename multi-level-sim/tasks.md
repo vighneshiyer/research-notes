@@ -45,6 +45,10 @@
 - Which registers are infrequently set? Need to avoid counting registers that are arch state like CSRs
 - What state gets refreshed every cycle or so? Can just threshold the toggle frequency and find the states we need uArch trace models for
 
+### Report
+
+- [ ] Write the outline [d:12/5]
+
 ### Data Extraction Cleanup
 
 - [x] Fix up plotting stuff to use plt.step() [d:11/18]
@@ -77,6 +81,11 @@
 - [ ] Fix 'chosen_for_rtl_sim' being not a good name [d:12/1]
   - Generalize the ability to choose multiple samples to run in simulation
   - Extrapolation should take the mean of all chosen samples for the same cluster
+
+### Cache Injection
+
+- [ ] Evaluate why dcache block size doesn't match RTL
+- [ ] Write the forcing logic after 'resetting' period is over
 
 ### Verilator
 

@@ -2,6 +2,15 @@
 
 These are just some random notes, don't take them seriously
 
+## Xiangshan's BetaPoint Work
+
+- At some point, these guys seemed to be working on checkpointing / SimPoint support from their functional ISA simulator (NEMU) and arch state injection into RTL simulation (with functional warmup too)
+- They called it "BetaPoint"
+- There are scant references to it today, but it was mentioned in their MICRO paper
+- See this recent PR (Oct 2023) with references to Betapoint: https://github.com/OpenXiangShan/NEMU/pull/199
+- There is some stuff here to: https://github.com/xyyy1420/NEMU/tree/adb43f17f93043a6d779faf9755c2365032d4235/include/profiling
+- Searching Betapoint on Github gets stuff like this: https://github.com/OpenXiangShan/XiangShan/issues/1471
+
 ## Dynamically Refined Hardware Simulation
 
 - A long time ago, I called this idea "dynamically refined hardware simulation"

@@ -282,12 +282,13 @@ We bought:
 - [x] @channel to finalize RSVP list [d:12/4]
 - [ ] Dry out ooni pellets [d:12/4]
 - [ ] Clean out oven and supplies + pack away [d:12/4]
-- [ ] Attempt to re-tension baffle / use washer [d:12/4]
+- [x] Attempt to re-tension baffle / use washer [d:12/4]
 - [ ] Finalize dough recipe and order list [d:12/4]
-- [ ] Organize boxes in lab [d:12/4]
+- [ ] Organize boxes in lab + finalize bring-from-home list [d:12/4]
 - [ ] Purchase groceries [d:12/5]
 - [ ] Finalize notes [d:12/5]
 - [ ] Prepare dough and overnight proof [d:12/6]
+- [ ] Prepare tomato sauce and mozz at home [d:12/6]
 
 - Trader Joe's
     - Ingredients
@@ -297,12 +298,14 @@ We bought:
         - Buratta
         - Prosciutto, salami
     - Drinks
-        - Already have: pink lemonade, apple cider, 1x red, 1x port, 2x soju, 1x sake
+        - Already have: pink lemonade, apple cider, 1x red, 1x port, 2x soju, 1x sake, sodas/water from lab
         - Beer
+        - Wine (reds, whites, moscatos)
+        - Mead (if I'm lucky)
     - Snacks
         - Already have: cheese puffs
 - To bring from home:
-    - Dough slicer, knife, dishcloths / towels, microplane, spoons/ladles, scissors, trash bag, mitts
+    - Dough slicer, knife, dishcloths / towels / rags, microplane, spoons/ladles, scissors, trash bag, mitts, tongs
     - Dried oregano, dried basil, dried red pepper flakes, olive oil
     - Tupperware for ingredients + tomato sauce, immersion blender, sandwich bags, poker
 
