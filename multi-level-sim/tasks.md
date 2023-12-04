@@ -64,7 +64,9 @@
 - [x] Skip bootrom run in RTL sim [d:12/1]
   - Create reference sim run target in tidalsim top-level
   - Also modify parsing function in extrapolation to automatically fetch reference results
-- [ ] Add 2 axes for ipc error and dist to cluster center [d:12/1]
+- [x] Add 2 axes for ipc error and dist to cluster center [d:12/1]
+  - [x] Add absolute IPC error plot
+  - [x] Add distance to centroid metric
 - [ ] Instead of using IntervalTree directly, expose as an interface [d:11/29]
   - LRU should be based on PC range not the exact PC! Otherwise it is too wasteful.
   - Create a custom data structure with an alternative implementation that's much faster for exclusive queries
@@ -73,6 +75,8 @@
   - Implement a custom LRU cache based on lookups based on the *range* of the leaf element rather than input PC
 - [ ] Fix the spike checkpointing issue for n_checkpoints larger than 16 [d:12/1]
 - [ ] Fix 'chosen_for_rtl_sim' being not a good name [d:12/1]
+  - Generalize the ability to choose multiple samples to run in simulation
+  - Extrapolation should take the mean of all chosen samples for the same cluster
 
 ### Verilator
 
@@ -90,19 +94,21 @@
 - [ ] Read LiveSim paper again
     - Focus on how they do offline trace clustering
 - [ ] Add additional caching hash based on simulator hash
-- [ ] Handle the tail interval for tidalsim
-  - When the program length is not a multiple of the interval length, the last sample gets the wrong IPC!
-  - This should be a simple fix to just add some more pickled data from the spike log parsing
-- [ ] Integrate ref trace collection into tidalsim script (and save results in same run directory)
-  - Dump a checkpoint at n_insts = 0
-  - Inject that checkpoint into RTL sim and measure perf
 - [ ] Don't regenerate checkpoints if the binary hasn't changed (in gen-ckpt)
-- [ ] Add detailed warmup argument
 - [ ] Build an error model that models the function of the distance of a interval from its representative centroid and the IPC error
 - [ ] Take multiple checkpoints per cluster centroid and evaluate their variance + incorporate into error model
+- [ ] Use closeness of a given interval to all adjacent clusters
+  - Don't just take the closest cluster, look at distances to each one and weight their IPCs
 - [ ] Rerunning spike to capture checkpoints is too wasteful
   - Spike should preemptively take snapshots and we should reload from those snapshots when possible and advance minimal time
   - Our existing technique won't scale for larger programs
+- [x] Add detailed warmup argument
+- [x] Handle the tail interval for tidalsim
+  - When the program length is not a multiple of the interval length, the last sample gets the wrong IPC!
+  - This should be a simple fix to just add some more pickled data from the spike log parsing
+- [x] Integrate ref trace collection into tidalsim script (and save results in same run directory)
+  - Dump a checkpoint at n_insts = 0
+  - Inject that checkpoint into RTL sim and measure perf
 
 #### VPI-Based State Injection
 

@@ -253,8 +253,6 @@ We bought:
     - Vegetarian: tomato sauce, fresh mozzarella, grated parm, basil, crushed garlic, olive oil, buratta after cooking
     - Meat: tomato sauce, fresh mozzarella, grated parm, olive oil, prosciutto, salami
 - Prep Notes
-    - tomato sauce will be prepared by blending canned whole san marzano tomatoes (with the liquid drained to keep thicker sauce consistency vs last time)
-    - fresh mozzarella will be whole milk mozzarella sliced into strips
 - Dough recipe
     - 10"/11" pizzas are good for personal size, 12" is a bit too big
     - https://www.pizzamaking.com/forum/index.php?topic=57659.0
@@ -267,6 +265,12 @@ We bought:
             - 613 grams “00” flour, plus extra for dusting
             - 18 grams sea salt
         - Assuming 16 pizzas, we need 2.8kg flour and 12g instant dried yeast / 14g active dry yeast
+- Tomato sauce recipe
+    - Tomato sauce will be prepared by blending canned whole san marzano tomatoes (with the liquid drained to keep thicker sauce consistency vs last time)
+- Cheese notes
+    - Fresh mozzarella will be whole milk mozzarella sliced into strips
+    - Parm will be microplaned on top of the mozzarella
+    - Buratta will be placed on top after cooking (budget 0.5 buratta ball per pizza) (4x pizzas per buratta box)
 - Pellet dry-out
     - https://www.smokingmeatforums.com/threads/how-do-i-dry-out-some-moist-pellets-to-use-in-my-a-maze-n-smoker.148565/
     - 1 minute at a time in the microwave in a ceramic dish/bowl
@@ -275,13 +279,22 @@ We bought:
     - [x] Caputo 00 flour
     - [x] Yeast
     - [x] Digital scale (0.1g increments)
+- [x] @channel to finalize RSVP list [d:12/4]
+- [ ] Dry out ooni pellets [d:12/4]
+- [ ] Clean out oven and supplies + pack away [d:12/4]
+- [ ] Attempt to re-tension baffle / use washer [d:12/4]
+- [ ] Finalize dough recipe and order list [d:12/4]
+- [ ] Organize boxes in lab [d:12/4]
 - [ ] Purchase groceries [d:12/5]
+- [ ] Finalize notes [d:12/5]
 - [ ] Prepare dough and overnight proof [d:12/6]
+
 - Trader Joe's
     - Ingredients
+        - Already have: 4x sliced fresh mozzarella logs from Costco, DOP parm
         - Garlic, basil
         - DOP Whole San Marzano cans
-        - Fresh mozz, DOP parm, buratta
+        - Buratta
         - Prosciutto, salami
     - Drinks
         - Already have: pink lemonade, apple cider, 1x red, 1x port, 2x soju, 1x sake
@@ -290,8 +303,8 @@ We bought:
         - Already have: cheese puffs
 - To bring from home:
     - Dough slicer, knife, dishcloths / towels, microplane, spoons/ladles, scissors, trash bag, mitts
-    - Dried oregano, dried basil, dried red pepper flakes, olive oil in bottle
-    - Extra tupperware
+    - Dried oregano, dried basil, dried red pepper flakes, olive oil
+    - Tupperware for ingredients + tomato sauce, immersion blender, sandwich bags, poker
 
 ### Purchases
 
