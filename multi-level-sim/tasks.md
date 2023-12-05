@@ -18,6 +18,11 @@
   - MTR: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1430560
   - Tycho cache simulator: https://pages.cs.wisc.edu/~larus/warts.html#Tycho
   - LiveCache and LiveSim
+- Existing cache models
+  - gem5 (painful to extract)
+  - zsim (painful to build, but trying)
+    - Extracting the cache into a separate project with a simple build system might be viable
+  - https://github.com/s-kanev/XIOSim/blob/master/xiosim/zesto-cache.cpp (might be reasonable)
 
 - [ ] Read MTR paper [d:11/18]
 - [ ] Implement basic unicore MTR cache reconstruction [d:11/18]
