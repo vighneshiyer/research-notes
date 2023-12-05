@@ -12,7 +12,7 @@
   - Looks like the spike model doesn't hold the data array, only the tag array
   - There seems to be logging functionality in cachesim.cc to print out misses at every modeled cache level
   - But it seems like the better option is to use the memory commit log (`--log-commits`)
-  - We can build our own parser / cache model using MTR
+  - We can build our own parser / cache model using MTR (@raghav-g13)
 
 - Prior work
   - MTR: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1430560
@@ -24,7 +24,12 @@
     - Extracting the cache into a separate project with a simple build system might be viable
   - https://github.com/s-kanev/XIOSim/blob/master/xiosim/zesto-cache.cpp (might be reasonable)
 
+- Reuse other work
+  - [ ] Ask on gem5 mailing list (@raghav-g13)
+  - [ ] Try the cache model in [zsim]( https://github.com/s5z/zsim) (@vighnesh.iyer, @raghav-g13)
+
 - [ ] Read MTR paper [d:11/18]
+  - [ ] @raghav-g13 [d:12/4]
 - [ ] Implement basic unicore MTR cache reconstruction [d:11/18]
 - [ ] Identify cache state in RTL [d:11/18]
 - [ ] Dump cache configuration (or read JSON) from Chipyard SoC
@@ -96,8 +101,9 @@
 
 - [x] Get Verilator working
   - This isn't that easy due to some internal unsupported capability in verilator
-  - It can't force and release nets > 64 bits
+  - It can't force and release unpacked arrays due to unimplemented operators
   - Raghav is working on creating a tiny example to report a bug
+    - See [Verilator issue #4735](https://github.com/verilator/verilator/issues/4735)
 
 ### Etc Tasks
 
