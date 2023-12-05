@@ -214,6 +214,29 @@ We propose a microarchitectural simulation methodology that combines functional 
 
 ## Advice From Others
 
+### Advice from Prof. Bora (12/4/2023)
+
+- Based on my ATHLETE quarterly review talk
+- I need more **scientific depth**
+    - Talk about what is **hard** here
+    1. state mapping problem for multi uarch states that map to same arch state
+    2. asynchronous events and timers
+    3. other hard 'advanced topics'
+    4. better interval embeddings that can run with partial information (during interleaved arch and RTL simulation)
+    - Basically just presenting engineering work isn't good enough, need some depth and complexity and advanced techniques
+- Show a plot of sweeping interval lengths and clusters and all the embench benchmarks and runtime comparison
+    - How do we trade off throughput, latency, and accuracy?
+- Demonstrate the actual use cases
+    - DSE of cache parameters and impact on performance / power
+    - Power model training
+    - Bug hunting via arch state comparison after injection (for long SPEC-like workloads that we know fail on BOOM on FPGA)
+        - We can use this to debug our methodology itself
+    - Coverpoint / uarch event synthesis for verification + power model signal/event selection
+- What are you trying to do, why, and how are you doing that - use driving examples
+    - Quantify the value of multi-level simulation - don't just say 'agile design'
+    - Demonstrate speedup in the context of a particular case study vs the baseline techniques
+        - e.g. for the cache DSE how would our approach differ vs other techniques (in terms of latency, throughput, accuracy, productivity)
+
 ### Advice from Prof. Chris Batten (11/26/2023)
 
 - At a high level, need to 1) show the value of sampled simulation for RTL specifically vs sampling in existing performance models (e.g. gem5 simpoint) and 2) shouldn't pitch it as just a simulation methodology project, but rather as a simulation framework that unifies a bunch of methodologies and enables useful uArch research (in power, performance, and functionality)
