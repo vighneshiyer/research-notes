@@ -81,16 +81,16 @@
 - [x] Add 2 axes for ipc error and dist to cluster center [d:12/1]
   - [x] Add absolute IPC error plot
   - [x] Add distance to centroid metric
+- [ ] Fix the spike checkpointing issue for n_checkpoints larger than 16 [d:12/1]
+- [ ] Fix 'chosen_for_rtl_sim' being not a good name [d:12/1]
+  - Generalize the ability to choose multiple samples to run in simulation
+  - Extrapolation should take the mean of all chosen samples for the same cluster
 - [ ] Instead of using IntervalTree directly, expose as an interface [d:11/29]
   - LRU should be based on PC range not the exact PC! Otherwise it is too wasteful.
   - Create a custom data structure with an alternative implementation that's much faster for exclusive queries
   - Make the constructor take a list of ranges with ids, the structure should be immutable
   - Construct a balanced BST
   - Implement a custom LRU cache based on lookups based on the *range* of the leaf element rather than input PC
-- [ ] Fix the spike checkpointing issue for n_checkpoints larger than 16 [d:12/1]
-- [ ] Fix 'chosen_for_rtl_sim' being not a good name [d:12/1]
-  - Generalize the ability to choose multiple samples to run in simulation
-  - Extrapolation should take the mean of all chosen samples for the same cluster
 
 ### Cache Injection
 

@@ -249,65 +249,78 @@ We bought:
 - [x] Finalize pizza party date [d:11/30]
 - [x] Sort out dough and pizza arrangements [d:11/30]
 
-- Pizzas
-    - Vegetarian: tomato sauce, fresh mozzarella, grated parm, basil, crushed garlic, olive oil, buratta after cooking
-    - Meat: tomato sauce, fresh mozzarella, grated parm, olive oil, prosciutto, salami
-- Prep Notes
-- Dough recipe
+- Pellet dry-out
+    - https://www.smokingmeatforums.com/threads/how-do-i-dry-out-some-moist-pellets-to-use-in-my-a-maze-n-smoker.148565/
+    - 1 minute at a time in the microwave in a ceramic dish/bowl
+    - Store in airtight freezer bag afterwards
+- Dough
     - 10"/11" pizzas are good for personal size, 12" is a bit too big
     - https://www.pizzamaking.com/forum/index.php?topic=57659.0
         - 10" = 210g, 11" = 230g, 12" = 250g
     - https://ooni.com/blogs/recipes/classic-pizza-dough
-        - Makes 4 250g 12" pizza doughballs
-        - We need to make ~4 batches of this recipe
+        - Makes 4 250g 12" pizza doughballs or 4.3 230g 11" doughballs
+        - Assuming 23 pizzas, we need 3.6kg flour
+        - We need to make 5/6 batches of this recipe
             - 368g lukewarm water
             - 3 ½ grams active dry yeast, or 2.7 grams instant dried yeast, or 8 ½ grams fresh yeast
             - 613 grams “00” flour, plus extra for dusting
             - 18 grams sea salt
-        - Assuming 16 pizzas, we need 2.8kg flour and 12g instant dried yeast / 14g active dry yeast
-- Tomato sauce recipe
+        - Recipe
+            - Add water and yeast to large bowl and whisk
+            - Add salt and flour to other bowl and pour into wet bowl
+            - Stir with wooden spoon the mix by hand, then knead for 10 minutes on floured work surface
+            - Return dough to bowl, cover with wet dishtowel, and let rise for 10 minutes in warm area
+            - Divide into doughballs, place in proofing tray, and allow to rise another 20-30 minutes, then place in fridge
+            - The next day, proof again at room temp for 2-3 hours or until doubled in size
+- Tomato sauce
+    - Ingredients: San Marzano cans, salt, dried oregano, sugar, olive oil (elide if adding oil on the pizza directly)
+        - 1 14oz can (drained, just the tomatoes), 1 tablespoon olive oil, 1 teaspoon salt + dried oregano, small bit of sugar
+        - This should cover at least 6-8 ish pizzas
     - Tomato sauce will be prepared by blending canned whole san marzano tomatoes (with the liquid drained to keep thicker sauce consistency vs last time)
 - Cheese notes
     - Fresh mozzarella will be whole milk mozzarella sliced into strips
     - Parm will be microplaned on top of the mozzarella
     - Buratta will be placed on top after cooking (budget 0.5 buratta ball per pizza) (4x pizzas per buratta box)
-- Pellet dry-out
-    - https://www.smokingmeatforums.com/threads/how-do-i-dry-out-some-moist-pellets-to-use-in-my-a-maze-n-smoker.148565/
-    - 1 minute at a time in the microwave in a ceramic dish/bowl
-    - Store in airtight freezer bag afterwards
+
 - [x] Dough ingredients [d:11/30]
     - [x] Caputo 00 flour
     - [x] Yeast
     - [x] Digital scale (0.1g increments)
 - [x] @channel to finalize RSVP list [d:12/4]
-- [ ] Dry out ooni pellets [d:12/4]
-- [ ] Clean out oven and supplies + pack away [d:12/4]
 - [x] Attempt to re-tension baffle / use washer [d:12/4]
-- [ ] Finalize dough recipe and order list [d:12/4]
-- [ ] Organize boxes in lab + finalize bring-from-home list [d:12/4]
+- [x] Clean out oven and supplies + pack away [d:12/4]
+- [x] Organize boxes in lab + finalize bring-from-home list [d:12/4]
+- [x] Dry out ooni pellets [d:12/4]
+- [x] Finalize dough recipe and grocery list [d:12/4]
 - [ ] Purchase groceries [d:12/5]
 - [ ] Finalize notes [d:12/5]
 - [ ] Prepare dough and overnight proof [d:12/6]
 - [ ] Prepare tomato sauce and mozz at home [d:12/6]
 
+- Pizzas
+    - (8x) Vegetarian: tomato sauce, fresh mozzarella, grated parm, basil, crushed garlic, olive oil, buratta after cooking
+    - (15x) Meat: tomato sauce, fresh mozzarella, grated parm, olive oil, prosciutto, salami
+- Safeway
+    - DOP Whole San Marzano cans (x4) (already have one at home + Mutti puree if needed)
+    - Drinks (Moscatos, other stuff if cheap)
 - Trader Joe's
     - Ingredients
         - Already have: 4x sliced fresh mozzarella logs from Costco, DOP parm
-        - Garlic, basil
-        - DOP Whole San Marzano cans
-        - Buratta
-        - Prosciutto, salami
+        - Garlic (x3 cloves), basil (x2 plants)
+        - ~~DOP Whole San Marzano cans~~
+        - Buratta (2x containers)
+        - Prosciutto (allocate 3x strips / pizza = 45 strips), salami (allocate 10x slices / pizza = 180 slices)
     - Drinks
         - Already have: pink lemonade, apple cider, 1x red, 1x port, 2x soju, 1x sake, sodas/water from lab
-        - Beer
+        - Beer (as we want)
         - Wine (reds, whites, moscatos)
         - Mead (if I'm lucky)
     - Snacks
         - Already have: cheese puffs
 - To bring from home:
-    - Dough slicer, knife, dishcloths / towels / rags, microplane, spoons/ladles, scissors, trash bag, mitts, tongs
-    - Dried oregano, dried basil, dried red pepper flakes, olive oil
-    - Tupperware for ingredients + tomato sauce, immersion blender, sandwich bags, poker
+    - Equipment: Dough slicer, knife, dishcloths / towels / rags, microplane, spoons/ladles, scissors, trash bag, mitts, tongs, poker, sandwich bags, tupperware for ingredients (basil, garlic)
+    - Ingredients: Dried oregano, dried basil, dried red pepper flakes, ~~olive oil~~
+    - From fridge: tomato sauce, DOP parm, sliced mozzarella, proofing trays (with doughballs)
 
 ### Purchases
 
