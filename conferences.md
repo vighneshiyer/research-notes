@@ -3,29 +3,54 @@
 ## Conferences
 
 - Organized by paper submission deadline date
+- Abbreviations
+    - January = Jan
+    - Feburary = Feb
+    - March = Mar
+    - April = Apr
+    - May = May
+    - June = June
+    - July = July
+    - August = Aug
+    - September = Sept
+    - October = Oct
+    - November = Nov
+    - December = Dec
 
 ### January
 
 - FCCM (IEEE Symposium on Field-Programmable Custom Computing Machines)
     - Abstract: Jan 9, Paper: Jan 15, Rebuttal: Feb 15, Notification: March 14, Final: April 11, Conference: early-May
+- USENIX ATC (Annual Technical Conference) (co-located with OSDI)
+    - Abstract: Jan 5, Paper: Jan 12, Rebuttal: Apr 11, Notification: Apr 28, Final: Jun 8, Conference: mid-Jul
 
 ### Feburary
 
-- DAC (Design Automation Conference)
-    - Late Breaking (poster only, 2 page abstract)
-    - Abstract: early-JAN, Paper: FEB 27, Notification: late-MAR/early-APR, Conference: late-JUN/early-JUL
+- **CAV** (Computer Aided Verification)
+    - Paper: Feb 3, Rebuttal: Mar 29, Notification: Apr 21, Final: May 29, Conference: mid-Jul
 - **VLSI** (Symposium on VLSI Technology and Circuits)
     - Paper: FEB 5, Conference: mid-JUN
 - LATTE (Workshop on Languages, Tools, and Techniques for Accelerator Design) (co-located with ASPLOS)
     - Paper: FEB 8, Notification: FEB 21, Workshop: MAR 26 (overlap with ASPLOS)
 - ISSTA (Symposium on Software Testing and Analysis)
     - 2nd submission round
-    - Paper: FEB 16, Rebuttal: APR 11, notification: MAY 3, conference: mid-JUL
+    - Paper: FEB 16, Rebuttal: APR 11, Notification: MAY 3, Conference: mid-JUL
+- CoolChips (Symposium on Low-Power and High-Speed Chips and Systems)
+    - Paper: Feb 27, Notification: Mar 15, Final: Mar 29, Conference: mid-Apr
+- DAC (Design Automation Conference)
+    - Late Breaking (poster only, 2 page abstract)
+    - Abstract: early-Jan, Paper: Feb 27, Notification: late-Mar/early-Apr, Conference: late-Jun/early-Jul
 - LatchUp (FOSSi Foundation)
     - Talk: FEB, Conference: late-MAR/early-APR
 
 ### March
 
+- ICFP (International Conference on Functional Programming)
+    - 
+- FPL (Conference on Field-Programmable Logic and Applications)
+    - Abstract: Mar 20, Paper: Mar 27, Rebuttal: May 4, Notification: May 23, Conference: early-Sept
+- IWLS (International Workshop on Logic and Synthesis)
+    - Abstract: Mar 29, Paper: Apr 5, Notification: May 6, Final: May 31, Conference: early-June
 - PACT (Conference on Parallel Architectures and Compilation Techniques)
     - Abstract: MAR 25, Paper: APR 1, Rebuttal: JUN 12, Notification: AUG 1, Final: SEP 15, Conference: mid-OCT
 - SuperComputing
@@ -34,28 +59,41 @@
 ### April
 
 - ESSCIRC (European Solid State Circuits Conference)
-    - Paper: APR 5, Conference: mid-SEP
+    - Paper: Apr 5, Conference: mid-Sep
 - HotChips
-    - Paper: APR 7, Notification: MAY 5, Final: JUL 14, Conference: late-AUG
+    - Paper: Apr 7, Notification: May 5, Final: Jul 14, Conference: late-Aug
+- SOSP (ACM Symposium on Operating Systems Principles)
+    - Abstract: Apr 10, Paper: Apr 17, Rebuttal: Jul 1, Final: Sep 11, Conference: late-Oct
 - **MICRO** (Symposium on Microarchitecture)
     - Abstract: April 21, Paper: April 28, Rebuttal: June 26, Notification: July 24, Final: Sept 18, Conference: late-October
 - **ASPLOS** (Architectural Support for Programming Languages and Operating Systems) (Spring Deadline)
     - Abstract: APR 13, Paper: APR 20, Rebuttal: JUL 11, Notification: AUG 2, Final: SEP 19, Conference: late-APR/early-MAY
+- NOCS (Symposium on Networks-on-Chip)
+    - Abstract: Apr 14, Paper: Apr 21, Rebuttal: June 23, Notification: July 28, Conference: mid-Sept
 
 ### May
 
-- RISC-V Workshop (co-located with ISCA)
-    - Early paper: Apr 3 (early notification: Apr 17), Regular Paper: May 1, Notification: May 13, Final: June 3, Workshop: mid-June
+- RISC-V Workshop (CARRV) (co-located with ISCA)
+    - Early paper: Apr 3 (early notification: Apr 17), Regular Paper: May 1, Notification: May 13, Final: Jun 3, Workshop: mid-June
+- FMCAD (Formal Methods in Computer-Aided Design)
+    - Abstract: May 8, Paper: May 15, Rebuttal: June 22, Notification: July 8, Final: Aug 14, Conference: late-Oct
 - ICCAD (Conference on Computer-Aided Design)
-    - Abstract: May 15, Paper: May 22, Notification: July 21, Final: Aug 14, Conference: late-October/early-November
+    - Abstract: May 15, Paper: May 22, Notification: July 21, Final: Aug 14, Conference: late-Oct/early-Nov
+- MEMOCODE (International Symposium on Formal Methods and Models for System Design)
+    - Abstract: May 12, Paper: May 26, Notification: Jul 7, Final: Aug 4, Conference: mid-Sep
 
 ### June
 
+- A-SSCC (Asian Solid-State Circuits Conference)
+    - Paper: Jun 19, Notification: Aug 5, Final: Sep 5, Conference: early-Nov
+
 ### July
 
+- POPL (Principles of Programming Languages)
+    - Paper: Jul 7, Rebuttal: Sep 6, Notification: Sep 27 / Nov 7, Final: Nov 10, Conference: mid-Jan
 - ASP-DAC (Asia and South Pacific - Design Automation Conference)
-    - Abstract: July 28, Paper: August 4, Notification: September 11, Final: November 10, Conference: late-January)
-- HPCA (High Performance Computer Architecture)
+    - Abstract: July 28, Paper: August 4, Notification: September 11, Final: November 10, Conference: late-January
+- **HPCA** (High Performance Computer Architecture)
     - Abstract: JUL 25, Paper: AUG 1, Rebuttal: SEP 26, Notification: OCT 18, Final: DEC 4, Conference: late-FEB/early-MAR
 
 ### August
@@ -101,14 +139,22 @@
 
 ### December
 
-- DATE Late Breaking (paper: Dec 3, notification: Jan 10, conference: late-March)
-- ISPASS (abstract: Dec 8, paper: Dec 15, rebuttal: Feb 9, notification: Feb 29, conference: early-May)
+- DATE (Design Automation and Test in Europe) (Late Breaking)
+    - Paper: Dec 3, Notification: Jan 10, Conference: late-Mar
+- ISPASS (International Symposium on Performance Analysis of Systems and Software)
+    - Abstract: Dec 8, Paper: Dec 15, Rebuttal: Feb 9, Notification: Feb 29, Conference: early-May
+- OSDI (USENIX Symposium on Operating Systems Design and Implementation)
+    - Abstract: Dec 6, Paper: Dec 13, Rebuttal: Mar 6, Notification: Mar 23, Final: Jun 1, Conference: mid-Jul
 
-## Random Notes
+## Other Conferences
 
-- Call for papers summarized here: http://www.wikicfp.com/cfp/call?conference=computer%20architecture
-    - Use this to guide literature search
-- Also see the list here for lit search: https://en.wikipedia.org/wiki/List_of_computer_science_conferences
+These conferences aren't included in the main list since they are too niche, not American, or in a subfield of CS too distant from computer architecture.
+
+- [ESWeek](https://esweek.org/) (Embedded Systems Week)
+    - CASES: International Conference on Compilers, Architectures, and Synthesis for Embedded Systems
+    - CODES+ISSS: International Conference on Hardware/Software Codesign and System Synthesis
+    - EMSOFT: International Conference on Embedded Software
+- [NSDI](https://www.usenix.org/conference/nsdi24) (USENIX Symposium on Networked Systems Design and Implementation)
 
 ## Journals
 
@@ -118,7 +164,11 @@
 - Design and Test
 - TVLSI
 
-## Notes
+## Random Notes
+
+- Call for papers summarized here: http://www.wikicfp.com/cfp/call?conference=computer%20architecture
+    - Use this to guide literature search
+- Also see the list here for lit search: https://en.wikipedia.org/wiki/List_of_computer_science_conferences
 
 - Also consider workshops
     - e.g. riscv workshop
@@ -131,33 +181,22 @@
 - https://research.com/conference-rankings/computer-science/hardware-electronics
 - http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=155514&copyownerid=173431
 
-- Conferences
+- Conference markers
     - Architecture
-    - CAD / Verification / Tooling
+    - CAD
+    - Verification
+    - Formal Methods
     - Circuits
     - Systems
-    - Formal
+    - OS
     - Workshops / Open-Source
+    - PL
+    - ML
 - Lecture Series
     - [IEEE CEDA Distinguished Lecturers Program](https://ieee-ceda.org/distinguished-lecturers-program) (EDA CAD)
 
-- Cool Chips
-- International Symposium on Software Testing and Analysis (ISSTA 2022)
-- ESWeek
-- ATC (Systems) (Jan)
-- SOSP (Systems)
-- POPL
-- NSDI (Systems) (April, Sept)
-- A-SSCC (June)
-- DATE (Sept)
-- CAV
-- OSDI (Systems) (April)
-- MEMOCODE
-- Field Programmable Logic and Applications (FPL)
-- CARRV
-- ISPASS
-- FMCAD
-- NOCS (NoCs)
+## Listing (unorganized)
+
 - International Workshop on Logic and Synthesis
 - https://ieee-ceda.org/ceda-community-calls
 - ICFP
@@ -172,12 +211,10 @@
 - ICML
 - Forum on Specification & Design Languages (FDL)
 - PLDI
-- OSDI
 - ISPD (https://ispd.cc/ispd2023/index.php)
 - OOPSLA
 - IISWC (Workload characterization) (https://iiswc.org/iiswc2023/#/)
 - DesignAndTest
-- ESWEEK (MEMOCODE, NOCS)
 - ISCA (Nov)
     - OSCAR
     - MLArchSys

@@ -292,18 +292,19 @@ We bought:
 - [x] Organize boxes in lab + finalize bring-from-home list [d:12/4]
 - [x] Dry out ooni pellets [d:12/4]
 - [x] Finalize dough recipe and grocery list [d:12/4]
-- [ ] Purchase groceries [d:12/5]
-- [ ] Finalize notes [d:12/5]
+- [x] Finalize notes [d:12/5]
+- [x] Purchase groceries [d:12/5]
 - [ ] Prepare dough and overnight proof [d:12/6]
 - [ ] Prepare tomato sauce and mozz at home [d:12/6]
 
 - Pizzas
     - (8x) Vegetarian: tomato sauce, fresh mozzarella, grated parm, basil, crushed garlic, olive oil, buratta after cooking
     - (15x) Meat: tomato sauce, fresh mozzarella, grated parm, olive oil, prosciutto, salami
-- Safeway
-    - DOP Whole San Marzano cans (x4) (already have one at home + Mutti puree if needed)
+- [x] Safeway
+    - DOP Whole San Marzano cans (x3) (already have one at home + Mutti puree if needed)
     - Drinks (Moscatos, other stuff if cheap)
-- Trader Joe's
+        - Bought: 3x moscato/riesling, 1x 1.5L port
+- [x] Trader Joe's
     - Ingredients
         - Already have: 4x sliced fresh mozzarella logs from Costco, DOP parm
         - Garlic (x3 cloves), basil (x2 plants)
@@ -318,7 +319,7 @@ We bought:
     - Snacks
         - Already have: cheese puffs
 - To bring from home:
-    - Equipment: Dough slicer, knife, dishcloths / towels / rags, microplane, spoons/ladles, scissors, trash bag, mitts, tongs, poker, sandwich bags, tupperware for ingredients (basil, garlic)
+    - Equipment: Dough slicer, knife, dishcloths / towels / rags, microplane, spoons/ladles, scissors, trash bag, mitts, tongs, poker, sandwich bags, tupperware for ingredients (basil, garlic, buratta)
     - Ingredients: Dried oregano, dried basil, dried red pepper flakes, ~~olive oil~~
     - From fridge: tomato sauce, DOP parm, sliced mozzarella, proofing trays (with doughballs)
 
