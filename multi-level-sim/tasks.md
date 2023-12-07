@@ -82,6 +82,13 @@
   - [x] Add absolute IPC error plot
   - [x] Add distance to centroid metric
 - [ ] Fix the spike checkpointing issue for n_checkpoints larger than 16 [d:12/1]
+  - OK one issue is that in interactive mode spike steps by 1 inst every time before calling back into htif tohost/fromhost handling
+  - I fixed this inside `interactive_run` by allowing spike to step by `INTERLEAVE` when possible so that the tohost proxy behavior exactly matches normal spike
+  - BUT, there is another issue that prevents checkpoints from being dumped:
+    - spike terminates the simulation after an `interactive_run` when `tohost` indicates exit syscode (which is the case for the last checkpoint we want to capture)
+    - So spike dies before we have the chance to execute the final state dumping commands
+    - One potential solution is to add a command line option to disable exit via htif and then the only exit possible is via the interactive quit
+    - OK - let me try this - need an entry point for htif_args
 - [ ] Fix 'chosen_for_rtl_sim' being not a good name [d:12/1]
   - Generalize the ability to choose multiple samples to run in simulation
   - Extrapolation should take the mean of all chosen samples for the same cluster

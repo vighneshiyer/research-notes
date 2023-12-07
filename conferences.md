@@ -46,15 +46,15 @@
 ### March
 
 - ICFP (International Conference on Functional Programming)
-    - 
+    - Paper: Mar 1, Notification: May 18 / Jun 27, Final: Jul 18, Conference: early-Sept
 - FPL (Conference on Field-Programmable Logic and Applications)
     - Abstract: Mar 20, Paper: Mar 27, Rebuttal: May 4, Notification: May 23, Conference: early-Sept
 - IWLS (International Workshop on Logic and Synthesis)
     - Abstract: Mar 29, Paper: Apr 5, Notification: May 6, Final: May 31, Conference: early-June
 - PACT (Conference on Parallel Architectures and Compilation Techniques)
-    - Abstract: MAR 25, Paper: APR 1, Rebuttal: JUN 12, Notification: AUG 1, Final: SEP 15, Conference: mid-OCT
+    - Abstract: Mar 25, Paper: Apr 1, Rebuttal: June 12, Notification: Aug 1, Final: Sept 15, Conference: mid-Oct
 - SuperComputing
-    - Abstract: MAR 30, Paper: APR 6, Rebuttal: MAY 22, Notification: JUN 16, Final: AUG 26, Conference: mid-NOV
+    - Abstract: Mar 30, Paper: Apr 6, Rebuttal: May 22, Notification: June 16, Final: Aug 26, Conference: mid-Nov
 
 ### April
 
@@ -67,7 +67,7 @@
 - **MICRO** (Symposium on Microarchitecture)
     - Abstract: April 21, Paper: April 28, Rebuttal: June 26, Notification: July 24, Final: Sept 18, Conference: late-October
 - **ASPLOS** (Architectural Support for Programming Languages and Operating Systems) (Spring Deadline)
-    - Abstract: APR 13, Paper: APR 20, Rebuttal: JUL 11, Notification: AUG 2, Final: SEP 19, Conference: late-APR/early-MAY
+    - Abstract: Apr 13, Paper: Apr 20, Rebuttal: July 11, Notification: Aug 2, Final: Sept 19, Conference: late-Apr/early-May
 - NOCS (Symposium on Networks-on-Chip)
     - Abstract: Apr 14, Paper: Apr 21, Rebuttal: June 23, Notification: July 28, Conference: mid-Sept
 
@@ -95,6 +95,8 @@
     - Abstract: July 28, Paper: August 4, Notification: September 11, Final: November 10, Conference: late-January
 - **HPCA** (High Performance Computer Architecture)
     - Abstract: JUL 25, Paper: AUG 1, Rebuttal: SEP 26, Notification: OCT 18, Final: DEC 4, Conference: late-FEB/early-MAR
+- MLCAD (Workshop on Machine Learning for CAD)
+    - Paper: July 25, Notification: Aug 5, Final: Aug 20, Conference: mid-Sept
 
 ### August
 
@@ -155,6 +157,7 @@ These conferences aren't included in the main list since they are too niche, not
     - CODES+ISSS: International Conference on Hardware/Software Codesign and System Synthesis
     - EMSOFT: International Conference on Embedded Software
 - [NSDI](https://www.usenix.org/conference/nsdi24) (USENIX Symposium on Networked Systems Design and Implementation)
+- [Formal Methods](https://fm2023.isp.uni-luebeck.de/)
 
 ## Journals
 
@@ -163,6 +166,8 @@ These conferences aren't included in the main list since they are too niche, not
 - ESL
 - Design and Test
 - TVLSI
+- Journal of Functional Programming
+- CACM: https://cacm.acm.org/magazines/2022/7
 
 ## Random Notes
 
@@ -180,6 +185,7 @@ These conferences aren't included in the main list since they are too niche, not
 - https://github.com/Gy-Hu/EDA_FV_conference_deadline
 - https://research.com/conference-rankings/computer-science/hardware-electronics
 - http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=155514&copyownerid=173431
+- https://ieee-ceda.org/ceda-community-calls
 
 - Conference markers
     - Architecture
@@ -197,14 +203,6 @@ These conferences aren't included in the main list since they are too niche, not
 
 ## Listing (unorganized)
 
-- International Workshop on Logic and Synthesis
-- https://ieee-ceda.org/ceda-community-calls
-- ICFP
-- Journal of Functional Programming
-- FunctionalConf
-- CACM: https://cacm.acm.org/magazines/2022/7
-- MLCAD (July - https://mlcad-workshop.org/submission/)
-- https://lcs.ios.ac.cn/fm2021/ (Formal Methods)
 - IEEE/ACM International Symposium on Low Power Electronics and Design (ISLPED)
 - DvCon
 - TODAES
@@ -220,3 +218,4 @@ These conferences aren't included in the main list since they are too niche, not
     - MLArchSys
     - HiPChips
     - PLARCH workshop
+- NeurIPS

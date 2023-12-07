@@ -294,8 +294,8 @@ We bought:
 - [x] Finalize dough recipe and grocery list [d:12/4]
 - [x] Finalize notes [d:12/5]
 - [x] Purchase groceries [d:12/5]
-- [ ] Prepare dough and overnight proof [d:12/6]
-- [ ] Prepare tomato sauce and mozz at home [d:12/6]
+- [x] Prepare dough and overnight proof [d:12/6]
+- [x] Prepare tomato sauce and mozz at home [d:12/6]
 
 - Pizzas
     - (8x) Vegetarian: tomato sauce, fresh mozzarella, grated parm, basil, crushed garlic, olive oil, buratta after cooking
@@ -320,7 +320,8 @@ We bought:
         - Already have: cheese puffs
 - To bring from home:
     - Equipment: Dough slicer, knife, dishcloths / towels / rags, microplane, spoons/ladles, scissors, trash bag, mitts, tongs, poker, sandwich bags, tupperware for ingredients (basil, garlic, buratta)
-    - Ingredients: Dried oregano, dried basil, dried red pepper flakes, ~~olive oil~~
+    - Hex screwdriver for hopper lid replacement
+    - Ingredients: Dried oregano, dried basil, dried red pepper flakes, ~~olive oil~~, flour
     - From fridge: tomato sauce, DOP parm, sliced mozzarella, proofing trays (with doughballs)
 
 ### Purchases
