@@ -6,6 +6,29 @@
   - [ ] "Hardware/Software Co-Design"
   - [ ] "Khronos"
 
+### Class Presentation
+
+- [ ] Modify ATHLETE slides for class talk [d:12/10]
+
+### Report
+
+- [ ] Prepare outline in paper form [d:12/5]
+    - State injection as usual
+    - Validation of checkpoints injected and the RTL simulation results (arch state) after simulation
+    - Arch schema instead of using arbitrary loadarch file format
+    - Dcache/Icache perf metric extraction from RTL simulation
+    - Initial version of dcache model + functional warmup
+    - Evaluation of zero-functional-warmup tidalsim with varying interval length and # of clusters on all embench benchmarks
+        - IPC error, runtime, MPKI
+    - Evaluation of Rocket HW parameter DSE
+        - Parameters: Dcache/Icache size/split vs the LLC
+        - Same perf metrics used for evaluation
+        - Compare against RTL simulation for whether we can do DSE on the right trajectory
+    - Write only about how to validate warmup models
+    - Also write about building warmup models for branch predictors and prefetchers
+    - Also write about language-level features (e.g. in Chisel) to assist uArch/arch state mapping
+        - Design-for-simulation (injection-friendly RTL design)
+
 ### Spike Cache Model
 
 - [x] Evaluate the spike cache model code
@@ -55,43 +78,8 @@
 - Which registers are infrequently set? Need to avoid counting registers that are arch state like CSRs
 - What state gets refreshed every cycle or so? Can just threshold the toggle frequency and find the states we need uArch trace models for
 
-### Report
+### BBV Embedding Perf Opt
 
-- [ ] Write the outline [d:12/5]
-
-### Data Extraction Cleanup
-
-- [x] Fix up plotting stuff to use plt.step() [d:11/18]
-  - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.step.html
-  - Also see https://matplotlib.org/3.4.3/gallery/ticks_and_spines/multiple_yaxis_with_spines.html
-  - Plot the IPC error on the second y axis
-- [x] Figure out the mismatch in the number of rows for tidalsim vs reference perf [d:11/20]
-  - Some of this is due to the bootrom execution in reference perf
-  - This causes a instruction fixed offset!
-  - To resolve this, we should inject a snapshot at n_insts = 0 for gathering the ref perf trace
-  - This should just be another script rather that can slot the results straight into the same runs directory
-  - This is mostly caused by the tail of the trace where RTL sim finishes early due to more frequent HTIF tohost polling for the exit syscall
-- [x] Skip bootrom run in spike commit log [d:11/29]
-  - Right now, the spike commit log contains a bootrom sequence
-  - This isn't part of the binary, so it doesn't get captured in the elf-based BB extraction
-  - It also is an inconsistency between the spike and RTL commit logs right now, which causes "# of insts committed" divergence
-- [x] Skip bootrom run in RTL sim [d:12/1]
-  - Create reference sim run target in tidalsim top-level
-  - Also modify parsing function in extrapolation to automatically fetch reference results
-- [x] Add 2 axes for ipc error and dist to cluster center [d:12/1]
-  - [x] Add absolute IPC error plot
-  - [x] Add distance to centroid metric
-- [ ] Fix the spike checkpointing issue for n_checkpoints larger than 16 [d:12/1]
-  - OK one issue is that in interactive mode spike steps by 1 inst every time before calling back into htif tohost/fromhost handling
-  - I fixed this inside `interactive_run` by allowing spike to step by `INTERLEAVE` when possible so that the tohost proxy behavior exactly matches normal spike
-  - BUT, there is another issue that prevents checkpoints from being dumped:
-    - spike terminates the simulation after an `interactive_run` when `tohost` indicates exit syscode (which is the case for the last checkpoint we want to capture)
-    - So spike dies before we have the chance to execute the final state dumping commands
-    - One potential solution is to add a command line option to disable exit via htif and then the only exit possible is via the interactive quit
-    - OK - let me try this - need an entry point for htif_args
-- [ ] Fix 'chosen_for_rtl_sim' being not a good name [d:12/1]
-  - Generalize the ability to choose multiple samples to run in simulation
-  - Extrapolation should take the mean of all chosen samples for the same cluster
 - [ ] Instead of using IntervalTree directly, expose as an interface [d:11/29]
   - LRU should be based on PC range not the exact PC! Otherwise it is too wasteful.
   - Create a custom data structure with an alternative implementation that's much faster for exclusive queries
@@ -104,31 +92,21 @@
 - [ ] Evaluate why dcache block size doesn't match RTL
 - [ ] Write the forcing logic after 'resetting' period is over
 
-### Verilator
-
-- [x] Get Verilator working
-  - This isn't that easy due to some internal unsupported capability in verilator
-  - It can't force and release unpacked arrays due to unimplemented operators
-  - Raghav is working on creating a tiny example to report a bug
-    - See [Verilator issue #4735](https://github.com/verilator/verilator/issues/4735)
-
 ### Etc Tasks
 
-- [ ] Add spike PMP dumping capabilities
-- [ ] Formalize a loadarch file schema (maybe JSON)
-  - Secondary: migrate to VPI based state injection away from force based injection
+#### Quick
+
+- [ ] Eliminate stdout prints during tidalsim run
+  - For each source of stdout/stderr prints, redirect them into a log file
 - [ ] Use spike's `--log=<name>` command line flag to dump a log to file without shell redirection
 - [ ] Read LiveSim paper again
     - Focus on how they do offline trace clustering
 - [ ] Add additional caching hash based on simulator hash
 - [ ] Don't regenerate checkpoints if the binary hasn't changed (in gen-ckpt)
-- [ ] Build an error model that models the function of the distance of a interval from its representative centroid and the IPC error
-- [ ] Take multiple checkpoints per cluster centroid and evaluate their variance + incorporate into error model
-- [ ] Use closeness of a given interval to all adjacent clusters
-  - Don't just take the closest cluster, look at distances to each one and weight their IPCs
-- [ ] Rerunning spike to capture checkpoints is too wasteful
-  - Spike should preemptively take snapshots and we should reload from those snapshots when possible and advance minimal time
-  - Our existing technique won't scale for larger programs
+- [ ] Add clustering based on interval-based PCA selection
+- [ ] Fix 'chosen_for_rtl_sim' being not a good name [d:12/1]
+  - Generalize the ability to choose multiple samples to run in simulation
+  - Extrapolation should take the mean of all chosen samples for the same cluster
 - [x] Add detailed warmup argument
 - [x] Handle the tail interval for tidalsim
   - When the program length is not a multiple of the interval length, the last sample gets the wrong IPC!
@@ -136,6 +114,22 @@
 - [x] Integrate ref trace collection into tidalsim script (and save results in same run directory)
   - Dump a checkpoint at n_insts = 0
   - Inject that checkpoint into RTL sim and measure perf
+
+#### Medium
+
+- [ ] Add spike PMP dumping capabilities
+- [ ] Build an error model that models the function of the distance of a interval from its representative centroid and the IPC error
+- [ ] Take multiple checkpoints per cluster centroid and evaluate their variance + incorporate into error model
+- [ ] Use closeness of a given interval to all adjacent clusters
+  - Don't just take the closest cluster, look at distances to each one and weight their IPCs
+
+#### Lengthy
+
+- [ ] Formalize a loadarch file schema (maybe JSON)
+  - Secondary: migrate to VPI based state injection away from force based injection
+- [ ] Rerunning spike to capture checkpoints is too wasteful
+  - Spike should preemptively take snapshots and we should reload from those snapshots when possible and advance minimal time
+  - Our existing technique won't scale for larger programs
 
 #### VPI-Based State Injection
 
@@ -166,10 +160,6 @@
   - This is only really needed when the matrix gets very large for performance reasons
   - It shouldn't improve the accuracy or robustness of the clustering algorithm
 
-### PCA-Based N-Clusters Selection
-
-- [ ] Add clustering based on interval-based PCA selection
-
 ### Disk Space Saving
 
 - [ ] lz4 spike commit log
@@ -182,6 +172,47 @@ OLD TASKS
 ---
 
 ## Archived Tasks
+
+### Verilator
+
+- This is archived until it gets fixed upstream in Verilator
+- [x] Get Verilator working
+  - This isn't that easy due to some internal unsupported capability in verilator
+  - It can't force and release unpacked arrays due to unimplemented operators
+  - Raghav is working on creating a tiny example to report a bug
+    - See [Verilator issue #4735](https://github.com/verilator/verilator/issues/4735)
+
+### Data Extraction Cleanup
+
+- [x] Fix up plotting stuff to use plt.step() [d:11/18]
+  - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.step.html
+  - Also see https://matplotlib.org/3.4.3/gallery/ticks_and_spines/multiple_yaxis_with_spines.html
+  - Plot the IPC error on the second y axis
+- [x] Figure out the mismatch in the number of rows for tidalsim vs reference perf [d:11/20]
+  - Some of this is due to the bootrom execution in reference perf
+  - This causes a instruction fixed offset!
+  - To resolve this, we should inject a snapshot at n_insts = 0 for gathering the ref perf trace
+  - This should just be another script rather that can slot the results straight into the same runs directory
+  - This is mostly caused by the tail of the trace where RTL sim finishes early due to more frequent HTIF tohost polling for the exit syscall
+- [x] Skip bootrom run in spike commit log [d:11/29]
+  - Right now, the spike commit log contains a bootrom sequence
+  - This isn't part of the binary, so it doesn't get captured in the elf-based BB extraction
+  - It also is an inconsistency between the spike and RTL commit logs right now, which causes "# of insts committed" divergence
+- [x] Skip bootrom run in RTL sim [d:12/1]
+  - Create reference sim run target in tidalsim top-level
+  - Also modify parsing function in extrapolation to automatically fetch reference results
+- [x] Add 2 axes for ipc error and dist to cluster center [d:12/1]
+  - [x] Add absolute IPC error plot
+  - [x] Add distance to centroid metric
+- [x] Fix the spike checkpointing issue for n_checkpoints larger than 16 [d:12/1]
+  - OK one issue is that in interactive mode spike steps by 1 inst every time before calling back into htif tohost/fromhost handling
+  - I fixed this inside `interactive_run` by allowing spike to step by `INTERLEAVE` when possible so that the tohost proxy behavior exactly matches normal spike
+  - BUT, there is another issue that prevents checkpoints from being dumped:
+    - spike terminates the simulation after an `interactive_run` when `tohost` indicates exit syscode (which is the case for the last checkpoint we want to capture)
+    - So spike dies before we have the chance to execute the final state dumping commands
+    - One potential solution is to add a command line option to disable exit via htif and then the only exit possible is via the interactive quit
+    - OK - let me try this - need an entry point for htif_args
+    - Need to add +suppress-exit for both spike checkpointing and RTL sims (for non-golden cases for checkpoint injection)
 
 ### ELF Fragmentation
 

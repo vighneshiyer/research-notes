@@ -346,3 +346,15 @@ We bought:
     - [x] Infrared thermometer
     - [x] Sandwich bags
     - [x] Cling wrap
+
+### Retrospective
+
+- Salty crust with parm, sauce, and crust
+- White smoke issue still persists
+- Poking is essential to ensure clean burn! i didn't know this until near the end and finally got better results this way
+- Fewer toppings are required, esp meats
+- Streaming pizza is more reasonable than personal pizzas when we have more then 5-ish people
+- Crack open poison early to get more drinking going, pour glasses preemptively
+- Need a dough scraper to fetch dough from proofing boxes
+- We packed the proofing boxes too tightly
+- Can use a little less yeast (3g/1kg) when doing 3 rising stages (initial large doughball proof, cold proof, room temp warmup + final proof)
