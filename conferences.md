@@ -17,6 +17,18 @@
     - November = Nov
     - December = Dec
 
+- Conference markers
+    - Architecture
+    - CAD
+    - Verification
+    - Formal Methods
+    - Systems
+    - Circuits
+    - OS
+    - Workshops / Open-Source
+    - PL
+    - ML
+
 ### January
 
 - FCCM (IEEE Symposium on Field-Programmable Custom Computing Machines)
@@ -26,6 +38,8 @@
 
 ### Feburary
 
+- ICML (International Conference on Machine Learning)
+    - Paper: Feb 1, Notification: May 1, Final: May 29, Conference: late-July
 - **CAV** (Computer Aided Verification)
     - Paper: Feb 3, Rebuttal: Mar 29, Notification: Apr 21, Final: May 29, Conference: mid-Jul
 - **VLSI** (Symposium on VLSI Technology and Circuits)
@@ -47,6 +61,8 @@
 
 - ICFP (International Conference on Functional Programming)
     - Paper: Mar 1, Notification: May 18 / Jun 27, Final: Jul 18, Conference: early-Sept
+- ISLPED (Symposium on Low Power Electronics and Design)
+    - Abstract: Mar 6, Paper: Mar 13, Notification: May 22, Final: June 19, Conference: early-Aug
 - FPL (Conference on Field-Programmable Logic and Applications)
     - Abstract: Mar 20, Paper: Mar 27, Rebuttal: May 4, Notification: May 23, Conference: early-Sept
 - IWLS (International Workshop on Logic and Synthesis)
@@ -70,17 +86,29 @@
     - Abstract: Apr 13, Paper: Apr 20, Rebuttal: July 11, Notification: Aug 2, Final: Sept 19, Conference: late-Apr/early-May
 - NOCS (Symposium on Networks-on-Chip)
     - Abstract: Apr 14, Paper: Apr 21, Rebuttal: June 23, Notification: July 28, Conference: mid-Sept
+- OOPSLA (Object-oriented Programming, Systems, Languages, and Applications) (Second Round)
+    - Paper: Apr 14, Rebuttal: June 14, Notification: June 30, Final: Sept 10, Conference: late-Oct
+- MLArchSys (ML for Computer Architecture and Systems) (co-located with ISCA)
+    - Paper: Apr 21, Workshop: mid-June
+- PLARCH (Programming Languages for Architecture) (co-loated with ISCA)
+    - Paper: Apr 28, Notification: May 12, Workshop: mid-June
 
 ### May
 
 - RISC-V Workshop (CARRV) (co-located with ISCA)
     - Early paper: Apr 3 (early notification: Apr 17), Regular Paper: May 1, Notification: May 13, Final: Jun 3, Workshop: mid-June
+- OSCAR (Open-Source Computer Architecture Research) (co-located with ISCA)
+    - Abstract: May 5, Notification: May 17, Workshop: mid-June
 - FMCAD (Formal Methods in Computer-Aided Design)
     - Abstract: May 8, Paper: May 15, Rebuttal: June 22, Notification: July 8, Final: Aug 14, Conference: late-Oct
+- FDL (Forum on Specification and Design Languages)
+    - Paper: May 10, WIP Paper: July 15, Notification: June 8, Final: July 20, Conference: mid-Sept
+- MEMOCODE (International Symposium on Formal Methods and Models for System Design)
+    - Abstract: May 12, Paper: May 26, Notification: Jul 7, Final: Aug 4, Conference: mid-Sept
 - ICCAD (Conference on Computer-Aided Design)
     - Abstract: May 15, Paper: May 22, Notification: July 21, Final: Aug 14, Conference: late-Oct/early-Nov
-- MEMOCODE (International Symposium on Formal Methods and Models for System Design)
-    - Abstract: May 12, Paper: May 26, Notification: Jul 7, Final: Aug 4, Conference: mid-Sep
+- NeurIPS (Conference on Neural Information Processing Systems)
+    - Abstract: May 11, Paper: May 17, Rebuttal: Aug 2, Notification: Sept 22, Final: Oct 27, Conference: mid-Dec
 
 ### June
 
@@ -113,8 +141,12 @@
     - Paper: Sep 6, Conference: mid-Feburary
 - DATE (Design and Automation in Europe)
     - Abstract: Sep 10, Paper: Sep 17, Notification: Nov 14, Final: Jan 17, Conference: late-March
+- DvCon (Design and Verification Conference)
+    - Paper: Sept 15, Notification: Oct 10, Final: Jan 8, Conference: early-Mar
 - WOSET (Workshop Open Source EDA Technology) (co-located with ICCAD)
     - Paper: mid-SEP, Conference: late-OCT/early-NOV
+- ISPD (International Symposium on Physical Design)
+    - Abstract: Sept 24, Paper: Sept 30, Notification: Nov 1, Final: Jan 5, Conference: mid-March
 
 ### October
 
@@ -122,6 +154,8 @@
     - Abstract: Oct 6, Paper: Oct 13, Rebuttal: Nov 18, Notification: Dec 10, Final: Jan 8, Conference: early-March
 - MLSys (Machine Learning and Systems)
     - Paper: Oct 27, Rebuttal: Jan 15, Notification: Feb 16, Conference: mid-May
+- OOPSLA (Object-oriented Programming, Systems, Languages, and Applications) (First Round)
+    - Paper: Oct 28, Rebuttal: Dec 12, Notification: Dec 23, Final: Mar 10, Conference: late-Oct
 
 ### November
 
@@ -130,6 +164,8 @@
 - ISSTA (Symposium on Software Testing and Analysis)
     - 1st submission round
     - Paper: Nov 10, Rebuttal: Dec 20, Notification: Jan 16, Conference: mid-July
+- PLDI (Conference on Programming Language Design and Implementation)
+    - Paper: Nov 10, Rebuttal: Feb 6, Final: Apr 10, Conference: mid-June
 - **DAC** (Design Automation Conference)
     - Abstract: Nov 13, Paper: Nov 20, Notification: late-Feb, Conference: mid/late-June
 - **ISCA** (Symposium on Computer Architecture)
@@ -163,60 +199,20 @@ These conferences aren't included in the main list since they are too niche, not
 
 ## Journals
 
-- [TCAD - IEEE Transactions on CAD of ICs and Systems](https://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=43) (monthly issues)
-- https://ieee-ceda.org/publications
-- ESL
-- Design and Test
-- TVLSI
-- Journal of Functional Programming
-- CACM: https://cacm.acm.org/magazines/2022/7
+- [TCAD: IEEE Transactions on CAD of ICs and Systems](https://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=43) (monthly)
+- [IEEE Design & Test](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=6221038)
+- [TODAES: ACM Transactions on Design Automation of Electronic Systems](https://dl.acm.org/journal/todaes)
+- [CACM: Communications of the ACM](https://cacm.acm.org/magazines/2022/7)
+- [TVLSI: IEEE Transactions on VLSI Systems](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=92)
+- [ESL: IEEE Embedded Systems Letters](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=4563995)
+- [IEEE CEDA Distinguished Lecturers Program](https://ieee-ceda.org/distinguished-lecturers-program)
 
 ## Random Notes
 
-- Call for papers summarized here: http://www.wikicfp.com/cfp/call?conference=computer%20architecture
-    - Use this to guide literature search
-- Also see the list here for lit search: https://en.wikipedia.org/wiki/List_of_computer_science_conferences
-
-- Also consider workshops
-    - e.g. riscv workshop
-    - all the isca/micro/asplos workshops
-
-- https://www.acm.org/conferences/upcoming-submission-deadlines?startDate0=20240101&eventType0=CallsForPapers&view0=month
-- https://www.cse.chalmers.se/research/group/vlsi/conference/ (a nice list of VLSI conferences, due dates, and conference dates, continuously updating)
-- https://aideadlin.es/?sub=ML,CV,CG,NLP,RO,SP,DM,AP,KR
-- https://github.com/Gy-Hu/EDA_FV_conference_deadline
-- https://research.com/conference-rankings/computer-science/hardware-electronics
-- http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=155514&copyownerid=173431
-- https://ieee-ceda.org/ceda-community-calls
-
-- Conference markers
-    - Architecture
-    - CAD
-    - Verification
-    - Formal Methods
-    - Circuits
-    - Systems
-    - OS
-    - Workshops / Open-Source
-    - PL
-    - ML
-- Lecture Series
-    - [IEEE CEDA Distinguished Lecturers Program](https://ieee-ceda.org/distinguished-lecturers-program) (EDA CAD)
-
-## Listing (unorganized)
-
-- IEEE/ACM International Symposium on Low Power Electronics and Design (ISLPED)
-- DvCon
-- TODAES
-- ICML
-- Forum on Specification & Design Languages (FDL)
-- PLDI
-- ISPD (https://ispd.cc/ispd2023/index.php)
-- OOPSLA
-- DesignAndTest
-- ISCA (Nov)
-    - OSCAR
-    - MLArchSys
-    - HiPChips
-    - PLARCH workshop
-- NeurIPS
+- Conference/journsl listings
+    - https://en.wikipedia.org/wiki/List_of_computer_science_conferences
+    - https://www.acm.org/conferences/upcoming-submission-deadlines?startDate0=20240101&eventType0=CallsForPapers&view0=month
+    - https://www.cse.chalmers.se/research/group/vlsi/conference/
+    - https://ieee-ceda.org/ceda-community-calls
+    - [AI Conference Deadlines](https://aideadlin.es/?sub=ML,CV,CG,NLP,RO,SP,DM,AP,KR)
+    - [EDA and Formal Deadlines](https://gy-hu.github.io/EDA_FV_conference_deadline/)
