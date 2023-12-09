@@ -86,6 +86,8 @@
 
 - A-SSCC (Asian Solid-State Circuits Conference)
     - Paper: Jun 19, Notification: Aug 5, Final: Sep 5, Conference: early-Nov
+- IISWC (International Symposium on Workload Characterization)
+    - Paper: June 16, Notification: Aug 2, Final: Sept 1, Conference: early-Oct
 
 ### July
 
@@ -211,7 +213,6 @@ These conferences aren't included in the main list since they are too niche, not
 - PLDI
 - ISPD (https://ispd.cc/ispd2023/index.php)
 - OOPSLA
-- IISWC (Workload characterization) (https://iiswc.org/iiswc2023/#/)
 - DesignAndTest
 - ISCA (Nov)
     - OSCAR

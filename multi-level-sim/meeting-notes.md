@@ -7,6 +7,23 @@
 
 ## Meeting Notes
 
+### 12/8/2023
+
+- Vighnesh
+    - Fixed spike checkpointing issue, that was hard actually
+        - problem 1: in spike interactive mode the htif tohost polling loop runs every commited instruction vs every 5000 instructions in normal mode
+        - problem 2: if a checkpoint is supposed to be captured when the program has written syscall_exit to tohost, then the simulation terminates immediately and the checkpoint isn't captured
+    - Both problems were fixed - the first one by modifying interactive.cc and the second one by adding a new HTIF argument +suppress-exit
+    - Did some more data analysis, determined a very weak correlation between IPC error and distance from centroid
+        - Expect correlation to get stronger after functional warmup
+- Raghav
+    - Cache warmup
+    - Zesto cache model as the base
+    - Need a replacement policy similar to Rocket L1 - is it random (LFSR) or pseudo-LRU?
+- Charles
+    - If clusters isn't specified as input to the script, then infer the 'right' number of clusters
+    - If time: multiple checkpoints per cluster
+
 ### 12/1/2023
 
 - Vighnesh

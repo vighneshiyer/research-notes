@@ -86,6 +86,9 @@
   - Make the constructor take a list of ranges with ids, the structure should be immutable
   - Construct a balanced BST
   - Implement a custom LRU cache based on lookups based on the *range* of the leaf element rather than input PC
+- On Young-Jin implementation
+  - Original throughput of BB extraction: 664k insts/second
+  - New throughput: 746k insts/second
 
 ### Cache Injection
 
@@ -120,6 +123,7 @@
 - [ ] Add spike PMP dumping capabilities
 - [ ] Build an error model that models the function of the distance of a interval from its representative centroid and the IPC error
 - [ ] Take multiple checkpoints per cluster centroid and evaluate their variance + incorporate into error model
+- [ ] For every sample, don't just look at its closest cluster, but weight the IPCs of all the neighboring clusters by distance
 - [ ] Use closeness of a given interval to all adjacent clusters
   - Don't just take the closest cluster, look at distances to each one and weight their IPCs
 

@@ -349,12 +349,29 @@ We bought:
 
 ### Retrospective
 
-- Salty crust with parm, sauce, and crust
+Overall, a lot better than last time.
+We were able to turn out 26 (11") + 2 (8") pizzas in around 1.5 hours.
+The crust quality was excellent - flaky and airy and the right amount of sourness.
+The toppings and sauce were also excellent.
+The only negatives would be the crust evenness, some excess burning due to too high oven temperature, and too much chewiness due to slight excess thickness.
+
+Now for the things that we still need to improve and fix:
+
+- Salty pizza with parm, sauce, and crust
+    - Adding parm to an already salty pizza sauce creates too much salt
+    - Next time, reduce the sauce salt to only 1/2 tsp per 28oz can of tomatoes
 - White smoke issue still persists
-- Poking is essential to ensure clean burn! i didn't know this until near the end and finally got better results this way
+    - Poking is essential to ensure clean burn! I didn't know this until near the end and finally got better results this way
+    - I need to do some investigation as to what white smoke means past moisture issues
 - Fewer toppings are required, esp meats
+    - We bought too many meat toppings, but the amount of cheese and sauce was nearly perfect (next time only need 3 cans of tomatoes, 4 is excessive)
 - Streaming pizza is more reasonable than personal pizzas when we have more then 5-ish people
+    - We switched to streaming right away as we recognized that there were too many people to feed individually
 - Crack open poison early to get more drinking going, pour glasses preemptively
 - Need a dough scraper to fetch dough from proofing boxes
+    - I forgot my dough cutter at home, but things went ok anyways. But really we should get a nice dough knife
 - We packed the proofing boxes too tightly
+    - I packed the proofing boxes with 3x4 230g doughballs - they expanded a bit too much and were a bit hard to separate
 - Can use a little less yeast (3g/1kg) when doing 3 rising stages (initial large doughball proof, cold proof, room temp warmup + final proof)
+    - Next time, we might want to elide the cold proof and instead make the dough the morning of the event
+    - This should make it easy to do room temp proofing and give us a more consistent rise
