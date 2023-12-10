@@ -51,14 +51,8 @@
   - [ ] Ask on gem5 mailing list (@raghav-g13)
   - [ ] Try the cache model in [zsim]( https://github.com/s5z/zsim) (@vighnesh.iyer, @raghav-g13)
 
-- [ ] Read MTR paper [d:11/18]
-  - [ ] @raghav-g13 [d:12/4]
-- [ ] Implement basic unicore MTR cache reconstruction [d:11/18]
-- [ ] Identify cache state in RTL [d:11/18]
-- [ ] Dump cache configuration (or read JSON) from Chipyard SoC
-
-- [ ] Add code to perform cache state injection
-  - ???, do it like GPR injection, but it will generate a bunch of code, may not be so performant
+- [ ] Read MTR paper
+- [ ] Implement basic unicore MTR cache reconstruction
 
 ### uArch Model Validation Methodology
 
@@ -80,7 +74,7 @@
 
 ### BBV Embedding Perf Opt
 
-- [ ] Instead of using IntervalTree directly, expose as an interface [d:11/29]
+- [ ] Use a better BBV construction and querying data structure
   - LRU should be based on PC range not the exact PC! Otherwise it is too wasteful.
   - Create a custom data structure with an alternative implementation that's much faster for exclusive queries
   - Make the constructor take a list of ranges with ids, the structure should be immutable
@@ -88,12 +82,21 @@
   - Implement a custom LRU cache based on lookups based on the *range* of the leaf element rather than input PC
 - On Young-Jin implementation
   - Original throughput of BB extraction: 664k insts/second
-  - New throughput: 746k insts/second
+  - New throughput: 746k insts/second, clear improvement but marginal
+  - We don't expect BB extraction to get much faster, but queries should get faster - currently broken though
+- Table this until we have a viable implementation
+  - Right now, there are 'holes' in the embedding indices with the bisection approach
+  - I think we need a custom tree data structure that can be built once we have a sorted PC list + information about which PC boundaries actually form intervals (or we should just have a list of ranges)
 
 ### Cache Injection
 
-- [ ] Evaluate why dcache block size doesn't match RTL
-- [ ] Write the forcing logic after 'resetting' period is over
+- [ ] Identify cache state in RTL [d:12/9]
+  - Dump cache configuration (or read JSON) from Chipyard SoC
+  - Figure out mismatches between RTL cache state and stated cache configuration
+  - Evaluate why dcache block size doesn't match RTL
+- [ ] Add code to perform cache state injection
+  - Do it like GPR injection, but it will generate a bunch of code, may not be so performant
+  - Write the forcing logic after 'resetting' period is over
 
 ### Etc Tasks
 
