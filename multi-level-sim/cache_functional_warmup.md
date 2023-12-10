@@ -9,6 +9,9 @@
     - 16384B total cache size
     - 64 sets = 4 ways
     - 6 bits for offset, 6 bits for set index, 20 bits for tag = 32 bits (we have a 32-bit physically addressable space)
+- There is a 'resetting' sequence for the cache where all the tag bits are zeroed out
+    - This isn't implemented with a reset net in order to reduce reset fanout and to pack the valid bits inside the SRAM
+    - We should attempt to force state during 'resetting' and release right after 'resetting' falls
 
 #### Tag Array
 
@@ -37,3 +40,8 @@
 - Each cache block is 64B, but the data array is organized as 32 banks of 512 addresses (9 address bits) x 8 bits data
     - Each access is 32B (256 bits) at a time
 - Writes to the data cache come from a port with 12 bit addresses and 64 bits of data
+- Here's the organization
+    - The banks can be grouped into four 64 data bits banks (group 8 byte-wise banks together)
+    - So now there is [Bank[3], Bank[2], Bank[1], Bank[0]], each Bank is 64-bits of data and has 512 addresses
+    - Each of these banks corresponds to a single way
+    - Within each way's bank, addresses 0-7 correspond to set 0, 8-15 to set 1, ..., 504-511 to set 63
