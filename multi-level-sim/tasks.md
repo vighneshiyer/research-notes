@@ -90,11 +90,17 @@
 
 ### Cache Injection
 
-- [ ] Identify cache state in RTL [d:12/9]
+- [x] Identify cache state in RTL [d:12/9]
   - Dump cache configuration (or read JSON) from Chipyard SoC
   - Figure out mismatches between RTL cache state and stated cache configuration
   - Evaluate why dcache block size doesn't match RTL
-- [ ] Add code to perform cache state injection
+- [ ] Pipeclean tag array injection with small design [d:12/10]
+  - So far, created a python script to emit a tag array that can be read via readmemb
+  - Am able to read it and the contents look right after the ways are reversed
+  - Now need to validate I can inject it correctly into the mocked tag array Verilog copied from the Chipyard SoC RTL
+  - Next: do this in a generate loop
+- [ ] Pipeclean data array injection [d:12/10]
+- [ ] Add code to perform cache state injection [d:12/10]
   - Do it like GPR injection, but it will generate a bunch of code, may not be so performant
   - Write the forcing logic after 'resetting' period is over
 
@@ -110,7 +116,7 @@
 - [ ] Add additional caching hash based on simulator hash
 - [ ] Don't regenerate checkpoints if the binary hasn't changed (in gen-ckpt)
 - [ ] Add clustering based on interval-based PCA selection
-- [ ] Fix 'chosen_for_rtl_sim' being not a good name [d:12/1]
+- [ ] Fix 'chosen_for_rtl_sim' being not a good name
   - Generalize the ability to choose multiple samples to run in simulation
   - Extrapolation should take the mean of all chosen samples for the same cluster
 - [x] Add detailed warmup argument

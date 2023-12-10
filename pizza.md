@@ -5,7 +5,7 @@
 ## Admin Tasks
 
 - [x] Plan next trial (cooridinate with Jerry and Daniel) [d:10/4]
-- [ ] Oven equity from Joonho and Daniel [d:12/10]
+- [ ] Oven equity from Joonho and Daniel [d:12/20]
 
 ## Note from the first oven firing and pizza trial on 10/1/2023
 
