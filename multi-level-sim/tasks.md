@@ -6,10 +6,6 @@
   - [ ] "Hardware/Software Co-Design"
   - [ ] "Khronos"
 
-### Class Presentation
-
-- [ ] Modify ATHLETE slides for class talk [d:12/10]
-
 ### Report
 
 - [ ] Prepare outline in paper form [d:12/5]
@@ -84,6 +80,9 @@
   - Original throughput of BB extraction: 664k insts/second
   - New throughput: 746k insts/second, clear improvement but marginal
   - We don't expect BB extraction to get much faster, but queries should get faster - currently broken though
+  - BB embedding (via bisect): 480 1k intervals/sec
+  - BB embedding (via intervaltree + LRU cache): 651 1k intervals/sec
+  - SLOWER! But the cache probably helps a lot here for the highly PC localized aha-mont64 bmark
 - Table this until we have a viable implementation
   - Right now, there are 'holes' in the embedding indices with the bisection approach
   - I think we need a custom tree data structure that can be built once we have a sorted PC list + information about which PC boundaries actually form intervals (or we should just have a list of ranges)
@@ -94,7 +93,7 @@
   - Dump cache configuration (or read JSON) from Chipyard SoC
   - Figure out mismatches between RTL cache state and stated cache configuration
   - Evaluate why dcache block size doesn't match RTL
-- [ ] Pipeclean tag array injection with small design [d:12/10]
+- [x] Pipeclean tag array injection with small design [d:12/10]
   - So far, created a python script to emit a tag array that can be read via readmemb
   - Am able to read it and the contents look right after the ways are reversed
   - Now need to validate I can inject it correctly into the mocked tag array Verilog copied from the Chipyard SoC RTL
@@ -111,6 +110,8 @@
 - [ ] Eliminate stdout prints during tidalsim run
   - For each source of stdout/stderr prints, redirect them into a log file
 - [ ] Use spike's `--log=<name>` command line flag to dump a log to file without shell redirection
+- [ ] Add log files to record wall time for each step of the flow
+- [ ] Interpolate / scale golden sim trace to interval length of the tidalsim run
 - [ ] Read LiveSim paper again
     - Focus on how they do offline trace clustering
 - [ ] Add additional caching hash based on simulator hash
@@ -135,6 +136,9 @@
 - [ ] For every sample, don't just look at its closest cluster, but weight the IPCs of all the neighboring clusters by distance
 - [ ] Use closeness of a given interval to all adjacent clusters
   - Don't just take the closest cluster, look at distances to each one and weight their IPCs
+- [ ] Figure out an automated interval length selection strategy
+  - We should be able to use a fine grained interval to build the embedding table
+  - Then we should be able incrementally coarsen it
 
 #### Lengthy
 
@@ -185,6 +189,10 @@ OLD TASKS
 ---
 
 ## Archived Tasks
+
+### Class Presentation
+
+- [x] Modify ATHLETE slides for class talk [d:12/10]
 
 ### Verilator
 
@@ -338,7 +346,6 @@ OLD TASKS
   - Things are too messy!
   - [x] Refactor gen_ckpt so it can be used as a library
 - [x] Use gen-ckpt as library [d:11/13]
-
 - [x] Handle tail intervals
 - [x] Kill spike sim after taking all the necessary checkpoints (should already happen)
 - [x] Optimize BBV embedding with LRU cache [d:11/13]

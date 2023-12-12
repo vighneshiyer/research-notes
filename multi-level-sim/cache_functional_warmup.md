@@ -34,6 +34,9 @@
     - The core chooses which way to write to (way 1 (0010) is selected in rv64ui-p-simple)
     - The tag bits are 0x38_0001 (3 = upper 2 bits for metadata, dirty line) (raw tag is 0x8_0001)
     - This corresponds to writing the tag bits to bank 1 in address 0
+- Oddly enough, writing to set_idx = 0 writes to the 0th entry of that way's tag array (as seen in the RTL waveform)
+    - This is different from the register file where writes to register 1 actually writes to the 30th entry of the register file
+    - But this is good news, it means no complex reversing logic is required
 
 #### Data Array
 
