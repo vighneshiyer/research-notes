@@ -6,25 +6,6 @@
   - [ ] "Hardware/Software Co-Design"
   - [ ] "Khronos"
 
-### Report
-
-- [ ] Prepare outline in paper form [d:12/5]
-    - State injection as usual
-    - Validation of checkpoints injected and the RTL simulation results (arch state) after simulation
-    - Arch schema instead of using arbitrary loadarch file format
-    - Dcache/Icache perf metric extraction from RTL simulation
-    - Initial version of dcache model + functional warmup
-    - Evaluation of zero-functional-warmup tidalsim with varying interval length and # of clusters on all embench benchmarks
-        - IPC error, runtime, MPKI
-    - Evaluation of Rocket HW parameter DSE
-        - Parameters: Dcache/Icache size/split vs the LLC
-        - Same perf metrics used for evaluation
-        - Compare against RTL simulation for whether we can do DSE on the right trajectory
-    - Write only about how to validate warmup models
-    - Also write about building warmup models for branch predictors and prefetchers
-    - Also write about language-level features (e.g. in Chisel) to assist uArch/arch state mapping
-        - Design-for-simulation (injection-friendly RTL design)
-
 ### Spike Cache Model
 
 - [x] Evaluate the spike cache model code
@@ -189,6 +170,29 @@ OLD TASKS
 ---
 
 ## Archived Tasks
+
+### Report
+
+- [x] Prepare outline in paper form [d:12/5]
+- [x] Intro: The problem [d:12/12]
+- [x] Intro: Our contributions [d:12/12]
+- [x] Background: simulators [d:12/12]
+
+- State injection as usual
+- Validation of checkpoints injected and the RTL simulation results (arch state) after simulation
+- Arch schema instead of using arbitrary loadarch file format
+- Dcache/Icache perf metric extraction from RTL simulation
+- Initial version of dcache model + functional warmup
+- Evaluation of zero-functional-warmup tidalsim with varying interval length and # of clusters on all embench benchmarks
+    - IPC error, runtime, MPKI
+- Evaluation of Rocket HW parameter DSE
+    - Parameters: Dcache/Icache size/split vs the LLC
+    - Same perf metrics used for evaluation
+    - Compare against RTL simulation for whether we can do DSE on the right trajectory
+- Write only about how to validate warmup models
+- Also write about building warmup models for branch predictors and prefetchers
+- Also write about language-level features (e.g. in Chisel) to assist uArch/arch state mapping
+    - Design-for-simulation (injection-friendly RTL design)
 
 ### Class Presentation
 
