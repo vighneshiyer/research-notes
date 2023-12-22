@@ -283,17 +283,17 @@ The title has too many words right now, it needs to be more succint.
     - Functional warmup using memory timestamp record and cache reconstruction
     - Validation of injection methodology with arch state comparisons
     - Early IPC + MPKI prediction results + error modeling + comparison to other SOTA simulation techniques
-    - Problems with our current flow
-        1. Not general or streaming
-            - Hardcoded Simpoint-style sampled simulation
-            - Requires multiple passes over the commit trace / multiple runs of spike
-        1. Inaccurate at modeling asynchronous / timing-aware events (timer/external interrupts)
-        1. Hardcoded for a single RTL design point
-        1. Functional warmup models aren't validated against RTL
-        1. Not warming up all necessary uarch state + resolving ambiguity in restoring arch state
-        1. Interval embeddings are binary-aware (not portable) and not microarchitecture-aware (higher liklihood for errors)
-        1. Modeling of I/O (off-chip communication, polling, interrupts) will be inaccurate due to uniform treatment of any memory access
-        1. Interaction with core-coupled accelerators isn't properly embedded or checkpointable
+    - Finally, I will discuss problems with our current flow as a prelude to the next part of the talk
+    1. Not general or streaming
+        - Hardcoded Simpoint-style sampled simulation
+        - Requires multiple passes over the commit trace / multiple runs of spike
+    1. Inaccurate at modeling asynchronous / timing-aware events (timer/external interrupts)
+    1. Hardcoded for a single RTL design point
+    1. Functional warmup models aren't validated against RTL
+    1. Not warming up all necessary uarch state + resolving ambiguity in restoring arch state
+    1. Interval embeddings are binary-aware (not portable) and not microarchitecture-aware (higher liklihood for errors)
+    1. Modeling of I/O (off-chip communication, polling, interrupts) will be inaccurate due to uniform treatment of any memory access
+    1. Interaction with core-coupled accelerators isn't properly embedded or checkpointable
 - Next Steps (TidalSim) (**How (part 2)**) (10 slides)
     - Addressing all the problems above and reaching new frontiers of sampled simulation
     1. Unification of prior techniques in one unified simulation paradigm + building a purely streaming simulator
