@@ -207,73 +207,171 @@
 - Multi-abstraction integration
 - Unifying RTL sim/FireSim and TidalSim
 
+- Separate the what from the how.
+    - What: rapid and accurate uarch eval on axes of perf, power, verification
+        - Sub-what: unique characteristics of workload extraction for heterogeneous SoCs
+    - How: dynamically refined simulation, unified sampling simulation framework and theory, the "Tidal" part of TidalSim
+
 ### Fifth and Final (Dec 2023)
 
 - Date is final Jan 17, 2024, 1-3pm. All paperwork is filed and approved.
 
 #### Summary
 
-Separate the what from the how.
-What: rapid and accurate uarch eval on axes of perf, power, verification
-    Subwhat: unique characteristics of workload extraction for heterogeneous SoCs
-How: dynamically refined simulation, unified sampling simulation framework and theory, the "Tidal" part of TidalSim
+##### Why
 
-- Why
-    - Specialized and custom silicon is becoming more ubiquitous in all areas from embedded to datacenter
-    - To design these new SoCs we need tools that enable agile iteration for target workloads, considering:
-        - New heterogeneous SoCs with complex memory hierarchies and accelerators
-        - New workloads with characteristics involving IO heavy components + low latency context switches
-    - We need to get feedback from simulation that we can leverage for:
-        - Perf estimation / bottleneck analysis / application-level profiling / HW parameter DSE
-        - Power modeling / power trace reconstruction
-        - Coverpoint synthesis
-    - In general, research in microarchitecture simulation has stagnated. But now we have RTL for complex SoCs (Chipyard, ESP, OpenPiton), can we leverage that instead of using the same old performance models (SST, ZSim, gem5, etc.)?
-- What
-    - Dynamically refined microarchitectural simulation - a hybrid technique blending ideas from Simpoint (interval embedding for similarity estimation), SMARTs (interval sub-sampling and building confidence intervals), and Dynamic Sampling (interleaving execution of functional and performance simulation with feedback, see: "COTSon: Infrastucture for Full-System Simulation")
-    - Taking microarchitectural simulation down to the RTL-level
-- How
+- Specialized and custom silicon is becoming more ubiquitous in all domains from embedded to datacenter
+- To design these new SoCs we need tools that enable agile design iteration for target workloads, considering:
+    - New heterogeneous SoCs with complex memory hierarchies and accelerators
+    - New workloads with characteristics involving IO heavy components + low latency context switches
+- Agile design requires simulation collateral that we can leverage for:
+    - Performance estimation / bottleneck analysis / application-level profiling
+    - HW parameter DSE
+    - Power modeling / power trace reconstruction / PPA optimization
+    - Generating verification collateral: coverpoint synthesis / bootstrapping fuzzing
+- In general, research in microarchitecture simulation has stagnated
+    - But now we have RTL for complex SoCs (Chipyard, ESP, OpenPiton). Can we leverage that instead of using the same old performance models (SST, ZSim, gem5, etc.)?
+
+##### What
+
+- Building a fast, accurate, and low latency microarchitectural simulator, which enables:
+- Extraction of unique aspects of real programs running on heterogeneous SoCs with respect to power, performance, and functionality
+- Leveraging RTL-level simulation outputs for performance/power estimation, DSE, power model training, and coverpoint synthesis
+
+##### How
+
+- Dynamically refined microarchitectural simulation - a hybrid technique blending ideas from Simpoint (interval embedding for similarity estimation), SMARTs (interval sub-sampling and building confidence intervals), and Dynamic Sampling (interleaving execution of functional and performance simulation with feedback, see: "COTSon: Infrastucture for Full-System Simulation")
     - Unifying vanilla, sampled, and fast-forwarded simulation methodologies under one common framework where each technique is just a variant of a general algorithm
         - Similar idea to how FuzzFactory generalized a framework for domain-specific fuzzing
+    - Taking microarchitectural simulation down to the RTL-level to avoid the need to correlate performance models and RTL and to produce RTL-level collateral for downstream applications
+
+#### Qual Slides Outline
+
+**Title**: A Unified Microarchitectural Simulation Framework to Identify and Leverage Unique Aspects of Workloads on Heterogeneous SoCs for Power and Performance Estimation and Verification
+
+The title has too many words right now, it needs to be more succint.
+
+- Motivation (**Why**) (3 slides)
+    - Discuss the motivation, what are the problems we want to solve, why are existing solutions inadequate?
+    - Why we want fast uArch iteration ("due to the end of Moore's law"). How has the SoC and workload landscape changed?
+    - What currently limits uArch iteration and evaluation latency? What evaluation platforms exist already?
+        - Why are existing simulators inadequate? Accuracy, PPA, throughput. As a lab we have always pushed RTL-first.
+    - What does fast uArch iteration and evaluation enable?
+- The Big Vision (**What**) (2 slides)
+    - A fast, low latency, low cost, highly accurate microarchitectural simulator which simulates down to the RTL-level
+        - Integrate multiple simulators into one platform to provide high throughput, low latency, high fidelity uArch simulations with strong accuracy guarantees
+        - Verification of program interval snapshot, restore, and time advancement + verification of uArch trace-based models
+        - Capturing unique program fragments leveraging microarchitectural RTL-level feedback
+    - The applications
+        - Performance/power estimation, DSE, power model training, coverpoint synthesis
+    - The scope of the thesis
+        - What will I work on? - the simulator framework + verification of demonstrating its utility in each application domain
+        - What results do I expect? - much faster iteration loop + lower cost + higher accuracy vs prior work
+- Prior Work (5 slides)
+    - Existing microarchitectural simulators (gem5, SST, ZSim, PTLSim, Sniper)
+    - Phase behavior of programs
+    - Sampled simulation techniques (SMARTs, Simpoint + variants)
+    - Functional warmup models (L1 cache + LLC, branch predictors, prefetchers)
+    - LiveSim (HPCA 16)
+- What's New? (3 slides)
+    - What are we attempting that is distinct from prior work, and how does it build on earlier efforts?
+    - Why RTL-level? - elimininate modeling error (only sampling and warmup error remains), real PPA numbers, leverage RTL-level collateral (e.g. waveforms)
+    - Why is RTL-level sampled simulation viable now? - new SoC frameworks (e.g. Chipyard) have high performance, high quality RTL for every part of an SoC + ease of RTL-level microarchitectural DSE + language-level support for architectural and microarchitectural state mapping in RTL
+- Our Work Thus Far (Simpoint-style multi-level simulation) (**How**) (10 slides)
+    - Diagram of our flow and modifications necessary to spike/Chipyard
+    - Some analysis of interval embeddings and clustering as a function of interval length
+    - Functional warmup using memory timestamp record and cache reconstruction
+    - Validation of injection methodology with arch state comparisons
+    - Early IPC + MPKI prediction results + error modeling + comparison to other SOTA simulation techniques
+    - Problems with our current flow
+        1. Not general or streaming
+            - Hardcoded Simpoint-style sampled simulation
+            - Requires multiple passes over the commit trace / multiple runs of spike
+        1. Inaccurate at modeling asynchronous / timing-aware events (timer/external interrupts)
+        1. Hardcoded for a single RTL design point
+        1. Functional warmup models aren't validated against RTL
+        1. Not warming up all necessary uarch state + resolving ambiguity in restoring arch state
+        1. Interval embeddings are binary-aware (not portable) and not microarchitecture-aware (higher liklihood for errors)
+        1. Modeling of I/O (off-chip communication, polling, interrupts) will be inaccurate due to uniform treatment of any memory access
+        1. Interaction with core-coupled accelerators isn't properly embedded or checkpointable
+- Next Steps (TidalSim) (**How (part 2)**) (10 slides)
+    - Addressing all the problems above and reaching new frontiers of sampled simulation
+    1. Unification of prior techniques in one unified simulation paradigm + building a purely streaming simulator
+        - We have implemented one specific simulator design point, but now we will generalize it
+        -
+        - **Add more details here, this is the most important part**
+    1. Putting the 'Tidal' in TidalSim
+        - Handling timer and external interrupts and other asynchronous signals
+        - Automatic discovery of optimal interval length (variable embedding-driven interval lengths)
+        - Moving back and forth between functional sim and RTL sim in the same run
+        - Iterative refinement + error correction
+    1. Automated generation of RTL arch + uarch state injection from annotations in an HCL (Chisel)
+        - Leverage Chisel aspects to annotate arch + uarch state in Scala
+        - Use a FIRRTL compiler pass to *generate* an injection testharness specialized for a DUT's HW parameters
+        - Enables HW parameter DSE
+    1. Verification of functional warmup
+        - Functional warmup models should have similar behavior to their corresponding RTL blocks
+        - Given a commit trace, turn it into a sequence of events to feed in to both the warmup model AND the RTL block, then evaluate how quickly the state of the functional model diverges from the RTL block
+        - Leverage SimCommand + parameteric generators / fuzzing for targeting uArch metrics
+        - Demonstrate automatic tuning of the generator to produce pathological behavior that we can then fix - show validation for different design points
+    1. Systematic identification of long-lived state and using formal to set uarch state to produce a desired arch state
+        - Use waveform + netlist analysis to identify long-lived uarch state structures in the RTL
+            - Prune out state that is updated frequently based on its register enable signal / identify RAM contents that are long lived
+        - There are certain architectural state bits that are produced via combinational logic from uarch state bits. To set these arch state bits, we need to know how to set the uarch state bits. We can use formal techniques here.
+    1. Better interval embeddings
+        - Incorporate microarchitectural features from warmup models and RTL simulation into embedding
+        - Do not rely on basic blocks, but rather *features* of the instruction trace (instruction mix, memory access pattern, instruction dependencies, estimation of ease of branch prediction / prefetching)
+    1. Integration of I/O models (e.g. DMA, NIC) with timing feedback in TidalSim
+        - Augment interval embedding with I/O model state
+        - Estimate latency of IO via RTL simulation and propagate effective IPC estimates to functional simulation
+    1. Sampled simulation of accelerators and heterogeneous SoCs
+        - Augment checkpoints with accelerator arch state
+        - Augment interval embedding with arch state of accelerator (e.g. the stride / dataflow configuration bits in Gemmini) and features of the accelerator's ISA extension (e.g. the memory addresses given to Gemmini)
+    - Things I won't touch
+        - Multicore simulation: this is difficult since we have to reconstruct the coherency state of each core's private caches and the LLC for functional warmup and be able to inject all that state correctly. Furthermore, we have to model the instruction interleaving order between cores, and that has traditionally been difficult and a source of significant error for sampled simulators.
+- Applications / Case Studies (**How (part 3)**) (7ish slides)
     - 
+- Thesis Outline (3 slides)
+    - Each of the bullets in TidalSim represent a thesis chapter
 
-#### Detailed Outline
+#### Random Notes
 
-**Title**: A Unified Microarchitectural Simulation Framework to Identify Unique Aspects of Programs on Heterogeneous SoCs with Respect to Power, Performance, and Functionality
-
-- Unifying simulation methodologies under 1 framework
-    - SMARTs, Simpoint, hybrid embedding + sampling, time granularity
-        - mixing random sampling into the flow, combine with interval embedding
-    - Accelerated RTL simulation with warmup
-    - Model parameterizes over all simulation methodologies with functions
-        - Can compute things like cost/runtime/throughput/latency in terms of variables like N, C, nCores, RTL_thrput, etc.
-    - Consider types of metrics each simulation platform can deliver and the time granularity + arch vs uarch state models, different reconstruction functions
-    - Combine mixed sim, embedding, sampling with randomness
-        - Dynamically identify intervals for which the embedding features aren't sufficient to predict performance (can also consider uArch warmup model estimated uarch stats)
-        - Can we build an error model?
-    - Then, how to adapt to difficult situations?
-        - Accelerators, dealing with IO (again timesync is an issue)
-    - Unify offline vs online embedding + clustering
-        - Hierarchical incremental clustering vs offline k-means clustering
-        - Error bounds via CLT?
-    - Granularity of perf trace - this is critical to extract unique/relevant segments
-    - Embedding strategies - binary-agnostic vs inst stream based vs ...
-        - Based on RTL feedback too via samples
-    - Sampling as a spectrum
-        - pure RTL sim: infinite window, unwindowed, max speedup = 0
-        - fixed windows, fast-forwarded: max speedup? limited by number of cores and interval length
-            - can't handle external/timer events properly due to time desync, fidelity issues? + warmup model inconsistency wrt RTL
-- New innovations in sampled simulation
-    - TidalSim flow
-    - Variable length intervals
-    - New types of interval embeddings
-- Applications
-    - Perf trace reconstruction
-    - Perf trace analysis via application-level profiling
-- Standalone tasks
-    - Synthesizable state injection
-    - Long-lived uarch state identification (waveform analysis / formal)
-    - Reconstructing uarch state for desired arch state (e.g. fflags) - can we do this automatically?
-    - Generating injection testharness / Chisel mark API for arch state
+> - Unifying simulation methodologies under 1 framework
+>     - SMARTs, Simpoint, hybrid embedding + sampling, time granularity
+>         - mixing random sampling into the flow, combine with interval embedding
+>     - Accelerated RTL simulation with warmup
+>     - Model parameterizes over all simulation methodologies with functions
+>         - Can compute things like cost/runtime/throughput/latency in terms of variables like N, C, nCores, RTL_thrput, etc.
+>     - Consider types of metrics each simulation platform can deliver and the time granularity + arch vs uarch state models, different reconstruction functions
+>     - Combine mixed sim, embedding, sampling with randomness
+>         - Dynamically identify intervals for which the embedding features aren't sufficient to predict performance (can also consider uArch warmup model estimated uarch stats)
+>         - Can we build an error model?
+>     - Then, how to adapt to difficult situations?
+>         - Accelerators, dealing with IO (again timesync is an issue)
+>     - Unify offline vs online embedding + clustering
+>         - Hierarchical incremental clustering vs offline k-means clustering
+>         - Error bounds via CLT?
+>     - Granularity of perf trace - this is critical to extract unique/relevant segments
+>     - Embedding strategies - binary-agnostic vs inst stream based vs ...
+>         - Based on RTL feedback too via samples
+>     - Sampling as a spectrum
+>         - pure RTL sim: infinite window, unwindowed, max speedup = 0
+>         - fixed windows, fast-forwarded: max speedup? limited by number of cores and interval length
+>             - can't handle external/timer events properly due to time desync, fidelity issues? + warmup model inconsistency wrt RTL
+> - New innovations in sampled simulation
+>     - TidalSim flow
+>     - Variable length intervals
+>     - New types of interval embeddings
+> - Applications
+>     - Perf trace reconstruction
+>     - Perf trace analysis via application-level profiling
+> - Standalone tasks
+>     - Synthesizable state injection
+>     - Long-lived uarch state identification (waveform analysis / formal)
+>     - Reconstructing uarch state for desired arch state (e.g. fflags) - can we do this automatically?
+>     - Generating injection testharness / Chisel mark API for arch state
+>
+> - cite papers about errors in arch models (also the gem5 riscv rtl comparison paper) - show that already gem5 is so inaccurate, when it comes to timing effects such as interrupts, external IO, and timers, it will be even more inaccurate! so prior work just can't be trusted especially if it calibrated to a single hardware datapoint, but we have no evidence of its ability to extrapolate and maintain accuracy!
 
 ## Google Proposal Paragraph
 
