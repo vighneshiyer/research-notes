@@ -298,8 +298,10 @@ The title has too many words right now, it needs to be more succint.
     - Addressing all the problems above and reaching new frontiers of sampled simulation
     1. Unification of prior techniques in one unified simulation paradigm + building a purely streaming simulator
         - We have implemented one specific simulator design point, but now we will generalize it
-        -
-        - **Add more details here, this is the most important part**
+        - We will devise a parameterized simulator that can implement SMARTs, Simpoint, and hybrid-embedding/sampling approaches to simulation
+        - Our formalization will
+            - Produce output metrics such as cost, runtime, throughput, latency, time granularity, error bounds
+            - In terms of variables such as number of dynamic instructions, number of cores, RTL sim throughput, and of course the simulation methodology
     1. Putting the 'Tidal' in TidalSim
         - Handling timer and external interrupts and other asynchronous signals
         - Automatic discovery of optimal interval length (variable embedding-driven interval lengths)
@@ -330,9 +332,19 @@ The title has too many words right now, it needs to be more succint.
     - Things I won't touch
         - Multicore simulation: this is difficult since we have to reconstruct the coherency state of each core's private caches and the LLC for functional warmup and be able to inject all that state correctly. Furthermore, we have to model the instruction interleaving order between cores, and that has traditionally been difficult and a source of significant error for sampled simulators.
 - Applications / Case Studies (**How (part 3)**) (7ish slides)
-    - 
+    - Performance trace reconstruction
+    - HW parameter design space exploration (for cache hierarchy sweeps and branch predictors)
+    - Power trace reconstruction
+    - Application-level profiling from sampled simulation
+    - Using TidalSim outputs to train a power macromodel (proxy signal identification + regression model)
+    - Coverpoint synthesis
+        - For evaluation and benchmarking of state space exploration techniques (CRV, formal, fuzzing) (this is doable)
+        - For bughunting (this is a hard and risky bet)
+    - Bootstrapping fuzzing
+    - I can't cover all of these - I'll probably just pick the 3 ones that have the highest chance of success
 - Thesis Outline (3 slides)
-    - Each of the bullets in TidalSim represent a thesis chapter
+    - Each of the problems listed above that we propose to solve TidalSim are a thesis chapter
+    - I will also write about my prior work in verification libraries, generators, and fuzzing in the "Verification of Functional Warmup" chapter
 
 #### Random Notes
 
