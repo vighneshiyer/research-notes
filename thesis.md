@@ -272,6 +272,7 @@ The title has too many words right now, it needs to be more succint.
     - Phase behavior of programs
     - Sampled simulation techniques (SMARTs, Simpoint + variants)
     - Functional warmup models (L1 cache + LLC, branch predictors, prefetchers)
+    - Detailed warmup
     - LiveSim (HPCA 16)
 - What's New? (3 slides)
     - What are we attempting that is distinct from prior work, and how does it build on earlier efforts?
@@ -382,6 +383,7 @@ The title has too many words right now, it needs to be more succint.
 >     - Long-lived uarch state identification (waveform analysis / formal)
 >     - Reconstructing uarch state for desired arch state (e.g. fflags) - can we do this automatically?
 >     - Generating injection testharness / Chisel mark API for arch state
+>     - Figure out how many insts of detailed warmup are required - this is a generalization of long-lived uarch state identification - we can get an idea about which register require how much typical time to be set from the reset state + the frequency of updates wrt to each instruction fetch cycle
 >
 > - cite papers about errors in arch models (also the gem5 riscv rtl comparison paper) - show that already gem5 is so inaccurate, when it comes to timing effects such as interrupts, external IO, and timers, it will be even more inaccurate! so prior work just can't be trusted especially if it calibrated to a single hardware datapoint, but we have no evidence of its ability to extrapolate and maintain accuracy!
 
