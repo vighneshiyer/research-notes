@@ -375,6 +375,9 @@ The title has too many words right now, it needs to be more succint.
 >     - TidalSim flow
 >     - Variable length intervals
 >     - New types of interval embeddings
+>       - Cache access information: read/write access counts, miss counts, evictions in a given basic block
+>       - Branch prediction estimates: use infinitely sized BHT with 2-bit state, count whether a given branch was predicted correctly, total mispredicts for this given branch, and total number of times this branch has been executes. only captures the "static" predictability of the branch, this is the most naive predictor so it is pessimistic - actual BP behavior will be quite different, but it shouldn't matter much
+>       - Since the number of basic blocks and branches is statically known, the uarch-aware embedding vector is of a fixed length
 > - Applications
 >     - Perf trace reconstruction
 >     - Perf trace analysis via application-level profiling
