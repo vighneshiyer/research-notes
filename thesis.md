@@ -267,7 +267,8 @@ The title has too many words right now, it needs to be more succint.
     - The scope of the thesis
         - What will I work on? - the simulator framework + verification of demonstrating its utility in each application domain
         - What results do I expect? - much faster iteration loop + lower cost + higher accuracy vs prior work
-- Prior Work (5 slides)
+- Background and Prior Work (5 slides)
+    - Existing simulators across the spectrum + difference between arch and uarch state
     - Existing microarchitectural simulators (gem5, SST, ZSim, PTLSim, Sniper)
     - Phase behavior of programs
     - Sampled simulation techniques (SMARTs, Simpoint + variants)
@@ -276,6 +277,7 @@ The title has too many words right now, it needs to be more succint.
     - LiveSim (HPCA 16)
 - What's New? (3 slides)
     - What are we attempting that is distinct from prior work, and how does it build on earlier efforts?
+    - Heterogeneous SoCs (acclerators + multiple core variants), unique workload fragment extraction, leverage for real PPA for feedback + verification collateral
     - Why RTL-level? - elimininate modeling error (only sampling and warmup error remains), real PPA numbers, leverage RTL-level collateral (e.g. waveforms)
     - Why is RTL-level sampled simulation viable now? - new SoC frameworks (e.g. Chipyard) have high performance, high quality RTL for every part of an SoC + ease of RTL-level microarchitectural DSE + language-level support for architectural and microarchitectural state mapping in RTL
 - Our Work Thus Far (Simpoint-style multi-level simulation) (**How**) (10 slides)
