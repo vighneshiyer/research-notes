@@ -68,6 +68,43 @@
   - Right now, there are 'holes' in the embedding indices with the bisection approach
   - I think we need a custom tree data structure that can be built once we have a sorted PC list + information about which PC boundaries actually form intervals (or we should just have a list of ranges)
 
+### Better Cluster Identification
+
+- https://news.ycombinator.com/item?id=38976254
+
+> Cluster stability is a good heuristic that should be more well-known:
+>
+> For a given k:
+>
+>   for n=30 or 100 or 300 trials:
+>     subsample 80% of the points
+>     cluster them
+>     compute Fowlkes-Mallow score (available in sklearn) of the subset to the original, restricting only to the instances in the subset (otherwise you can't compute it)
+>   output the average f-m score
+>
+> This essentially measure how "stable" the clusters are. The Fowlkes-Mallow score decreases when instances pop over to other clusters in the subset.
+>
+> If you do this and plot the average score versus k, you'll see a sharp dropoff at some point. That's the maximal plausible k.
+>
+> edit: Here's code
+>
+>   def stability(Z, k):
+>     kmeans = KMeans(n_clusters=k, n_init="auto")
+>     kmeans.fit(Z)
+>     scores = []
+>     for i in range(100):
+>         # Randomly select 80% of the data, with replacement
+>         # TODO: without
+>         idx = np.random.choice(Z.shape[0], int(Z.shape[0]*0.8))
+>         kmeans2 = KMeans(n_clusters=k, n_init="auto")
+>         kmeans2.fit(Z[idx])
+>
+>         # Compare the two clusterings
+>         score = fowlkes_mallows_score(kmeans.labels_[idx], kmeans2.labels_)
+>         scores.append(score)
+>     scores = np.array(scores)
+>     return np.mean(scores), np.std(scores)
+
 ### Cache Injection
 
 - [x] Identify cache state in RTL [d:12/9]
@@ -101,6 +138,8 @@
 - [ ] Fix 'chosen_for_rtl_sim' being not a good name
   - Generalize the ability to choose multiple samples to run in simulation
   - Extrapolation should take the mean of all chosen samples for the same cluster
+- [ ] Fix the basic block embedding
+  - The original Simpoint paper also weights each basic block's feature value by the *number of instructions in that basic block*
 - [x] Add detailed warmup argument
 - [x] Handle the tail interval for tidalsim
   - When the program length is not a multiple of the interval length, the last sample gets the wrong IPC!

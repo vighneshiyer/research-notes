@@ -398,6 +398,74 @@ We propose a microarchitectural simulation methodology that combines functional 
 
 ## Advice From Others
 
+### Feedback from Qual (1/17/2024)
+
+Points raised by the committee:
+
+- The thesis proposal has too much breadth of topics to explore around RTL-level sampled simulation rather than a focus on the sampled simulation itself
+    - It would be better to go deep into
+    - 1) generalizing the prior work in sampled simulation by unifying the techniques under one framework and formalization
+    - 2) performing error analysis to split errors into sampling or warmup or embedding/clustering or extrapolation errors
+    - 3) 
+
+sources of error - deep analysis - this is valuable
+focus on generalizing sampling techniques, avoid too much breadth
+focus on applying sampling for unicore case deeply in many workloads and analyzing tradeoffs carefully - we have rtl sim so error should be really good - leverage that!
+sophia brought up that uncontained dse wasn't a good idea, even if we find a threshold after which changes don't matter
+
+
+### Feedback from Dry Run (1/15/2024)
+
+- Remove power in subtitle of title slide
+- uarch perf model (answered very convincingly later)
+    - Do we need high accuracy or is capturing ballpark trends enough?
+    - Are uarch perf models not enough to capture trends and iterate on for DSE?
+- Daniel's Q on architect v RTL designer
+    - Maybeeeee talk about how a platform like TidalSim makes a call for change in the process
+- What about process node level details for PPA
+~~- Center text sim strategy comparison in table~~
+~~- Clarify latency~~
+~~- Correct ZeBu to FPGA-based~~
+~~- yea, citations earlier in the side would be good~~
+~~- maybe clarify better that statistical sampling => smaller intervals => need fn warmup~~
+- Jerry's Q: Clarify academic contribution => focus on what this work enables a whole lot more
+- Explain why you need to run in OS (Joonho's Q)
+
+In general, I need to do better job explaining
+
+1. TidalSim is not a simulator, it is a methodology that uses simulators under the hood. I need to introduce that during the 'what' section.
+2. There needs to be clear motivation. In industry, the performance model is ground truth. Where is the role for TidalSim?
+    - For existing paradigm, TidalSim can be used for fast validation of the performance model's predictions on the RTL implementation
+    - For new paradigms, no need to invest so much effort in performance modeling - with new high-level design languages, and considering that we always start with some prior RTL, we can directly do performance modeling with RTL as the ground truth.
+    - Focus on what does this new simulation methodology **enable**?
+
+- Make it clear who the audience is. Perf modeling team? RTL engineers? Architects? Or someone new?
+- Always compare our technique vs the alternatives (move up case studies before How Pt 2, just assume we have the TidalSim v2 box)
+    - e.g. in HW DSE case
+        - if we had used RTL sim, due to limited benchmarks we can run with our time or cost budget, what design point would we have chosen?
+        - if we had used FireSim, due to our cost and latency budget, what design point would we get?
+        - if we had used TidalSim, what point would we choose and prove it is better than the other points
+    - e.g. in coverpoint synthesis
+        - if we used RTL sim, we would only have small traces on limited workloads
+        - if we used FireSim, we could have big traces, but with a bunch of wasted redundant data - also it requires functionality that doesn't exist in FireSim
+        - if we use TidalSim, we get short unique traces derived from full workloads
+
+- [x] Remove fragments from footnote citations
+- [x] Fix up the comparison table
+    - Clarify latency
+    - ZeBu is FPGA, also add Veloce
+    - Center text
+- [x] Motivate functional warmup in this work
+    - Sampling -> smaller intervals -> need warmup
+
+### Feedback from Prof. Shao (1/9/2024)
+
+> Some high-level comments:
+>
+> * Generally for a Qual presentation, what people look for are: 1) you have a vision, 2) you are well-prepared to execute the vision, and 3) you know how to wrap the remaining steps and declare success.
+> * With that, re: 2), it would be good to show you are prepared by briefly mentioning some of the past projects you have done. As you mentioned, the verification work is both a good motivation to motivate this simulation infrastructure and can be viewed as use cases to use the infrastructure.
+> * Re: 3), You have a long list of next steps. They can be viewed as either "too many" so that you may not be able to finish them before you graduate or a lack of focus as things appear very scattered. I would recommend consolidating some of them to concretely propose three, and three-only, next steps that you will be focusing on moving forward. There could be "future work" where others can extend this infrastructure for many different things.
+
 ### Advice from Prof. Bora (12/4/2023)
 
 - Based on my ATHLETE quarterly review talk
