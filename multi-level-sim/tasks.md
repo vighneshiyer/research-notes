@@ -1,12 +1,6 @@
 # Multi-Level Simulation
 
-## Tasks
-
-- [ ] Review MICRO papers on RTL simulation
-  - [ ] "Hardware/Software Co-Design"
-  - [ ] "Khronos"
-
-### Spike Cache Model
+## Spike Cache Model
 
 - [x] Evaluate the spike cache model code
   - Looks like the spike model doesn't hold the data array, only the tag array
@@ -31,7 +25,7 @@
 - [ ] Read MTR paper
 - [ ] Implement basic unicore MTR cache reconstruction
 
-### uArch Model Validation Methodology
+## uArch Model Validation Methodology
 
 - General validation methodology for uArch trace models
   - Needs to support all the relevant long-lived arch state blocks
@@ -42,14 +36,14 @@
   - And a way to replay those traces on RTL and uArch model and correlate uArch states
     - Replaying memory traces in RTL might be hard without involving the core (since L1 cache ports might be difficult to manipulate directly)
 
-### Long-Lived uArch State Identification Methodology
+## Long-Lived uArch State Identification Methodology
 
 - We can do some kind of waveform analysis
 - Find the toggle frequency of registers and RAMs
 - Which registers are infrequently set? Need to avoid counting registers that are arch state like CSRs
 - What state gets refreshed every cycle or so? Can just threshold the toggle frequency and find the states we need uArch trace models for
 
-### BBV Embedding Perf Opt
+## BBV Embedding Perf Opt
 
 - [ ] Use a better BBV construction and querying data structure
   - LRU should be based on PC range not the exact PC! Otherwise it is too wasteful.
@@ -68,7 +62,7 @@
   - Right now, there are 'holes' in the embedding indices with the bisection approach
   - I think we need a custom tree data structure that can be built once we have a sorted PC list + information about which PC boundaries actually form intervals (or we should just have a list of ranges)
 
-### Better Cluster Identification
+## Better Cluster Identification
 
 - https://news.ycombinator.com/item?id=38976254
 
@@ -105,7 +99,7 @@
 >     scores = np.array(scores)
 >     return np.mean(scores), np.std(scores)
 
-### Cache Injection
+## Cache Injection
 
 - [x] Identify cache state in RTL [d:12/9]
   - Dump cache configuration (or read JSON) from Chipyard SoC
@@ -121,9 +115,14 @@
   - Do it like GPR injection, but it will generate a bunch of code, may not be so performant
   - Write the forcing logic after 'resetting' period is over
 
-### Etc Tasks
+## Etc Tasks
 
-#### Quick
+- [x] Validate changes made to tidalsim [d:1/18/2024]
+  - Everything looks fine as far as IPC prediction goes, but the RTL simulations have gotten 2x slower!
+- [x] Setup meeting time [d:1/20/2024]
+- [x] Investigate Chipyard simulation speed regression [d:1/19/2024]
+
+### Quick
 
 - [ ] Eliminate stdout prints during tidalsim run
   - For each source of stdout/stderr prints, redirect them into a log file
@@ -148,7 +147,7 @@
   - Dump a checkpoint at n_insts = 0
   - Inject that checkpoint into RTL sim and measure perf
 
-#### Medium
+### Medium
 
 - [ ] Add spike PMP dumping capabilities
 - [ ] Build an error model that models the function of the distance of a interval from its representative centroid and the IPC error
@@ -160,7 +159,7 @@
   - We should be able to use a fine grained interval to build the embedding table
   - Then we should be able incrementally coarsen it
 
-#### Lengthy
+### Lengthy
 
 - [ ] Formalize a loadarch file schema (maybe JSON)
   - Secondary: migrate to VPI based state injection away from force based injection
@@ -168,13 +167,13 @@
   - Spike should preemptively take snapshots and we should reload from those snapshots when possible and advance minimal time
   - Our existing technique won't scale for larger programs
 
-#### VPI-Based State Injection
+### VPI-Based State Injection
 
 - Potentially faster than force-based state injection and avoids having to DPI between C and SystemVerilog
 - Use `vpi_put_value_array` to inject a 2d reg with a C array
 - Some more VPI usage examples: https://stackoverflow.com/questions/76734050/how-to-read-memory-value-at-a-specific-location-using-vpi-and-verilator
 
-#### Checkpoint Execution Validation
+### Checkpoint Execution Validation
 
 - We need to check that after N instructions of a checkpoint that the arch state in RTL sim matches what we expect from spike
 - Defer this until we have the full flow working since we won't know all the parameters for the scripts involved until then
@@ -183,7 +182,7 @@
 - [ ] Run complex -v test w/ atomics
 - [ ] Run riscv-tests benchmarks
 
-### Embedding Analysis
+## Embedding Analysis
 
 - Need to figure out what the variance of the golden IPC is for a given centroid. How predictable is the IPC?
 - Right now, I have no intuition about what characteristics of an interval lead to variance of IPC in its representative intervals
@@ -197,7 +196,7 @@
   - This is only really needed when the matrix gets very large for performance reasons
   - It shouldn't improve the accuracy or robustness of the clustering algorithm
 
-### Disk Space Saving
+## Disk Space Saving
 
 - [ ] lz4 spike commit log
 - [ ] lz4 memory elf
@@ -209,6 +208,10 @@ OLD TASKS
 ---
 
 ## Archived Tasks
+
+- [x] Rebase on top of Chipyard main
+  - Rebase testchipip
+  - Rebase spike
 
 ### Report
 

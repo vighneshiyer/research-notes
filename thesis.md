@@ -398,21 +398,33 @@ We propose a microarchitectural simulation methodology that combines functional 
 
 ## Advice From Others
 
+### MICRO Paper Ideas
+
+- which syscalls are used by SPEC - why can't we use baremetal for this?
+- combining sample methodologies + formalizing + error analysis + comparison with original simpoint/smarts sampling
+- optimizing sampling techniques
+- streaming techniques
+- RTL-level needs to be important - motivate RTL-level sampled simulation
+- remove the L2 cache from benchmarks
+
 ### Feedback from Qual (1/17/2024)
 
 Points raised by the committee:
 
 - The thesis proposal has too much breadth of topics to explore around RTL-level sampled simulation rather than a focus on the sampled simulation itself
-    - It would be better to go deep into
+    - It would be better to go deep into:
     - 1) generalizing the prior work in sampled simulation by unifying the techniques under one framework and formalization
-    - 2) performing error analysis to split errors into sampling or warmup or embedding/clustering or extrapolation errors
-    - 3) 
-
-sources of error - deep analysis - this is valuable
-focus on generalizing sampling techniques, avoid too much breadth
-focus on applying sampling for unicore case deeply in many workloads and analyzing tradeoffs carefully - we have rtl sim so error should be really good - leverage that!
-sophia brought up that uncontained dse wasn't a good idea, even if we find a threshold after which changes don't matter
-
+    - 2) performing error analysis to split errors into sampling or warmup or embedding/clustering or extrapolation errors - perform deep analysis to understand the source of errors (now that modeling error is no longer a concern)
+    - 3) understanding how to tune the sampled simulation parameters according to the workload characteristics dynamically + how to avoid re-executing workloads from scratch when RTL parameters are changed
+    - Focus on applying sampling for the unicore case deeply in many workloads and analyzing tradeoffs of the sampling parameters carefully
+        - Leverage the fact that using RTL sim results in no modeling error to gain precision when analyzing the sampling design space
+- On industry performance models
+    - They might have co-parameters with RTL - they are correlated by construction
+    - The motivation of 'RTL-level performance validation' isn't that strong
+- On the DSE case study
+    - If the DSE is unconstained by power or area, then performance optimization alone will lead to prefering bigger and more power hungry structures
+    - Even if we find a point where increasing some uArch parameter (e.g. prefetcher history depth) doesn't provide any more benefit, this still isn't realistic DSE
+    - This is poorly motivated - this isn't really viable without some area/power proxy or future work that accelerates approximate synthesis for more realistic power/area numbers
 
 ### Feedback from Dry Run (1/15/2024)
 
