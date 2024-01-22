@@ -8,7 +8,7 @@
     1. clang
      - need to rebuild all compilation units
     2. gcc
-     - similar but more convoluted 
+     - similar but more convoluted
 - If we have the binary
     1. Ghidra (but only supports dwarf4)
     2. Dyninst (C++ based UW-Madison project, cool stuff but not maintained in ages)

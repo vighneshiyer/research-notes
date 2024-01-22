@@ -121,6 +121,7 @@
   - Everything looks fine as far as IPC prediction goes, but the RTL simulations have gotten 2x slower!
 - [x] Setup meeting time [d:1/20/2024]
 - [x] Investigate Chipyard simulation speed regression [d:1/19/2024]
+- [x] Use VCS profiling to pinpoint perf regression [d:1/21/2024]
 
 ### Quick
 

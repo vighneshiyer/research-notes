@@ -5,7 +5,8 @@
 ## Admin Tasks
 
 - [x] Plan next trial (cooridinate with Jerry and Daniel) [d:10/4]
-- [ ] Oven equity from Joonho and Daniel [d:1/20/2024]
+- [ ] Oven equity from Joonho and Daniel
+    - Defer this until the next pizza party - but actually enough time has passed where I can just retain ownership and sell it to Joonho after I graduate - that seems easier than each of us selling our ownership slice over time
 
 ## Note from the first oven firing and pizza trial on 10/1/2023
 

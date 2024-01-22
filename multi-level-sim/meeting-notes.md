@@ -7,6 +7,16 @@
 
 ## Meeting Notes
 
+### 1/22/2024 (ATHLETE)
+
+- add industry uarch simulator as a row in the comparison table
+- need to correlate functional warmup model + time decorrelation from RTL - these are sources of errors
+- invariant synthesis is very interesting - anomaly detection is very good - keep working on this
+    - trying to get something that fails to show up again and again is valuable - apple knows this intrinsically, don't need to convince them
+- what are the sources of errors in your graphs? why does one benchmark perform a lot better than the other one? I said this is due to cache locality being greater in some workloads
+- how does error scale as your change the interval lengths? what length is optimal? what feedback do designers really want?
+- can we find a good error estimate heuristic? how does your distance from centroid error metric work? can you formalize this?
+
 ### 12/8/2023
 
 - Vighnesh
