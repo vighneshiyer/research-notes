@@ -110,7 +110,10 @@
   - Am able to read it and the contents look right after the ways are reversed
   - Now need to validate I can inject it correctly into the mocked tag array Verilog copied from the Chipyard SoC RTL
   - Next: do this in a generate loop
-- [ ] Pipeclean data array injection
+- [ ] Pipeclean data array injection [d:1/23/2024]
+  - [ ] Fix up the python script to generate tag and data arrays
+  - [ ] Validate tag array injection again
+  - [ ] Add code for data array injection
 - [ ] Add code to perform cache state injection
   - Do it like GPR injection, but it will generate a bunch of code, may not be so performant
   - Write the forcing logic after 'resetting' period is over

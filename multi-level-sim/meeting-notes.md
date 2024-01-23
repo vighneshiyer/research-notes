@@ -7,6 +7,53 @@
 
 ## Meeting Notes
 
+### Jan 2024 (SLICE Retreat) Feedback
+
+
+
+### 1/23/2024 (Start of Sp24 Semester)
+
+- Task priority list
+    - Functional warmup of L1d + L1i
+    - Switching to robust spike checkpointing fork
+    - Evaluation on other workloads
+        - Dhrystone, coremark
+        - HyperCompressBench (if baremetal is possible)
+    - Microarch event API for Chisel + Rocket points
+        - use for perf metric extraction
+    - arch/uArch state marking API for Chisel + Rocket points
+        - use for testharness generation via FIRRTL pass
+        - this can proceed independently of the robust spike checkpointing
+    - better interval embeddings
+        - instruction mix, # of functions called, ..., uArch features
+    - race to Linux boot
+        - requires reference IPC trace from FireSim (requires above uarch event API)
+        - requires robust checkpointing (or else we will definetely be making mistakes)
+        - requires testharness generation (or else we will also make mistakes)
+        - requires correlation of RTL sim enviroment + FireSim
+
+- Vighnesh
+    - Functional warmup for L1d + L1i
+    - Quantify error related to functional/detailed warmup
+        - Lumped error of functional/detailed warmup
+        - Want to decorrelate these
+        - Use entire interval for perf metric extraction - do detailed warmup using the history
+    - Quantify error related to clustering by sweeping n_clusters and looking for fall off points
+    - Generate IPC plots for all embench benchmarks and look at them manually (for dynamic instruction count mismatch)
+    - Write down retreat feedback
+- Raghav
+    - Investigate prior work in interval embeddings
+    - Implement and evaluate on tidalsim embedding
+    - Write down retreat feedback
+- Dhruv
+    - Evaluating other workloads
+    - HyperCompressBench baremetal riscv compilation
+- Charles
+    - Correlate RTL sim and FireSim on baremetal workloads (hello, embench)
+        - Just use metasim for now
+    - Dynamic instruction count should be the same
+    - IPC traces should contain some offset (due to DRAM timing model configuration mismatch)
+
 ### 1/22/2024 (ATHLETE)
 
 - add industry uarch simulator as a row in the comparison table
