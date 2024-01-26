@@ -111,6 +111,7 @@
   - Now need to validate I can inject it correctly into the mocked tag array Verilog copied from the Chipyard SoC RTL
   - Next: do this in a generate loop
 - [ ] Pipeclean data array injection [d:1/23/2024]
+  - [x] Validate that the memories look the same as before in old chipyard! Generate new waveforms and RTL collateral
   - [ ] Fix up the python script to generate tag and data arrays
   - [ ] Validate tag array injection again
   - [ ] Add code for data array injection
