@@ -77,6 +77,7 @@
     - Cache warmup
     - Zesto cache model as the base
     - Need a replacement policy similar to Rocket L1 - is it random (LFSR) or pseudo-LRU?
+      - It is random, see `DCacheParams` in `generators/rocket-chip/src/main/scala/rocket/HellaCache.scala`
 - Charles
     - If clusters isn't specified as input to the script, then infer the 'right' number of clusters
     - If time: multiple checkpoints per cluster
