@@ -1,50 +1,48 @@
 # Multi-Level Simulation
 
-## Spike Cache Model
+## Functional Warmup (L1 DCache)
 
-- [x] Evaluate the spike cache model code
-  - Looks like the spike model doesn't hold the data array, only the tag array
-  - There seems to be logging functionality in cachesim.cc to print out misses at every modeled cache level
-  - But it seems like the better option is to use the memory commit log (`--log-commits`)
-  - We can build our own parser / cache model using MTR (@raghav-g13)
+- Vighnesh's job
+- [x] Identify cache state in RTL [d:12/9]
+  - Dump cache configuration (or read JSON) from Chipyard SoC
+  - Figure out mismatches between RTL cache state and stated cache configuration
+  - Evaluate why dcache block size doesn't match RTL
+- [x] Pipeclean tag array injection with small design [d:12/10]
+  - So far, created a python script to emit a tag array that can be read via readmemb
+  - Am able to read it and the contents look right after the ways are reversed
+  - Now need to validate I can inject it correctly into the mocked tag array Verilog copied from the Chipyard SoC RTL
+  - Next: do this in a generate loop
+- [x] Pipeclean data array injection [d:1/23/2024]
+  - [x] Validate that the memories look the same as before in old chipyard! Generate new waveforms and RTL collateral
+  - [x] Fix up the python script to generate tag and data arrays
+  - [x] Validate tag array injection again
+  - [x] Add code for data array injection
+- [x] Add cache construct with parameters object [d:1/28/2024]
+- [x] Clean up tag array pretty print w/ metadata [d:1/29/2024]
+- [ ] Switch up tag array injection to use multiple files for each memory block [d:1/29/2024]
+- [ ] Dump data arrays with multiple files [d:1/29/2024]
+- [ ] Add code to perform cache state injection
+  - Do it like GPR injection, but it will generate a bunch of code, may not be so performant
+  - Write the forcing logic after 'resetting' period is over
 
-- Prior work
-  - MTR: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1430560
-  - Tycho cache simulator: https://pages.cs.wisc.edu/~larus/warts.html#Tycho
-  - LiveCache and LiveSim
-- Existing cache models
-  - gem5 (painful to extract)
-  - zsim (painful to build, but trying)
-    - Extracting the cache into a separate project with a simple build system might be viable
-  - https://github.com/s-kanev/XIOSim/blob/master/xiosim/zesto-cache.cpp (might be reasonable)
+## CoreMark + HyperCompressBench (w/ lz4)
 
-- Reuse other work
-  - [ ] Ask on gem5 mailing list (@raghav-g13)
-  - [ ] Try the cache model in [zsim]( https://github.com/s5z/zsim) (@vighnesh.iyer, @raghav-g13)
+- Dhruv's job
+- [ ] Compile CoreMark to baremetal RISCV and evaluate in RTL sim + TidalSim
+- [x] Compile HyperCompressBench benchmark files
+- [ ] Attempt to compile zstd to baremetal
+  - Iffy - not sure if this is possible
+- [ ] Attempt to compile lz4 to baremetal
+  - Include file to be compressed inside the binary's static segment
+  - Avoid any HTIF syscall proxying
+  - Pipeclean in x86 and then spike
 
-- [ ] Read MTR paper
-- [ ] Implement basic unicore MTR cache reconstruction
+## Binary-Agnostic Interval Embeddings
 
-## Unicore MTR Cache Model/Reconstruction
-
-- Simplifying assumptions
-  - write-back + allocate
-  - LRU instead of random
-  - not handling external writes
-
-- Generating commit log
-  - `spike -l --log=exp --log-commits -p1 --pmpregions=0 --isa=rv64gc -m2147483648:268435456 $RISCV/riscv64-unknown-elf/share/riscv-tests/isa/rv64ui-p-simple`
-
-- [x] Capturing data
-  - use spike commit log
-    - bytes written can be inferred from mem line
-  - [x] mark writes with cycle, written value, writer CPU
-  - [x] mark reads with cycle
-    - [x] For future OS/pk support
-      - If same as last written value, that's all
-      - If not same as last written value, external write
-        - only external writes will show updated content on read
-  - [x] Potential mismatch between request issue and completion
+- Raghav's job
+- [ ] Review prior work and compile list of all potential features they identified
+- [ ] Implement some of those features in Python
+- [ ] Evaluate against the BBV embedding
 
 ## Chisel Annotations for State Mapping + TestHarness Generation
 
@@ -132,37 +130,7 @@
 >     scores = np.array(scores)
 >     return np.mean(scores), np.std(scores)
 
-## Cache Injection
-
-- [x] Identify cache state in RTL [d:12/9]
-  - Dump cache configuration (or read JSON) from Chipyard SoC
-  - Figure out mismatches between RTL cache state and stated cache configuration
-  - Evaluate why dcache block size doesn't match RTL
-- [x] Pipeclean tag array injection with small design [d:12/10]
-  - So far, created a python script to emit a tag array that can be read via readmemb
-  - Am able to read it and the contents look right after the ways are reversed
-  - Now need to validate I can inject it correctly into the mocked tag array Verilog copied from the Chipyard SoC RTL
-  - Next: do this in a generate loop
-- [x] Pipeclean data array injection [d:1/23/2024]
-  - [x] Validate that the memories look the same as before in old chipyard! Generate new waveforms and RTL collateral
-  - [x] Fix up the python script to generate tag and data arrays
-  - [x] Validate tag array injection again
-  - [x] Add code for data array injection
-- [x] Add cache construct with parameters object [d:1/28/2024]
-- [x] Clean up tag array pretty print w/ metadata [d:1/29/2024]
-- [ ] Switch up tag array injection to use multiple files for each memory block [d:1/29/2024]
-- [ ] Dump data arrays with multiple files [d:1/29/2024]
-- [ ] Add code to perform cache state injection
-  - Do it like GPR injection, but it will generate a bunch of code, may not be so performant
-  - Write the forcing logic after 'resetting' period is over
-
 ## Etc Tasks
-
-- [x] Validate changes made to tidalsim [d:1/18/2024]
-  - Everything looks fine as far as IPC prediction goes, but the RTL simulations have gotten 2x slower!
-- [x] Setup meeting time [d:1/20/2024]
-- [x] Investigate Chipyard simulation speed regression [d:1/19/2024]
-- [x] Use VCS profiling to pinpoint perf regression [d:1/21/2024]
 
 ### Quick
 
@@ -181,6 +149,9 @@
   - Extrapolation should take the mean of all chosen samples for the same cluster
 - [ ] Fix the basic block embedding
   - The original Simpoint paper also weights each basic block's feature value by the *number of instructions in that basic block*
+- [ ] Disk space saving
+  - [ ] lz4 spike commit log
+  - [ ] lz4 memory elf
 - [x] Add detailed warmup argument
 - [x] Handle the tail interval for tidalsim
   - When the program length is not a multiple of the interval length, the last sample gets the wrong IPC!
@@ -238,10 +209,6 @@
   - This is only really needed when the matrix gets very large for performance reasons
   - It shouldn't improve the accuracy or robustness of the clustering algorithm
 
-## Disk Space Saving
-
-- [ ] lz4 spike commit log
-- [ ] lz4 memory elf
 
 ---
 
@@ -251,9 +218,62 @@ OLD TASKS
 
 ## Archived Tasks
 
+### Unicore MTR Cache Model/Reconstruction
+
+- Simplifying assumptions
+  - write-back + allocate
+  - LRU instead of random
+  - not handling external writes
+
+- Generating commit log
+  - `spike -l --log=exp --log-commits -p1 --pmpregions=0 --isa=rv64gc -m2147483648:268435456 $RISCV/riscv64-unknown-elf/share/riscv-tests/isa/rv64ui-p-simple`
+
+- [x] Capturing data
+  - use spike commit log
+    - bytes written can be inferred from mem line
+  - [x] mark writes with cycle, written value, writer CPU
+  - [x] mark reads with cycle
+    - [x] For future OS/pk support
+      - If same as last written value, that's all
+      - If not same as last written value, external write
+        - only external writes will show updated content on read
+  - [x] Potential mismatch between request issue and completion
+
+### Spike Cache Model
+
+- [x] Evaluate the spike cache model code
+  - Looks like the spike model doesn't hold the data array, only the tag array
+  - There seems to be logging functionality in cachesim.cc to print out misses at every modeled cache level
+  - But it seems like the better option is to use the memory commit log (`--log-commits`)
+  - We can build our own parser / cache model using MTR (@raghav-g13)
+
+- Prior work
+  - MTR: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1430560
+  - Tycho cache simulator: https://pages.cs.wisc.edu/~larus/warts.html#Tycho
+  - LiveCache and LiveSim
+- Existing cache models
+  - gem5 (painful to extract)
+  - zsim (painful to build, but trying)
+    - Extracting the cache into a separate project with a simple build system might be viable
+  - https://github.com/s-kanev/XIOSim/blob/master/xiosim/zesto-cache.cpp (might be reasonable)
+
+- Reuse other work
+  - ~~[ ] Ask on gem5 mailing list (@raghav-g13)~~
+  - ~~[ ] Try the cache model in [zsim]( https://github.com/s5z/zsim) (@vighnesh.iyer, @raghav-g13)~~
+    - It's not worth reusing other work
+- [x] Read MTR paper
+- [x] Implement basic unicore MTR cache reconstruction
+
+### Rebase
+
 - [x] Rebase on top of Chipyard main
   - Rebase testchipip
   - Rebase spike
+- [x] Validate changes made to tidalsim [d:1/18/2024]
+  - Everything looks fine as far as IPC prediction goes, but the RTL simulations have gotten 2x slower!
+- [x] Setup meeting time [d:1/20/2024]
+- [x] Investigate Chipyard simulation speed regression [d:1/19/2024]
+- [x] Use VCS profiling to pinpoint perf regression [d:1/21/2024]
 
 ### Report
 
