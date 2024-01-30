@@ -22,6 +22,13 @@
     - facebook/zstd can be compiled using riscv gcc baremetal toolchain, but only the static library (not the dynamic library)
     - We want to produce a C top that includes a file to be compressed/decompressed in the static segment of the binary and then statically links the zstd static library to perform the roundtrip, and performs a comparison to check for equality (we can leave this part out)
     - Then this whole thing should work baremetal without any syscall proxying necessary (I hope)
+    - Hints:
+        - https://github.com/ucb-bar/chipyard/blob/main/tests/Makefile (libgloss usage example)
+        - Let's use LZ4 first rather than zstd (https://github.com/lz4/lz4) - we want to use simple C code (not C++) and something that only uses the most basic syscalls (and never has to use host proxied syscalls)
+        - https://github.com/ucb-bar/libgloss-htif (there are notes about using the linker scripts here in the README)
+        - There is a way to embed random files in C programs (https://codeplea.com/embedding-files-in-c-programs)
+    - Coremark is a better starting point
+        - https://github.com/riscv-boom/riscv-coremark/commit/6e1d72b864e45f67031ffaedb0b01b5d030d6d3c
 
 ### Jan 2024 (SLICE Retreat) Feedback
 
