@@ -54,6 +54,28 @@
 - [ ] Read MTR paper
 - [ ] Implement basic unicore MTR cache reconstruction
 
+### Unicore MTR Cache Model/Reconstruction
+
+- Simplifying assumptions
+  - write-back + allocate
+  - LRU instead of random
+  - not handling external writes 
+
+- Generating commit log
+  - `spike -l --log=exp --log-commits -p1 --pmpregions=0 --isa=rv64gc -m2147483648:268435456 $RISCV/riscv64-unknown-elf/share/riscv-tests/isa/rv64ui-p-simple` 
+
+- [x] Capturing data
+  - use spike commit log
+    - bytes written can be inferred from mem line 
+  - [x] mark writes with cycle, written value, writer CPU
+  - [x] mark reads with cycle
+    - [x] For future OS/pk support
+      - If same as last written value, that's all
+      - If not same as last written value, external write
+        - only external writes will show updated content on read
+  - [x] Potential mismatch between request issue and completion
+
+
 ### uArch Model Validation Methodology
 
 - General validation methodology for uArch trace models

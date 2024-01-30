@@ -4,6 +4,8 @@
 
 Sampled Processor Simulation: A Survey (2008)[ https://www.sciencedirect.com/science/article/pii/S0065245808000041](https://www.sciencedirect.com/science/article/pii/S0065245808000041)
 
+
+
 ## **SimPoint**
 
 <https://sites.cs.ucsb.edu/~sherwood/pubs/CHAPTER-simpoint.pdf>
@@ -97,8 +99,10 @@ Efficient Sampling Startup for Sampled Processor Simulation (2005) ([paper](http
 
 BLRL: Accurate and efficient warmup for sampled processor simulation (2005)
 
-MTR: Accelerating Multiprocessor Simulation with a Memory Timestamp Record (ISPASS’05)([paper](https://ieeexplore.ieee.org/document/1430560))
+MTR: Accelerating Multiprocessor Simulation with a Memory Timestamp Record (ISPASS’05)([paper](https://ieeexplore.ieee.org/document/1430560))([slides](http://scale.eecs.berkeley.edu/papers/mtr-ispass05-slides.pdf))
 - Used by LiveSim for fast cache warm-up
+- Data structure to handle cache and coherence state for multiprocessor simulation
+  - Big point is that you don't really need to simulate the cache exactly and hold all of its state. There's room for abstracting away implementation specific cache details from a trace of memory activity (requests)
 
 several more works not listed
 
