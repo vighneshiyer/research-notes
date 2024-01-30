@@ -7,9 +7,13 @@
 
 ## Meeting Notes
 
+### 1/30/2024
+
+
+
 ### Jan 2024 (SLICE Retreat) Feedback
 
-
+??? - pending both Vighnesh and Raghav
 
 ### 1/23/2024 (Start of Sp24 Semester)
 

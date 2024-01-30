@@ -25,7 +25,7 @@
 - [ ] Read MTR paper
 - [ ] Implement basic unicore MTR cache reconstruction
 
-### Unicore MTR Cache Model/Reconstruction
+## Unicore MTR Cache Model/Reconstruction
 
 - Simplifying assumptions
   - write-back + allocate
@@ -46,8 +46,12 @@
         - only external writes will show updated content on read
   - [x] Potential mismatch between request issue and completion
 
+## Chisel Annotations for State Mapping + TestHarness Generation
 
-### uArch Model Validation Methodology
+- [ ] Draft annotation
+- [ ] ... eventually we need to inject into Saturn (including RVV registers and CSRs)
+
+## uArch Model Validation Methodology
 
 - General validation methodology for uArch trace models
   - Needs to support all the relevant long-lived arch state blocks
@@ -83,6 +87,13 @@
 - Table this until we have a viable implementation
   - Right now, there are 'holes' in the embedding indices with the bisection approach
   - I think we need a custom tree data structure that can be built once we have a sorted PC list + information about which PC boundaries actually form intervals (or we should just have a list of ranges)
+
+## Cache and BP Metrics
+
+- [ ] Find nodes responsible for mispredicts
+- [ ] Find nodes responsible for L1d miss + L1i miss + L1d hit + L1i hit + L1i/d access attempt
+- [ ] Add MPKI metric computation + print
+- [ ] Add cache miss rate computation + print
 
 ## Better Cluster Identification
 
@@ -132,11 +143,15 @@
   - Am able to read it and the contents look right after the ways are reversed
   - Now need to validate I can inject it correctly into the mocked tag array Verilog copied from the Chipyard SoC RTL
   - Next: do this in a generate loop
-- [ ] Pipeclean data array injection [d:1/23/2024]
+- [x] Pipeclean data array injection [d:1/23/2024]
   - [x] Validate that the memories look the same as before in old chipyard! Generate new waveforms and RTL collateral
-  - [ ] Fix up the python script to generate tag and data arrays
-  - [ ] Validate tag array injection again
-  - [ ] Add code for data array injection
+  - [x] Fix up the python script to generate tag and data arrays
+  - [x] Validate tag array injection again
+  - [x] Add code for data array injection
+- [x] Add cache construct with parameters object [d:1/28/2024]
+- [x] Clean up tag array pretty print w/ metadata [d:1/29/2024]
+- [ ] Switch up tag array injection to use multiple files for each memory block [d:1/29/2024]
+- [ ] Dump data arrays with multiple files [d:1/29/2024]
 - [ ] Add code to perform cache state injection
   - Do it like GPR injection, but it will generate a bunch of code, may not be so performant
   - Write the forcing logic after 'resetting' period is over
