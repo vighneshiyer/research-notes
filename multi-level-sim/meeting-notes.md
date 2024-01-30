@@ -9,7 +9,19 @@
 
 ### 1/30/2024
 
-
+- Vighnesh
+    - Cleaned up dcache pipelining data generation + injection files
+    - Figured out the dcache data array organization in RTL + injection strategy
+    - Working on generating files for every RAM
+- Raghav
+    - Looking at prior work to see what they did to produce binary-agnostic interval embeddings
+    - Instruction mix (split of arith/branch/jump/stores/loads)
+    - Microarchitectural features (TLB accesses, branch misprediction estimates, i/d caches estimates, amount of ILP)
+- Dhruv
+    - HyperCompressBench seems to produce a bunch of files to be compressed/decompressed - sure that makes sense
+    - facebook/zstd can be compiled using riscv gcc baremetal toolchain, but only the static library (not the dynamic library)
+    - We want to produce a C top that includes a file to be compressed/decompressed in the static segment of the binary and then statically links the zstd static library to perform the roundtrip, and performs a comparison to check for equality (we can leave this part out)
+    - Then this whole thing should work baremetal without any syscall proxying necessary (I hope)
 
 ### Jan 2024 (SLICE Retreat) Feedback
 
