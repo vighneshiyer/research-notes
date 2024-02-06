@@ -19,8 +19,14 @@
   - [x] Add code for data array injection
 - [x] Add cache construct with parameters object [d:1/28/2024]
 - [x] Clean up tag array pretty print w/ metadata [d:1/29/2024]
-- [ ] Switch up tag array injection to use multiple files for each memory block [d:1/29/2024]
-- [ ] Dump data arrays with multiple files [d:1/29/2024]
+- [x] Switch up tag array injection to use multiple files for each memory block [d:1/29/2024]
+- [x] Dump data arrays with multiple files [d:1/29/2024]
+- [x] Unittest data array dumping [d:1/31/2024]
+- [x] Add data array injection to pipeclean [d:1/31/2024]
+- [x] Add plusarg for the base of the checkpoint directory [d:2/1/2024]
+- [x] Attempt to do direct array injection rather than iteration thru rows [d:2/4/2024]
+- [ ] Clean up MTR code + tests [d:1/31/2024]
+- [ ] Add instruction driven dumping to MTR code [d:1/31/2024]
 - [ ] Add code to perform cache state injection
   - Do it like GPR injection, but it will generate a bunch of code, may not be so performant
   - Write the forcing logic after 'resetting' period is over

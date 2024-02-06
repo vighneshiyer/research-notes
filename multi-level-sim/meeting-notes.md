@@ -7,6 +7,25 @@
 
 ## Meeting Notes
 
+### 2/6/2024
+
+- Vighnesh
+    - Can generate files for every dcache tag and data RAM in the RTL
+    - Pipecleaning injection example works, can now inject 2d regs directly without looping (improves simulator compilation time significantly)
+    - Have generic cache model API + dumping code
+    - Rewriting the spike log parsing to handle both typical log format + full commit log
+    - Integrating these changes into MTR code
+- Charles
+    - Comparing embench workloads + coremark across Firesim metasim and RTL sim
+    - Difference in dynamic instruction count between these two in Coremark
+        - Appears to come from memory allocation - further investigation needed
+        - One potential is any HTIF syscall proxying
+        - 20k insts out of 35M total instructions
+    - Difference in cycle count is pretty similar (less than 1% difference)
+    - WIP: metric extraction in testharness for MPKI and cache misses
+- Dhruv
+    - Coremark cross-compilation on RISCV (Charles has this working with ucb-bar/coremark-workload with latest bumped riscv-coremark)
+
 ### 1/30/2024
 
 - Vighnesh
