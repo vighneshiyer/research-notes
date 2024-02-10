@@ -25,11 +25,15 @@
 - [x] Add data array injection to pipeclean [d:1/31/2024]
 - [x] Add plusarg for the base of the checkpoint directory [d:2/1/2024]
 - [x] Attempt to do direct array injection rather than iteration thru rows [d:2/4/2024]
-- [ ] Clean up MTR code + tests [d:1/31/2024]
-- [ ] Add instruction driven dumping to MTR code [d:1/31/2024]
+- [x] Clean up MTR code + tests [d:1/31/2024]
+- [x] Fix up spike log parsing + tests [d:2/6/2024]
+- [x] Fix up type errors [d:2/6/2024]
+- [ ] MTR as iterator of cache checkpoints [d:2/6/2024]
+- [ ] Add instruction driven dumping to MTR code
 - [ ] Add code to perform cache state injection
   - Do it like GPR injection, but it will generate a bunch of code, may not be so performant
   - Write the forcing logic after 'resetting' period is over
+- [ ] get fst file from chipyard for kevin (baremetal test + coremark) [d:2/7/2024]
 
 ## CoreMark + HyperCompressBench (w/ lz4)
 

@@ -1,5 +1,15 @@
 # Chisel Event API
 
+## Notes from ATHLETE Sync with Si-En (2/8/2024
+
+- post-silicon world, trace buffer for event logs (fixed size, subsample events), don't want to perturb DRAM state because of this - perturb application that's running and perturbing the uarch events themselves
+- in-memory format of an event trace (print messages - simulation) (binary format that can work in simulation and silicon)
+- event-tracking API can be used for validation coverage too (erase time-axis/resolution)
+- tag propgation is often not feasible for post-silicon usage due to area blowup
+- only collect events that are valuable for future generation chip
+- perf bugs are caught at block or subsystem level, not at SoC top-level - perf targets baked into block-level specs
+- event graphs for post-silicon and SoC pre-silicon debug are at system-level
+
 ## Random Sketch (Bad Idea)
 
 ```scala
@@ -111,6 +121,6 @@ class Cpu extends Module {
 
     val (fetchTag, fetchTagRecycleEn, fetchTagRecycle) = event(cond=newInstFetched, "Fetch", new FetchMetadata.Lit(_.inst -> ???, _.pc -> ???))
     val fetchInFlight = Reg
-    event(cond=l1Access, "L1Access", new L1RequestMetadata(_.addr -> ???, _.accessType -> ???), parentTag = 
+    event(cond=l1Access, "L1Access", new L1RequestMetadata(_.addr -> ???, _.accessType -> ???), parentTag =
 }
 ```
