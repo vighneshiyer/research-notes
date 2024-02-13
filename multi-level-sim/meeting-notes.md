@@ -7,6 +7,25 @@
 
 ## Meeting Notes
 
+### 2/13/2024
+- Vighnesh
+  - Can do MTR construction from spike trace
+    - You can't get data for entire cache line from single mem access
+    - Fill out which cache line is resident during reconstruction
+    - Insert actual data during arch checkpointing using mem commands
+      - Overhead + complexity
+
+- Raghav
+  - Finish up Markov/PPM predictability stat collection
+  - ILP - sliding window with independent instructions (no RAW dependencies)
+
+- Charles
+  - Looked at correlation(?) stuff
+    - removing prints corrects FireSim/RTL Sim correlation
+  - Started looking at counting L1$ misses
+    - Look at HellaCache IOs and look at hit v misses
+      - Eventually event tracking API using TinyChisel from Jerry + Co 
+
 ### 2/6/2024
 
 - Vighnesh
