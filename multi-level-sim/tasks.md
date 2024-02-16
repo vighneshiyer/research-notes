@@ -28,12 +28,16 @@
 - [x] Clean up MTR code + tests [d:1/31/2024]
 - [x] Fix up spike log parsing + tests [d:2/6/2024]
 - [x] Fix up type errors [d:2/6/2024]
-- [ ] MTR as iterator of cache checkpoints [d:2/6/2024]
-- [ ] Add instruction driven dumping to MTR code
+- [x] MTR as iterator of cache checkpoints [d:2/6/2024]
+- [x] Add instruction driven dumping to MTR code
+- [x] Convert MTR table to CacheState + test [d:2/12/2024]
+- [x] Hook CacheState generation with tidalsim [d:2/12/2024]
+- [ ] Add code in checkpointing logic to get cache data from spike [d:2/12/2024]
+  - [ ] Systematically determine loadarch lines
+  - [ ] Use mem.elf seeking to fetch memory contents
 - [ ] Add code to perform cache state injection
   - Do it like GPR injection, but it will generate a bunch of code, may not be so performant
   - Write the forcing logic after 'resetting' period is over
-- [ ] get fst file from chipyard for kevin (baremetal test + coremark) [d:2/7/2024]
 
 ## CoreMark + HyperCompressBench (w/ lz4)
 
@@ -76,25 +80,6 @@
 - Find the toggle frequency of registers and RAMs
 - Which registers are infrequently set? Need to avoid counting registers that are arch state like CSRs
 - What state gets refreshed every cycle or so? Can just threshold the toggle frequency and find the states we need uArch trace models for
-
-## BBV Embedding Perf Opt
-
-- [ ] Use a better BBV construction and querying data structure
-  - LRU should be based on PC range not the exact PC! Otherwise it is too wasteful.
-  - Create a custom data structure with an alternative implementation that's much faster for exclusive queries
-  - Make the constructor take a list of ranges with ids, the structure should be immutable
-  - Construct a balanced BST
-  - Implement a custom LRU cache based on lookups based on the *range* of the leaf element rather than input PC
-- On Young-Jin implementation
-  - Original throughput of BB extraction: 664k insts/second
-  - New throughput: 746k insts/second, clear improvement but marginal
-  - We don't expect BB extraction to get much faster, but queries should get faster - currently broken though
-  - BB embedding (via bisect): 480 1k intervals/sec
-  - BB embedding (via intervaltree + LRU cache): 651 1k intervals/sec
-  - SLOWER! But the cache probably helps a lot here for the highly PC localized aha-mont64 bmark
-- Table this until we have a viable implementation
-  - Right now, there are 'holes' in the embedding indices with the bisection approach
-  - I think we need a custom tree data structure that can be built once we have a sorted PC list + information about which PC boundaries actually form intervals (or we should just have a list of ranges)
 
 ## Cache and BP Metrics
 
@@ -227,6 +212,30 @@ OLD TASKS
 ---
 
 ## Archived Tasks
+
+### BBV Embedding Perf Opt
+
+- [x] Use a better BBV construction and querying data structure
+  - LRU should be based on PC range not the exact PC! Otherwise it is too wasteful.
+  - Create a custom data structure with an alternative implementation that's much faster for exclusive queries
+  - Make the constructor take a list of ranges with ids, the structure should be immutable
+  - Construct a balanced BST
+  - Implement a custom LRU cache based on lookups based on the *range* of the leaf element rather than input PC
+- On Young-Jin implementation
+  - Original throughput of BB extraction: 664k insts/second
+  - New throughput: 746k insts/second, clear improvement but marginal
+  - We don't expect BB extraction to get much faster, but queries should get faster - currently broken though
+  - BB embedding (via bisect): 480 1k intervals/sec
+  - BB embedding (via intervaltree + LRU cache): 651 1k intervals/sec
+  - SLOWER! But the cache probably helps a lot here for the highly PC localized aha-mont64 bmark
+- Table this until we have a viable implementation
+  - Right now, there are 'holes' in the embedding indices with the bisection approach
+  - I think we need a custom tree data structure that can be built once we have a sorted PC list + information about which PC boundaries actually form intervals (or we should just have a list of ranges)
+- [x] Review and merge PR [d:2/14/2024]
+- [x] Bump poetry lockfile [d:2/15/2024]
+- [x] Migrate to pyright [d:2/15/2024]
+- [x] Final stuff [d:2/15/2024]
+  - Make benchmark into a script that's given a spike log as input
 
 ### Unicore MTR Cache Model/Reconstruction
 
