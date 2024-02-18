@@ -32,8 +32,8 @@
 - [x] Add instruction driven dumping to MTR code
 - [x] Convert MTR table to CacheState + test [d:2/12/2024]
 - [x] Hook CacheState generation with tidalsim [d:2/12/2024]
-- [ ] Add code in checkpointing logic to get cache data from spike [d:2/12/2024]
-  - [ ] Systematically determine loadarch lines
+- [ ] Checkpointing cache state [d:2/12/2024]
+  - [x] Systematically determine loadarch lines
   - [ ] Use mem.elf seeking to fetch memory contents
 - [ ] Add code to perform cache state injection
   - Do it like GPR injection, but it will generate a bunch of code, may not be so performant
