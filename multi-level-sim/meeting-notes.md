@@ -7,7 +7,42 @@
 
 ## Meeting Notes
 
+### 2/20/2024
+
+- Vighnesh
+    - Construct cache checkpoints for every arch checkpoint with data from mem.bin dump
+    - Modified the injection testharness to inject L1d cache (data+tag array) state from a checkpoint directory
+    - I can run some embench benchmarks with cache functional warmup
+    - I fixed the Rocket config so that it is L1 only (no L2)
+        - For some embench benchmarks (e.g. huffbench), DRAMSim2 reports unaligned accesses from the L1 cache
+        - ??? unsure why
+        - seems related to eviction
+    - Cache model right now marks all cache lines that are resident as dirty
+        - But some lines ought to be marked as read-only (since there is a lot of static data in these benchmarks)
+        - Affecting eviction scheme, causing necessary write-backs
+        - Very minor issue for these embench workloads (they all fit in L1 + a little extra cache room)
+    - WIP: some cleanup and data analysis fixes
+    - Next: figure out these DRAMSim2 warning messages (64B unaligned accesses from L1)
+        - Analyze the state diff between injection waveform and full RTL sim waveform
+- Raghav
+    - Working on more metric extraction from the spike trace for binary-agnostic embedding
+- Dhruv
+    - Finished running coremark
+    - Had to increase cycle timeout for golden sim case (200M, but it took 95M cycles) (add this as CLI parameter)
+        - Have some kind of heartbeat from the RTL sim testharness indicating whether the cycle count is advancing
+        - side channel to collect cycles/real second for simulation throughput
+    - Patch ISA string (push to tidalsim)
+    - Looks roughly correlated
+    - Try cache warmup flow on this
+    - Pull out notebook logic for plotting and data analysis into library
+    - Do some investigation into zstd baremetal compile
+        - we might be able to use libgloss malloc/sbrk...
+    - also investigate lz4 repo (may be more amenable to baremetal compile)
+- Charles
+    - Extract L1 hit/miss ratio from RTL simulation
+
 ### 2/13/2024
+
 - Vighnesh
   - Can do MTR construction from spike trace
     - You can't get data for entire cache line from single mem access
@@ -24,7 +59,7 @@
     - removing prints corrects FireSim/RTL Sim correlation
   - Started looking at counting L1$ misses
     - Look at HellaCache IOs and look at hit v misses
-      - Eventually event tracking API using TinyChisel from Jerry + Co 
+      - Eventually event tracking API using TinyChisel from Jerry + Co
 
 ### 2/6/2024
 

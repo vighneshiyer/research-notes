@@ -1,43 +1,27 @@
-# Multi-Level Simulation
+# TidalSim
 
-## Functional Warmup (L1 DCache)
+## Post-Warmup Cleanup
 
-- Vighnesh's job
-- [x] Identify cache state in RTL [d:12/9]
-  - Dump cache configuration (or read JSON) from Chipyard SoC
-  - Figure out mismatches between RTL cache state and stated cache configuration
-  - Evaluate why dcache block size doesn't match RTL
-- [x] Pipeclean tag array injection with small design [d:12/10]
-  - So far, created a python script to emit a tag array that can be read via readmemb
-  - Am able to read it and the contents look right after the ways are reversed
-  - Now need to validate I can inject it correctly into the mocked tag array Verilog copied from the Chipyard SoC RTL
-  - Next: do this in a generate loop
-- [x] Pipeclean data array injection [d:1/23/2024]
-  - [x] Validate that the memories look the same as before in old chipyard! Generate new waveforms and RTL collateral
-  - [x] Fix up the python script to generate tag and data arrays
-  - [x] Validate tag array injection again
-  - [x] Add code for data array injection
-- [x] Add cache construct with parameters object [d:1/28/2024]
-- [x] Clean up tag array pretty print w/ metadata [d:1/29/2024]
-- [x] Switch up tag array injection to use multiple files for each memory block [d:1/29/2024]
-- [x] Dump data arrays with multiple files [d:1/29/2024]
-- [x] Unittest data array dumping [d:1/31/2024]
-- [x] Add data array injection to pipeclean [d:1/31/2024]
-- [x] Add plusarg for the base of the checkpoint directory [d:2/1/2024]
-- [x] Attempt to do direct array injection rather than iteration thru rows [d:2/4/2024]
-- [x] Clean up MTR code + tests [d:1/31/2024]
-- [x] Fix up spike log parsing + tests [d:2/6/2024]
-- [x] Fix up type errors [d:2/6/2024]
-- [x] MTR as iterator of cache checkpoints [d:2/6/2024]
-- [x] Add instruction driven dumping to MTR code
-- [x] Convert MTR table to CacheState + test [d:2/12/2024]
-- [x] Hook CacheState generation with tidalsim [d:2/12/2024]
-- [ ] Checkpointing cache state [d:2/12/2024]
-  - [x] Systematically determine loadarch lines
-  - [ ] Use mem.elf seeking to fetch memory contents
-- [ ] Add code to perform cache state injection
-  - Do it like GPR injection, but it will generate a bunch of code, may not be so performant
-  - Write the forcing logic after 'resetting' period is over
+- [x] Rebase on top of chipyard main [d:2/19/2024]
+- [x] Switch to as2 + verify wikibench [d:2/19/2024]
+- [x] Format the codebase with black [d:2/19/2024]
+- [ ] Split perf files from fn warmup vs no warmup [d:2/19/2024]
+- [ ] Plot both lines on top of each other[d:2/19/2024]
+- [ ] Make the coherency state make sense for read only data + test [d:2/19/2024]
+- [ ] Fix 'chosen_for_rtl_sim' being not a good name [d:2/19/2024]
+  - Generalize the ability to choose multiple samples to run in simulation
+  - Extrapolation should take the mean of all chosen samples for the same cluster
+- [ ] Take checkpoints before the actual instruction point [d:2/19/2024]
+  - This is to enable detailed warmup to happen *before* the sampling interval
+- [ ] Fix and unit test interpolation [d:2/19/2024]
+- [ ] Sample from multiple points per cluster [d:2/19/2024]
+- [ ] Create script to run entire embench workload [d:2/19/2024]
+  - Both golden sim + TidalSim + parallelize on common thread pool
+- [ ] Eliminate stdout prints during tidalsim run
+  - For each source of stdout/stderr prints, redirect them into a log file
+- [ ] Disk space saving
+  - [ ] lz4 spike commit log (should be ez, hitting disk must be slowing down spike in full commit log mode)
+  - [ ] lz4 memory elf and bin (need to decompress as the file is fed into RTL sim)
 
 ## CoreMark + HyperCompressBench (w/ lz4)
 
@@ -129,24 +113,16 @@
 
 ### Quick
 
-- [ ] Eliminate stdout prints during tidalsim run
-  - For each source of stdout/stderr prints, redirect them into a log file
 - [ ] Use spike's `--log=<name>` command line flag to dump a log to file without shell redirection
 - [ ] Add log files to record wall time for each step of the flow
 - [ ] Interpolate / scale golden sim trace to interval length of the tidalsim run
 - [ ] Read LiveSim paper again
     - Focus on how they do offline trace clustering
-- [ ] Add additional caching hash based on simulator hash
+- ~~[ ] Add additional caching hash based on simulator hash~~
 - [ ] Don't regenerate checkpoints if the binary hasn't changed (in gen-ckpt)
 - [ ] Add clustering based on interval-based PCA selection
-- [ ] Fix 'chosen_for_rtl_sim' being not a good name
-  - Generalize the ability to choose multiple samples to run in simulation
-  - Extrapolation should take the mean of all chosen samples for the same cluster
 - [ ] Fix the basic block embedding
   - The original Simpoint paper also weights each basic block's feature value by the *number of instructions in that basic block*
-- [ ] Disk space saving
-  - [ ] lz4 spike commit log
-  - [ ] lz4 memory elf
 - [x] Add detailed warmup argument
 - [x] Handle the tail interval for tidalsim
   - When the program length is not a multiple of the interval length, the last sample gets the wrong IPC!
@@ -212,6 +188,48 @@ OLD TASKS
 ---
 
 ## Archived Tasks
+
+### Functional Warmup (L1d)
+
+- Vighnesh's job
+- [x] Identify cache state in RTL [d:12/9]
+  - Dump cache configuration (or read JSON) from Chipyard SoC
+  - Figure out mismatches between RTL cache state and stated cache configuration
+  - Evaluate why dcache block size doesn't match RTL
+- [x] Pipeclean tag array injection with small design [d:12/10]
+  - So far, created a python script to emit a tag array that can be read via readmemb
+  - Am able to read it and the contents look right after the ways are reversed
+  - Now need to validate I can inject it correctly into the mocked tag array Verilog copied from the Chipyard SoC RTL
+  - Next: do this in a generate loop
+- [x] Pipeclean data array injection [d:1/23/2024]
+  - [x] Validate that the memories look the same as before in old chipyard! Generate new waveforms and RTL collateral
+  - [x] Fix up the python script to generate tag and data arrays
+  - [x] Validate tag array injection again
+  - [x] Add code for data array injection
+- [x] Add cache construct with parameters object [d:1/28/2024]
+- [x] Clean up tag array pretty print w/ metadata [d:1/29/2024]
+- [x] Switch up tag array injection to use multiple files for each memory block [d:1/29/2024]
+- [x] Dump data arrays with multiple files [d:1/29/2024]
+- [x] Unittest data array dumping [d:1/31/2024]
+- [x] Add data array injection to pipeclean [d:1/31/2024]
+- [x] Add plusarg for the base of the checkpoint directory [d:2/1/2024]
+- [x] Attempt to do direct array injection rather than iteration thru rows [d:2/4/2024]
+- [x] Clean up MTR code + tests [d:1/31/2024]
+- [x] Fix up spike log parsing + tests [d:2/6/2024]
+- [x] Fix up type errors [d:2/6/2024]
+- [x] MTR as iterator of cache checkpoints [d:2/6/2024]
+- [x] Add instruction driven dumping to MTR code
+- [x] Convert MTR table to CacheState + test [d:2/12/2024]
+- [x] Hook CacheState generation with tidalsim [d:2/12/2024]
+- [x] Checkpointing cache state [d:2/12/2024]
+  - [x] Systematically determine loadarch lines
+  - [x] Use mem.elf seeking to fetch memory contents
+- [x] Integrate cache reconstruction into gen-ckpt [d:2/18/2024]
+- [x] Integrate cache reconstruction into tidalsim [d:2/18/2024]
+- [x] Remove L2 cache
+- [x] Add code to perform cache state injection
+  - Do it like GPR injection, but it will generate a bunch of code, may not be so performant
+  - Write the forcing logic after 'resetting' period is over
 
 ### BBV Embedding Perf Opt
 
