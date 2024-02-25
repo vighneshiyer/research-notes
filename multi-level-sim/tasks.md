@@ -6,11 +6,11 @@
 - [x] Switch to as2 + verify wikibench [d:2/19/2024]
 - [x] Format the codebase with black [d:2/19/2024]
 - [ ] Split perf files from fn warmup vs no warmup [d:2/19/2024]
-- [ ] Plot both lines on top of each other[d:2/19/2024]
+- [ ] Plot both lines on top of each other [d:2/19/2024]
 - [ ] Make the coherency state make sense for read only data + test [d:2/19/2024]
 - [ ] Fix 'chosen_for_rtl_sim' being not a good name [d:2/19/2024]
-  - Generalize the ability to choose multiple samples to run in simulation
-  - Extrapolation should take the mean of all chosen samples for the same cluster
+  - [ ] Generalize the ability to choose multiple samples to run in simulation
+  - [ ] Extrapolation should take the mean of all chosen samples for the same cluster
 - [ ] Take checkpoints before the actual instruction point [d:2/19/2024]
   - This is to enable detailed warmup to happen *before* the sampling interval
 - [ ] Fix and unit test interpolation [d:2/19/2024]
@@ -22,6 +22,7 @@
 - [ ] Disk space saving
   - [ ] lz4 spike commit log (should be ez, hitting disk must be slowing down spike in full commit log mode)
   - [ ] lz4 memory elf and bin (need to decompress as the file is fed into RTL sim)
+- [ ] https://github.com/euphoric-hardware/tidalsim/pull/4/files
 
 ## CoreMark + HyperCompressBench (w/ lz4)
 
