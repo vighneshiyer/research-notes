@@ -6,16 +6,16 @@
 - [x] Switch to as2 + verify wikibench [d:2/19/2024]
 - [x] Format the codebase with black [d:2/19/2024]
 - [ ] Split perf files from fn warmup vs no warmup [d:2/19/2024]
-- [ ] Plot both lines on top of each other [d:2/19/2024]
-- [ ] Make the coherency state make sense for read only data + test [d:2/19/2024]
-- [ ] Fix 'chosen_for_rtl_sim' being not a good name [d:2/19/2024]
+- [ ] Plot both lines on top of each other
+- [ ] Make the coherency state make sense for read only data + test
+- [ ] Fix 'chosen_for_rtl_sim' being not a good name
   - [ ] Generalize the ability to choose multiple samples to run in simulation
   - [ ] Extrapolation should take the mean of all chosen samples for the same cluster
-- [ ] Take checkpoints before the actual instruction point [d:2/19/2024]
+- [ ] Take checkpoints before the actual instruction point
   - This is to enable detailed warmup to happen *before* the sampling interval
-- [ ] Fix and unit test interpolation [d:2/19/2024]
-- [ ] Sample from multiple points per cluster [d:2/19/2024]
-- [ ] Create script to run entire embench workload [d:2/19/2024]
+- [ ] Fix and unit test interpolation
+- [ ] Sample from multiple points per cluster
+- [ ] Create script to run entire embench workload
   - Both golden sim + TidalSim + parallelize on common thread pool
 - [ ] Eliminate stdout prints during tidalsim run
   - For each source of stdout/stderr prints, redirect them into a log file

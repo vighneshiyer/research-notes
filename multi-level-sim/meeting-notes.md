@@ -7,6 +7,29 @@
 
 ## Meeting Notes
 
+### 2/27/2024
+
+- Vighnesh
+  - Still unsure about DRAMSim2 warning messages (will have to look at waveforms)
+  - Worked on some cleanup of the codebase + testing some extrapolation functions
+  - Nothing much to report other than that
+- The IBM Power10 tracepoint sampling system
+- Continue investigation on variable length intervals
+- gem5, gem5 (sampled), TidalSim, FireSim (golden reference)
+  - Backend: gem5 vs RTL, methodology: full vs sampled
+  - Workload: SPEC
+  - uArch param: L1/L2 cache size split ratio
+  - Baseline config: TidalSim/FireSim (Base Rocket config), gem5 (???)
+  - Sensitivity analysis / error analysis
+- RTL simulation is important
+  - With growing SOC complexity, FireSim / RTL sim becomes difficult
+  - We should tackle this - it has very large costs in FPGAs/compute requirements
+  - How to deliver sustainable RTL simulation performance into the future
+  - FPGA emulation infra scaling doesn't match the SoC complexity scaling
+  - We want to capture RTL fidelity situations in the SoC without these massive compute requirements
+- Specify the milestones to achieve this final vision
+- gem5 vs RTL: Jason is interested, we need him to drive this
+
 ### 2/20/2024
 
 - Vighnesh
