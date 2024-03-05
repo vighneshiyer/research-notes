@@ -7,6 +7,22 @@
 
 ## Meeting Notes
 
+### 3/5/2024
+
+- Vighnesh
+  - Nothing much to report, gave 2 presentations (Apple, Intel)
+  - uArch perf models give ability to do oracle modeling of various SoC components
+- Raghav
+  - Also busy, not enough time to work on engineering
+- Dhruv
+  - Coremark with functional warmup trace
+  - Figure out why coremark with fn warmup looks weird - why does it seem to have less variation in the golden trace too?
+  - As time permits, let me know, then move various functions for plotting and data analysis from the notebook to the tidalsim library
+- Charles
+  - Looked at RTL nodes for blocking L1 HellaCache
+  - Blocking cache has a PerfEvents annotation - can tell you if the cache is blocking or not
+  - There are also some internal signals we can pick out (also ones that drive the PerfEvent IO)
+
 ### 2/27/2024
 
 - Vighnesh
