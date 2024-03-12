@@ -5,7 +5,28 @@
 - [Original proposal to Google](https://docs.google.com/document/d/1ZIl1rExD4e5BkUvhTFgKjWBVJPtYICGU_o3SSJVmypI/edit?usp=sharing)
 - [CS294 project proposal](https://docs.google.com/presentation/d/1tmzARnBtCjhgbhEOnKEhFlAWSjmPCOcvpWcT3EGXO6U/edit?usp=sharing)
 
-## Meeting Notes
+## External Meetings
+
+### 3/5/2024 (Intel)
+
+Thanks for the feedback too! I've summarized the points below:
+
+- The cost of bespoke microarchitectural simulators and emulators isn't merely in the hardware cost. Bespoke models require a lot of human work to maintain and keep correlated with the RTL/silicon.
+- Microarchitectural models have the ability to produce collateral that's difficult to produce in RTL simulation. For example, easy visualization/implementation of bottleneck analysis and more critically what-if analysis. Concretely, if we wanted to model a cache with infinite associativity or a particular latency or a memory bus with unlimited bandwidth, this is difficult to do in RTL simulation. While we can integrate performance models for specific SoC components in software with RTL simulation, it might be hard to model these 'oracle' components that are useful to identify bottlenecks and establish upper bounds on performance.
+- The features we want from a functional simulator are a clean separation of architectural state from the state advancement API. We want the ability to modify the perceived time seen by the functional simulator and finely control its advancement. We want to be able to take comprehensive, full architectural state snapshots.
+- The features we want on the RTL side is a way to automatically generate an injection testharness given RTL-level annotations of architectural state. This becomes difficult when there are many microarchitectural states that map to the same architectural state. We would need a way to go from a RTL-level function that describes the uArch -> arch state mapping to a concrete way to perform injection. Having a way to enumerate all the uArch states that map to the same arch state may also be valuable for verification.
+
+### 1/22/2024 (ATHLETE)
+
+- add industry uarch simulator as a row in the comparison table
+- need to correlate functional warmup model + time decorrelation from RTL - these are sources of errors
+- invariant synthesis is very interesting - anomaly detection is very good - keep working on this
+    - trying to get something that fails to show up again and again is valuable - apple knows this intrinsically, don't need to convince them
+- what are the sources of errors in your graphs? why does one benchmark perform a lot better than the other one? I said this is due to cache locality being greater in some workloads
+- how does error scale as your change the interval lengths? what length is optimal? what feedback do designers really want?
+- can we find a good error estimate heuristic? how does your distance from centroid error metric work? can you formalize this?
+
+## Internal Meetings
 
 ### 3/5/2024
 
@@ -188,16 +209,6 @@
         - Just use metasim for now
     - Dynamic instruction count should be the same
     - IPC traces should contain some offset (due to DRAM timing model configuration mismatch)
-
-### 1/22/2024 (ATHLETE)
-
-- add industry uarch simulator as a row in the comparison table
-- need to correlate functional warmup model + time decorrelation from RTL - these are sources of errors
-- invariant synthesis is very interesting - anomaly detection is very good - keep working on this
-    - trying to get something that fails to show up again and again is valuable - apple knows this intrinsically, don't need to convince them
-- what are the sources of errors in your graphs? why does one benchmark perform a lot better than the other one? I said this is due to cache locality being greater in some workloads
-- how does error scale as your change the interval lengths? what length is optimal? what feedback do designers really want?
-- can we find a good error estimate heuristic? how does your distance from centroid error metric work? can you formalize this?
 
 ### 12/8/2023
 
