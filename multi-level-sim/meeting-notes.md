@@ -28,6 +28,28 @@ Thanks for the feedback too! I've summarized the points below:
 
 ## Internal Meetings
 
+### 3/12/2024
+
+- Vighnesh
+  - Sorry, nothing much to report again here
+  - We have a clear goal by the summer: https://docs.google.com/document/d/1R9-cJyxfx9SulHxgxmHynJ8ilfM95APz8-VIdlktQYQ/edit#heading=h.rcl98tuhoxnu
+- Steps to achieve the goal
+  - Binary-agnostic embeddings
+  - L1i warmup
+  - Streaming implementation of sampled simulation
+    - Requires custom top-level for spike's underlying ISA simulation model (`mmu_t`, `processor_t`)
+    - This is a substantial engineering lift
+    - Prereq: ability to use spike archstate protobuf checkpoints instead of our current (loadarch + DRAM bin) approach
+- Dhruv
+  - 290 project to do embeddings for Gemmini workloads
+  - BBVs
+  - Instrument the spike gemmini model to dump memory events / compute events on systolic array + some notion of latent state (prior contents of scratchpad / accumulator) (prior state of PEs when doing computation on the same weight stationary matrix)
+  - Focus constructing reasonable interval embeddings + prediction models for perf metrics (systolic array utilization, memory bandwidth usage, cycle count, ...)
+    - Don't use sampled simulation here, just RTL sim and maybe later FireSim
+- Charles
+  - See the Viper paper from Carlson's group at NUS
+  - L1d perf metric implementation done, but not validated against waveform data or inst trace
+
 ### 3/5/2024
 
 - Vighnesh
