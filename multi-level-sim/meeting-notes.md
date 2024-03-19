@@ -16,6 +16,11 @@ Thanks for the feedback too! I've summarized the points below:
 - The features we want from a functional simulator are a clean separation of architectural state from the state advancement API. We want the ability to modify the perceived time seen by the functional simulator and finely control its advancement. We want to be able to take comprehensive, full architectural state snapshots.
 - The features we want on the RTL side is a way to automatically generate an injection testharness given RTL-level annotations of architectural state. This becomes difficult when there are many microarchitectural states that map to the same architectural state. We would need a way to go from a RTL-level function that describes the uArch -> arch state mapping to a concrete way to perform injection. Having a way to enumerate all the uArch states that map to the same arch state may also be valuable for verification.
 
+#### On What-If Analysis
+
+- How can we do what-if simulations using RTL simulation?
+- How can we adapt it for FPGA simulation too? Can we avoid DPI overheads and other API-related annoyances?
+
 ### 1/22/2024 (ATHLETE)
 
 - add industry uarch simulator as a row in the comparison table
@@ -27,6 +32,28 @@ Thanks for the feedback too! I've summarized the points below:
 - can we find a good error estimate heuristic? how does your distance from centroid error metric work? can you formalize this?
 
 ## Internal Meetings
+
+### 3/19/2024
+
+- Vighnesh
+  - 1. Caching abstraction
+  - 2. Enabling comparison of different functional and detailed warmup mixes
+  - 3. L1i warmup
+    - Right now, I'm injecting PC into `s2_pc` (in Rocket)
+    - This is OK, because if `s2_pc` misses in the icache (which always happens), then `s2_pc` is replayed in the Rocket pipeline
+    - BUT, if we inject icache state, then `s2_pc` will hit in the icache and then `s1_pc` won't be set correctly and then we will blow things up (need to read the Rocket source code)
+- Raghav is out for today
+- Dhruv
+  - Project proposal being submitted
+  - Focus of the project should be on embeddings, not on arch state dumping or on restoration or on sampled simulation
+  - Evaluate embeddings against the real performance of the whole system on program intervals (measure the perf in RTL sim or FireSim)
+    - Build a regression model from embeddings to performance
+  - What features of the embeddings are valuable?
+  - Time-based intervals in the future to compensate for Gemmini instructions being asynchronously executed (only visible to the core after a fence, but spike models instructions as executing instantly)
+  - Also need to consider instruction re-ordering that Gemmini can do internally
+- Charles
+  - Still working on L1d cache metric extraction
+
 
 ### 3/12/2024
 
