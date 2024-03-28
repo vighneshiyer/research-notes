@@ -5,12 +5,12 @@
 - [x] Rebase on top of chipyard main [d:2/19/2024]
 - [x] Switch to as2 + verify wikibench [d:2/19/2024]
 - [x] Format the codebase with black [d:2/19/2024]
-- [ ] Split perf files from fn warmup vs no warmup [d:2/19/2024]
-- [ ] Plot both lines on top of each other
-- [ ] Make the coherency state make sense for read only data + test
-- [ ] Fix 'chosen_for_rtl_sim' being not a good name
+- [x] Split perf files from fn warmup vs no warmup [d:2/19/2024]
+- [ ] Plot both lines on top of each other [d:3/22/2024]
+- [ ] Fix 'chosen_for_rtl_sim' being not a good name [d:3/22/2024]
   - [ ] Generalize the ability to choose multiple samples to run in simulation
   - [ ] Extrapolation should take the mean of all chosen samples for the same cluster
+- [ ] Make the coherency state make sense for read only data + test
 - [ ] Take checkpoints before the actual instruction point
   - This is to enable detailed warmup to happen *before* the sampling interval
 - [ ] Fix and unit test interpolation
@@ -42,6 +42,14 @@
 - [ ] Review prior work and compile list of all potential features they identified
 - [ ] Implement some of those features in Python
 - [ ] Evaluate against the BBV embedding
+
+## Multiple Samples per Cluster
+
+## Protobuf spike Checkpoints
+
+## Generating Injection Testharnesses
+
+## Streaming Sampled Simulation
 
 ## Chisel Annotations for State Mapping + TestHarness Generation
 

@@ -376,3 +376,80 @@ Now for the things that we still need to improve and fix:
 - Can use a little less yeast (3g/1kg) when doing 3 rising stages (initial large doughball proof, cold proof, room temp warmup + final proof)
     - Next time, we might want to elide the cold proof and instead make the dough the morning of the event
     - This should make it easy to do room temp proofing and give us a more consistent rise
+
+## Spring Break 2024 Pizza Night
+
+### Recipes
+
+#### Tomato Sauce
+
+- Ingredients: 3 14oz cans DOP whole San Marzano tomatoes, salt, dried oregano, sugar, olive oil
+    - This is sufficient for 3x8 12" pizzas (one tomato can is about 8-12 pizzas)
+- Separate the whole tomatoes from the puree in the can, place the whole tomatoes into a deep container. Keep the puree in another container in case the sauce becomes too thick.
+- Use an immersion blender to blend the tomatoes relatively smooth (but not completely smooth)
+- Finish with 3 tablespoons olive oil, 3 teaspoons dried oregano, 0-1 teaspoons salt (taste and adjust, keep salt low, parm will add more salt), 0-3 teaspoons sugar (taste and adjust, might not be necessary)
+
+#### Dough
+
+- We will be making standard 12" (250g) doughballs
+- [Ooni Classic Pizza Dough](https://ooni.com/blogs/recipes/classic-pizza-dough)
+- Makes 4 250g 12" pizza doughballs
+    - 368g lukewarm water
+    - 3 ½ grams active dry yeast, or 2.7 grams instant dried yeast, or 8 ½ grams fresh yeast
+      - Use a little less active dry yeast (maybe 2.5-3g, last time the proof was too aggressive)
+    - 613 grams “00” flour, plus extra for dusting
+    - 18 grams sea salt
+- Recipe
+    - Add water and yeast to large bowl and whisk
+    - Add salt and flour to other bowl and pour into wet bowl
+    - Stir with wooden spoon the mix by hand, then knead for 10 minutes on floured work surface
+    - Return dough to bowl, cover with wet dishtowel, and let rise for 10 minutes in warm area
+    - Divide into doughballs, place in proofing tray, and allow to rise another 20-30 minutes, then place in fridge
+    - The next day, proof again at room temp for 2-3 hours or until doubled in size
+- We need to make 4/5 batches of this recipe
+- Assuming 16 pizzas, we need 3.6kg flour
+
+#### Pizzas
+
+- We will be making 2 types of pizzas, alternating
+- Margherita
+    - tomato sauce, fresh mozzarella, grated parm, basil, crushed garlic, olive oil
+- Pepperoni and prosciutto
+    - tomato sauce, fresh mozzarella, grated parm, olive oil, prosciutto, salami
+
+### Lists
+
+- Giovanni's Italian Specialities
+    - Caputo Pizzeria (blue) 00 flour 11lb bag (x2-3)
+    - DOP San Marzano cans
+- Safeway
+    - Fior di latte / fresh mozzarella (check prices before buying, Trader Joe's is the alternative)
+    - DOP San Marzano cans
+- Trader Joe's
+    - Drinks: Beer, Wine (reds, whites, moscatos, ports), any non-poisonous drinks (e.g. juice)
+      - Already have: 2 reds, 1 moscato, 1 sake, 1 soju, sodas/waters from lab
+    - Fresh mozzarella (approximately 1 log for 5 pizzas)
+    - Garlic (1 head), Fresh basil (2 plants)
+    - Prosciutto (allocate 3x strips / pizza = 45 strips), salami (allocate 10x slices / pizza = 180 slices)
+- From home
+    - Ingredients: Dried oregano, dried basil, dried red pepper flakes, DOP parm, 00 flour
+    - From fridge: tomato sauce, DOP parm, sliced mozzarella, proofing trays (with doughballs)
+    - Equipment: dough slicer, metal poker, baking gloves, mortal and pestle (for crushed garlic), dishcloths, microplane, spoons/ladles, scissors, trash bag, tongs, tupperware for ingredients (basil, garlic, buratta)
+    - Hex screwdriver for hopper lid replacement
+- From lab
+    - Plates, napkins, forks, sodas/water, cups
+
+### Tasks
+
+- [x] Plan pizzas and recipes and groceries [d:3/22/2024]
+- [x] Purchase Caputo Pizzeria 00 flour in SF [d:3/23/2024]
+  - At Giovanni's Italian Specialities, it should be cheap for 11lb bags ($33 on Amazon w/ same-day shipping included)
+  - https://giovannispecialties.com/product/caputo-pizzeria-flour-tipo-00/ ($12/bag)
+- [ ] Add additional washer to baffle in chimney + clean [d:3/30/2024]
+- [ ] Purchase ingredients from Trader Joe's
+- [ ] Purchase ingredients from Safeway
+- [ ] Purchase flour from SF
+- [ ] Prepare cheese
+- [ ] Prepare tomato sauce + crushed garlic
+- [ ] Prepare dough
+- [ ] Charge fan
