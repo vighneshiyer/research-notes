@@ -33,6 +33,16 @@ Thanks for the feedback too! I've summarized the points below:
 
 ## Internal Meetings
 
+### 4/2/2024
+
+- Vighnesh
+  - Sketched out error analysis flow (https://vighneshiyer.github.io/2024_03-athlete-tidalsim_error_analysis.html)
+  - Working on modifying tidalsim script to support "no sampling" (execute every interval)
+- Dhruv
+  - 290 project proposal (Gemmini program interval embedding)
+- Charles
+  - Working on L1 cache metrics from testharness
+
 ### 3/19/2024
 
 - Vighnesh

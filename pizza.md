@@ -419,25 +419,27 @@ Now for the things that we still need to improve and fix:
 
 ### Lists
 
-- Giovanni's Italian Specialities
-    - Caputo Pizzeria (blue) 00 flour 11lb bag (x2-3)
-    - DOP San Marzano cans
-- Safeway
-    - Fior di latte / fresh mozzarella (check prices before buying, Trader Joe's is the alternative)
-    - DOP San Marzano cans
-- Trader Joe's
-    - Drinks: Beer, Wine (reds, whites, moscatos, ports), any non-poisonous drinks (e.g. juice)
+- [ ] Giovanni's Italian Specialities
+    - [x] Caputo Pizzeria (blue) 00 flour 11lb bag (x2-3)
+    - [x] DOP San Marzano cans
+- [ ] Safeway
+    - [ ] Fior di latte / fresh mozzarella (check prices before buying, Trader Joe's is the alternative)
+    - [ ] Drinks
+- [ ] Trader Joe's
+    - [ ] Drinks: Beer, Wine (reds, whites, moscatos, ports), any non-poisonous drinks (e.g. juice)
       - Already have: 2 reds, 1 moscato, 1 sake, 1 soju, sodas/waters from lab
-    - Fresh mozzarella (approximately 1 log for 5 pizzas)
-    - Garlic (1 head), Fresh basil (2 plants)
-    - Prosciutto (allocate 3x strips / pizza = 45 strips), salami (allocate 10x slices / pizza = 180 slices)
-- From home
-    - Ingredients: Dried oregano, dried basil, dried red pepper flakes, DOP parm, 00 flour
-    - From fridge: tomato sauce, DOP parm, sliced mozzarella, proofing trays (with doughballs)
-    - Equipment: dough slicer, metal poker, baking gloves, mortal and pestle (for crushed garlic), dishcloths, microplane, spoons/ladles, scissors, trash bag, tongs, tupperware for ingredients (basil, garlic, buratta)
-    - Hex screwdriver for hopper lid replacement
-- From lab
-    - Plates, napkins, forks, sodas/water, cups
+    - [ ] Fresh mozzarella (approximately 1 log for 5 pizzas)
+    - [ ] Garlic (1 head)
+    - [ ] Fresh basil (2 plants)
+    - [ ] Prosciutto (allocate 3x strips / pizza = 45 strips)
+    - [ ] Salami (allocate 10x slices / pizza = 180 slices)
+- [ ] From home
+    - [ ] Ingredients: Dried oregano, dried basil, dried red pepper flakes, DOP parm, 00 flour
+    - [ ] From fridge: tomato sauce, DOP parm, sliced mozzarella, proofing trays (with doughballs)
+    - [ ] Equipment: dough slicer, metal poker, baking gloves, mortal and pestle (for crushed garlic), dishcloths, microplane, spoons/ladles, scissors, trash bag, tongs, tupperware for ingredients (basil, garlic, buratta)
+    - [ ] Hex screwdriver for hopper lid replacement
+- [ ] From lab
+    - [ ] Plates, napkins, forks, knives, sodas/water, cups
 
 ### Tasks
 
@@ -445,7 +447,7 @@ Now for the things that we still need to improve and fix:
 - [x] Purchase Caputo Pizzeria 00 flour in SF [d:3/23/2024]
   - At Giovanni's Italian Specialities, it should be cheap for 11lb bags ($33 on Amazon w/ same-day shipping included)
   - https://giovannispecialties.com/product/caputo-pizzeria-flour-tipo-00/ ($12/bag)
-- [ ] Add additional washer to baffle in chimney + clean [d:3/30/2024]
+- [ ] Add additional washer to baffle in chimney + clean [d:4/2/2024]
 - [ ] Purchase ingredients from Trader Joe's
 - [ ] Purchase ingredients from Safeway
 - [ ] Purchase flour from SF
