@@ -436,6 +436,7 @@ Now for the things that we still need to improve and fix:
       - 6 leaves per pizza
     - [ ] Prosciutto (allocate 3x strips / pizza = 60 strips)
     - [ ] Salami (allocate 10x slices / pizza = 200 slices)
+    - [ ] DOP Parm (just for this event)
 - [ ] From home
     - [ ] Ingredients: Dried oregano, dried basil, dried red pepper flakes, DOP parm, 00 flour
     - [ ] From fridge: tomato sauce, DOP parm, sliced mozzarella, proofing trays (with doughballs), vanilla ice cream
