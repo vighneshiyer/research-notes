@@ -416,6 +416,7 @@ Now for the things that we still need to improve and fix:
     - tomato sauce, fresh mozzarella, grated parm, basil, crushed garlic, olive oil
 - Pepperoni and prosciutto
     - tomato sauce, fresh mozzarella, grated parm, olive oil, prosciutto, salami
+- We will provision for 20 12" pizzas
 
 ### Lists
 
@@ -427,15 +428,17 @@ Now for the things that we still need to improve and fix:
     - [ ] Drinks
 - [ ] Trader Joe's
     - [ ] Drinks: Beer, Wine (reds, whites, moscatos, ports), any non-poisonous drinks (e.g. juice)
-      - Already have: 2 reds, 1 moscato, 1 sake, 1 soju, sodas/waters from lab
+      - Already have: 2 reds, 1 port, 1 moscato, 1 sake, 1 soju, sodas/waters from lab
     - [ ] Fresh mozzarella (approximately 1 log for 5 pizzas)
+      - 4oz per 12" pizza
     - [ ] Garlic (1 head)
     - [ ] Fresh basil (2 plants)
-    - [ ] Prosciutto (allocate 3x strips / pizza = 45 strips)
-    - [ ] Salami (allocate 10x slices / pizza = 180 slices)
+      - 6 leaves per pizza
+    - [ ] Prosciutto (allocate 3x strips / pizza = 60 strips)
+    - [ ] Salami (allocate 10x slices / pizza = 200 slices)
 - [ ] From home
     - [ ] Ingredients: Dried oregano, dried basil, dried red pepper flakes, DOP parm, 00 flour
-    - [ ] From fridge: tomato sauce, DOP parm, sliced mozzarella, proofing trays (with doughballs)
+    - [ ] From fridge: tomato sauce, DOP parm, sliced mozzarella, proofing trays (with doughballs), vanilla ice cream
     - [ ] Equipment: dough slicer, metal poker, baking gloves, mortal and pestle (for crushed garlic), dishcloths, microplane, spoons/ladles, scissors, trash bag, tongs, tupperware for ingredients (basil, garlic, buratta)
     - [ ] Hex screwdriver for hopper lid replacement
 - [ ] From lab
@@ -447,7 +450,8 @@ Now for the things that we still need to improve and fix:
 - [x] Purchase Caputo Pizzeria 00 flour in SF [d:3/23/2024]
   - At Giovanni's Italian Specialities, it should be cheap for 11lb bags ($33 on Amazon w/ same-day shipping included)
   - https://giovannispecialties.com/product/caputo-pizzeria-flour-tipo-00/ ($12/bag)
-- [ ] Add additional washer to baffle in chimney + clean [d:4/2/2024]
+- [ ] Add additional washer to baffle in chimney + clean [d:4/3/2024]
+  - Clean all chimney parts and scrub pizza stone flat
 - [ ] Purchase ingredients from Trader Joe's
 - [ ] Purchase ingredients from Safeway
 - [ ] Purchase flour from SF
