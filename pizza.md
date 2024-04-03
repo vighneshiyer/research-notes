@@ -451,12 +451,13 @@ Now for the things that we still need to improve and fix:
 - [x] Purchase Caputo Pizzeria 00 flour in SF [d:3/23/2024]
   - At Giovanni's Italian Specialities, it should be cheap for 11lb bags ($33 on Amazon w/ same-day shipping included)
   - https://giovannispecialties.com/product/caputo-pizzeria-flour-tipo-00/ ($12/bag)
-- [ ] Add additional washer to baffle in chimney + clean [d:4/3/2024]
-  - Clean all chimney parts and scrub pizza stone flat
+- [x] Add additional washer to baffle in chimney + clean [d:4/3/2024]
+  - Clean all chimney parts and scrub pizza stone flat - everything looks good as of 4/3/2024
+- [x] Purchase flour from SF
+- [ ] Charge fan
 - [ ] Purchase ingredients from Trader Joe's
 - [ ] Purchase ingredients from Safeway
-- [ ] Purchase flour from SF
-- [ ] Prepare cheese
-- [ ] Prepare tomato sauce + crushed garlic
-- [ ] Prepare dough
-- [ ] Charge fan
+- [ ] Day of tasks
+  - [ ] Prepare cheese
+  - [ ] Prepare tomato sauce + crushed garlic
+  - [ ] Prepare dough
