@@ -437,13 +437,13 @@ Now for the things that we still need to improve and fix:
     - [x] Prosciutto (allocate 3x strips / pizza = 60 strips)
     - [x] Salami (allocate 10x slices / pizza = 200 slices)
     - [x] DOP Parm (just for this event)
-- [ ] From home
-    - [ ] Ingredients: 00 flour
-    - [ ] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs), vanilla ice cream
-    - [ ] Equipment: dough slicer, metal poker, baking gloves, dishcloths, microplane, spoons/ladles, scissors, trash bag, tongs, tupperware for ingredients (basil, etc.)
+- [x] From home
+    - [x] Ingredients: 00 flour
+    - [x] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs), vanilla ice cream, garlic mash
+    - [x] Equipment: dough slicer, metal poker, baking gloves, dishcloths, microplane, spoons/ladles, scissors, trash bag, tongs, tupperware for ingredients (basil, etc.)
     - [ ] ~~Hex screwdriver for hopper lid replacement~~ (not needed)
-- [ ] From lab
-    - [ ] Plates, napkins, forks, knives, sodas/water, cups
+- [x] From lab
+    - [x] Plates, napkins, forks, knives, sodas/water, cups
 
 ### Tasks
 
@@ -464,8 +464,8 @@ Now for the things that we still need to improve and fix:
   - [x] Prepare tomato sauce
   - [x] Prepare + first proof dough (budget 20 pizzas)
   - [x] Charge fan
-- [ ] Day of tasks
+- [x] Day of tasks
   - [x] Organize poison
   - [x] Put away stuff to take to Soda
-  - [ ] Wash down basil plants
-  - [ ] Transport dough and warm proof
+  - [x] Wash down basil plants
+  - [x] Transport dough and warm proof
