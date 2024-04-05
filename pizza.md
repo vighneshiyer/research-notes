@@ -440,7 +440,7 @@ Now for the things that we still need to improve and fix:
 - [ ] From home
     - [ ] Ingredients: 00 flour
     - [ ] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs), vanilla ice cream
-    - [ ] Equipment: dough slicer, metal poker, baking gloves, dishcloths, microplane, spoons/ladles, scissors, trash bag, tongs, tupperware for ingredients (basil, garlic, buratta), digital scale
+    - [ ] Equipment: dough slicer, metal poker, baking gloves, dishcloths, microplane, spoons/ladles, scissors, trash bag, tongs, tupperware for ingredients (basil, etc.)
     - [ ] ~~Hex screwdriver for hopper lid replacement~~ (not needed)
 - [ ] From lab
     - [ ] Plates, napkins, forks, knives, sodas/water, cups
@@ -454,15 +454,17 @@ Now for the things that we still need to improve and fix:
 - [x] Add additional washer to baffle in chimney + clean [d:4/3/2024]
   - Clean all chimney parts and scrub pizza stone flat - everything looks good as of 4/3/2024
 - [x] Purchase flour from SF
-- [x] Charge fan
 - [x] Purchase ingredients from Trader Joe's
 - [x] Purchase ingredients from Safeway
-- [ ] Prior Day Prep list
+- [x] Prior Day Prep list
   - [x] Chill beers
   - [x] Take meats + all poisons to lab
-  - [ ] Slice mozz
-  - [ ] Crush garlic into mash
-  - [ ] Prepare tomato sauce
-  - [ ] Prepare + first proof dough (budget 20 pizzas)
+  - [x] Slice mozz
+  - [x] Crush garlic into mash
+  - [x] Prepare tomato sauce
+  - [x] Prepare + first proof dough (budget 20 pizzas)
+  - [x] Charge fan
 - [ ] Day of tasks
+  - [ ] Put away stuff to take to Soda
   - [ ] Wash down basil plants
+  - [ ] Organize poison
