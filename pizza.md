@@ -420,28 +420,28 @@ Now for the things that we still need to improve and fix:
 
 ### Lists
 
-- [ ] Giovanni's Italian Specialities
+- [x] Giovanni's Italian Specialities
     - [x] Caputo Pizzeria (blue) 00 flour 11lb bag (x2-3)
     - [x] DOP San Marzano cans
-- [ ] Safeway
-    - [ ] Fior di latte / fresh mozzarella (check prices before buying, Trader Joe's is the alternative)
-    - [ ] Drinks
-- [ ] Trader Joe's
-    - [ ] Drinks: Beer, Wine (reds, whites, moscatos, ports), any non-poisonous drinks (e.g. juice)
+- [x] Safeway
+    - [ ] ~~Fior di latte / fresh mozzarella (check prices before buying, Trader Joe's is the alternative)~~ (too expensive for poor quality)
+    - [x] Drinks
+- [x] Trader Joe's
+    - [x] Drinks: Beer, Wine (reds, whites, moscatos, ports), any non-poisonous drinks (e.g. juice)
       - Already have: 2 reds, 1 port, 1 moscato, 1 sake, 1 soju, sodas/waters from lab
-    - [ ] Fresh mozzarella (approximately 1 log for 5 pizzas)
+    - [x] Fresh mozzarella (approximately 1 log for 5 pizzas)
       - 4oz per 12" pizza
-    - [ ] Garlic (1 head)
-    - [ ] Fresh basil (2 plants)
+    - [x] Garlic (1 head)
+    - [x] Fresh basil (2 plants)
       - 6 leaves per pizza
-    - [ ] Prosciutto (allocate 3x strips / pizza = 60 strips)
-    - [ ] Salami (allocate 10x slices / pizza = 200 slices)
-    - [ ] DOP Parm (just for this event)
+    - [x] Prosciutto (allocate 3x strips / pizza = 60 strips)
+    - [x] Salami (allocate 10x slices / pizza = 200 slices)
+    - [x] DOP Parm (just for this event)
 - [ ] From home
-    - [ ] Ingredients: Dried oregano, dried basil, dried red pepper flakes, DOP parm, 00 flour
-    - [ ] From fridge: tomato sauce, DOP parm, sliced mozzarella, proofing trays (with doughballs), vanilla ice cream
-    - [ ] Equipment: dough slicer, metal poker, baking gloves, mortal and pestle (for crushed garlic), dishcloths, microplane, spoons/ladles, scissors, trash bag, tongs, tupperware for ingredients (basil, garlic, buratta)
-    - [ ] Hex screwdriver for hopper lid replacement
+    - [ ] Ingredients: 00 flour
+    - [ ] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs), vanilla ice cream
+    - [ ] Equipment: dough slicer, metal poker, baking gloves, dishcloths, microplane, spoons/ladles, scissors, trash bag, tongs, tupperware for ingredients (basil, garlic, buratta), digital scale
+    - [ ] ~~Hex screwdriver for hopper lid replacement~~ (not needed)
 - [ ] From lab
     - [ ] Plates, napkins, forks, knives, sodas/water, cups
 
@@ -454,10 +454,15 @@ Now for the things that we still need to improve and fix:
 - [x] Add additional washer to baffle in chimney + clean [d:4/3/2024]
   - Clean all chimney parts and scrub pizza stone flat - everything looks good as of 4/3/2024
 - [x] Purchase flour from SF
-- [ ] Charge fan
-- [ ] Purchase ingredients from Trader Joe's
-- [ ] Purchase ingredients from Safeway
+- [x] Charge fan
+- [x] Purchase ingredients from Trader Joe's
+- [x] Purchase ingredients from Safeway
+- [ ] Prior Day Prep list
+  - [x] Chill beers
+  - [x] Take meats + all poisons to lab
+  - [ ] Slice mozz
+  - [ ] Crush garlic into mash
+  - [ ] Prepare tomato sauce
+  - [ ] Prepare + first proof dough (budget 20 pizzas)
 - [ ] Day of tasks
-  - [ ] Prepare cheese
-  - [ ] Prepare tomato sauce + crushed garlic
-  - [ ] Prepare dough
+  - [ ] Wash down basil plants
