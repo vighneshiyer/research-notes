@@ -465,6 +465,7 @@ Now for the things that we still need to improve and fix:
   - [x] Prepare + first proof dough (budget 20 pizzas)
   - [x] Charge fan
 - [ ] Day of tasks
-  - [ ] Put away stuff to take to Soda
+  - [x] Organize poison
+  - [x] Put away stuff to take to Soda
   - [ ] Wash down basil plants
-  - [ ] Organize poison
+  - [ ] Transport dough and warm proof
