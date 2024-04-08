@@ -443,7 +443,7 @@ Now for the things that we still need to improve and fix:
     - [x] Equipment: dough slicer, metal poker, baking gloves, dishcloths, microplane, spoons/ladles, scissors, trash bag, tongs, tupperware for ingredients (basil, etc.)
     - [ ] ~~Hex screwdriver for hopper lid replacement~~ (not needed)
 - [x] From lab
-    - [x] Plates, napkins, forks, knives, sodas/water, cups
+    - [x] Plates, napkins, forks, knives, sodas/water, cups, wine / bottle opener
 
 ### Tasks
 
@@ -469,3 +469,47 @@ Now for the things that we still need to improve and fix:
   - [x] Put away stuff to take to Soda
   - [x] Wash down basil plants
   - [x] Transport dough and warm proof
+
+### Retrospective
+
+Overall things went pretty well!
+We were mostly bound by the rate of pizza consumption rather than production!
+We turned out 14-ish 12" pizzas and the quality kept improving throughout the night.
+The tomato sauce was absolutely perfect and flavorful.
+Dough quality was also excellent, and was quite stretchable.
+But as usual, there were some issues we need to address:
+
+- Equipment overprovisioning
+  - In general, I still brought too much stuff from home. Dishcloths, baking gloves, lots of spoons, scissors, trash bag, tongs, tupperware (all unnecessary and unused)
+  - However, there is one piece of equipment I actually need - a nice metal poker (but for now, I can keep using my spatula)
+  - If I were to buy all equipment such that nothing needs to brought from home, **I would need**: dough slicer/knife, metal poker, microplane, some ladles and spoons
+- Excess yeasty flavor of the dough
+  - This time I used 3g of yeast (vs 3.5g) for every batch of dough, but that was still too much I feel - the dough puffed up a lot and had a strong yeasty flavor
+  - I did an overnight cold proof (total ~15 hours) after a 2 hour warm proof + doughball splitting
+- Garlic was overpowering
+  - The garlic mash didn't have much of a garlic flavor on the pizza, but rather just added a stinging feeling in the tongue which detracted from the pure tomato/mozzarella/crust flavor. This is expected, it is uncooked raw garlic mash.
+  - I would propose that next time we omit the garlic to produce a pure Neapolitan product
+- Tomato sauce
+  - Add fresh basil leaves to the sauce, leave out oregano and add on top later to see the difference
+- Pizza prep
+  - It seems we need a **larger region for crust** on the pizza (1.5" offset from edge), also the crust must be **thicker** than the rest of the pizza for better puffing
+  - Move sauce inwards, and use 1.5 scoops of sauce (don't overdo it)
+  - I need to buy **Caputo semolina flour** for dusting and stretching the dough, I shouldn't use 00 flour for this (of course don't use cornmeal lol)
+- Ingredient quality
+  - What I thought was high quality: DOP tomatoes, 00 flour + yeast, DOP parm, basil, olive oil, meats (sufficiently enough, I guess)
+  - What needs better quality: mozzarella (the top burned too easily, a bit too chewy, not sufficiently creamy - it detracted from the texture of the crust)
+    - The best would be DOP mozzarella di bufala campana, but this is probably too expensive and hard to find
+    - We should shoot for finding some real buffalo mozzarella, but domestic should be OK
+    - [Belfiore Cheese](https://belfiorecheese.com/all-products/) in West Berkeley is pretty accessible and produces high quality mozzarella. They even have [Fior Di Latte](https://belfiorecheese.com/portfolio/fior-di-latte-organic/)!
+      - They don't sell from their manufacturing place, but they claim to distribute to **Safeway** and **Berkeley Bowl**
+    - I can also look in **Cheeseboard**, but it will be expensive, **Costco** might carry fior di latte
+    - The ideal amount is 80-100g of mozzarella per 12" pizza
+  - [The Perfect Way to Put Cheese on Neapolitan Pizza⏐Before & After](https://www.youtube.com/watch?v=R-O9LUDtH_g)
+    - Classic problem with buffalo mozzarella - watery blob around the cheese after cooking. The video proposes this fix:
+    - Cut the mozz into thinner pieces (but still semi-circular) and **place it in a draining tray overnight** to make sure the milk is drained away
+- White smoke
+  - Sooty pizza flavor on the stone, excess soot production
+- Dough redux specialized for bulk cold proof now that we have 2x experience with classic recipe
+  - Pizzapp
+- Getting fire started was tougher this time, consider placement of firestarters / doubling up on firestarters back and front
+- Temperature control
