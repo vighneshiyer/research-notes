@@ -33,6 +33,18 @@ Thanks for the feedback too! I've summarized the points below:
 
 ## Internal Meetings
 
+### 4/9/2024
+
+- Vighnesh
+  - Just working on the engineering tasks to get error analysis working
+  - Goal: draft for ICCAD (around early May) - baremetal only, Python only tidalsim flow, L1i+d warmup, error analysis
+- Raghav
+  - Working on microarchitecturally aware embeddings - branch predictability feature
+- Dhruv
+  - Making sure existing tidalsim functions can parse the gemmini spike commit log
+  - Then try to evaluate basic block embeddings
+  - Intervals are segments that are bounded by fences (contrast this with fixed instruction width intervals)
+
 ### 4/2/2024
 
 - Vighnesh
