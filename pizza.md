@@ -495,6 +495,7 @@ But as usual, there were some issues we need to address:
   - It seems we need a **larger region for crust** on the pizza (1.5" offset from edge), also the crust must be **thicker** than the rest of the pizza for better puffing
   - Move sauce inwards, and use 1.5 scoops of sauce (don't overdo it)
   - I need to buy **Caputo semolina flour** for dusting and stretching the dough, I shouldn't use 00 flour for this (of course don't use cornmeal lol)
+  - Flour underneath the dough **needs to be swept away** before pulling the dough onto the wood peel (excess underneath flour leads to burning)
 - Ingredient quality
   - What I thought was high quality: DOP tomatoes, 00 flour + yeast, DOP parm, basil, olive oil, meats (sufficiently enough, I guess)
   - What needs better quality: mozzarella (the top burned too easily, a bit too chewy, not sufficiently creamy - it detracted from the texture of the crust)
@@ -508,8 +509,10 @@ But as usual, there were some issues we need to address:
     - Classic problem with buffalo mozzarella - watery blob around the cheese after cooking. The video proposes this fix:
     - Cut the mozz into thinner pieces (but still semi-circular) and **place it in a draining tray overnight** to make sure the milk is drained away
 - White smoke
-  - Sooty pizza flavor on the stone, excess soot production
-- Dough redux specialized for bulk cold proof now that we have 2x experience with classic recipe
-  - Pizzapp
-- Getting fire started was tougher this time, consider placement of firestarters / doubling up on firestarters back and front
-- Temperature control
+  - Sooty pizza flavor on the stone, excess soot production that goes along with white smoke
+  - [Reddit post on the same thing](https://www.reddit.com/r/uuni/comments/g9m73k/advice_for_ooni3_regarding_pellets_brand_and/)
+    1. Make sure the pellets are dried under 10% moisture - I should stick my current pellets in the oven in sheet trays and weigh them before and after
+    2. White smoke can come from pellets getting hot, but not actually being on fire. This comes from the fire being right under the hopper opening rather than in the front of the firebox! I am so dumb. We started with the fire mostly in the front and because I was impatient, I thought I should light another firestarter in the back! What a foolish mistake - next time, just be patient, and create a front-biased fire and load pellets slowly but consistently.
+- A new dough recipe specialized for bulk cold proof (now that we have 2x experience with the classic recipe)
+  - Pizzapp+ gives nice measurements according to desired proof times
+  - 100% poolish dough (see Vito Iacopelli's videos) - this seems like an elite technique, must try
