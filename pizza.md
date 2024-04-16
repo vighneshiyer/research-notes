@@ -516,3 +516,10 @@ But as usual, there were some issues we need to address:
 - A new dough recipe specialized for bulk cold proof (now that we have 2x experience with the classic recipe)
   - Pizzapp+ gives nice measurements according to desired proof times
   - 100% poolish dough (see Vito Iacopelli's videos) - this seems like an elite technique, must try
+
+## Late April / May 2024
+
+### Ingredients
+
+- Drinks
+  - High quality root beer

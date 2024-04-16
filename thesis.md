@@ -407,6 +407,34 @@ We propose a microarchitectural simulation methodology that combines functional 
 - RTL-level needs to be important - motivate RTL-level sampled simulation
 - remove the L2 cache from benchmarks
 
+### Notes from Miles' Practice Talk
+
+- Doing a PPA efficiency + flexibility + compiler complexity tradeoff analysis between the traditional Gemmini + CPU / Gemmini + CPU + RVV / CPU + RVV + IME would be interesting
+  - What about a GPU-style (SIMT) architecture?
+  - Where is the power being wasted in the RVV + IME arch vs a more fixed function machine? Can that be mitigated? How much power is actually going to compute vs control in all these design points?
+  - Is this really suitable for medium-large ML networks? Does a NPU look like the RVV + IME arch internally?
+- Could you speak to the interleaving of vector and GEMM operations in modern ML networks? Cholesky solve seems to not be a common kernel for ML right? Does just a small set of post-processing primitives suffice (e.g. in the case of Gemmini)?
+- How does your proposal differ from the already ongoing discussions in the RISCV IME working group?
+  - Why does the scalability of the ISA / arch actually matter? Does it really? Doesn't it end up degrading efficiency at the benefit of SW packaging ease (but is this a good tradeoff)?
+- You are adding new architectural state - speak to the complexity wrt thread migration, etc.
+- You are proposing a core-coupled matrix extension - speak to the maximum dimension of the core PE grid you can implement vs a decoupled extension due to physical limitations - does this limit the area efficiency (wrt compute / mm2) vs the decoupled extension? Can you propose to quantify the tradeoff here?
+- I agree with Jerry, specific tradeoff analysis for particular uarch details is very interesting and doable within the thesis scope. The focus shouldn't be on a new ISA extension in particular, and also its uArch implementation details, but rather what experiments it enables you to run.
+- Make it clear: what you will build, what it will enable, what metrics you will collect, and how will you declare success
+
+### Notes from Abe's Practice Talk
+
+- Your vision has to be clear in the first few slides, what is your vision?
+  - Make the big pitch before getting into the weeds
+  - The proposal slide comes too late
+- It's easy to say that these things are taxes (system and data center) but to what degree are these essential elements of the workload?
+- If memory bandwidth is the bottleneck here then how can chaining improve aggregate performance? Can the CPUs do things while the acc are doing their thing?
+  - What are the CPUs doing while they dispatch a fully async task graph to the acc complex? Can they do useful work or is the work they can take on bounded by soc memory bandwidth anyways?
+- You start off taking about database operators and accelerating them but then you talk about the RPC chain that's not directly related to databases
+- It appears that your taxonomy of chain accelerators doesn't include the most classic DSP pipelines, also they seem to move from most flexible to least flexible, how do each of these differ, write a concrete comparison table
+- Consider the case when you segment memory into a cached and uncached region where a scratchpad can act as a dram cache bypassing coherency, how does it compare to the proposal?
+- Treating a specialized core as another accelerator is kind of an extreme idea, consider how that would change the programming model. Consider state migration from the host core to the "accelerator" core.
+  - If you have interstitial code and you have a core on the task graph to run that computation won't that bottleneck the entire graph execution? Rate matching becomes even more difficult.
+
 ### Feedback from Qual (1/17/2024)
 
 Points raised by the committee:
