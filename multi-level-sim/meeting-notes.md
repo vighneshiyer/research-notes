@@ -33,6 +33,27 @@ Thanks for the feedback too! I've summarized the points below:
 
 ## Internal Meetings
 
+### 4/16/2024
+
+- Vighnesh
+  - Nothing to say... just working on other stuff this past week, i'll get back to error analysis this week
+  - Meeting with Apple: discuss the caching API (sketch out a reasonable API for generalizing our manually managed cache)
+  - ICCAD paper Apr 28 (abstract) / May 5 (paper)
+    - Primary focus: error analysis, RTL-level sampled simulation. NOT on realistic workloads.
+- Raghav
+  - Working on branch predictor model and integration of this new feature into the interval embedding
+- Dhruv
+  - Even before all this
+    - Run all the benchmarks in spike, and capture # of intervals + interval lengths
+    - Does this seem sensible, or do we have to divide each interval into more pieces
+  - BBV embedding for each interval (defined by boundaries between flush and fence and fence)
+    - This is the baseline for everything coming next
+    - Capture IPC / # of cycles for every interval
+    - Build a regression model from the BBV embedding to the cycle count (for RTL simulations)
+    - RTL model should have Gemmini directly access DRAM, no L2/LLC for the entire system
+- Charles
+  - Working on L1d/L1i cache miss / hit rate instrumentation for RTL simulation
+
 ### 4/9/2024
 
 - Vighnesh
