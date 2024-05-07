@@ -6,8 +6,8 @@
 - [x] Switch to as2 + verify wikibench [d:2/19/2024]
 - [x] Format the codebase with black [d:2/19/2024]
 - [x] Split perf files from fn warmup vs no warmup [d:2/19/2024]
-- [ ] Plot both lines on top of each other [d:3/22/2024]
-- [ ] Fix 'chosen_for_rtl_sim' being not a good name [d:3/22/2024]
+- [ ] Plot both lines on top of each other [d:5/6/2024] [!2]
+- [ ] Fix 'chosen_for_rtl_sim' being not a good name
   - [ ] Generalize the ability to choose multiple samples to run in simulation
   - [ ] Extrapolation should take the mean of all chosen samples for the same cluster
 - [ ] Make the coherency state make sense for read only data + test
@@ -35,6 +35,45 @@
   - Include file to be compressed inside the binary's static segment
   - Avoid any HTIF syscall proxying
   - Pipeclean in x86 and then spike
+- https://github.com/CMUAbstract/imbench
+  - Maybe there's some interesting benchmarks here
+
+## Error Analysis
+
+- So in the ATHLETE slides I talked about how to do error analysis 'backwards' (from max error to smaller errors)
+  - Assume no sampling, then for every interval use a combination of functional (perfect / modeled) and/or detailed warmup to figure out how much error is reduced wrt the maximum error
+  - Let there be some max error for an interval by doing **no sampling + no warmup**: e_{max}
+  - Then say the error after doing some amount of detailed + functional warmup is e_{post,warmup}(n_detailed, n_detailed_offset, t_functional)
+    - Conclusion: e_{max} - e_{post,warmup} = e_{warmup,error reduction} (this is the error reduction attributable to warmup)
+    - e_{post,warmup} is the error that is still remaining - this is the error that would disappear if warmup was perfect
+    - The sampling error that interval: e_{tidalsim} - e_{post,warmup} = e_{sampling}
+- But we can also do error analysis 'backwards' (from zero error to just modeling the sampling errors)
+  - Assume the spike commit trace and RTL commit trace move in total lockstep (no time modeling / latent state induced errors)
+  - Chunk up the spike commit trace into intervals and perform the usual embedding + clustering
+  - Take IPC for each interval we wish to simulate from the full RTL simulation itself (no functional/detailed warmup errors, this is like 'perfect' warmup)
+  - Extrapolate the IPC for each interval based on its embedding
+  - The error for each interval should be equal to e_{sampling}, any deviance would need a careful explanation
+- How can we scale up this error analysis approach for long workloads?
+  - On Firesim, we could take golden IPCs for the 'backwards' approach and we can estimate sampling error alone
+  - For the 'forwards' approach, we would have to be able to do state injection in FireSim, too difficult
+  - We would want to fit an error model using baremetal benchmarks, and also fit a confidence model based on the program embeddings itself (which is another input to the error model that has learned coefficients)
+- The error model can take into account how much IPC variance is present in multiple samples for the same cluster
+
+## Sensitivity Analysis
+
+- Absolute vs relative error vs sensitivity
+- constant vs first derivative vs second derivative
+- We must also do error analysis wrt a RTL design change
+  - Absolute errors wrt the RTL change in full simulation are ok
+  - Relative errors are about evaluating multiple RTL changes
+  - Sensitivity is about evaluating multiple RTL changes and finding the same gradient as running the full RTL simulation
+
+## Better Baremetal Benchmarks via Rust
+
+- It seems like most Rust code can be compiled under no_std and then work baremetal
+- In particular, the CV library seems to work that way: https://github.com/rust-cv/cv
+- Lots of rust-ml stuff can also work baremetal: https://github.com/rust-ml/linfa
+- But these are just libraries or kernels... not really full applications that use these libraries and switch phases often
 
 ## Binary-Agnostic Interval Embeddings
 
