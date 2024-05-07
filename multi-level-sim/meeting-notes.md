@@ -33,6 +33,14 @@ Thanks for the feedback too! I've summarized the points below:
 
 ## Internal Meetings
 
+### 5/7/2024
+
+- Vighnesh
+  - Dumping every interval arch state + reconstructed L1 state for injection
+    - Taking up too much disk space - compression
+  - Injection with different parameters of detailed warmup and measure IPC vs golden trace
+  - MICRO workshop paper
+
 ### 4/16/2024
 
 - Vighnesh
