@@ -5,7 +5,7 @@
 - Organized by paper submission deadline date
 - Abbreviations
     - January = Jan
-    - Feburary = Feb
+    - February = Feb
     - March = Mar
     - April = Apr
     - May = May
@@ -49,6 +49,8 @@
 - ISSTA (Symposium on Software Testing and Analysis)
     - 2nd submission round
     - Paper: FEB 16, Rebuttal: APR 11, Notification: MAY 3, Conference: mid-JUL
+- **ASPLOS** (Architectural Support for Programming Languages and Operating Systems) (Spring Deadline)
+    - Abstract: Feb 23, Paper: Mar 1, Rebuttal: May 15, Notification: Jun 6, Conference: March/April 2025
 - CoolChips (Symposium on Low-Power and High-Speed Chips and Systems)
     - Paper: Feb 27, Notification: Mar 15, Final: Mar 29, Conference: mid-Apr
 - DAC (Design Automation Conference)
@@ -82,8 +84,6 @@
     - Abstract: Apr 10, Paper: Apr 17, Rebuttal: Jul 1, Final: Sep 11, Conference: late-Oct
 - **MICRO** (Symposium on Microarchitecture)
     - Abstract: April 21, Paper: April 28, Rebuttal: June 26, Notification: July 24, Final: Sept 18, Conference: late-October
-- **ASPLOS** (Architectural Support for Programming Languages and Operating Systems) (Spring Deadline)
-    - Abstract: Apr 13, Paper: Apr 20, Rebuttal: July 11, Notification: Aug 2, Final: Sept 19, Conference: late-Apr/early-May
 - NOCS (Symposium on Networks-on-Chip)
     - Abstract: Apr 14, Paper: Apr 21, Rebuttal: June 23, Notification: July 28, Conference: mid-Sept
 - OOPSLA (Object-oriented Programming, Systems, Languages, and Applications) (Second Round)
@@ -109,13 +109,15 @@
     - Abstract: May 15, Paper: May 22, Notification: July 21, Final: Aug 14, Conference: late-Oct/early-Nov
 - NeurIPS (Conference on Neural Information Processing Systems)
     - Abstract: May 11, Paper: May 17, Rebuttal: Aug 2, Notification: Sept 22, Final: Oct 27, Conference: mid-Dec
+- **IISWC** (International Symposium on Workload Characterization)
+    - Paper: May 29, Notification: July 16, Final: Aug 9, Conference: mid-Sept
 
 ### June
 
 - A-SSCC (Asian Solid-State Circuits Conference)
     - Paper: Jun 19, Notification: Aug 5, Final: Sep 5, Conference: early-Nov
-- IISWC (International Symposium on Workload Characterization)
-    - Paper: June 16, Notification: Aug 2, Final: Sept 1, Conference: early-Oct
+- **ASPLOS** (Architectural Support for Programming Languages and Operating Systems) (Summer Deadline)
+    - Abstract: Jun 17, Paper: Jun 24, Rebuttal: Sept 9, Notification: Oct 2, Conference: March/April 2025
 
 ### July
 
@@ -132,8 +134,6 @@
 
 - ORCONF (Open Source Silicon Conference)
     - Talk: August-ish, Conference: Sep 15
-- **ASPLOS** (Architectural Support for Programming Languages and Operating Systems) (Summer Deadline)
-    - Abstract: AUG 3, Paper: AUG 10, Rebuttal: OCT 24, Notification: NOV 15, Final: JAN 9, Conference: late-APR/early-MAY
 
 ### September
 
@@ -152,6 +152,8 @@
 
 - FPGA (Symposium on FPGAs)
     - Abstract: Oct 6, Paper: Oct 13, Rebuttal: Nov 18, Notification: Dec 10, Final: Jan 8, Conference: early-March
+- **ASPLOS** (Architectural Support for Programming Languages and Operating Systems) (Fall Deadline)
+    - Abstract: Oct 11, Paper: Oct 18, Rebuttal: Jan 15, Notification: Feb 7, Conference: March/April 2025
 - MLSys (Machine Learning and Systems)
     - Paper: Oct 27, Rebuttal: Jan 15, Notification: Feb 16, Conference: mid-May
 - OOPSLA (Object-oriented Programming, Systems, Languages, and Applications) (First Round)
@@ -174,14 +176,12 @@
     - Paper: NOV 20, Conference: mid-APR
 - isQED (Symposium on Quality Electronic Design)
     - Paper: NOV 29, Notification: JAN 15, Final: FEB 17, Conference: early-APR
-- **ASPLOS** (Architectural Support for Programming Languages and Operating Systems) (Fall Deadline)
-    - Abstract: NOV 23, Paper: NOV 30, Rebuttal: FEB 13, Notification: MAR 6, Final: MAR 27, Conference: late-APR/early-MAY
 
 ### December
 
 - DATE (Design Automation and Test in Europe) (Late Breaking)
     - Paper: Dec 3, Notification: Jan 10, Conference: late-Mar
-- ISPASS (International Symposium on Performance Analysis of Systems and Software)
+- **ISPASS** (International Symposium on Performance Analysis of Systems and Software)
     - Abstract: Dec 8, Paper: Dec 15, Rebuttal: Feb 9, Notification: Feb 29, Conference: early-May
 - OSDI (USENIX Symposium on Operating Systems Design and Implementation)
     - Abstract: Dec 6, Paper: Dec 13, Rebuttal: Mar 6, Notification: Mar 23, Final: Jun 1, Conference: mid-Jul
@@ -209,7 +209,7 @@ These conferences aren't included in the main list since they are too niche, not
 
 ## Random Notes
 
-- Conference/journsl listings
+- Conference/journal listings
     - https://en.wikipedia.org/wiki/List_of_computer_science_conferences
     - https://www.acm.org/conferences/upcoming-submission-deadlines?startDate0=20240101&eventType0=CallsForPapers&view0=month
     - https://www.cse.chalmers.se/research/group/vlsi/conference/
