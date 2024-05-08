@@ -38,6 +38,11 @@
 - https://github.com/CMUAbstract/imbench
   - Maybe there's some interesting benchmarks here
 
+- [ ] Bump to latest embench version
+  - Adds new benchamrks like tarfind, matmult-int, sha?
+- [ ] Integrate mibench into chipyard software
+  - https://github.com/embecosm/mibench
+
 ## Error Analysis
 
 - So in the ATHLETE slides I talked about how to do error analysis 'backwards' (from max error to smaller errors)
