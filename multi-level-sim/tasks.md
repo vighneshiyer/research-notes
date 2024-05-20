@@ -6,23 +6,25 @@
 - [x] Switch to as2 + verify wikibench [d:2/19/2024]
 - [x] Format the codebase with black [d:2/19/2024]
 - [x] Split perf files from fn warmup vs no warmup [d:2/19/2024]
-- [ ] Plot both lines on top of each other [d:5/6/2024] [!2]
-- [ ] Fix 'chosen_for_rtl_sim' being not a good name
-  - [ ] Generalize the ability to choose multiple samples to run in simulation
+- [x] Plot both lines on top of each other [d:5/6/2024] [!2]
+- [x] Fix 'chosen_for_rtl_sim' being not a good name
+  - [x] Generalize the ability to choose multiple samples to run in simulation
   - [ ] Extrapolation should take the mean of all chosen samples for the same cluster
+  - [x] Sample from multiple points per cluster
+- [ ] Eliminate stdout prints during tidalsim run
+  - For each source of stdout/stderr prints, redirect them into a log file
+- [ ] Create script to run entire embench workload
+  - Both golden sim + TidalSim + parallelize on common thread pool
+
 - [ ] Make the coherency state make sense for read only data + test
 - [ ] Take checkpoints before the actual instruction point
   - This is to enable detailed warmup to happen *before* the sampling interval
 - [ ] Fix and unit test interpolation
-- [ ] Sample from multiple points per cluster
-- [ ] Create script to run entire embench workload
-  - Both golden sim + TidalSim + parallelize on common thread pool
-- [ ] Eliminate stdout prints during tidalsim run
-  - For each source of stdout/stderr prints, redirect them into a log file
 - [ ] Disk space saving
   - [ ] lz4 spike commit log (should be ez, hitting disk must be slowing down spike in full commit log mode)
   - [ ] lz4 memory elf and bin (need to decompress as the file is fed into RTL sim)
 - [ ] https://github.com/euphoric-hardware/tidalsim/pull/4/files
+- [ ] Fix BBV embedding (need to normalize by the number of instructions in each basic block)
 
 ## CoreMark + HyperCompressBench (w/ lz4)
 
@@ -42,6 +44,7 @@
   - Adds new benchamrks like tarfind, matmult-int, sha?
 - [ ] Integrate mibench into chipyard software
   - https://github.com/embecosm/mibench
+- [ ] Add whetstone benchmark
 
 ## Error Analysis
 
