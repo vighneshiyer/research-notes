@@ -517,9 +517,51 @@ But as usual, there were some issues we need to address:
   - Pizzapp+ gives nice measurements according to desired proof times
   - 100% poolish dough (see Vito Iacopelli's videos) - this seems like an elite technique, must try
 
-## Late April / May 2024
+## Summer Pizza
 
-### Ingredients
+### Organization
+
+- [ ] Pin down invite list [d:7/1/2024]
+  - Include some alumni
+- [ ] Send out invites, pin down date [d:7/1/2024]
+  - The weekend after July 4th weekend seems good
+- [ ] Figure out new dough recipe [d:7/1/2024]
+  - Need higher hydration, longer ferment time, batch (no separate mixing of each doughball) fermentation, and final dough rolling on just the final day
+
+### Things to Get
+
+I already have plenty of olive oil, 00 flour, yeast, DOP tomatoes, DOP parm.
+Just need drinks and some toppings.
 
 - Drinks
   - High quality root beer
+  -
+- Pizza sauce
+- Toppings
+- Dough
+- Dough knife
+
+- [x] Giovanni's Italian Specialities
+    - [x] Caputo Pizzeria (blue) 00 flour 11lb bag (x2-3)
+    - [x] DOP San Marzano cans
+- [x] Safeway
+    - [ ] ~~Fior di latte / fresh mozzarella (check prices before buying, Trader Joe's is the alternative)~~ (too expensive for poor quality)
+    - [x] Drinks
+- [x] Trader Joe's
+    - [x] Drinks: Beer, Wine (reds, whites, moscatos, ports), any non-poisonous drinks (e.g. juice)
+      - Already have: 2 reds, 1 port, 1 moscato, 1 sake, 1 soju, sodas/waters from lab
+    - [x] Fresh mozzarella (approximately 1 log for 5 pizzas)
+      - 4oz per 12" pizza
+    - [x] Garlic (1 head)
+    - [x] Fresh basil (2 plants)
+      - 6 leaves per pizza
+    - [x] Prosciutto (allocate 3x strips / pizza = 60 strips)
+    - [x] Salami (allocate 10x slices / pizza = 200 slices)
+    - [x] DOP Parm (just for this event)
+- [x] From home
+    - [x] Ingredients: 00 flour
+    - [x] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs), vanilla ice cream, garlic mash
+    - [x] Equipment: dough slicer, metal poker, baking gloves, dishcloths, microplane, spoons/ladles, scissors, trash bag, tongs, tupperware for ingredients (basil, etc.)
+    - [ ] ~~Hex screwdriver for hopper lid replacement~~ (not needed)
+- [x] From lab
+    - [x] Plates, napkins, forks, knives, sodas/water, cups, wine / bottle opener
