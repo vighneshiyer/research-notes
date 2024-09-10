@@ -521,11 +521,11 @@ But as usual, there were some issues we need to address:
 
 ### Organization
 
-- [ ] Pin down invite list [d:7/1/2024]
+- [ ] Pin down invite list
   - Include some alumni
-- [ ] Send out invites, pin down date [d:7/1/2024]
+- [ ] Send out invites, pin down date
   - The weekend after July 4th weekend seems good
-- [ ] Figure out new dough recipe [d:7/1/2024]
+- [ ] Figure out new dough recipe
   - Need higher hydration, longer ferment time, batch (no separate mixing of each doughball) fermentation, and final dough rolling on just the final day
 
 ### Things to Get
