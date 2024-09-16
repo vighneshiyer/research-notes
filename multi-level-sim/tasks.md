@@ -1,5 +1,30 @@
 # TidalSim
 
+- [ ] Get CoreMark working!!!
+
+Things I said I would do:
+
+- Improving performance trace reconstruction errors
+  - Better, more representative interval embeddings More accurate cache modeling and injection + injection of branch predictors
+- Run complex workloads (not just µbenchmarks)
+  - Linux + SPEC + datacenter workloads (redis, memcached, CloudSuite)
+  - Requires full SoC state checkpointing from spike and injection into Chipyard simulation
+  - Highly complex - involves formalizing testbench / IO model state too
+- Error analysis
+  - Identify and disambiguate sources of error at a fine-granularity (errors from sampling, functional warmup models, duration of detailed warmup)
+  - Tune sampled simulation parameters for small errors according to workload characteristics
+- Design-for-injection
+  - Current approach of RTL uArch state injection is ad-hoc and buggy
+  - Leverage Chisel to define mapping of uArch to arch state
+  - Use formal techniques to produce uArch state corresponding to desired arch state
+  - Generate state injection code for RTL simulation njection code
+- Live sampled simulation
+  - Traditional sampled simulation cannot model time-dependent behaviors of highly concurrent IO-bound workloads
+  - Bounce between ISA and RTL during simulation to accurately model time
+- Pushing the limitations of trace-driven simulation (Google)
+  - Evaluate pure trace-based sampling of multi-threaded cloud workloads
+  - Can trace-driven simulation methodologies accurately predict the impact of arch changes (e.g. different core count) or uArch changes (e.g. cache sizing) on cloud workloads?
+
 ## Post-Warmup Cleanup
 
 - [x] Rebase on top of chipyard main [d:2/19/2024]
