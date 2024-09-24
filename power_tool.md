@@ -2,7 +2,7 @@
 
 ## Grand Vision
 
-We want to build an open-source, clean, from scratch PowerPro.
+We want to build an open-source, clean, from scratch PowerPro that supports fine-grained incrementalism, semantics-aware synthesis, and .
 To do this, we need a synthesis tool.
 To make a synthesis tool in a novel way, we would want to leverage egraphs somehow.
 To leverage egraphs effectively and aggressively cache/dedup circuit elements

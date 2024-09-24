@@ -517,51 +517,75 @@ But as usual, there were some issues we need to address:
   - Pizzapp+ gives nice measurements according to desired proof times
   - 100% poolish dough (see Vito Iacopelli's videos) - this seems like an elite technique, must try
 
-## Summer Pizza
+## Fall 24 Pizza
 
 ### Organization
 
-- [ ] Pin down invite list
-  - Include some alumni
-- [ ] Send out invites, pin down date
-  - The weekend after July 4th weekend seems good
-- [ ] Figure out new dough recipe
+- [x] Pin down invite list
+- [x] Send out invites, pin down date
+- [ ] Figure out new dough recipe [d:9/23] [!0]
   - Need higher hydration, longer ferment time, batch (no separate mixing of each doughball) fermentation, and final dough rolling on just the final day
+
+### Recipes
+
+#### Tomato Sauce
+
+- Ingredients: 3 14oz cans DOP whole San Marzano tomatoes, salt, dried oregano, sugar, olive oil
+    - This is sufficient for 3x8 12" pizzas (one tomato can is about 8-12 pizzas)
+- Separate the whole tomatoes from the puree in the can, place the whole tomatoes into a deep container. Keep the puree in another container in case the sauce becomes too thick.
+- Use an immersion blender to blend the tomatoes relatively smooth (but not completely smooth)
+- Finish with 3 tablespoons olive oil, 3 teaspoons dried oregano, 0-1 teaspoons salt (taste and adjust, keep salt low, parm will add more salt), 0-3 teaspoons sugar (taste and adjust, might not be necessary)
+
+#### Dough
+
+- We will be making standard 12" (250g) doughballs
+- [Ooni Classic Pizza Dough](https://ooni.com/blogs/recipes/classic-pizza-dough)
+- Makes 4 250g 12" pizza doughballs
+    - 368g lukewarm water
+    - 3 ½ grams active dry yeast, or 2.7 grams instant dried yeast, or 8 ½ grams fresh yeast
+      - Use a little less active dry yeast (maybe 2.5-3g, last time the proof was too aggressive)
+    - 613 grams “00” flour, plus extra for dusting
+    - 18 grams sea salt
+- Recipe
+    - Add water and yeast to large bowl and whisk
+    - Add salt and flour to other bowl and pour into wet bowl
+    - Stir with wooden spoon the mix by hand, then knead for 10 minutes on floured work surface
+    - Return dough to bowl, cover with wet dishtowel, and let rise for 10 minutes in warm area
+    - Divide into doughballs, place in proofing tray, and allow to rise another 20-30 minutes, then place in fridge
+    - The next day, proof again at room temp for 2-3 hours or until doubled in size
+- We need to make 4/5 batches of this recipe
+- Assuming 16 pizzas, we need 3.6kg flour
+
+#### Pizzas
+
+- We will be making 2 types of pizzas, alternating
+- Margherita
+    - tomato sauce, fresh mozzarella, grated parm, basil, olive oil
+- Pepperoni and prosciutto
+    - tomato sauce, fresh mozzarella, grated parm, olive oil, prosciutto, salami
+- We will provision for 20 12" pizzas
 
 ### Things to Get
 
 I already have plenty of olive oil, 00 flour, yeast, DOP tomatoes, DOP parm.
 Just need drinks and some toppings.
 
-- Drinks
-  - High quality root beer
-  -
-- Pizza sauce
-- Toppings
-- Dough
-- Dough knife
+- Trader Joe's
+  - Sufficient poison is already available in the cellar
+  - Olive oil, fresh mozz,
 
-- [x] Giovanni's Italian Specialities
-    - [x] Caputo Pizzeria (blue) 00 flour 11lb bag (x2-3)
-    - [x] DOP San Marzano cans
-- [x] Safeway
-    - [ ] ~~Fior di latte / fresh mozzarella (check prices before buying, Trader Joe's is the alternative)~~ (too expensive for poor quality)
-    - [x] Drinks
-- [x] Trader Joe's
-    - [x] Drinks: Beer, Wine (reds, whites, moscatos, ports), any non-poisonous drinks (e.g. juice)
-      - Already have: 2 reds, 1 port, 1 moscato, 1 sake, 1 soju, sodas/waters from lab
-    - [x] Fresh mozzarella (approximately 1 log for 5 pizzas)
-      - 4oz per 12" pizza
-    - [x] Garlic (1 head)
-    - [x] Fresh basil (2 plants)
-      - 6 leaves per pizza
-    - [x] Prosciutto (allocate 3x strips / pizza = 60 strips)
-    - [x] Salami (allocate 10x slices / pizza = 200 slices)
-    - [x] DOP Parm (just for this event)
-- [x] From home
-    - [x] Ingredients: 00 flour
-    - [x] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs), vanilla ice cream, garlic mash
-    - [x] Equipment: dough slicer, metal poker, baking gloves, dishcloths, microplane, spoons/ladles, scissors, trash bag, tongs, tupperware for ingredients (basil, etc.)
+- [ ] Trader Joe's
+    - [x] Drinks (sufficient poison is already available in the cellar)
+    - [ ] Fresh mozzarella (approximately 1 log for 5 pizzas) (4oz per 12" pizza)
+    - [ ] Olive oil
+    - [ ] Fresh basil (1 plant) (6 leaves per pizza)
+    - [ ] Prosciutto (allocate 3x strips / pizza = 60 strips)
+    - [ ] Salami (allocate 10x slices / pizza = 200 slices)
+    - [ ] DOP Parm (just for this event)
+- [ ] From home
+    - [ ] Ingredients: 00 flour, semolina flour
+    - [ ] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs), vanilla ice cream
+    - [ ] Equipment: dough slicer, microplane, spoons/ladles
     - [ ] ~~Hex screwdriver for hopper lid replacement~~ (not needed)
 - [x] From lab
     - [x] Plates, napkins, forks, knives, sodas/water, cups, wine / bottle opener
