@@ -572,7 +572,6 @@ But as usual, there were some issues we need to address:
 - [x] From lab
     - [x] Plates, napkins, forks, knives, sodas/water, cups, wine / bottle opener
 - [ ] From home
-    - [ ] Ingredients: 00 flour, semolina flour
+    - [x] Ingredients: 00 flour, semolina flour
     - [ ] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs), vanilla ice cream
-    - [ ] Equipment: dough slicer, microplane, spoons/ladles
-    - [ ] ~~Hex screwdriver for hopper lid replacement~~ (not needed)
+    - [x] Equipment: dough slicer, microplane, spoons/ladles

@@ -2,29 +2,57 @@
 
 ## Grand Vision
 
-We want to build an open-source, clean, from scratch "PowerPro" that supports fine-grained incrementalism, semantics-aware synthesis, and has a very fast runtime.
+We want to build an open-source, clean, from scratch "PowerPro" that supports fine-grained incrementalism, semantics-aware synthesis, and has a very low latency (seconds-minutes for a RTL change).
 To do this, we need a synthesis tool.
 To make a synthesis tool in a novel way, we would want to leverage egraphs somehow.
-To leverage egraphs effectively and aggressively cache/dedup circuit elements
+To leverage egraphs effectively and aggressively cache/dedup circuit elements we need a 'content-addressed' IR.
+Then we also need a bridge from some frontend or another IR into the target IR for our tool.
+We also need a gate-level simulation tool to propagate RTL-level activity to a gate-level netlist, taking into account clock periods, signal transitions around clock edges, and do this in a highly parallel manner which can strongly scale to many cores.
 
-We also need a RTL simulation tool.
+But, all of this is a lot of work, and while necessary in the long-run, isn't essential to get a prototype working.
+The prototype is supposed to be a very fast RTL -> power/area/timing estimation tool that leverages existing tools rather than recreating them.
+It might not support incrementalism, caching, or any fancy features, but should be sufficient to compare against commercial tools.
+And, it is a starting point to prototype trading off runtime for accuracy, which is a curve we can't explore properly using commercial tools.
 
 ## Prior Work
 
 ### The Big 4
 
-- Cadence Joules
-  - See DAC article
-- Siemens PowerPro
+Every big EDA tool vendor (Cadence, Synopsys, Siemens, Ansys) offers a variant of this kind of tool.
+
+#### Cadence Joules / Voltus
+
+I wrote a long explanation of Joules as given to us by Cadence engineers [on my blog](https://vighneshiyer.com/conference_reviews/dac-2022/) (search for 'joules').
+The main selling point is that Joules performs synthesis using the *same synthesis engine as Genus*, so you can trust its results.
+Furthermore, since it uses a relatively detailed synthesis pass, it is able to give accurate what-if analysis results when evaluating clock gating opportunities.
+
+The runtime of Joules is ~20-60 minutes for a small Chipyard Rocket design.
+It is often hard to check if Joules is set up correctly for the PDK under consideration - it can give very weird numbers sometimes (% of leakage vs switching vs internal power).
+Joules also appears to handle RTL toggle propagation to gate-level in an odd and non-transparent way.
+Changing the timebase or the clock period of the *RTL simulation*, and running that waveform through Joules, will give different power numbers.
+It is also not clear if Joules is doing RTL -> GL activity propagation using maximum parallelism and oftentimes the assertion % of nets will be a lot less than 100%, which is odd since it knows the entire synthesis database.
+
+In short: runtime is high, accuracy is high, setup is difficult, can't be used rapidly in the RTL design loop
+
+#### Siemens PowerPro
+
+I have some [DAC slides on PowerPro from DAC 2022](https://vighneshiyer.com/conference_reviews/dac-2022/) also on my blog.
+
   - Used by Apple and ARM, RTL designers seem to enjoy it reasonably well
   - Used primarily to evaluate point changes in RTL, what-if analysis wrt clock gating
-- Ansys PowerArtist
+
+#### Ansys PowerArtist
+
+#### Synopsys PrimeTime PX / PrimePower
+
+
 
 ### Silimate
-  - look at their github
-  - obvious what they are doing
-  - quite stubborn of letting me know what they do and they have garbage marketing that obscures the point of their startup
-  - yosys + opensta = "faster than powerpro" "PPA" estimates
+
+- look at their github
+- obvious what they are doing
+- quite stubborn of letting me know what they do and they have garbage marketing that obscures the point of their startup
+- yosys + opensta = "faster than powerpro" "PPA" estimates
 
 ### iEDA
 
