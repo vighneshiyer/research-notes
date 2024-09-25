@@ -523,7 +523,7 @@ But as usual, there were some issues we need to address:
 
 - [x] Pin down invite list
 - [x] Send out invites, pin down date
-- [ ] Figure out new dough recipe [d:9/23] [!0]
+- [x] Figure out new dough recipe [d:9/23] [!0]
   - Need higher hydration, longer ferment time, batch (no separate mixing of each doughball) fermentation, and final dough rolling on just the final day
 
 ### Recipes
@@ -539,7 +539,7 @@ But as usual, there were some issues we need to address:
 #### Dough
 
 - We will be making standard 12" (250g) doughballs
-- Use Pizzapp to calculate proportions for 15 250g doughballs at 60% hydration, 3% salt, 2 hours RT proof, 16 hours CT proof, active dry yeast
+- Use Pizzapp to calculate proportions for 16 250g doughballs at 60% hydration, 3% salt, 2 hours RT proof, 16 hours CT proof, active dry yeast
   - We need less yeast than the default Ooni recipe
 - Use [this technique](https://www.youtube.com/watch?v=smjPYUn6Uhs) to make all the dough in one shot by hand
   - Add lukewarm water and yeast to large bowl and whisk, move wet ingredients to a large dough tray
@@ -558,16 +558,8 @@ But as usual, there were some issues we need to address:
     - tomato sauce, fresh mozzarella, grated parm, basil, olive oil
 - Pepperoni and prosciutto
     - tomato sauce, fresh mozzarella, grated parm, olive oil, prosciutto, salami
-- We will provision for 20 12" pizzas
 
 ### Things to Get
-
-I already have plenty of olive oil, 00 flour, yeast, DOP tomatoes, DOP parm.
-Just need drinks and some toppings.
-
-- Trader Joe's
-  - Sufficient poison is already available in the cellar
-  - Olive oil, fresh mozz,
 
 - [x] Trader Joe's
     - [x] Drinks (sufficient poison is already available in the cellar)
