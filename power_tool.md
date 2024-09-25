@@ -2,7 +2,7 @@
 
 ## Grand Vision
 
-We want to build an open-source, clean, from scratch PowerPro that supports fine-grained incrementalism, semantics-aware synthesis, and .
+We want to build an open-source, clean, from scratch "PowerPro" that supports fine-grained incrementalism, semantics-aware synthesis, and has a very fast runtime.
 To do this, we need a synthesis tool.
 To make a synthesis tool in a novel way, we would want to leverage egraphs somehow.
 To leverage egraphs effectively and aggressively cache/dedup circuit elements
@@ -11,25 +11,29 @@ We also need a RTL simulation tool.
 
 ## Prior Work
 
-### Commercial
+### The Big 4
 
-- Joules
+- Cadence Joules
   - See DAC article
-- PowerPro
+- Siemens PowerPro
   - Used by Apple and ARM, RTL designers seem to enjoy it reasonably well
   - Used primarily to evaluate point changes in RTL, what-if analysis wrt clock gating
-- Silimate
+- Ansys PowerArtist
+
+### Silimate
   - look at their github
   - obvious what they are doing
   - quite stubborn of letting me know what they do and they have garbage marketing that obscures the point of their startup
   - yosys + opensta = "faster than powerpro" "PPA" estimates
 
-### Academic
+### iEDA
 
-- iEDA
-- OpenROAD
-  - [IR Drop Analysis](https://openroad.readthedocs.io/en/latest/main/src/psm/README.html)
-  - Nothing similar to PowerPro
+- iPW
+
+### OpenROAD
+
+- [IR Drop Analysis](https://openroad.readthedocs.io/en/latest/main/src/psm/README.html)
+- Nothing similar to PowerPro
 
 ## Minimum Viable Prototype
 

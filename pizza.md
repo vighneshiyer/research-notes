@@ -539,22 +539,17 @@ But as usual, there were some issues we need to address:
 #### Dough
 
 - We will be making standard 12" (250g) doughballs
-- [Ooni Classic Pizza Dough](https://ooni.com/blogs/recipes/classic-pizza-dough)
-- Makes 4 250g 12" pizza doughballs
-    - 368g lukewarm water
-    - 3 ½ grams active dry yeast, or 2.7 grams instant dried yeast, or 8 ½ grams fresh yeast
-      - Use a little less active dry yeast (maybe 2.5-3g, last time the proof was too aggressive)
-    - 613 grams “00” flour, plus extra for dusting
-    - 18 grams sea salt
-- Recipe
-    - Add water and yeast to large bowl and whisk
-    - Add salt and flour to other bowl and pour into wet bowl
-    - Stir with wooden spoon the mix by hand, then knead for 10 minutes on floured work surface
-    - Return dough to bowl, cover with wet dishtowel, and let rise for 10 minutes in warm area
-    - Divide into doughballs, place in proofing tray, and allow to rise another 20-30 minutes, then place in fridge
-    - The next day, proof again at room temp for 2-3 hours or until doubled in size
-- We need to make 4/5 batches of this recipe
-- Assuming 16 pizzas, we need 3.6kg flour
+- Use Pizzapp to calculate proportions for 15 250g doughballs at 60% hydration, 3% salt, 2 hours RT proof, 16 hours CT proof, active dry yeast
+  - We need less yeast than the default Ooni recipe
+- Use [this technique](https://www.youtube.com/watch?v=smjPYUn6Uhs) to make all the dough in one shot by hand
+  - Add lukewarm water and yeast to large bowl and whisk, move wet ingredients to a large dough tray
+  - Mix salt and flour in a large bowl and add slowly to the wet ingredients
+  - Stir until combined, then knead by hand, dump onto work surface and continue kneading until smooth ball forms
+  - Wrap with plastic and rest for 20 minutes for gluten to strengthen
+  - Lift and fold the dough over itself until smooth again
+  - Let RT proof for 1 hour
+  - Form into 250g doughballs, place in floured dough tray with olive oil on top, RT proof for 1 hour
+  - CT proof for 16 hours
 
 #### Pizzas
 
@@ -574,18 +569,18 @@ Just need drinks and some toppings.
   - Sufficient poison is already available in the cellar
   - Olive oil, fresh mozz,
 
-- [ ] Trader Joe's
+- [x] Trader Joe's
     - [x] Drinks (sufficient poison is already available in the cellar)
-    - [ ] Fresh mozzarella (approximately 1 log for 5 pizzas) (4oz per 12" pizza)
-    - [ ] Olive oil
-    - [ ] Fresh basil (1 plant) (6 leaves per pizza)
-    - [ ] Prosciutto (allocate 3x strips / pizza = 60 strips)
-    - [ ] Salami (allocate 10x slices / pizza = 200 slices)
-    - [ ] DOP Parm (just for this event)
+    - [x] Fresh mozzarella (approximately 1 log for 5 pizzas) (4oz per 12" pizza)
+    - [x] Olive oil
+    - [x] Fresh basil (1 plant) (6 leaves per pizza)
+    - [x] Prosciutto (allocate 3x strips / pizza = 60 strips)
+    - [x] Salami (allocate 10x slices / pizza = 200 slices)
+    - [x] DOP Parm (just for this event)
+- [x] From lab
+    - [x] Plates, napkins, forks, knives, sodas/water, cups, wine / bottle opener
 - [ ] From home
     - [ ] Ingredients: 00 flour, semolina flour
     - [ ] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs), vanilla ice cream
     - [ ] Equipment: dough slicer, microplane, spoons/ladles
     - [ ] ~~Hex screwdriver for hopper lid replacement~~ (not needed)
-- [x] From lab
-    - [x] Plates, napkins, forks, knives, sodas/water, cups, wine / bottle opener
