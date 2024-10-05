@@ -2,9 +2,9 @@
 
 ## Grand Vision
 
-We want to build an open-source, clean, from scratch "PowerPro" that supports fine-grained incrementalism, semantics-aware synthesis, and has a very low latency (seconds-minutes for a RTL change).
+We want to build an open-source, clean, from scratch "PowerPro-like tool" that supports fine-grained incrementalism, semantics-aware synthesis, and has a very low latency (seconds to minutes to evaluate an RTL change).
 To do this, we need a synthesis tool.
-To make a synthesis tool in a novel way, we would want to leverage egraphs somehow.
+To design a synthesis tool in a novel way that can trade-off QoR and runtime at a fine-granularity, we want to leverage egraphs somehow.
 To leverage egraphs effectively and aggressively cache/dedup circuit elements we need a 'content-addressed' IR.
 Then we also need a bridge from some frontend or another IR into the target IR for our tool.
 We also need a gate-level simulation tool to propagate RTL-level activity to a gate-level netlist, taking into account clock periods, signal transitions around clock edges, and do this in a highly parallel manner which can strongly scale to many cores.
@@ -16,6 +16,8 @@ And, it is a starting point to prototype trading off runtime for accuracy, which
 
 ## Prior Work
 
+The problem: I have RTL and a PDK. I have a RTL waveform. I want to know how much power is consumed by every bit of my circuit, and I want to know it *fast*.
+
 ### The Big 4
 
 Every big EDA tool vendor (Cadence, Synopsys, Siemens, Ansys) offers a variant of this kind of tool.
@@ -24,15 +26,16 @@ Every big EDA tool vendor (Cadence, Synopsys, Siemens, Ansys) offers a variant o
 
 I wrote a long explanation of Joules as given to us by Cadence engineers [on my blog](https://vighneshiyer.com/conference_reviews/dac-2022/) (search for 'joules').
 The main selling point is that Joules performs synthesis using the *same synthesis engine as Genus*, so you can trust its results.
-Furthermore, since it uses a relatively detailed synthesis pass, it is able to give accurate what-if analysis results when evaluating clock gating opportunities.
+Furthermore, since it uses a relatively detailed synthesis pass, it is able to give accurate what-if analysis results when evaluating clock gating opportunities, among other things (accurate CTS estimates, placement-aware routing estimates).
 
-The runtime of Joules is ~20-60 minutes for a small Chipyard Rocket design.
-It is often hard to check if Joules is set up correctly for the PDK under consideration - it can give very weird numbers sometimes (% of leakage vs switching vs internal power).
+The runtime of Joules is ~20-60 minutes for a small Chipyard Rocket design, depending on CPU load and timing constraints.
+It is often hard to check if Joules is set up correctly for the PDK under consideration - it can give very weird numbers sometimes (incorrect proportion of leakage vs switching vs internal power).
+
 Joules also appears to handle RTL toggle propagation to gate-level in an odd and non-transparent way.
 Changing the timebase or the clock period of the *RTL simulation*, and running that waveform through Joules, will give different power numbers.
-It is also not clear if Joules is doing RTL -> GL activity propagation using maximum parallelism and oftentimes the assertion % of nets will be a lot less than 100%, which is odd since it knows the entire synthesis database.
+It is also not clear if Joules is doing RTL -> GL activity propagation using the maximum parallelism possible and oftentimes the assertion % of nets will be a lot less than 100%, which is odd since it knows the entire synthesis database.
 
-In short: runtime is high, accuracy is high, setup is difficult, can't be used rapidly in the RTL design loop
+**In short**: runtime is high, accuracy is high (relative to post-PnR Voltus), setup is difficult, and can't be used rapidly in the RTL design loop.
 
 #### Siemens PowerPro
 
@@ -40,8 +43,11 @@ I have some [DAC slides on PowerPro from DAC 2022](https://vighneshiyer.com/conf
 
   - Used by Apple and ARM, RTL designers seem to enjoy it reasonably well
   - Used primarily to evaluate point changes in RTL, what-if analysis wrt clock gating
+  - Appears to have a lightweight synthesis engine
 
 #### Ansys PowerArtist
+
+No experience, although positive experiences reported by others in industry.
 
 #### Synopsys PrimeTime PX / PrimePower
 
@@ -79,3 +85,5 @@ We can start with simple circuits (gcd, sha3, aes128).
 Next step is to get a sane SRAM model working (whether that be from a fakeram generator, the actual SRAM generator/cache from the PDK, or CACTI).
 
 Your tool should take a blif netlist, a path to a PDK's stdcell directory, and should emit a module-level report of leakage power.
+
+Technology agnostic variant just for relative netlist changes and power impacts

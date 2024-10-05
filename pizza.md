@@ -575,3 +575,9 @@ But as usual, there were some issues we need to address:
     - [x] Ingredients: 00 flour, semolina flour
     - [ ] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs), vanilla ice cream
     - [x] Equipment: dough slicer, microplane, spoons/ladles
+
+- hydration
+- fermentation and yeastiness
+- temperature control and white smoke, loss of temp, excess burning in the back
+- parmesean after cooking
+- crust burning

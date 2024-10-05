@@ -13,7 +13,8 @@ The configurations I tested were:
 
 - With default -O3
 
-hyperfine "/scratch/vighneshiyer/chipyard-verilator/sims/verilator/simulator-chipyard.harness-FastRTLSimRocketConfig \                                                                       (/scratch/vighneshiyer/chipyard-verilator/.conda-env) 14:45:43
+```bash
+hyperfine "/scratch/vighneshiyer/chipyard-verilator/sims/verilator/simulator-chipyard.harness-FastRTLSimRocketConfig \
                                +permissive \
                                +dramsim +dramsim_ini_dir=/scratch/vighneshiyer/chipyard-verilator/generators/testchipip/src/main/resources/dramsim2_ini +max-cycles=10000000   +loadmem=/scratch/vighneshiyer/chipyard-verilator/.conda-env/riscv-tools/riscv64-unknown-elf/share/riscv-tests/benchmarks/dhrystone.riscv  \
                                +permissive-off \
@@ -21,10 +22,12 @@ hyperfine "/scratch/vighneshiyer/chipyard-verilator/sims/verilator/simulator-chi
 Benchmark 1: /scratch/vighneshiyer/chipyard-verilator/sims/verilator/simulator-chipyard.harness-FastRTLSimRocketConfig         +permissive         +dramsim +dramsim_ini_dir=/scratch/vighneshiyer/chipyard-verilator/generators/testchipip/src/main/resources/dramsim2_ini +max-cycles=10000000   +loadmem=/scratch/vighneshiyer/chipyard-verilator/.conda-env/riscv-tools/riscv64-unknown-elf/share/riscv-tests/benchmarks/dhrystone.riscv          +permissive-off         /scratch/vighneshiyer/chipyard-verilator/.conda-env/riscv-tools/riscv64-unknown-elf/share/riscv-tests/benchmarks/dhrystone.riscv
   Time (mean ± σ):      6.777 s ±  0.323 s    [User: 6.752 s, System: 0.028 s]
   Range (min … max):    6.357 s …  7.327 s    10 runs
+```
 
-- With now -Os
+- With -Os
 
-hyperfine "/scratch/vighneshiyer/chipyard-verilator-opt/sims/verilator/simulator-chipyard.harness-FastRTLSimRocketConfig \                                                               (/scratch/vighneshiyer/chipyard-verilator-opt/.conda-env) 15:19:12
+```bash
+hyperfine "/scratch/vighneshiyer/chipyard-verilator-opt/sims/verilator/simulator-chipyard.harness-FastRTLSimRocketConfig \
                                +permissive \
                                +dramsim +dramsim_ini_dir=/scratch/vighneshiyer/chipyard-verilator-opt/generators/testchipip/src/main/resources/dramsim2_ini +max-cycles=10000000   +loadmem=/scratch/vighneshiyer/chipyard-verilator-opt/.conda-env/riscv-tools/riscv64-unknown-elf/share/riscv-tests/benchmarks/dhrystone.riscv  \
                                +permissive-off \
@@ -32,6 +35,7 @@ hyperfine "/scratch/vighneshiyer/chipyard-verilator-opt/sims/verilator/simulator
 Benchmark 1: /scratch/vighneshiyer/chipyard-verilator-opt/sims/verilator/simulator-chipyard.harness-FastRTLSimRocketConfig         +permissive         +dramsim +dramsim_ini_dir=/scratch/vighneshiyer/chipyard-verilator-opt/generators/testchipip/src/main/resources/dramsim2_ini +max-cycles=10000000   +loadmem=/scratch/vighneshiyer/chipyard-verilator-opt/.conda-env/riscv-tools/riscv64-unknown-elf/share/riscv-tests/benchmarks/dhrystone.riscv          +permissive-off         /scratch/vighneshiyer/chipyard-verilator-opt/.conda-env/riscv-tools/riscv64-unknown-elf/share/riscv-tests/benchmarks/dhrystone.riscv
   Time (mean ± σ):      7.109 s ±  0.261 s    [User: 7.082 s, System: 0.030 s]
   Range (min … max):    6.675 s …  7.441 s    10 runs
+```
 
 - So on first glance, with this small design (FastRTLSimRocketConfig), using -Os degrades performance by a small bit
   - It's possible that for a larger design, like RocketConfig with the TLMonitors, -Os will do better or perhaps even -Oz
