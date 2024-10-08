@@ -576,6 +576,10 @@ But as usual, there were some issues we need to address:
     - [ ] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs), vanilla ice cream
     - [x] Equipment: dough slicer, microplane, spoons/ladles
 
+### Retrospective
+
+- Equipment selection was perfect - much less movement of things between home and lab this time
+  - Metal poker worked well for releasing wood pellets
 - hydration
 - fermentation and yeastiness
 - temperature control and white smoke, loss of temp, excess burning in the back

@@ -87,3 +87,15 @@ Next step is to get a sane SRAM model working (whether that be from a fakeram ge
 Your tool should take a blif netlist, a path to a PDK's stdcell directory, and should emit a module-level report of leakage power.
 
 Technology agnostic variant just for relative netlist changes and power impacts
+
+- CTS estimation, cell sizing estimation via transformer (see NVIDIA prior work), basically try to shortcircuit synthesis to the maximum degree possible
+- might be difficult to shortcircuit boolean optimization
+- look into lgraph for incremental boolean opt and cell mapping (sizing maybe not considered)
+- try to do naive activity propagation initially (see GRANNITE) - this is easier than trying to use a vcd, try to use a saif first
+
+1. First is leakage power comparison vs Genus/Joules using a Genus GL netlist (NOT yosys)
+2. Register dynamic switching power comparison vs Genus/Joules
+3. yosys vs Genus comparison (wrt cell mapping, sizing, etc.)
+
+saif before diving into vcds
+try to use rtl level before diving into gate level
