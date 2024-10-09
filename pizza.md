@@ -571,17 +571,32 @@ But as usual, there were some issues we need to address:
     - [x] DOP Parm (just for this event)
 - [x] From lab
     - [x] Plates, napkins, forks, knives, sodas/water, cups, wine / bottle opener
-- [ ] From home
+- [x] From home
     - [x] Ingredients: 00 flour, semolina flour
-    - [ ] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs), vanilla ice cream
+    - [x] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs), vanilla ice cream
     - [x] Equipment: dough slicer, microplane, spoons/ladles
 
 ### Retrospective
 
+- Ingredients
+  - No garlic = good
+  - Cheese provisioning was **too little**. 16 pizzas and 2 mozz logs was too little. Needed one extra cheese chub and even that wasn't enough. Provisioning should be 1 mozz log = 6 12" pizzas.
+  - Sauce provisioning was perfect. 1 28oz can of san marzano tomatoes = 8 12" pizzas. Could use a bit more salt in the sauce, but OK.
+  - Meat provisioning was also perfect. One pack of proscuitto and salami each was perfect for 16 pizzas.
+  - Adding parmesean after cooking was a great call - very good results.
 - Equipment selection was perfect - much less movement of things between home and lab this time
-  - Metal poker worked well for releasing wood pellets
-- hydration
-- fermentation and yeastiness
-- temperature control and white smoke, loss of temp, excess burning in the back
-- parmesean after cooking
-- crust burning
+  - Metal poker worked well for releasing stuck wood pellets in the hopper
+  - Don't need any spatulas, only one ladle for sauce is sufficient
+  - Semolina flour worked very well for peel and dusting
+- Fire management
+  - We kept the fire burning in the front this time. Initially for the first 8 pizzas, things were very smooth and the fire was front only. Later on, I think I added wood pellets too slowly and eventually we got white smoke in the hopper (although no flames through the chimney). Overall much better than last time.
+  - Next time: need to add pellets sooner to make sure pellets in the back of the firebox do not ignite or smoulder, which causes white smoke.
+  - Temperature control was better than last time although we saw loss of temperature in the latter 8 pizzas. Need to mitigate this by pausing 2 minutes in between each pizza and turning up the fan.
+  - Initially we saw crust burns due to excess temperature. Mitigate this with more vigilant turning peel usage.
+- Dough recipe
+  - Used Pizzapp for dough recipe this time, bulk fermentation and then balling into 8 doughballs per container.
+  - Hydration of 60% is too low. Next time: step up to 70% hydration - dough was too chewy still, not light enough.
+  - Fermentation and yeastiness was excessive. Although I reduced the amount of yeast used, the cold ferment was still too much and dough was overfermented. I suspect RT ferment went on too long.
+  - Bulk dough prep was a good idea and worked very well. Double rise is also a good idea. Do the same next time with more hydration.
+- Quantity
+  - We had around 16 people, but 16 pizzas wasn't sufficient near the end. 20 pizzas would have been appropriate. Provision more next time.
