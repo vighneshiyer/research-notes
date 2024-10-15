@@ -57,3 +57,6 @@ make sure we consider cosim with ganged isa sim as we're developing this
 
 - Vienna ADL
 - CodAL
+- Symbolic execution of RISC-V binary code based on formal instruction semantics. https://github.com/agra-uni-bremen/BinSym
+- https://agra.informatik.uni-bremen.de/doc/konf/TFP23_ST.pdf
+- https://github.com/agra-uni-bremen/libriscv
