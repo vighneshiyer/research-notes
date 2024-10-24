@@ -10,6 +10,9 @@ It would be nice to avoid Makefiles or random CMake scripts and use a clean `car
 
 Currently, there is a very limited set of benchmarks that we can run baremetal and they don't contain things you would expect to see in real software (complex data structures, memory bound algorithms, bytecode interpreters).
 
+Existing baremetal benchmarks
+  - Coremark, riscv-tests benchmarks, rvv-bench, embench, mibench
+  - Nothing that great imo
 
 ### Goals
 
