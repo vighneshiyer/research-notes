@@ -1,4 +1,4 @@
-# Rust for Baremetal RISC-V on Chipyard SoCs
+# Rust for Baremetal RISC-V
 
 ## Motivation and Goals
 
@@ -9,28 +9,55 @@ The existing baremetal programming environments for RISC-V Chipyard SoCs ([riscv
 There is no reason we can't have an allocator, clean debug APIs, and pthread-like multithreading in a baremetal environment.
 It would be nice to avoid Makefiles or random CMake scripts and use a clean `cargo` build setup instead.
 
-Currently, there is a very limited set of benchmarks that we can run baremetal and they don't contain things you would expect to see in real software (complex data structures, memory bound algorithms, bytecode interpreters).
+Additionally, we would like a set of realistic benchmarks for microarchitectural iteration that can run baremetal (booting Linux or even using `pk` is limiting).
+But currently, there is a very limited set of baremetal benchmarks and they don't contain things you would expect to see in real software (complex data structures, memory bound algorithms, bytecode interpreters).
 They include: [coremark](https://github.com/riscv-boom/riscv-coremark), the [riscv-tests benchmarks] (qsort, dhrystone, spmv, towers), [rvv-bench](https://github.com/camel-cdr/rvv-bench), [embench](https://github.com/embench/embench-iot/tree/master), [mibench](https://github.com/embecosm/mibench), and [Baremetal-NN](https://github.com/ucb-bar/Baremetal-NN) ([slides](https://docs.google.com/presentation/d/1H83fB7tNbzhnz4kJ0BNqbgb7xSXqhPYXDmAP-vXa4_c/edit?usp=sharing)).
-Other benchmarks that are more representative of mobile/desktop/server/HPC usecases require at least an OS (SPEC, NPB, PARSEC, Geekbench) and are unsuitable for rapid evaluation during microarchitectural iteration.
+Benchmarks that are representative of mobile/desktop/server/HPC usecases (SPEC, NPB, PARSEC, Geekbench) require at least an OS and can't be used in the loop of microarchitectural iteration.
+Let's try to leverage the `no_std` feature of Rust to make benchmark construction easy.
 
 ### 2 Primary Goals
 
 #### Baremetal Programming Environment
 
-- Rust-based baremetal programming environment for RISC-V (specifically our Chipyard SoCs w/ htif host tethering)
-- Goal is to get many [no_std] rust libraries working cleanly with RISC-V and leverage them to generate a bunch of useful benchmarks we couldn't do otherwise (would require random C++ libraries running on top of an OS).
-- Goal is a starting point for baremetal development on Chipyard SoCs (with APIs for 'syscall' emulation).
-- Make baremetal programming much more productive and fun! Demonstrate benefit by porting existing benchmarks and making it so easy to create new ones.
+We want a Rust-based baremetal programming environment for RISC-V (specifically our Chipyard SoCs with HTIF host tethering).
+This will be a starting point for baremetal development on Chipyard SoCs; a similar concept as Baremetal-IDE, but using Rust.
+
+We want to make baremetal programming much more productive and fun!
+And we will demonstrate the benefits by porting existing microbenchmarks and making it easy to create new ones.
+
+Even for benchmarks which must run on top of Linux or `pk`, we want to demonstrate the ability to create complex, shrinkwrapped, statically-linked, glibc-free Rust binaries.
 
 #### New Clean-Slate Benchmarks
 
+Existing baremetal benchmark suites don't even attempt to reproduce similar compute/memory behaviors as real applications.
+Instead, they contain code from 20+ years ago that we [can't even understand](https://github.com/embench/embench-iot/blob/master/src/edn/libedn.c), let alone modify.
+
+Our goal is to subsume all existing baremetal benchmarks by using `no_std` Rust libraries and generating useful benchmarks that we couldn't do otherwise (with random C++ libraries running on top of an OS).
+Since it is mostly *libraries* and not *applications* that are
 Extraction of benchmarks from sampling crates that use base crates and seeing their call site usage and argument distribution.
 
-Finally usage of shrinkwrapped Rust binaries running on Linux as full fledged benchmarks.
 
 https://benchmarksgame-team.pages.debian.net/benchmarksgame/measurements/rust.html
 
-https://docs.google.com/presentation/d/1H83fB7tNbzhnz4kJ0BNqbgb7xSXqhPYXDmAP-vXa4_c/edit#slide=id.g2896b2792b6_0_84
+
+## Rust RISC-V Baremetal Environment
+
+crt + base linker script
+HTIF support
+multithreading support
+allocator support
+many examples
+BSP for particular chips, perhaps even riscv devboards
+
+https://openbenchmarking.org/
+
+Other benchmarks like SPEC (cpu, jbb, omp), NPB, PARSEC, GAP, Coremark-PRO, PolyBenchC, MLPerf Tiny (on CPU), MediaBench, Rodinia Benchmark Suite, Geekbench, SPLASH-2, AutoBench, game console emulators, LMbench, Python benchmarks, STREAM benchmark, Speedometer, Cinebench
+
+Existing baremetal benchmarks
+  - Coremark, riscv-tests benchmarks, rvv-bench, embench, mibench
+  - Nothing that great imo
+
+## Rust-Based Baremetal Benchmarks
 
 ### Ideas About Benchmarks
 
@@ -75,22 +102,29 @@ https://docs.google.com/presentation/d/1H83fB7tNbzhnz4kJ0BNqbgb7xSXqhPYXDmAP-vXa
 
 - leverage servo and other rust top-level applications to drive stimulus generation for the baremetal microbenchmarks
 
-## Rust RISC-V Baremetal Environment
+#### Baremetal
 
-crt + base linker script
-HTIF support
-multithreading support
-allocator support
-many examples
-BSP for particular chips, perhaps even riscv devboards
+- Coremark (super old, not representative)
+- Coremark-PRO
+- mibench / embench (low quality code)
+- riscv-tests benchmarks (qsort, dhrystone, spmv, towers) (compute bound workloads)
+- rvv-bench (pretty good for RVV)
+- Baremetal-NN (pretty good for on-CPU ML workloads)
 
-https://openbenchmarking.org/
+#### OS Required
 
-Other benchmarks like SPEC (cpu, jbb, omp), NPB, PARSEC, GAP, Coremark-PRO, PolyBenchC, MLPerf Tiny (on CPU), MediaBench, Rodinia Benchmark Suite, Geekbench, SPLASH-2, AutoBench, game console emulators, LMbench, Python benchmarks, STREAM benchmark, Speedometer, Cinebench
+##### "Easy" to Run
 
-Existing baremetal benchmarks
-  - Coremark, riscv-tests benchmarks, rvv-bench, embench, mibench
-  - Nothing that great imo
+  - SPECcpu
+  - SPECjbb
+  - NPB
+  - PARSEC
+
+##### "Hard" to Run
+
+- Geekbench
+- Cinebench
+
 
 ## High-Level Tasks
 
