@@ -1,4 +1,4 @@
-# Rust for Baremetal RISC-V
+# Rust for Baremetal RISC-V Chipyard SoCs
 
 ## Motivation and Goals
 
@@ -9,13 +9,17 @@ The existing baremetal programming environments for RISC-V Chipyard SoCs ([riscv
 There is no reason we can't have an allocator, clean debug APIs, and pthread-like multithreading in a baremetal environment.
 It would be nice to avoid Makefiles or random CMake scripts and use a clean `cargo` build setup instead.
 
-Additionally, we would like a set of realistic benchmarks for microarchitectural iteration that can run baremetal (booting Linux or even using `pk` is limiting).
+Additionally, we would like a set of realistic benchmarks for microarchitectural iteration that can run baremetal (booting Linux or even using [pk](https://github.com/riscv-software-src/riscv-pk) is limiting).
 But currently, there is a very limited set of baremetal benchmarks and they don't contain things you would expect to see in real software (complex data structures, memory bound algorithms, bytecode interpreters).
 They include: [coremark](https://github.com/riscv-boom/riscv-coremark), the [riscv-tests benchmarks] (qsort, dhrystone, spmv, towers), [rvv-bench](https://github.com/camel-cdr/rvv-bench), [embench](https://github.com/embench/embench-iot/tree/master), [mibench](https://github.com/embecosm/mibench), and [Baremetal-NN](https://github.com/ucb-bar/Baremetal-NN) ([slides](https://docs.google.com/presentation/d/1H83fB7tNbzhnz4kJ0BNqbgb7xSXqhPYXDmAP-vXa4_c/edit?usp=sharing)).
 Benchmarks that are representative of mobile/desktop/server/HPC usecases (SPEC, NPB, PARSEC, Geekbench) require at least an OS and can't be used in the loop of microarchitectural iteration.
-Let's try to leverage the `no_std` feature of Rust to make benchmark construction easy.
+Let's try to leverage the `no_std` feature of Rust to make realistic (single-core) benchmark construction easy.
 
-### 2 Primary Goals
+Finally, we want microbenchmarks that can estimate the types, dimensions, and performance of microarchitectural structures (caches, branch predictors, prefetchers) present in an SoC.
+A nice and clean set of microbenchmarks would help us verify and hit high coverage on our cores as well as commercial RISC-V silicon.
+Many of these benchmarks already exist, but we want to reconstruct, re-characterize, and package them cleanly (the value of this is underappreciated).
+
+### 3 Primary Goals
 
 #### Baremetal Programming Environment
 
@@ -25,20 +29,24 @@ This will be a starting point for baremetal development on Chipyard SoCs; a simi
 We want to make baremetal programming much more productive and fun!
 And we will demonstrate the benefits by porting existing microbenchmarks and making it easy to create new ones.
 
-Even for benchmarks which must run on top of Linux or `pk`, we want to demonstrate the ability to create complex, shrinkwrapped, statically-linked, glibc-free Rust binaries.
+Even for benchmarks which must run on top of Linux or pk, we want to demonstrate the ability to create complex, shrinkwrapped, statically-linked, glibc-free Rust binaries.
+And perhaps these binaries can run more easily on top of pk than ones produced with the typical C++ gcc-linux cross compilation flow.
+<small>Maybe we can even rewrite pk for fun?</small>
 
-#### New Clean-Slate Benchmarks
+#### New Clean-Slate Realistic Benchmarks
 
 Existing baremetal benchmark suites don't even attempt to reproduce similar compute/memory behaviors as real applications.
-Instead, they contain code from 20+ years ago that we [can't even understand](https://github.com/embench/embench-iot/blob/master/src/edn/libedn.c), let alone modify.
+Instead, they contain low performance, naive code from 20+ years ago that we [can't even understand](https://github.com/embench/embench-iot/blob/master/src/edn/libedn.c), let alone modify.
 
 Our goal is to subsume all existing baremetal benchmarks by using `no_std` Rust libraries and generating useful benchmarks that we couldn't do otherwise (with random C++ libraries running on top of an OS).
-Since it is mostly *libraries* and not *applications* that are
-Extraction of benchmarks from sampling crates that use base crates and seeing their call site usage and argument distribution.
+Since it is mostly *libraries* and not *applications* that are marked as `no_std`, we need some way to capture the real usage of these libraries.
+We can try to extract benchmarks from looking at crates which use `no_std` crates and tracing how the library functions are invoked and with what arguments.
 
+#### Microarchitecture Microbenchmarks
 
-https://benchmarksgame-team.pages.debian.net/benchmarksgame/measurements/rust.html
-
+A few microarchitecture blogs (Chips and Cheese, Geekerwan, [@Cardyak](https://x.com/Cardyak), Anandtech) attempt to estimate microarchitectural structures in commercial silicon.
+We want to build microbenchmarks that can be used for this purpose.
+The algorithms themselves already exist, but it would be cool to see them packaged neatly, and we can characterize our own cores in addition to commercial RISC-V cores.
 
 ## Rust RISC-V Baremetal Environment
 
@@ -48,6 +56,8 @@ multithreading support
 allocator support
 many examples
 BSP for particular chips, perhaps even riscv devboards
+
+- https://github.com/rust-embedded/riscv
 
 https://openbenchmarking.org/
 
@@ -88,14 +98,18 @@ Existing baremetal benchmarks
   - Heterogenous boxes: dealing with noisy neighbors on the same node (not in a different VM, but rather multiple processes working on different tasks/responding to different RPCs on the same OS)
 
 - https://doc.rust-lang.org/beta/std/hint/fn.black_box.html
+https://benchmarksgame-team.pages.debian.net/benchmarksgame/measurements/rust.html
 
-### Ideas About uArch Parameter Extraction Microbenchmarks
+## uArch Microbenchmarks
 
 - Microbenchmarks for extracting uArch parameters (memory bandwidth vs latency plot for loaded vs unloaded system, core-to-core cache line bouncing/access latency, memory bandwidth stress tests, ROB size, LSU size, nop elision capability, max retirement/cycle, figuring out number and type of FUs, branch predictor history benchmarks, )
   - See the characterization done by chipsandcheese people
   - Also see various uArch diagrams on twitter that have been reverse engineered
     - https://gist.githubusercontent.com/travisdowns/00e87165356a0e698b49d6cdbf091dd5/raw/5d73ec198acec71cef60b91d67456e476168f742/M1%2520Explainer%2520070.pdf
   - [M1 explainer](https://gist.githubusercontent.com/travisdowns/00e87165356a0e698b49d6cdbf091dd5/raw/5d73ec198acec71cef60b91d67456e476168f742/M1%2520Explainer%2520070.pdf)
+  - Latency vs CPU core 0 to core N - identification of latencies to jump across clusters with shared L2, to LLC, to global SLC, to ... - depends on the chip memory architecture
+  - Memory bandwidth (GB/s/socket) vs latency - identify latency of DRAM fetch into local L1 with varying amount of bandwidth requested by the workload, consider usage of prefetchers (https://www.intel.com/content/www/us/en/developer/articles/tool/intelr-memory-latency-checker.html)
+  -
 
 
 ### Benchmark Enumeration
@@ -115,10 +129,12 @@ Existing baremetal benchmarks
 
 ##### "Easy" to Run
 
-  - SPECcpu
-  - SPECjbb
-  - NPB
-  - PARSEC
+Easy means
+
+- SPECcpu
+- SPECjbb
+- NPB
+- PARSEC
 
 ##### "Hard" to Run
 
@@ -152,3 +168,14 @@ Existing things
   - riscv-env
   - syscall.c in benchmarks
   - libgloss-htif
+
+First steps:
+  - riscv-tests single-thread benchmarks port
+  - can we generate crt.s from a build.rs? I would like to avoid macros in crt.S and use regular function arguments / config options in the build process instead.
+  - rebuild embench benchmarks from their descriptions (don't port their actual code)
+  - riscv-tests multi-thread benchmarks port
+  - riscv-tests RVV benchmarks port
+  - chipyard/tests mt-hello port
+  - begin building our own benchmark suite
+  - figure out the function call site instrumentation methodology and get the stimulus data distributions
+  - build representative benchmark stimulus suite
