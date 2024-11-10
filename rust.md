@@ -50,24 +50,93 @@ The algorithms themselves already exist, but it would be cool to see them packag
 
 ## Rust RISC-V Baremetal Environment
 
-crt + base linker script
-HTIF support
-multithreading support
-allocator support
-many examples
-BSP for particular chips, perhaps even riscv devboards
+For this, we want a simple environment where we can mark an entry point, have a panic handler, have a basic baremetal allocator, we can use HTIF for syscall proxying, and have sensible and minimal bootup code + linker script.
+A similar multithreading setup to `riscv-tests/benchmarks` would be nice too: just have separate code paths for each thread pinned on each core, but with the usage of Rust synchronization primitives.
+If we are ambitious, we can also make true multithreading work in baremetal, which would involve a scheduler, a way to mount/unmount threads, and so forth (still no virtual memory however and only a single process would be supported).
 
-- https://github.com/rust-embedded/riscv
+This would also involve setting up [BSPs for particular chips](https://github.com/ucb-bar/Baremetal-IDE/tree/main/platform) and some [RISC-V commercial silicon](https://github.com/rust-embedded/riscv/blob/master/riscv-peripheral/examples/e310x.rs).
+Many usage examples would be critical.
 
+The [rust-embedded/riscv](https://github.com/rust-embedded/riscv) project is a very good place to start.
+We should use as many things from here as dependencies and contribute upstream.
+
+### Tasks
+
+- [x] Review existing RISC-V C baremetal environments
+  - riscv-isa-sim, riscv-tests (ISA tests), riscv-test-env, `rv64ui-p-simple`, understanding HTIF, syscall.c in `riscv-tests/benchmarks`, `libgloss-htif`
+- [ ] Use `rust-embedded/riscv` crates as dependencies
+  - Get simple hello world over HTIF working
+- [ ] Port all/some riscv-tests single-thread benchmarks (dhrystone, median, memcpy, mm, multiply, qsort, rsort, spmv, towers, vvadd)
+  - A language model should be able to do 90% of the work of porting this C to Rust
+  - When doing this, let's get an idea of what deficiencies exist with Rust's baremetal environment / borrow checker
+- [ ] Idiomatically rebuild the above benchmarks using Rust
+  - A lot of these can just be expressed by functions/data structures from the Rust stdlib or using a crate
+  - Print out some kind of performance metric once the test completes, set a number of warmup cycles and execution cycles and print average runtimes
+- [ ] Re-build embench benchmarks from their descriptions
+  - Don't just translate C to Rust
+  - e.g. for `aha-mont64`, use a crate (e.g. `rust-num`) and just call its implementation (of Montgomery modular multiplication) with the same arguments as the Embench workload
+  - For some benchmarks, this might be too painful, in which case just note why and ignore it
+- [ ] Port riscv-tests multi-threaded benchmarks (mt-matmul, mt-memcpy, mt-vvadd)
+  - Try to leverage the startup code in `rust-embedded/riscv` (I 'think' there should just be a hart id read + loop stripmining approach)
+- [ ] Port riscv-tests RVV benchmarks (vec-daxpy, vec-memcpy, vec-sgemm, vec-strcmp)
+  - This is a good chance to evaluate the state of Rust's RVV intrinsics
+- [ ] Port `chipyard/tests`
+  - `mt-hello` should be easy to port
+  - Eventually this directory should become Rusty
+- [ ] Port some small parts of `gemmini-rocc-tests`
+  - Building a `rocc` Rust library would be useful
+
+### Long-Term
+
+- [ ] Begin building our own benchmark suite
+  - Reference the Rust libraries and benchmarks below
+- [ ] Figure out the function call site instrumentation methodology and get the stimulus data distributions
+  - To build a representative benchmark stimulus suite
+- [ ] Investigate crt.S generation
+  - Can we generate crt.s from a build.rs? I would like to avoid macros in crt.S and use regular function arguments / config options in the build process instead.
+- [ ] Random things
+  - [ ] Port libgloss-htif
+  - [ ] Need ability to use a baremetal allocator
+  - [ ] Multithreaded baremetal code
+
+## Rust-Based Baremetal Benchmarks
+
+### Benchmark Enumeration
+
+So what already exists in the world of benchmarks?
+I'll try to enumerate both
 https://openbenchmarking.org/
-
+- leverage servo and other rust top-level applications to drive stimulus generation for the baremetal microbenchmarks
 Other benchmarks like SPEC (cpu, jbb, omp), NPB, PARSEC, GAP, Coremark-PRO, PolyBenchC, MLPerf Tiny (on CPU), MediaBench, Rodinia Benchmark Suite, Geekbench, SPLASH-2, AutoBench, game console emulators, LMbench, Python benchmarks, STREAM benchmark, Speedometer, Cinebench
 
 Existing baremetal benchmarks
   - Coremark, riscv-tests benchmarks, rvv-bench, embench, mibench
   - Nothing that great imo
 
-## Rust-Based Baremetal Benchmarks
+#### Baremetal
+
+- Coremark (super old, not representative)
+- Coremark-PRO
+- mibench / embench (low quality code)
+- riscv-tests benchmarks (qsort, dhrystone, spmv, towers) (compute bound workloads)
+- rvv-bench (pretty good for RVV)
+- Baremetal-NN (pretty good for on-CPU ML workloads)
+
+#### OS Required
+
+##### "Easy" to Run
+
+Easy means
+
+- SPECcpu
+- SPECjbb
+- NPB
+- PARSEC
+
+##### "Hard" to Run
+
+- Geekbench
+- Cinebench
 
 ### Ideas About Benchmarks
 
@@ -100,6 +169,7 @@ Existing baremetal benchmarks
 - https://doc.rust-lang.org/beta/std/hint/fn.black_box.html
 https://benchmarksgame-team.pages.debian.net/benchmarksgame/measurements/rust.html
 
+
 ## uArch Microbenchmarks
 
 - Microbenchmarks for extracting uArch parameters (memory bandwidth vs latency plot for loaded vs unloaded system, core-to-core cache line bouncing/access latency, memory bandwidth stress tests, ROB size, LSU size, nop elision capability, max retirement/cycle, figuring out number and type of FUs, branch predictor history benchmarks, )
@@ -109,73 +179,3 @@ https://benchmarksgame-team.pages.debian.net/benchmarksgame/measurements/rust.ht
   - [M1 explainer](https://gist.githubusercontent.com/travisdowns/00e87165356a0e698b49d6cdbf091dd5/raw/5d73ec198acec71cef60b91d67456e476168f742/M1%2520Explainer%2520070.pdf)
   - Latency vs CPU core 0 to core N - identification of latencies to jump across clusters with shared L2, to LLC, to global SLC, to ... - depends on the chip memory architecture
   - Memory bandwidth (GB/s/socket) vs latency - identify latency of DRAM fetch into local L1 with varying amount of bandwidth requested by the workload, consider usage of prefetchers (https://www.intel.com/content/www/us/en/developer/articles/tool/intelr-memory-latency-checker.html)
-  -
-
-
-### Benchmark Enumeration
-
-- leverage servo and other rust top-level applications to drive stimulus generation for the baremetal microbenchmarks
-
-#### Baremetal
-
-- Coremark (super old, not representative)
-- Coremark-PRO
-- mibench / embench (low quality code)
-- riscv-tests benchmarks (qsort, dhrystone, spmv, towers) (compute bound workloads)
-- rvv-bench (pretty good for RVV)
-- Baremetal-NN (pretty good for on-CPU ML workloads)
-
-#### OS Required
-
-##### "Easy" to Run
-
-Easy means
-
-- SPECcpu
-- SPECjbb
-- NPB
-- PARSEC
-
-##### "Hard" to Run
-
-- Geekbench
-- Cinebench
-
-
-## High-Level Tasks
-
-- Need to port libgloss-htif to a Rust BSP
-- Need to get multithreaded baremetal code working, make it easy to use 'pthreads' like APIs baremetal
-- Need ability to use a baremetal allocator
-- Produce very clean shrinkwrapped binaries with zero dependencies and zero libc nonsense
-
-
-
-
-## Understanding Things
-
-- riscv-isa-sim
-- riscv-tests
-  - ISA tests
-  - riscv-env
-  - rv64ui-p-simple
-  - understanding HTIF
-  - running on spike
-- BareMetal-IDE
-  -
-
-Existing things
-  - riscv-env
-  - syscall.c in benchmarks
-  - libgloss-htif
-
-First steps:
-  - riscv-tests single-thread benchmarks port
-  - can we generate crt.s from a build.rs? I would like to avoid macros in crt.S and use regular function arguments / config options in the build process instead.
-  - rebuild embench benchmarks from their descriptions (don't port their actual code)
-  - riscv-tests multi-thread benchmarks port
-  - riscv-tests RVV benchmarks port
-  - chipyard/tests mt-hello port
-  - begin building our own benchmark suite
-  - figure out the function call site instrumentation methodology and get the stimulus data distributions
-  - build representative benchmark stimulus suite
