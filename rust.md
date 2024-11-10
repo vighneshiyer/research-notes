@@ -104,44 +104,48 @@ We should use as many things from here as dependencies and contribute upstream.
 ### Benchmark Enumeration
 
 So what already exists in the world of benchmarks?
-I'll try to enumerate both
-https://openbenchmarking.org/
-- leverage servo and other rust top-level applications to drive stimulus generation for the baremetal microbenchmarks
-Other benchmarks like SPEC (cpu, jbb, omp), NPB, PARSEC, GAP, Coremark-PRO, PolyBenchC, MLPerf Tiny (on CPU), MediaBench, Rodinia Benchmark Suite, Geekbench, SPLASH-2, AutoBench, game console emulators, LMbench, Python benchmarks, STREAM benchmark, Speedometer, Cinebench
+[Openbenchmarking](https://openbenchmarking.org/) covers lots of typical benchmarks run on commercial silicon.
 
-Existing baremetal benchmarks
-  - Coremark, riscv-tests benchmarks, rvv-bench, embench, mibench
-  - Nothing that great imo
+I mark things as **baremetal** or **easy** or **hard**.
+Easy means just a single binary, no GUI, no runtime, mostly shrinkwrapped, and doesn't depend on any unusual syscalls.
 
-#### Baremetal
+#### Benchmarks by Category
 
-- Coremark (super old, not representative)
-- Coremark-PRO
-- mibench / embench (low quality code)
-- riscv-tests benchmarks (qsort, dhrystone, spmv, towers) (compute bound workloads)
-- rvv-bench (pretty good for RVV)
-- Baremetal-NN (pretty good for on-CPU ML workloads)
-
-#### OS Required
-
-##### "Easy" to Run
-
-Easy means
-
-- SPECcpu
-- SPECjbb
-- NPB
-- PARSEC
-
-##### "Hard" to Run
-
-- Geekbench
-- Cinebench
+- General purpose integer/FP code
+  - [Coremark](https://github.com/riscv-boom/riscv-coremark) (super old, not representative) (**baremetal**)
+  - [Coremark-PRO](https://github.com/eembc/coremark-pro) (5 integer and 4 FP workloads, uses multithreading, but can still work baremetal) (**baremetal**)
+  - [mibench](https://github.com/embecosm/mibench) (lots of random things) / [embench](https://github.com/embench/embench-iot/tree/master) (more random things) (**baremetal**)
+  - [riscv-tests benchmarks](https://github.com/riscv-software-src/riscv-tests) (qsort, dhrystone, spmv, towers) (compute bound workloads) (**baremetal**)
+  - [SPEC CPU 2017](https://www.spec.org/cpu2017/) (still considered useful and "somewhat" representative) (**easy** to run)
+  - [Geekbench](https://www.geekbench.com/) (widely used and reported, [internals](https://www.geekbench.com/doc/geekbench6-benchmark-internals.pdf) - seems reasonable and easy to replicate)
+  - [Phoronix Test Suite](https://www.phoronix-test-suite.com/) (very comprehensive, contains benchmarks in all categories below, SOTA afaic) (**hard** to run most benchmarks in this suite in simulation)
+  - [MediaBench](https://cs.slu.edu/~fritts/mediabench/) (very very old)
+- Vectors / numerics
+  - [rvv-bench](https://github.com/camel-cdr/rvv-bench) (pretty good for RVV) (**baremetal**)
+  - [Baremetal-NN](https://github.com/ucb-bar/Baremetal-NN) (pretty good for on-CPU ML workloads) (**baremetal**)
+  - [PolyBenchC](https://github.com/MatthiasJReisinger/PolyBenchC-4.2.1)
+  - [MLPerf Tiny](https://github.com/mlcommons/tiny)
+  - [BioBench2](https://github.com/reiverjohn/biobench2)
+  - [EEMBC AutoBench](https://www.eembc.org/autobench/)
+- HPC / parallel numerical computations
+  - [NASA Parallel Benchmarks](https://www.nas.nasa.gov/software/npb.html) (uses MPI or OpenMP)
+  - [PARSEC (Princeton Parallel Benchmarks)](https://github.com/bamos/parsec-benchmark)
+  - [Splash-3](https://github.com/SakalisC/Splash-3)
+- Graphics
+  - [Cinebench](https://www.maxon.net/en/cinebench) (CPU 3D rendering, running this in simulation may be too hard) (**hard** to run)
+- uArch extraction / reverse engineering microbenchmarks
+  - [LMbench](https://lmbench.sourceforge.net/) ([Github](https://github.com/intel/lmbench))
+  - [multichase](https://github.com/google/multichase)
+  - mess
+- Servers
+  - [SPECjbb 2015](https://www.spec.org/jbb2015/) (quite representative of backend server workloads) (hard to run)
 
 ### Ideas About Benchmarks
 
-- crossbeam no_std/alloc primitives for multithreaded baremetal programming
-- (de)compression / serde (json, bincode, flatbuffers - iffy) / regex / data structures (stdlib, hashbrown, btrees, bigint, petgraph, yada, regex) / nom (parser combinators) / rustls, hmac, aes, crc32, md5, sha256, rsa (crypto) / wasm (webassembly interpreter / JIT) / rand_chacha, fastrand (RNG), UTF-8 validation, nalgebra/ndarray/faer-rs/rust-num, polars (iffy), some kind of interpreter (wasmi, revm-interpreter, starlark, boa (js)), some kind of JIT (cranelift), httparse
+- leverage servo and other rust top-level applications to drive stimulus generation for the baremetal microbenchmarks
+GAP, PolyBenchC, MLPerf Tiny (on CPU), MediaBench, Rodinia Benchmark Suite, SPLASH-2, AutoBench, game console emulators, LMbench, Python benchmarks, STREAM benchmark, Speedometer
+
+
 - Things we still want: webservers, compilation, solvers (physics, optimization, combinatorial - SAT/SMT), web browsers, graphics, networking / packet processing / protocol stacks), full-featured parsers, document rendering (PDFs), filesystem drivers, kernel space stuff, image decompression / processing / format converters, text editor
 - https://github.com/sarsko/CreuSAT?tab=readme-ov-file
 
@@ -165,10 +169,14 @@ Easy means
   - LA: TensorFlow, Eigen, MKL, libxsmm
   - Video: ffmpeg, x264, VPX
   - Heterogenous boxes: dealing with noisy neighbors on the same node (not in a different VM, but rather multiple processes working on different tasks/responding to different RPCs on the same OS)
-
-- https://doc.rust-lang.org/beta/std/hint/fn.black_box.html
+- [DCT](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44271.pdf)
 https://benchmarksgame-team.pages.debian.net/benchmarksgame/measurements/rust.html
 
+### Rust no_std Libraries
+
+- crossbeam no_std/alloc primitives for multithreaded baremetal programming
+- (de)compression / serde (json, bincode, flatbuffers - iffy) / regex / data structures (stdlib, hashbrown, btrees, bigint, petgraph, yada, regex) / nom (parser combinators) / rustls, hmac, aes, crc32, md5, sha256, rsa (crypto) / wasm (webassembly interpreter / JIT) / rand_chacha, fastrand (RNG), UTF-8 validation, nalgebra/ndarray/faer-rs/rust-num, polars (iffy), some kind of interpreter (wasmi, revm-interpreter, starlark, boa (js)), some kind of JIT (cranelift), httparse
+- https://doc.rust-lang.org/beta/std/hint/fn.black_box.html
 
 ## uArch Microbenchmarks
 
