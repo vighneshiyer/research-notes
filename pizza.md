@@ -600,3 +600,57 @@ But as usual, there were some issues we need to address:
   - Bulk dough prep was a good idea and worked very well. Double rise is also a good idea. Do the same next time with more hydration.
 - Quantity
   - We had around 16 people, but 16 pizzas wasn't sufficient near the end. 20 pizzas would have been appropriate. Provision more next time.
+
+## Thanksgiving 2024 Pizza
+
+### Recipes
+
+#### Tomato Sauce
+
+- Ingredients: 2 14oz cans DOP whole San Marzano tomatoes, salt, dried oregano, olive oil
+    - This is sufficient for 2x8 12" pizzas (one tomato can is about 8-12 pizzas)
+- Separate the whole tomatoes from the puree in the can, place the whole tomatoes into a deep container. Keep the puree in another container in case the sauce becomes too thick.
+- Use an immersion blender to blend the tomatoes relatively smooth (but not completely smooth)
+- Finish with 3 tablespoons olive oil, 3 teaspoons dried oregano, 0-1 teaspoons salt (taste and adjust, keep salt low, parm will add more salt)
+
+#### Dough
+
+- (!!!) I just found out Caputo yeast is instant dry yeast, NOT active dry yeast!!! No wonder my dough has been overfermented!
+- We will be making standard 12" (250g) doughballs
+- Use Pizzapp to calculate proportions for 16 250g doughballs at **65%** hydration, 3% salt, 2 hours RT proof, 16 hours CT proof, instant/active dry yeast
+  - Increasing hydration this time to improve dough quality and burn resistance
+- Use [this technique](https://www.youtube.com/watch?v=smjPYUn6Uhs) to make all the dough in one shot by hand
+  - Add lukewarm water and yeast to large bowl and whisk, move wet ingredients to a large dough tray
+  - Mix salt and flour in a large bowl and add slowly to the wet ingredients
+  - Stir until combined, then knead by hand, dump onto work surface and continue kneading until smooth ball forms
+  - Wrap with plastic and rest for 20 minutes for gluten to strengthen
+  - Lift and fold the dough over itself until smooth again
+  - Let RT proof for 1 hour
+  - Form into 250g doughballs, place in floured dough tray with olive oil on top, RT proof for 1 hour
+  - CT proof for 16 hours
+
+#### Pizzas
+
+- We will be making 2 types of pizzas, alternating
+- Margherita
+    - tomato sauce, fresh mozzarella, grated parm, basil, olive oil
+- Pepperoni and prosciutto
+    - tomato sauce, fresh mozzarella, grated parm, olive oil, prosciutto, salami
+
+### Things to Get
+
+- [x] From lab
+    - [x] Plates[x], napkins[x], forks[x], knives[x], sodas/water[x], cups[x], wine / bottle opener[x]
+- [ ] Trader Joe's
+    - [ ] Drinks (1 pack beer, 1 port, 1 spirit)
+    - [ ] Fresh mozzarella (approximately 1 log for 5 pizzas) (4oz per 12" pizza)
+    - [ ] Fresh basil (1 plant) (6 leaves per pizza)
+    - [ ] Prosciutto (allocate 3x strips / pizza = 60 strips)
+    - [ ] Salami (allocate 10x slices / pizza = 200 slices)
+    - [ ] DOP Parm (just for this event)
+    - [ ] Instant yeast / active dry yeast (whatever is available, in case Caputo yeast is finished)
+    - ~~[ ] Olive oil~~ (not neeeded)
+- [ ] From home
+    - [x] Ingredients: none (semolina + 00 flour already in lab)
+    - [ ] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs)
+    - [ ] Equipment: dough slicer, microplane, spoons/ladles, matches (just in case)
