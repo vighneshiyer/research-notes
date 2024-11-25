@@ -101,44 +101,48 @@ We should use as many things from here as dependencies and contribute upstream.
 
 ## Rust-Based Baremetal Benchmarks
 
-### Benchmark Enumeration
+### Existing Benchmarks by Category
 
 So what already exists in the world of benchmarks?
-[Openbenchmarking](https://openbenchmarking.org/) covers lots of typical benchmarks run on commercial silicon.
+[Openbenchmarking](https://openbenchmarking.org/) covers lots of typical benchmarks run on commercial silicon, but most of these are hard to use for microarchitectural iteration.
 
-I mark things as **baremetal** or **easy** or **hard**.
-Easy means just a single binary, no GUI, no runtime, mostly shrinkwrapped, and doesn't depend on any unusual syscalls.
-
-#### Benchmarks by Category
+I mark things as **baremetal** or **easy**/**hard**.
+**Baremetal** runs baremetal of course (perhaps only an allocator is required).
+**Easy** means just a single binary, no GUI, no runtime, mostly shrinkwrapped (no external dependencies), and doesn't depend on any unusual syscalls (probably will run under `pk`).
+**Hard** is any workload that isn't easy to get running.
 
 - General purpose integer/FP code
   - [Coremark](https://github.com/riscv-boom/riscv-coremark) (super old, not representative) (**baremetal**)
   - [Coremark-PRO](https://github.com/eembc/coremark-pro) (5 integer and 4 FP workloads, uses multithreading, but can still work baremetal) (**baremetal**)
-  - [mibench](https://github.com/embecosm/mibench) (lots of random things) / [embench](https://github.com/embench/embench-iot/tree/master) (more random things) (**baremetal**)
+  - [mibench](https://github.com/embecosm/mibench) (lots of random things) (**baremetal**)
+  - [embench](https://github.com/embench/embench-iot/tree/master) (more random things) (**baremetal**)
+  - [toddmaustin/bringup-bench](https://github.com/toddmaustin/bringup-bench) (random things, but still relevant) (**baremetal**) ([Todd Austin's announcement](https://www.linkedin.com/posts/prof-todd-austin_opensource-computerarchitecture-benchmarks-activity-7265000332819091456-dI48/?utm_source=share&utm_medium=member_android))
   - [riscv-tests benchmarks](https://github.com/riscv-software-src/riscv-tests) (qsort, dhrystone, spmv, towers) (compute bound workloads) (**baremetal**)
   - [SPEC CPU 2017](https://www.spec.org/cpu2017/) (still considered useful and "somewhat" representative) (**easy** to run)
-  - [Geekbench](https://www.geekbench.com/) (widely used and reported, [internals](https://www.geekbench.com/doc/geekbench6-benchmark-internals.pdf) - seems reasonable and easy to replicate)
+  - [Geekbench](https://www.geekbench.com/) (widely used and reported, [internals](https://www.geekbench.com/doc/geekbench6-benchmark-internals.pdf) - seems reasonable and easy to replicate) (**hard**)
   - [Phoronix Test Suite](https://www.phoronix-test-suite.com/) (very comprehensive, contains benchmarks in all categories below, SOTA afaic) (**hard** to run most benchmarks in this suite in simulation)
   - [MediaBench](https://cs.slu.edu/~fritts/mediabench/) (very very old)
 - Vectors / numerics
   - [rvv-bench](https://github.com/camel-cdr/rvv-bench) (pretty good for RVV) (**baremetal**)
   - [Baremetal-NN](https://github.com/ucb-bar/Baremetal-NN) (pretty good for on-CPU ML workloads) (**baremetal**)
-  - [PolyBenchC](https://github.com/MatthiasJReisinger/PolyBenchC-4.2.1)
-  - [MLPerf Tiny](https://github.com/mlcommons/tiny)
-  - [BioBench2](https://github.com/reiverjohn/biobench2)
-  - [EEMBC AutoBench](https://www.eembc.org/autobench/)
+  - [PolyBenchC](https://github.com/MatthiasJReisinger/PolyBenchC-4.2.1) (*likely* **baremetal**)
+  - [MLPerf Tiny](https://github.com/mlcommons/tiny) (**baremetal** possible)
+  - [BioBench2](https://github.com/reiverjohn/biobench2) (old and irrelevant)
 - HPC / parallel numerical computations
-  - [NASA Parallel Benchmarks](https://www.nas.nasa.gov/software/npb.html) (uses MPI or OpenMP)
-  - [PARSEC (Princeton Parallel Benchmarks)](https://github.com/bamos/parsec-benchmark)
-  - [Splash-3](https://github.com/SakalisC/Splash-3)
+  - [NASA Parallel Benchmarks](https://www.nas.nasa.gov/software/npb.html) (uses MPI or OpenMP) (**hard**)
+  - [PARSEC (Princeton Parallel Benchmarks)](https://github.com/bamos/parsec-benchmark) (**hard**)
+  - [Splash-3](https://github.com/SakalisC/Splash-3) (*may* be **easy**)
 - Graphics
   - [Cinebench](https://www.maxon.net/en/cinebench) (CPU 3D rendering, running this in simulation may be too hard) (**hard** to run)
 - uArch extraction / reverse engineering microbenchmarks
-  - [LMbench](https://lmbench.sourceforge.net/) ([Github](https://github.com/intel/lmbench))
-  - [multichase](https://github.com/google/multichase)
-  - mess
+  - [LMbench](https://lmbench.sourceforge.net/) ([Github](https://github.com/intel/lmbench)) (memory latency/bandwidth ubenchmarks, **easy**)
+  - [multichase / multiload](https://github.com/google/multichase) (pointer chasing, latency/BW/loaded latency, **easy**)
+  - [mess](https://github.com/bsc-mem/Mess-benchmark) (DRAM BW/latency curves, **easy**)
 - Servers
-  - [SPECjbb 2015](https://www.spec.org/jbb2015/) (quite representative of backend server workloads) (hard to run)
+  - [SPECjbb 2015](https://www.spec.org/jbb2015/) (quite representative of backend server workloads) (**hard**)
+- Cyber-Physical Systems
+  - [EEMBC AutoBench](https://www.eembc.org/autobench/) (mostly irrelevant)
+  - [RobotPerf](https://github.com/robotperf/benchmarks/tree/main/benchmarks) (**hard**)
 
 ### Ideas About Benchmarks
 
@@ -171,6 +175,7 @@ GAP, PolyBenchC, MLPerf Tiny (on CPU), MediaBench, Rodinia Benchmark Suite, SPLA
   - Heterogenous boxes: dealing with noisy neighbors on the same node (not in a different VM, but rather multiple processes working on different tasks/responding to different RPCs on the same OS)
 - [DCT](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44271.pdf)
 https://benchmarksgame-team.pages.debian.net/benchmarksgame/measurements/rust.html
+- https://docs.rs/rkyv/latest/rkyv/index.html (in place data deserialization)
 
 ### Rust no_std Libraries
 
