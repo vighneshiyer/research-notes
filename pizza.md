@@ -641,16 +641,18 @@ But as usual, there were some issues we need to address:
 
 - [x] From lab
     - [x] Plates[x], napkins[x], forks[x], knives[x], sodas/water[x], cups[x], wine / bottle opener[x]
-- [ ] Trader Joe's
-    - [ ] Drinks (1 pack beer, 1 port, 1 spirit)
-    - [ ] Fresh mozzarella (approximately 1 log for 5 pizzas) (4oz per 12" pizza)
-    - [ ] Fresh basil (1 plant) (6 leaves per pizza)
-    - [ ] Prosciutto (allocate 3x strips / pizza = 60 strips)
-    - [ ] Salami (allocate 10x slices / pizza = 200 slices)
-    - [ ] DOP Parm (just for this event)
-    - [ ] Instant yeast / active dry yeast (whatever is available, in case Caputo yeast is finished)
+- [x] Trader Joe's
+    - [x] Drinks (1 pack beer, 1 port, 1 spirit)
+      - [x] Lemon juice
+      - [x] Honey
+    - [x] Fresh mozzarella (approximately 1 log for 5 pizzas) (4oz per 12" pizza) (2 logs + 1 chub)
+    - [x] Fresh basil (1 plant) (6 leaves per pizza)
+    - [x] Prosciutto (allocate 3x strips / pizza = 60 strips)
+    - [x] Salami (allocate 10x slices / pizza = 200 slices)
+    - [x] DOP Parm (just for this event)
+    - [x] Instant yeast / active dry yeast (whatever is available, in case Caputo yeast is finished)
     - ~~[ ] Olive oil~~ (not neeeded)
 - [ ] From home
     - [x] Ingredients: none (semolina + 00 flour already in lab)
     - [ ] From fridge: tomato sauce, DOP parm (tiny bag), sliced mozzarella, proofing trays (with doughballs)
-    - [ ] Equipment: dough slicer, microplane, spoons/ladles, matches (just in case)
+    - [ ] Equipment: dough slicer, microplane, spoons/ladles, matches (just in case), electric kettle
