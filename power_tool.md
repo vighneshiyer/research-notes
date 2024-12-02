@@ -22,6 +22,8 @@ The problem: I have RTL and a PDK. I have a RTL waveform. I want to know how muc
 
 Every big EDA tool vendor (Cadence, Synopsys, Siemens, Ansys) offers a variant of this kind of tool.
 
+- https://www.reddit.com/r/chipdesign/comments/144f2cg/power_estimation_tools_at_rtl_level/
+
 #### Cadence Joules / Voltus
 
 I wrote a long explanation of Joules as given to us by Cadence engineers [on my blog](https://vighneshiyer.com/conference_reviews/dac-2022/) (search for 'joules').
@@ -44,10 +46,13 @@ I have some [DAC slides on PowerPro from DAC 2022](https://vighneshiyer.com/conf
   - Used by Apple and ARM, RTL designers seem to enjoy it reasonably well
   - Used primarily to evaluate point changes in RTL, what-if analysis wrt clock gating
   - Appears to have a lightweight synthesis engine
+- http://www.deepchip.com/items/dac16-09.html (Subject: Calypto PowerPro -- but no Ansys PowerArtist nor Synopsys Spyglass)
 
 #### Ansys PowerArtist
 
 No experience, although positive experiences reported by others in industry.
+
+- https://www.deepchip.com/items/0512-05.html (Subject: A user study of Apache PowerArtist RTL power reduction techniques)
 
 #### Synopsys PrimeTime PX / PrimePower
 
@@ -62,7 +67,8 @@ No experience, although positive experiences reported by others in industry.
 
 ### iEDA
 
-- iPW
+- iPA
+  - https://ieda.oscc.cc/en/tools/ieda-tools/ipa.html
 
 ### OpenROAD
 

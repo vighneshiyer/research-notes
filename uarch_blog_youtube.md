@@ -16,6 +16,16 @@ Why isn't anyone doing a good job of this?
 Systematic comparison of commercial silicon running similar benchmarks (both for desktop e.g. Phoronix and datacenter e.g. stuff we will figure out)
 
 HighYield
+TheChipLetter
+SemiAnalysis
+Chips and Cheese
+- https://www.notebookcheck.net/Apple-M4-Pro-analysis-Extremely-fast-but-not-as-efficient.915270.0.html
+- https://www.agner.org/optimize/microarchitecture.pdf
+- https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html
+- https://rajesh-s.gitbook.io/compengg/area_specific/processors
+- Kurnal: https://www.reddit.com/r/hardware/comments/1gmfvoi/kurnal_mt6991_dimensity_9400_analysis_report/
+- Geekerwan
+
 
 ## Opportunities
 

@@ -138,6 +138,7 @@ I mark things as **baremetal** or **easy**/**hard**.
   - [LMbench](https://lmbench.sourceforge.net/) ([Github](https://github.com/intel/lmbench)) (memory latency/bandwidth ubenchmarks, **easy**)
   - [multichase / multiload](https://github.com/google/multichase) (pointer chasing, latency/BW/loaded latency, **easy**)
   - [mess](https://github.com/bsc-mem/Mess-benchmark) (DRAM BW/latency curves, **easy**)
+  - [STREAM](https://www.cs.virginia.edu/stream/) (memory bandwidth)
 - Servers
   - [SPECjbb 2015](https://www.spec.org/jbb2015/) (quite representative of backend server workloads) (**hard**)
 - Cyber-Physical Systems
@@ -176,6 +177,8 @@ GAP, PolyBenchC, MLPerf Tiny (on CPU), MediaBench, Rodinia Benchmark Suite, SPLA
 - [DCT](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44271.pdf)
 https://benchmarksgame-team.pages.debian.net/benchmarksgame/measurements/rust.html
 - https://docs.rs/rkyv/latest/rkyv/index.html (in place data deserialization)
+- rug arbitrary precision numbers
+- http://www.numberworld.org/y-cruncher/
 
 ### Rust no_std Libraries
 
