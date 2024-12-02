@@ -51,7 +51,7 @@ The algorithms themselves already exist, but it would be cool to see them packag
 ## Rust RISC-V Baremetal Environment
 
 For this, we want a simple environment where we can mark an entry point, have a panic handler, have a basic baremetal allocator, we can use HTIF for syscall proxying, and have sensible and minimal bootup code + linker script.
-A similar multithreading setup to `riscv-tests/benchmarks` would be nice too: just have separate code paths for each thread pinned on each core, but with the usage of Rust synchronization primitives.
+A similar multithreading setup to `riscv-tests/benchmarks` would be nice too: just have separate code paths for each thread pinned on each core, but with the usage of Rust synchronization primitives ([example](https://github.com/rcore-os/rcore-thread)).
 If we are ambitious, we can also make true multithreading work in baremetal, which would involve a scheduler, a way to mount/unmount threads, and so forth (still no virtual memory however and only a single process would be supported).
 
 This would also involve setting up [BSPs for particular chips](https://github.com/ucb-bar/Baremetal-IDE/tree/main/platform) and some [RISC-V commercial silicon](https://github.com/rust-embedded/riscv/blob/master/riscv-peripheral/examples/e310x.rs).
@@ -150,6 +150,10 @@ I mark things as **baremetal** or **easy**/**hard**.
 - leverage servo and other rust top-level applications to drive stimulus generation for the baremetal microbenchmarks
 GAP, PolyBenchC, MLPerf Tiny (on CPU), MediaBench, Rodinia Benchmark Suite, SPLASH-2, AutoBench, game console emulators, LMbench, Python benchmarks, STREAM benchmark, Speedometer
 
+- https://gitlab.laas.fr/matana/bench/benchmark-riscv
+- https://docs.rs/embedded-graphics/latest/embedded_graphics/
+- https://github.com/parsa-epfl/cloudsuite/blob/main/docs/benchmarks/data-serving.md
+- https://github.com/google/fleetbench
 
 - Things we still want: webservers, compilation, solvers (physics, optimization, combinatorial - SAT/SMT), web browsers, graphics, networking / packet processing / protocol stacks), full-featured parsers, document rendering (PDFs), filesystem drivers, kernel space stuff, image decompression / processing / format converters, text editor
 - https://github.com/sarsko/CreuSAT?tab=readme-ov-file
@@ -179,6 +183,8 @@ https://benchmarksgame-team.pages.debian.net/benchmarksgame/measurements/rust.ht
 - https://docs.rs/rkyv/latest/rkyv/index.html (in place data deserialization)
 - rug arbitrary precision numbers
 - http://www.numberworld.org/y-cruncher/
+- Intel's memory latency checker
+- LMBench, STREAM, OSU Microbenchmarks, NanoBench, CacheBench (part of PolyBench)
 
 ### Rust no_std Libraries
 
