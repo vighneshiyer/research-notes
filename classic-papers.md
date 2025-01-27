@@ -127,3 +127,7 @@
 > Reading period assignment: Meaningful papers about CS that are not CS papers
 > a.     Sutherland 1980
 > b.     Gefter 2016
+
+- https://news.ycombinator.com/item?id=42799103
+  - Most Influential Papers in Computer Science History (terriblesoftware.org)
+  - https://terriblesoftware.org/2025/01/22/the-7-most-influential-papers-in-computer-science-history/
