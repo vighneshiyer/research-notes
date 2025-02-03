@@ -21,12 +21,41 @@ Tools to evaluate:
 - ONNX Runtime (with/without MLIR optimizer backend)
 - Pytorch Glow
 - TensorRT (not really suitable for evaluation since it is quite opaque)
+- XNNPack
+- https://onnxruntime.ai/docs/execution-providers/TensorRT-ExecutionProvider.html
+- IREE
+- Tinygrad
+- https://onnxruntime.ai/docs/execution-providers/QNN-ExecutionProvider.html
+- Runtimes
+  - https://github.com/vllm-project/vllm
+  - llama.cpp
+- RoCm / HIP / other AMD stuff: https://rocm.docs.amd.com/projects/HIP/en/docs-develop/how-to/hip_runtime_api/hipgraph.html
+- https://developer.apple.com/documentation/accelerate
+- Stuff on top like ALPA and other model partitioning libraries for multi-GPU
+- Stuff produced by Tenstorrent for their silicon (TT Metalium)
+- How do MLIR / HLO / JAX / OpenXLA / IREE relate to each other? Very confusing.
+  - https://github.com/iree-org/iree-comparative-benchmark (performance comparisons are interesting, but odd since there is so much fragmentation)
+- MLPerf - probably the only attempted benchmark suite
+- Triton (kernel library) + Triton (NVIDIA's inference server)
+- Langchain (basically LLM wrappers and agents)
+
+> Can you search for an image that summarizes the "ML stack". I mean ML libraries like pytorch and jax and tensorflow, and then ML compilers like iree, and then low level ML routines like TensorRT and then lower level stuff like CUDA, and so forth? And sitting above the ML libraries are runtimes like onxx runtime or custom implementations of models like llama.cpp
+
+> High-Level Frameworks and Libraries: These include libraries like PyTorch, TensorFlow, and JAX, which provide user-friendly APIs for building and training ML models.
+>
+> ML Compilers and Optimization Tools: Tools such as IREE and XLA optimize models for efficient execution on various hardware platforms.
+>
+> Low-Level Libraries and Runtimes: This layer comprises components like ONNX Runtime and custom implementations such as llama.cpp, which facilitate model execution across different environments.
+>
+> Hardware Acceleration Libraries: Libraries like TensorRT and cuDNN offer optimized routines for deep learning operations, enhancing performance on specific hardware.
+>
+> Hardware Interfaces: Technologies such as CUDA provide the necessary interfaces to leverage GPU capabilities for computational tasks.
 
 Workloads and Benchmarks: TBD - start with specific kernels (e.g. GEMM, CONV) and move to full networks.
 
 Platforms: x86 (+ AVX), ARM (+ SVE/SME), RISC-V (+ RVV) (I think we should exclude GPUs for now)
 
-More generally: No one has really done a comprehensive survey and benchmark of all these random tools floating out there. It isn't clear why some perform better than others and the limitations of each framework are also hidden. Furthermore, it is not at all clear how these compilers work internally - what is the actual complexity in integrating a new piece of hardware or a new ISA extension? What optimizations can be generally applied, and which ones require hand-holding? 
+More generally: No one has really done a comprehensive survey and benchmark of all these random tools floating out there. It isn't clear why some perform better than others and the limitations of each framework are also hidden. Furthermore, it is not at all clear how these compilers work internally - what is the actual complexity in integrating a new piece of hardware or a new ISA extension? What optimizations can be generally applied, and which ones require hand-holding?
 
 We want such an investigation to motivate the correct ISA-level design of RVV and AME, and eventually build an implementation and tape it out.
 
