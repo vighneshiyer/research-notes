@@ -29,3 +29,10 @@ egraph based semantic equivalences of subgraphs
 at each level of 'lowering' the ability to refer to a group of potential lowered forms is essential. need a way to also 'backtrack' with a common data model as lowering is being performed. try to fix the uarch of behavioral components as late as possible, but also avoid 'fixing' but rather enumerate/sample the space somehow (this is more related to synthesis and PnR, perhaps not to the things we need for an emulator.
 
 Can we leverage an FPGA itself to accelerate graph partitioning, mapping, or subgraph isomorphism?
+
+- would be useful to look at how cranelift is different from LLVM: https://github.com/bytecodealliance/wasmtime/blob/main/cranelift/docs/compare-llvm.md
+  - cranelift uses a single IR whereas LLVM uses multiple IRs at different levels of the compiler pipeline. cranelift IR is not as amenable to mid-level opt.
+    - it seems that cranelift's IR nodes have empty fields that are filled in by passes rather than being transformed into new node types with new fields
+
+- https://www.cs.cornell.edu/~asampson/blog/flattening.html
+- https://www.cs.cornell.edu/~asampson/blog/flatgfa.html
