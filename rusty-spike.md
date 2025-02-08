@@ -1,0 +1,88 @@
+## Random Notes
+
+- Master simulation, ganged simulation for dv, slave simulation as trace ingester, single inst replay stepper, symbolic execution, many modes we want to support
+
+- Switch to dbt simulator mode, if possoble
+- Exact soc modeling, checkpoint and replay, switch simulation modes during runtime
+- Ability to transpile into generic isa ir during execution for generic pass writing
+- Maybe that should be a part of tracekit instead
+- Create a very high perf riscv disassembler that disassembles into rust native structures either based on inst type (r, I, etc) or semantic inst type (arith, mem, etc)
+- Leverage simd
+
+- fesvr + io models + everything on the edge needs to work in RTL sim + FPGA emulation / firesim + functional simulation
+  - need to make top-level ports explicit, no internal DPIs
+- need to do review of Vienna - someone should look into that
+
+## Early Meeting (Fall 2024)
+
+- Ansh and Pramath will do the first RISC-V spike Rust prototype
+  - Initially interpret just rv64ui
+  - Support memory ops
+  - Hand write assembly tests (or just a shim on top of riscv-tests default env - see 151 tests)
+  - Get spike diff testing working very first
+- Safin: fesvr integration and rewrite side
+- Junha: Vienna
+
+## 1/31/2025
+
+Rusty Spike:
+
+- Zicsr extension + some CSRs defined in supervisor spec
+  - https://github.com/five-embeddev/riscv-isa-data/blob/master/csr.yaml
+- Testing
+  - riscv-isa-tests using p env for rv64imac (fd)
+  - next: pm (multicore, benign) + pt (timer interrupts) envs
+  - next: v (virtual memory / translation)
+  - simultaneously: riscv-benchmarks (might need f/d extensions for some of these)
+  - next: embench, coremark
+  - next: pk + simple userspace binary (might need HTIF host filesystem syscall support)
+  - next: booting Linux
+
+RISC-V Rust Benchmarks:
+
+- So far, ported some of the riscv benchmarks to Rust
+- Get dhrystone working using gcc14 cross compiler (warning that becomes an error)
+  - gcc14 doesn't like dhrystone
+  - Makefile: `RISCV_GCC_OPTS ?=  -Wno-implicit-int -Wno-implicit-function-declaration`
+- Port towers not 1:1, just use Vec
+
+## 2/7/2025
+
+RISC-V Rusty benchmarks (Connor):
+
+- Need to investigate multithreaded riscv benchmarks
+  - Need to make sure they are running on each core simultaneously
+  - It seems like crt.S is holding all cores suspended except hart 1 (... not great, let's get this really working in Rust)
+  - Vighnesh to check on this with spike
+- Embench semantic port
+  - https://github.com/ucb-bar/chipyard/blob/main/software/embench/build.sh
+    - Use Chipyard tests as reference for compiling embench for RISC-V
+    - Modify the embench source to add some minstret counters before and after the test executes
+    - Make sure these work in spike
+  - Semantically port one of the benchmarks to Rust (`aha-mont64` is one option)
+    - Does Montgomery multiplication
+    - https://github.com/rust-num (use some crates here, ask GPT)
+- Compile `riscv-tests/benchmarks` with clang to avoid gcc-related discrepancies
+  - Vighnesh will send a patch to make this work
+- Continue to investigate differences between Rust and C versions of `riscv-tests/benchmarks`
+
+FP ISA support (Ansh):
+
+- Working on FP ISA implementation
+- Trying to diff `riscv-tests/benchmarks` against spike using commit log
+  - Need to patch up the commit log printed by Rusty spike so it correlates perfectly with spike
+  - Safin will make sure text diffing works
+
+CSR support (Safin):
+
+- Working on CSR implementation for Rust codegen
+- Appears that for any given CSR, the privilege mode required to write it is the same for all bits
+  - However, there are fields within a given CSR that have different read/write behaviors
+  - These behaviors should be enforced in the implementation of each field update (but initially, just make the entire CSR writable)
+
+ADL (Ansh):
+
+- ADL docs: https://github.com/euphoric-hardware/riscv-functional-sim?tab=readme-ov-file#architectural-description-languages--generated-iss
+  - Why design a new ADL? Why not Sail, riscv-unified-db, VADL?
+  - All of them have some critical technical deficiency or annoyance (yes, annoyances are a big deal)
+- Commit what you have somewhere, and Vighnesh will sketch out the data types you need
