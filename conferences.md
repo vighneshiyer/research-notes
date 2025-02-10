@@ -29,6 +29,20 @@
     - PL
     - ML
 
+- Industry Shows
+  - DAC
+  - Supercomputing
+  - DesignCon
+  - RISC-V Summit
+  - HotChips
+  - NVIDIA GTC
+  - Chiplet Summit
+  - PCB West
+  - SNUG (https://www.synopsys.com/community/snug.html)
+  - DVCon
+  - SEMICON West
+  - A quick visit to the exhibition hall of any of these is surely to make you realize just how irrelevant most academics really are.
+
 ### January
 
 - FCCM (IEEE Symposium on Field-Programmable Custom Computing Machines)
