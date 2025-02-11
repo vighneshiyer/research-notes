@@ -44,7 +44,7 @@ Can we leverage an FPGA itself to accelerate graph partitioning, mapping, or sub
 - Some way to store diffs of graphs in parallel with the hashed graph -> AST structure
  - So if you're doing some cross-module optimization (e.g. constant propagation, DCE), then ideally you don't want to flatten everything (inline every module) and treat all the instances of the same module uniquely (this is how things are done today in every CAD tool, even in Verilator, and others)
  - Instead, you want to store some 'base' module description, and then store diffs of that base in every place that the module is instantiated but optimized differently
- - This is somewhat a duplicate
+ - This is somewhat a duplicate form of the hash based AST database; unclear what value having a separate diff database would get you. Furthermore, representing graph diffs might be tricky.
 
 - Thinking on the synthesis and PnR side. what we really want is to have a space of options (of microarchitecture, and PPA tradeoffs) for any given subgraph and then this becomes an ideal composition problem (similar to the extraction problem for egraphs).
   - This meshes with the 'blob-oriented' physically-aware synthesis concept
