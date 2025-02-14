@@ -86,3 +86,29 @@ ADL (Ansh):
   - Why design a new ADL? Why not Sail, riscv-unified-db, VADL?
   - All of them have some critical technical deficiency or annoyance (yes, annoyances are a big deal)
 - Commit what you have somewhere, and Vighnesh will sketch out the data types you need
+
+## 2/14/2025
+
+FP ISA support and benchmarks hacking (Ansh):
+
+- FP ISA should be in
+  - ISA tests for F still need to be verified
+- We need a precise programmatic diff between spike and rusty RISC-V log
+  - We built a small test program that just prints one character via HTIF
+  - Trying to get the HTIF prints working is difficult without knowing where things diverge
+- Need to instrument HTIF device with some prints
+  - Figure out why the benchmark trace is dying early (seems to be some unimplemented CSR or instruction causing a trap)
+
+RISC-V Rust benchmarks (Connor):
+
+- Still need to figure out RISC-V multicore benchmarks which don't seem to use all cores
+- Embench on RISC-V
+  - https://chipyard.readthedocs.io/en/stable/Chipyard-Basics/Initial-Repo-Setup.html
+  - Use Chipyard installation process
+  - `./build-setup.sh --use-lean-conda` (use this special command line option)
+  - Then build embench as usual in `software/embench`
+- `aha-mont64`: use GPT or rust-num
+- `md5sum`: you already used `md5` crate. Just need to use same stimulus as embench and check the outputs against each other.
+
+- Vighnesh
+  - Need to upstream clang in riscv-tests/benchmarks (highly doubt this will be accepted upstream)
