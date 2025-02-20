@@ -612,3 +612,25 @@ In general, I need to do better job explaining
 - No more than 35 slides, make the key point / case in slide 7/8
     - Get to the point early
     - 3Qs: why, what (get to this quickly, by slide 7/8), and how
+
+### More Notes
+
+- End of Moore's law end of dennard scaling so we have heterogeneous socs with accelerators and critically specialized Microarchitectures even multiple uarch on the same chip for different application and workload characteristics
+- See new apple chips with pcore encore, but also other Qualcomm chip with 3 different cpu variants
+- So there are two questions: what specializization uarch is possible and how to pick it which is the benchmark and presilicon evaluation problem
+- But also consider other axes, Verif and power is getting harder, we want to ease these efforts
+- Motivate why we need this smarts and simpoints hybrid sampling. Talk about io devices and why this matters for industry given performance modeling teams. Also perf models are often done in industry for correlation to make sure the rtl matches, written by two different teams. Brucek suggests using GPU large batch perf simulation for using many many parallel simulations
+- Write papers and qual talk and presentations as a designer working on a problem and solving each piece of it
+- I made rtl change, how do I see impact? I can do this.... But it has this problem. Let's try this (embedding) based on this observation (phase behavior). Then let's try rtl injection. Then we see these results. Why are the results bad? Let's analyze mkpi between full rtl and TidalSim. Oh we see that the caches aren't being warmed! How does warming change with different warming intervals? Can we also simulate intervals around those that are far from centroid? Then how can we do warming? What data structure do we need? Basically don't talk about implementation dumb stuff, just talk about a story about developing a tool and tell story through experiments and plots
+
+- Tell a story! Start with concrete example and motivate accordingly.
+- I have idea, do impl in chipyard, eval is hard! Then uarch sims, but show inaccuracy, then show sampled simulation idea for rtl sim, then how does that work, then let's try a prototype, then where does error come from? Look at perf metrics, then generalize the injection harness, then make checkpointing robust, then how about streaming,...
+
+- Begin to write my thesis
+  - Very detailed and personally driven with examples on arch simulation, analyze all the papers in the area
+  - Use latex book template then migrate to usual dept template
+  - Synthesizing fn simulators, see slides
+  - Pre compile basic blocks from riscv into C or llvm bitcode and then add instrumentation, or do this dynamically, this seems ideal! And still maintains all the fidelity we want
+  - Look at other people's thesis who did this work related to simulation
+
+- I should talk about how the verification work inspired me to work on actually problems, bad benchmark, not a real issue
