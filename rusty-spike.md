@@ -112,3 +112,31 @@ RISC-V Rust benchmarks (Connor):
 
 - Vighnesh
   - Need to upstream clang in riscv-tests/benchmarks (highly doubt this will be accepted upstream)
+
+## 2/21/2025
+
+- Rusty spike
+  - Diffing with spike is WIP, some HTIF issues caused by Joonho's chunking changes that need to be fixed. Even ISA tests appear to fail (just in the exit code handling part though).
+  - F extension still not tested
+- Embench port
+  - md5sum benchmark looks good, checked against embench version
+  - Other benchmarks that were easy to port are also done, results line up
+  - Overall, looking good
+  - Some benchmarks like statemate are just garbage and not worth porting, just ignore those
+  - At this point, we will just build our own benchmark suite and divorce completely from ports of `riscv-tests/benchmarks` and embench
+- Next step: microbenchmarks
+  - Port the stdlib data structure (Vec, HashMap, ...) microbenchmarks to baremetal RISC-V
+  - Reuse the benchmark code which should have a wide range of representative inputs and function calls
+  - Potentially the benchmarking library needs to be hacked to run on a RISC-V baremetal target
+- Note: use the blackbox intrinsic
+  - Prevent compiler from doing const prop
+  - Montgomery multiplication otherwise is fully const propped and no multiplication is done at runtime lol
+- Next step: benchmark data extraction
+  - For sha256 and AES we should find crates or applications that use these functions
+  - Instrument the functions to capture the arguments
+  - Before doing any of that, just look at which applications use these first
+  - Avoid the embench approach of hardcoding random input stimuli
+- ADL Scala elaboration and circuit traversal
+  - This part is hard. Elaborating Chisel and traversing the elaborated circuit in Scala isn't really supported right now.
+  - The problem is that the flow looks like: Chisel code -> elaboration -> in-memory chisel.firrtl object -> .fir file -> circt -> bunch of passes -> Verilog
+  - Might be worth using this: https://github.com/sequencer/zaozi
