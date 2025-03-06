@@ -56,3 +56,5 @@ There are two approaches
   - Jim suggests race to halt is usually the best heuristic
   - Bora mentions sign and magnitude vs 2s complement in DSP pipelines. Algorithmic transformations to save energy - look at papers from the 90s
   - Sophia mentions that bad prefetching can burn energy and marginally improve performance, so... you should improve the prefetching?
+
+Honestly, it is hard to think about things to do in power that aren't either: 1) building a power tool that is very fast (and all the things that come with it: incrementalism, fast synthesis, parallel RTL to GL waveform mapping and power simulation, what-if analysis for power gating), 2) building abstractions and frontend design languages that are power aware (think UPF primitives in Chisel + a simulator that understands them + some formal techniques to ensure power gating happens successfully and is bug-free), 3) building a methodology for stimulus generation that induces comprehensive power profiles

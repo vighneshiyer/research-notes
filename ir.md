@@ -55,3 +55,43 @@ Can we leverage an FPGA itself to accelerate graph partitioning, mapping, or sub
   - Parallelizable with respect to subcircuits (is topological sorting required, or can trivial graph parallel algorithms work)
   - Can a pass affect the module hierarchy? By reparenting, splitting, or otherwise. Reparenting can be tricky since you might want to grab an instance and various bits of logic attached to it, and deal with them uniformly.
 - Passes: CSE, DCE, constant propagation, FAME0, FAME1, FAME5, FAME memory optimizations, assertion/cover synthesis, width inference, type resolution (input/output), SSA to graph transformations, statement-oriented transformations (e.g. case/if to mux conversion), print synthesis, comb loop detection, reset type conversion, register init, memory transformations / mappings, module deduplication, module renaming, port punching / pushing internal signals out to the top level, module grouping, module inlining
+
+Structural vs behavioral constructs in hardware and software
+
+- event driven semantics and all derived state
+- behavioral semantics with specified state
+  - behavioral control flow with structural dataflow
+- structural semantics
+
+- what is behavioral or structural in the first place?
+- behavioral: if you're describing the behavior of some construct that can be expressed in multiple ways structurally
+- structurally: is defined *with respect to* some set of primitives - this is different based on the target you're talking about
+
+- Capturing subgraph functions with holes that can be filled in as part of the caching layer
+  - How abstract should 'equivalent' representations be? e.g. if a circuit has the same structure besides bitwidth, should those be treated as the same? what about entries in an array or so on... how much can we abstract away and substitute as inputs?
+- abstraction vs paradigm vs structural/behavioral, are these all saying the same thing?
+- how do you express a clock mux? or any other type of structural thing that might be behaviorally described just as well.
+
+- all hardware IRs today quickly move to structural representation
+  - FIRRTL, LLHD, Circt's representation for other dialects, LNAST/LGraph/LiveHD
+  - We think we shouldn't do this and instead preserve a super-phi-node sea-of-nodes representation straight from the behavioral representation
+- My chat (updated): https://chatgpt.com/share/67c8de3e-01a4-8004-9f29-822163958373
+
+- Dan's articles
+  - Event-Driven & Reactive Hardware: https://archive.is/ouPsl
+  - Models All The Way Down: https://archive.is/PRFHI#selection-302.0-302.1
+  - The Languages of Hardware: https://archive.is/xNVYt#selection-302.0-302.1
+  - How Software Makes Hardware: https://archive.is/MxFVO#selection-302.0-302.1
+
+- So there are clear downsides to the all behavioral approach to hardware IR control flow, but I feel those are all OK
+  - Joonho will ask Jack about this
+  - One major downside is there is no way to trace the driver tree of a given net exactly and fully localize its control expression
+  - Comb loop detection becomes harder too
+  - You can't do cell type counting (e.g. count the muxes), you have to
+  - How does this impact bitwidth inference and deduplication?
+
+- Deduplication, caching, incrementalism, and abstraction are all sides of the same coin
+
+- A naturally deduplicating hardware representation would ideally do away with the notion of 'modules' as an IR primitive, rather making modules into pure metadata around an arbitrary blob of logic that fundamentally marks replicated logic
+  - The deduplication/caching/incremental technique should be independent of the graph schema itself, and the semantics of each graph node + edge attribute
+  - Consider the fully structural case first
