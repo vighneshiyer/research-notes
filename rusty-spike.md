@@ -140,3 +140,21 @@ RISC-V Rust benchmarks (Connor):
   - This part is hard. Elaborating Chisel and traversing the elaborated circuit in Scala isn't really supported right now.
   - The problem is that the flow looks like: Chisel code -> elaboration -> in-memory chisel.firrtl object -> .fir file -> circt -> bunch of passes -> Verilog
   - Might be worth using this: https://github.com/sequencer/zaozi
+
+## 3/14/2025
+
+- Rusty spike (Ansh)
+  - Debugging benchmarks
+  - Using native FP in Rust isn't doable, can't access flags. Perhaps have to use x86 specific FP primitives, if we want to use native instructions
+  - Someone already built a wrapper around softfloat in Rust, but that doesn't build on ARM
+  - Used an alternative soft floating point crate to implement F extension for now
+  - Trying to debug exiting in `riscv-tests/benchmarks/mm`. Seems to be doing iffy things during `printf` or the `exit` routine
+    - OK found! The problem is that the fast exit path for HTIF isn't implemented in Rust fesvr... very stupid (only the exit syscall was implemented)
+  - Next steps: get embench working too + rigorous diffing tool vs spike + begin some NEMU-style performance optimizations (and collect baseline performance numbers)
+- Rusty benchmarks (Connor)
+  - Rust stdlib microbenchmarks
+  - test crate only supports Tier 1 targets (not baremetal RISCV), unclear how much work it would be to modify test to get support for our desired target
+  - Other option is to manually port the raw code of the benchmarks to a separate baremetal `no_std` project
+  - OK we will try this option! See how much work it is.
+  - For stimulus for the embench kernels, we can observe the embench stimuli are just stupid. We should just use some sensible stimulus.
+  - Next steps: instrument the aes crate, build some application that uses it, then capture the stimulus. Demonstrate this is possible.
