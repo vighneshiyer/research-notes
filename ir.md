@@ -95,3 +95,17 @@ Structural vs behavioral constructs in hardware and software
 - A naturally deduplicating hardware representation would ideally do away with the notion of 'modules' as an IR primitive, rather making modules into pure metadata around an arbitrary blob of logic that fundamentally marks replicated logic
   - The deduplication/caching/incremental technique should be independent of the graph schema itself, and the semantics of each graph node + edge attribute
   - Consider the fully structural case first
+
+## Random Notes
+
+- Consider a content-addressed IR
+  - `val x = 1.U + 2.U`
+  - This uses a primitive `+: UInt => UInt`, hashes to something (let's say all primops on a given HW type have some hash e.g. `H+`)
+  - `[nameless] = (() -> H+ UIntLit(1) UIntLit(3)` (no input args, literals are explicit value types and not mere bindings, perhaps they have their own hashed representation)
+  - `UInt.+ = (#arg1 #arg2 -> #H+ arg1 arg2`. Definitions on type `UInt`. Is this signature any different from `H+` itself? Perhaps that is all `H+` is!
+- Questions for the frontend
+  - Should every expression return a concrete type?
+  - Should the frontend aggressively rewrite sub-expressions with their hashes, or leave some duplication?
+  - Should type constructors (e.g. `T -> Vec[T]`) be a part of the IR?
+  - Can we sketch out how parameters can unify plusargs and inputs (e.g. `hart_id` fiasco in Rocket)
+  - Unified optimization strategy (equivalent wrt semantics NOT structure) - how can we handle optimized out parts of a circuit that are context-dependent?
