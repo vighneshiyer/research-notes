@@ -88,3 +88,8 @@ Questions from Joonho:
 - Wouldn’t the higher level execution graph level optimization have a higher impact on performance than the lower level micro-kernel performance? So again, will this lead to ISA/hardware level insights? Am I missing something here? Still, I think it will lead to compiler level insights and guide us on what the current compiler frameworks are missing and how we can do better.
 
 > High level graph optimization often will involve multicore and multi-accelerator stuff - likely there are hardware bottlenecks to resolve here. But furthermore, we don't even understand the breakdown of what optimizations contribute what to overall performance uplift - a thorough understanding will be valuable on its own
+
+- Still a good idea to taxonomize and compare all these frameworks
+  - Just for NEON, AVX, RVV, no need to even think about GPU just yet
+  - Consider other NPUs / mobile DSP cores (e.g. Hexagon) too
+- There are too many layers in this ML compiler stack - need to write a clean survey and comparison
