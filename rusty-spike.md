@@ -158,3 +158,13 @@ RISC-V Rust benchmarks (Connor):
   - OK we will try this option! See how much work it is.
   - For stimulus for the embench kernels, we can observe the embench stimuli are just stupid. We should just use some sensible stimulus.
   - Next steps: instrument the aes crate, build some application that uses it, then capture the stimulus. Demonstrate this is possible.
+
+## 4/4/2025
+
+- 10x performance delta vs spike running embench right now (no traces, release compilation mode)
+- Next step: profiling is required, we should try some tracing and sampling profilers to get a rough idea about the time consuming functions
+- Next: implement the NEMU-style uop cache (see Figure 7: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9923860&tag=1)
+  - Just implement the uop cache, leave out the threaded mode logic and let each target instruction delegate back to the main run loop to perform fetch and dispatch again
+  - Preallocate the entire uop cache as a Vec, overallocate the fields each instruction may need access to
+  - Next, it would be more interesting to implement basic block decoding and execution first rather than threaded mode
+  - Then, we can play with threaded mode which does complicate matters like interrupt servicing and ganged co-simulation

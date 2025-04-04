@@ -1,5 +1,6 @@
 # Classic Papers
 
+- https://rsim.cs.illinois.edu/arch/qual.html (Great selection of comp arch classics from UIUC, and parallel programming + systems + compilers)
 - We should know the fundamental prior works in CS and even some physics
 - https://dl.acm.org/doi/fullHtml/10.1145/2330667.2330681 (Christos Papadimitriou)
 - https://reestheskin.me/classics-i-want-all-berkeley-graduate-students-to-read-them/
