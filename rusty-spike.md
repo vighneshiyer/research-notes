@@ -168,3 +168,21 @@ RISC-V Rust benchmarks (Connor):
   - Preallocate the entire uop cache as a Vec, overallocate the fields each instruction may need access to
   - Next, it would be more interesting to implement basic block decoding and execution first rather than threaded mode
   - Then, we can play with threaded mode which does complicate matters like interrupt servicing and ganged co-simulation
+
+## 4/11/2025
+
+- Rusty spike
+  - Implemented microop cache, but can't leverage generated opcode Rust code. Will have to add generation back in later.
+  - riscv-tests/benchmarks: about 2-3x faster than spike already
+  - embench: 2-15x slower than spike (mostly due to FP slowness in the bad cases)
+  - Biggest bottleneck is memory still, due to hashed page scheme
+    - Let's try using just a hugepage allocation and not worry about the host memory usage
+  - CSRs implemented using big match -> turned into direct array access, much faster
+  - FP performance is limited by the rust softfloat crate, we will try to convert directly to host instructions + arch specific instructions to set fflags (INEXACT flag is iffy to set)
+  - Chipyard needs to work on ARM, why does build-setup fail? This is unacceptable
+- Microbenchmarks
+  - Ported the Rust Vec / slice stdlib benchmarks to run baremetal via a separate program
+  - Running out of memory at runtime due to naive baremetal allocator not actually deallocating when freed (it is just a naive arena allocator)
+  - We can use a better allocator or try to fix the linker script to reserve more memory for the heap (this seems iffy - some odd bug in the llvm linker perhaps)
+  - Default upstream benchmark runtime loops each test function until the runtime begins to converge (to deal with cache effects and noise). We are just going to fix the number of iterations.
+  - Try this: https://chipyard.readthedocs.io/en/stable/Simulation/Software-RTL-Simulation.html#simulating-the-default-example
