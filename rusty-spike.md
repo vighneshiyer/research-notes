@@ -186,3 +186,17 @@ RISC-V Rust benchmarks (Connor):
   - We can use a better allocator or try to fix the linker script to reserve more memory for the heap (this seems iffy - some odd bug in the llvm linker perhaps)
   - Default upstream benchmark runtime loops each test function until the runtime begins to converge (to deal with cache effects and noise). We are just going to fix the number of iterations.
   - Try this: https://chipyard.readthedocs.io/en/stable/Simulation/Software-RTL-Simulation.html#simulating-the-default-example
+
+## 4/18/2025
+
+- New allocator = no more linker problems with larger heap allocations
+  - All the Rust Vec stdlib microbenchmarks run clean on spike
+  - Messing with the size of the heap region in the linker script works without any issues now
+  - Next: figure out Chipyard setup... first try using the upstream miniconda installer vs AUR, then try using an Ubuntu VM, report any issues
+- Rust spike performance is quite good after FP optimization
+  - Use ARM host FP instructions when possible, x86 host still falls back to softfloat emulation, after some Rust ARM intrinsics hacking it works fine
+  - Hugepage allocation needs some special API calls to get it working on OSX, large contiguous memory allocation for DRAM takes significant time with 4k pages, which is OK actually as a fallback as long as reads/writes happen faster
+  - Next: use a long Dhrystone run to get a fresh profile / flame graph and figure out the next bottleneck
+  - Seems like there are clear perf improvements to be had for emulated DRAM access
+  - Decode and fetch with the uop cache are already quite fast and take up little time
+  - Some of the NEMU optimizations seem very niche (like the x0 write optimization) and may not be valuable right now. Hard to tell if explicit threaded interpretation will give significant benefits (I feel that LLVM is already optimizing the dispatch loop quite well).
