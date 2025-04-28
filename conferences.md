@@ -106,6 +106,8 @@
     - Paper: Apr 21, Workshop: mid-June
 - PLARCH (Programming Languages for Architecture) (co-loated with ISCA)
     - Paper: Apr 28, Notification: May 12, Workshop: mid-June
+- [The Association for Computational Heresy - SIGBOVIK](https://sigbovik.org/)
+    - Proceedings published in April
 
 ### May
 
