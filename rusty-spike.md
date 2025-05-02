@@ -200,3 +200,16 @@ RISC-V Rust benchmarks (Connor):
   - Seems like there are clear perf improvements to be had for emulated DRAM access
   - Decode and fetch with the uop cache are already quite fast and take up little time
   - Some of the NEMU optimizations seem very niche (like the x0 write optimization) and may not be valuable right now. Hard to tell if explicit threaded interpretation will give significant benefits (I feel that LLVM is already optimizing the dispatch loop quite well).
+
+## 5/2/2025
+
+- md5sum works in RTL sim, runs reasonably
+- To load the binary into RTL simulation quickly use:
+  - `make run-binary BINARY=test.riscv LOADMEM=1` (https://chipyard.readthedocs.io/en/latest/Simulation/Software-RTL-Simulation.html)
+- 2 directions
+  - Replicate more complex benchmark suites in baremetal (https://www.geekbench.com/doc/geekbench6-benchmark-internals.pdf)
+  - Extract argument data for functions in crates that we're already testing
+- Let's find a no_std crate for some modern full end2end compression algorithm (lz4, zstd, snappy, ...)
+  - Put some data into the binary
+  - https://sun.aei.polsl.pl/~sdeor/index.php?page=silesia (let's use this as the compression file corpus)
+  - Run the compression (spike / RTL sim) - measure how long it takes
