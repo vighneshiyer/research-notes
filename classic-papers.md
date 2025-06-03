@@ -4,6 +4,10 @@
 - We should know the fundamental prior works in CS and even some physics
 - https://dl.acm.org/doi/fullHtml/10.1145/2330667.2330681 (Christos Papadimitriou)
 - https://reestheskin.me/classics-i-want-all-berkeley-graduate-students-to-read-them/
+- The Microarchitecture of Superscalar Processors - Smith and Sohi
+- On the design of display processors (http://cva.stanford.edu/classes/cs99s/papers/myer-sutherland-design-of-display-processors.pdf)
+- Makimoto's Wave https://www.computer.org/csdl/magazine/co/2013/12/mco2013120032/13rRUwhpBTy
+- Architecture of the IBM System/360 https://www.ece.ucdavis.edu/~vojin/CLASSES/EEC272/S2005/Papers/IBM360-Amdahl_april64.pdf
 - http://harry-lewis.blogspot.com/2016/12/classics-of-computer-science.html
 
 > 1.     Overview and responsibilities
