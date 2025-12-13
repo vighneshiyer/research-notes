@@ -2,6 +2,14 @@
 
 - This is indeed a research topic
 
+- Home pizza problems :(
+  - Using Neapolitan dough (low hydration, slow rise, low yeast) in a home oven doesn't work. Temp will never be high enough. Overproofing the dough is very likely. The crust becomes very chewy and hard.
+  - Potential solutions
+    - Increase hydration to near 70%
+    - https://www.youtube.com/watch?v=pYmr3on0v44 (use this technique for a short room-temp rise instead or use well-controlled temperature in fridge for cold proof)
+    - Switch to a combination of pan (for bottom cooking + pre-bake) and pizza stone under the broiler
+    - The model provides some good hints too: https://chatgpt.com/c/6935f20d-cdc4-8332-bc7b-5c1c08faadb7
+
 ## Admin Tasks
 
 - [x] Plan next trial (cooridinate with Jerry and Daniel) [d:10/4]
